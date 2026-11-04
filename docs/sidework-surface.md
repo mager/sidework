@@ -1,6 +1,6 @@
 # Sidework: an open studio
 
-Routes: `/invite/` access gate, `/` discovery, `/mager/` maker profile, `/workbench/` browser-local planning tools, and `/onboarding/` public GitHub repository import. All application routes except the invite page require a valid invite session. “Public” below describes the studio presentation and source data, not anonymous access.
+Routes: `/invite/` access gate, `/` discovery, `/mager/` maker profile, `/workbench/` browser-local planning tools, and `/onboarding/` public GitHub repository import. The exact `/mager/` profile and the invite page allow anonymous access. All other application routes require a valid invite session. The maker profile can be shared without an invite.
 
 The user rejected traditional columns and regular grids and requested an elegant social network for builders, nerds, coders, and vibers, with modern CSS. This explicit direction replaces the previous dashboard-first public surface. The existing workbench behavior and dated evidence remain.
 

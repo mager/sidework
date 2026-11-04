@@ -10,7 +10,7 @@ A social space for builders, nerds, coders, and vibers to discover personal soft
 
 ## Operating context
 
-The site is invite-only. The invite page is the entry point; studio, maker, workbench, and import routes require a valid invite session. Reusable invite codes grant seven days of access. They do not create individual accounts or verify a GitHub identity. Lock Sidework clears the access session.
+The exact `/mager/` profile route is public and can be shared without an invite. Discovery, workbench, and import routes require a valid invite session. The invite page is their entry point. Reusable invite codes grant seven days of access. They do not create individual accounts or verify a GitHub identity. Lock Sidework clears the access session.
 
 The prototype has one source-backed maker profile, @mager, and browser-local workbench state. Public GitHub data can be read without sign-in or account permissions. No multi-user or social service is connected. Local saves, follows, plans, and imported drafts are not shared between browsers or published to a profile.
 

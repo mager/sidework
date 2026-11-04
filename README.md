@@ -14,9 +14,9 @@ node scripts/create-invite.mjs
 npm run dev
 ```
 
-- `/invite/`: server-checked invitation for the whole site.
+- `/invite/`: server-checked invitation for discovery and management tools.
 - `/onboarding/`: search and bulk import of all public repositories owned by a GitHub handle.
-- `/mager/`: profile, personal projects, and six recent pull requests.
+- `/mager/`: public profile, available without an invite, personal projects, and six recent pull requests.
 - `/`: people-first discovery with real software previews and a local saved collection.
 - `/workbench/`: workbench with projects, searchable contribution history, discovery, and a four-project weekly plan.
 - `npm test`: state, URL safety, contribution normalization, saved collection, and follow checks.
@@ -75,7 +75,7 @@ Code is MIT licensed. The portrait, screenshot, personal project descriptions, a
 
 Live site: https://sidework-ten.vercel.app. The requested `sidework.vercel.app` alias was already in use.
 
-Astro renders all pages on the server with the Vercel adapter. Middleware requires a signed, HTTP-only cookie for every application route except `/invite/`. Responses use `private, no-store`. Missing configuration closes access. Static CSS, scripts, fonts, and the public portrait remain public; the source repository and its committed showcase data are public too. An invitation does not make those assets confidential.
+Astro renders all pages on the server with the Vercel adapter. Middleware requires a signed, HTTP-only cookie for every application route except `/invite/` and the exact `/mager/` profile route. Responses use `private, no-store`. Missing configuration closes access to protected routes; the public profile stays available. Static CSS, scripts, fonts, and the public portrait remain public; the source repository and its committed showcase data are public too. An invitation does not make those assets confidential.
 
 Run `node scripts/create-invite.mjs` once. It writes `.env` and `.sidework-invite` with owner-only permissions, and refuses to overwrite existing files. Both are ignored by Git. Read the code from `.sidework-invite` and send it only to intended invitees. The first prototype uses a reusable invitation, not a single-use code or identity check.
 

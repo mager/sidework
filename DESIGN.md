@@ -176,9 +176,9 @@ components:
 
 **Creative North Star: "An open studio"**
 
-Sidework is an invite-only open studio of people and personal software. Large, compressed lettering and real software previews share a dark moss ground. The maker leads. Project previews change size and position instead of forming a regular public grid.
+Sidework is an open studio of people and personal software, with a public @mager profile and invite-only discovery and management tools. Large, compressed lettering and real software previews share a dark moss ground. The maker leads. Project previews change size and position instead of forming a regular public grid.
 
-The same fonts and colors support a denser workbench. Its panels, forms, and evidence rows help people plan work. The studio pages keep more open space. Entry and import pages use the same type and colors with a simpler reading path. All surfaces use clear @handles, direct source links, and plain descriptions. Here, public-facing describes the studio presentation; an invite is required to enter it.
+The same fonts and colors support a denser workbench. Its panels, forms, and evidence rows help people plan work. The studio pages keep more open space. Entry and import pages use the same type and colors with a simpler reading path. All surfaces use clear @handles, direct source links, and plain descriptions. The exact `/mager/` profile route is public. Discovery and management tools require an invite.
 
 **Key Characteristics:**
 - People and @handles lead the public experience.

@@ -1,8 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { hashCode, configuration, checkCode, createSession, validSession, safeNext, SESSION_SECONDS } from '../src/lib/invite.mjs';
+import { hashCode, configuration, checkCode, createSession, validSession, safeNext, SESSION_SECONDS, requiresInvite } from '../src/lib/invite.mjs';
 const config = configuration({SIDEWORK_INVITE_HASHES:hashCode('a-test-invitation'),SIDEWORK_SESSION_SECRET:'x'.repeat(64)});
 const now = 1800000000000;
+test('only the invitation and exact mager profile routes are public',()=>{
+  for (const path of ['/invite', '/invite/', '/mager', '/mager/']) assert.equal(requiresInvite(path), false, path);
+  for (const path of ['/', '/workbench/', '/onboarding/', '/api/signout', '/mager/settings', '/mager-other/', '/another-person/']) assert.equal(requiresInvite(path), true, path);
+});
 test('invite access fails closed without full configuration',()=>{
   for(const env of [{},{SIDEWORK_INVITE_HASHES:config.hashes[0]},{SIDEWORK_SESSION_SECRET:config.secret}]) {
     assert.equal(checkCode('a-test-invitation',configuration(env)),'');
