@@ -192,7 +192,7 @@ form.addEventListener('submit', event => {
   const values = Object.fromEntries(data.entries());
   const project = cleanProject({ ...values, id: `local-${crypto.randomUUID()}`, local: true });
   if (!project || (values.source && !safeUrl(values.source))) { notify('Use a complete http or https URL without a username or password.', true); return; }
-  if (state.projects.length >= 50) { notify('This preview holds up to 50 local projects. Remove a project before adding another.', true); return; }
+  if (state.projects.length >= 5000) { notify('This preview holds up to 5,000 local projects. Remove a project before adding another.', true); return; }
   state.projects.unshift(project);
   const persisted = save(); renderProjects(); form.reset(); $('#project-editor').hidden = true;
   history.pushState(null, '', '#projects'); showView('projects', true);

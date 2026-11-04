@@ -1,0 +1,44 @@
+.entry-page { min-height:100svh; display:flex; flex-direction:column; }
+.entry-header,.entry-footer { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:28px 4vw; }
+.entry-header>span,.entry-footer { font-size:.8125rem; color:var(--sw-muted); }
+.entry-brand { display:flex; gap:12px; align-items:center; font:650 1.75rem/1 var(--sw-display); font-stretch:82%; letter-spacing:-.04em; }
+.entry-brand svg { color:var(--sw-accent); }
+.entry-footer a { min-height:44px; display:inline-flex; align-items:center; gap:10px; }
+.invite-main { flex:1; width:min(100% - 48px, 700px); margin:48px auto 60px; text-align:center; }
+.invite-main h1,.import-main h1 { font:540 clamp(3rem,6vw,5.5rem)/1.04 var(--sw-display); font-stretch:90%; letter-spacing:-.04em; }
+.invite-main h1 span { color:var(--sw-accent); }
+.entry-intro { font-size:clamp(1.125rem,2vw,1.375rem); line-height:1.6; letter-spacing:0; color:var(--sw-muted); margin:24px 0 34px; text-wrap:pretty; }
+.invite-orbit { position:relative; width:136px; height:94px; margin:0 auto 35px; display:grid; place-items:center; color:var(--sw-accent); }
+.invite-orbit span { position:absolute; width:130px; height:74px; border:1px solid var(--sw-border); border-radius:50%; rotate:-28deg; }
+.invite-orbit span:nth-child(2) { rotate:28deg; }
+.invite-orbit span:nth-child(3) { rotate:90deg; }
+.invite-form { max-width:450px; margin:auto; text-align:left; }
+.invite-form label,.import-form label { display:block; margin-bottom:10px; font-size:.9375rem; }
+.invite-input,.import-input { display:flex; gap:10px; }
+.entry-page input[type=password],.entry-page input[type=text],.entry-page input[type=search] { min-width:0; width:100%; border:1px solid var(--sw-border); border-radius:6px; padding:13px 15px; background:var(--sw-surface); color:var(--sw-text); font-size:1rem; }
+.invite-input button,.import-input button { flex-shrink:0; padding-inline:20px; }
+.invite-contact { margin:22px auto 0; color:var(--sw-muted); font-size:.9375rem; max-width:40ch; }
+.invite-contact a { color:var(--sw-text); text-decoration:underline; }
+.entry-error { color:var(--sw-warm); margin-top:14px; }
+.import-main { width:min(100% - 48px, 920px); margin:60px auto; flex:1; }
+.import-main h1 { max-width:20ch; font-size:clamp(2.75rem,5vw,4.5rem); }
+.import-main .entry-intro { max-width:50ch; }
+.import-form { max-width:580px; }
+.import-status { margin:24px 0; color:var(--sw-muted); min-height:1.6em; }
+.repo-controls { display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin:30px 0 16px; }
+.repo-controls input[type=search] { flex:1 1 230px; }
+.repo-controls label { display:flex; align-items:center; gap:8px; }
+.repo-controls input[type=checkbox],.repo-row input { accent-color:var(--sw-accent); width:20px; height:20px; flex-shrink:0; }
+.repo-list { list-style:none; padding:0; margin:0; }
+.repo-row { border-top:1px solid var(--sw-border); padding:20px 0; }
+.repo-row label { display:flex; gap:18px; cursor:pointer; align-items:start; }
+.repo-row input { margin-top:6px; }
+.repo-copy { min-width:0; }
+.repo-copy strong { font-size:1.1875rem; font-weight:550; overflow-wrap:anywhere; }
+.repo-copy p { color:var(--sw-muted); max-width:65ch; margin-top:5px; }
+.repo-copy small { display:block; font: .6875rem/1.8 var(--sw-mono); color:var(--sw-muted); margin-top:9px; }
+.import-actions { position:sticky; bottom:0; padding:18px 0; background:var(--sw-bg); border-top:1px solid var(--sw-border); display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.import-actions p { color:var(--sw-muted); font-size:.875rem; }
+.import-result { margin-top:24px; }
+.import-result a { text-decoration:underline; color:var(--sw-accent); display:inline-block; padding-block:12px; }
+@media(max-width:650px) { .entry-header,.entry-footer { padding:22px 24px; } .invite-main { margin-top:40px; } .invite-orbit { margin-bottom:30px; } .import-main { margin-top:35px; } .import-input { flex-wrap:wrap; } .import-input button { width:100%; justify-content:center; } .import-actions { flex-wrap:wrap; gap:10px; } .entry-footer { flex-wrap:wrap; gap:6px; } .wide-break { display:none; } }

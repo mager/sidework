@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-04T21:38:22.525Z",
+  "generatedAt": "2026-11-04T21:54:37.575Z",
   "title": "Design System: Sidework",
   "extensions": {
     "colorMeta": {
@@ -324,7 +324,7 @@
       },
       "body": {
         "displayName": "Reading text",
-        "purpose": "Descriptions, navigation, and forms."
+        "purpose": "Descriptions, navigation, and forms. Automatic optical sizing; Bricolage Grotesque supports 75–100% width."
       },
       "caption": {
         "displayName": "Project purpose",
@@ -337,6 +337,34 @@
       "workbench-title": {
         "displayName": "Workbench title",
         "purpose": "Compact utility heading at 88% width."
+      },
+      "entry-display": {
+        "displayName": "Invite opening",
+        "purpose": "Anybody at 90% width, with a centered invite form."
+      },
+      "import-display": {
+        "displayName": "Import opening",
+        "purpose": "Anybody at 90% width and a 20ch maximum measure."
+      },
+      "entry-intro": {
+        "displayName": "Entry introduction",
+        "purpose": "Fluid Bricolage Grotesque body text, with zero tracking."
+      },
+      "entry-meta": {
+        "displayName": "Entry metadata",
+        "purpose": "Quiet entry header and footer text."
+      },
+      "entry-label": {
+        "displayName": "Entry labels",
+        "purpose": "Form labels and invite contact text."
+      },
+      "repository-title": {
+        "displayName": "Repository name",
+        "purpose": "Source repository names, with safe long-name wrapping."
+      },
+      "import-note": {
+        "displayName": "Local draft notice",
+        "purpose": "The selected count and local-storage limit in the action bar."
       }
     },
     "shadows": [
@@ -449,6 +477,10 @@
       {
         "name": "studio-wide-min",
         "value": "1600px"
+      },
+      {
+        "name": "entry-mobile-max",
+        "value": "650px"
       }
     ]
   },
@@ -459,7 +491,7 @@
       "refersTo": "button-primary",
       "description": "Filled action for saving a local project or refreshing data.",
       "html": "<button class=\"ds-primary\">Save project</button>",
-      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;border:1px solid var(--sw-border,#30392f);border-radius:6px;padding:9px 13px;font:500 .75rem/1.5 var(--sw-font,'Hanken Grotesk', 'Segoe UI', sans-serif);cursor:pointer;transition:background 160ms ease,border-color 160ms ease;background:var(--sw-accent,#b9eb9e);color:var(--sw-accent-ink,#172512);border-color:var(--sw-accent,#b9eb9e)}.ds-primary:hover{background:color-mix(in srgb,var(--sw-accent,#b9eb9e) 85%,var(--sw-bg,#101310))}.ds-primary:disabled{opacity:.6;cursor:wait}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}"
+      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;border:1px solid var(--sw-border,#30392f);border-radius:6px;padding:9px 13px;font:500 .75rem/1.5 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);cursor:pointer;transition:background 160ms ease,border-color 160ms ease;background:var(--sw-accent,#b9eb9e);color:var(--sw-accent-ink,#172512);border-color:var(--sw-accent,#b9eb9e)}.ds-primary:hover{background:color-mix(in srgb,var(--sw-accent,#b9eb9e) 85%,var(--sw-bg,#101310))}.ds-primary:disabled{opacity:.6;cursor:wait}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}} .ds-primary{font-optical-sizing:auto;letter-spacing:.005em}"
     },
     {
       "name": "Workbench search",
@@ -467,7 +499,7 @@
       "refersTo": "search-field",
       "description": "Search field with a focus outline around its whole group.",
       "html": "<label class=\"ds-search\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\"/><path d=\"m16 16 4 4\"/></svg><input type=\"search\" aria-label=\"Search projects\" placeholder=\"Find a project or technology…\"></label>",
-      "css": ".ds-search{display:flex;align-items:center;gap:10px;border:1px solid var(--sw-border,#30392f);background:var(--sw-surface,#171c17);border-radius:6px;padding:0 13px;color:var(--sw-muted,#a3ad9f)}.ds-search input{width:100%;min-width:0;min-height:44px;background:none;border:0;color:var(--sw-text,#eef1e9);font:1rem/1.6 var(--sw-font,'Hanken Grotesk', 'Segoe UI', sans-serif);caret-color:var(--sw-accent,#b9eb9e)}.ds-search input::placeholder{color:var(--sw-muted,#a3ad9f);opacity:1}.ds-search:focus-within{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:2px}.ds-search input:focus{outline:none}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}"
+      "css": ".ds-search{display:flex;align-items:center;gap:10px;border:1px solid var(--sw-border,#30392f);background:var(--sw-surface,#171c17);border-radius:6px;padding:0 13px;color:var(--sw-muted,#a3ad9f)}.ds-search input{width:100%;min-width:0;min-height:44px;background:none;border:0;color:var(--sw-text,#eef1e9);font:1rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);caret-color:var(--sw-accent,#b9eb9e)}.ds-search input::placeholder{color:var(--sw-muted,#a3ad9f);opacity:1}.ds-search:focus-within{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:2px}.ds-search input:focus{outline:none}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}} .ds-search{font-optical-sizing:auto;letter-spacing:.005em}"
     },
     {
       "name": "Skill filter chip",
@@ -475,7 +507,7 @@
       "refersTo": "filter-chip",
       "description": "Workbench skill filter; the selected state remains visible.",
       "html": "<button class=\"ds-chip\" aria-pressed=\"true\">All skills</button>",
-      "css": ".ds-chip{padding:9px 13px;min-height:42px;border:1px solid var(--sw-border,#30392f);border-radius:6px;color:var(--sw-muted,#a3ad9f);background:transparent;font:.75rem/1.6 var(--sw-font,'Hanken Grotesk', 'Segoe UI', sans-serif);cursor:pointer}.ds-chip[aria-pressed=true]{color:var(--sw-accent,#b9eb9e);background:var(--sw-raised,#1e251e);border-color:var(--sw-accent,#b9eb9e)}.ds-chip:hover{color:var(--sw-text,#eef1e9);background:var(--sw-surface,#171c17)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}"
+      "css": ".ds-chip{padding:9px 13px;min-height:42px;border:1px solid var(--sw-border,#30392f);border-radius:6px;color:var(--sw-muted,#a3ad9f);background:transparent;font:.75rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);cursor:pointer}.ds-chip[aria-pressed=true]{color:var(--sw-accent,#b9eb9e);background:var(--sw-raised,#1e251e);border-color:var(--sw-accent,#b9eb9e)}.ds-chip:hover{color:var(--sw-text,#eef1e9);background:var(--sw-surface,#171c17)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}} .ds-chip{font-optical-sizing:auto;letter-spacing:.005em}"
     },
     {
       "name": "Workbench feature copy",
@@ -483,7 +515,7 @@
       "refersTo": "workbench-feature",
       "description": "The contained copy area of a workbench feature; screenshots remain source assets.",
       "html": "<article class=\"ds-card\"><h3>Homeport</h3><p>A home for coding work that keeps going when you close your laptop.</p><a href=\"https://github.com/mager/homeport\">View source ↗</a></article>",
-      "css": ".ds-card{overflow:hidden;border:1px solid var(--sw-border,#30392f);border-radius:var(--sw-radius,10px);background:var(--sw-surface,#171c17);color:var(--sw-text,#eef1e9);padding:20px;font-family:var(--sw-font,'Hanken Grotesk', 'Segoe UI', sans-serif)}.ds-card h3{margin:8px 0 0;font-size:1.5625rem;font-weight:500;line-height:1.22;letter-spacing:-.03em}.ds-card p{margin:10px 0 0;color:var(--sw-muted,#a3ad9f);font-size:.9375rem;line-height:1.7}.ds-card a{display:inline-flex;align-items:center;min-height:36px;margin-top:14px;color:var(--sw-text,#eef1e9);font-size:.75rem;text-decoration:none}.ds-card a:hover{color:var(--sw-accent,#b9eb9e)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}"
+      "css": ".ds-card{overflow:hidden;border:1px solid var(--sw-border,#30392f);border-radius:var(--sw-radius,10px);background:var(--sw-surface,#171c17);color:var(--sw-text,#eef1e9);padding:20px;font-family:var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif)}.ds-card h3{margin:8px 0 0;font-size:1.5625rem;font-weight:500;line-height:1.22;letter-spacing:-.03em}.ds-card p{margin:10px 0 0;color:var(--sw-muted,#a3ad9f);font-size:.9375rem;line-height:1.7}.ds-card a{display:inline-flex;align-items:center;min-height:36px;margin-top:14px;color:var(--sw-text,#eef1e9);font-size:.75rem;text-decoration:none}.ds-card a:hover{color:var(--sw-accent,#b9eb9e)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}} .ds-card{font-optical-sizing:auto;letter-spacing:.005em}"
     },
     {
       "name": "Public navigation dock",
@@ -491,16 +523,24 @@
       "refersTo": "studio-dock",
       "description": "Floating public navigation; shown here in normal flow for inspection.",
       "html": "<nav class=\"ds-nav\" aria-label=\"Explore Sidework\"><a href=\"/\" aria-current=\"page\">Explore</a><a href=\"/mager/\">@mager</a><a href=\"/workbench/\">Workbench</a></nav>",
-      "css": ".ds-nav{display:inline-flex;align-items:center;gap:5px;padding:7px;border:1px solid color-mix(in srgb,var(--sw-text,#eef1e9) 17%,transparent);border-radius:50px;background:color-mix(in srgb,var(--sw-bg,#101310) 84%,transparent);backdrop-filter:blur(24px);box-shadow:0 15px 40px #0004}.ds-nav a{display:flex;align-items:center;justify-content:center;min-height:46px;padding:10px 16px;border-radius:30px;font:500 .8125rem/1 var(--sw-font,'Hanken Grotesk', 'Segoe UI', sans-serif);color:var(--sw-muted,#a3ad9f);text-decoration:none;white-space:nowrap}.ds-nav a[aria-current],.ds-nav a:hover{color:var(--sw-text,#eef1e9);background:var(--sw-raised,#1e251e)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}"
+      "css": ".ds-nav{display:inline-flex;align-items:center;gap:5px;padding:7px;border:1px solid color-mix(in srgb,var(--sw-text,#eef1e9) 17%,transparent);border-radius:50px;background:color-mix(in srgb,var(--sw-bg,#101310) 84%,transparent);backdrop-filter:blur(24px);box-shadow:0 15px 40px #0004}.ds-nav a{display:flex;align-items:center;justify-content:center;min-height:46px;padding:10px 16px;border-radius:30px;font:500 .8125rem/1 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);color:var(--sw-muted,#a3ad9f);text-decoration:none;white-space:nowrap}.ds-nav a[aria-current],.ds-nav a:hover{color:var(--sw-text,#eef1e9);background:var(--sw-raised,#1e251e)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}} .ds-nav{font-optical-sizing:auto;letter-spacing:.005em}"
+    },
+    {
+      "name": "Entry text field",
+      "kind": "input",
+      "refersTo": "entry-field",
+      "description": "A clearly labeled handle field for public GitHub import.",
+      "html": "<label class=\"ds-entry-label\">Your GitHub handle<input class=\"ds-entry-input\" type=\"text\" placeholder=\"@mager\" autocomplete=\"off\" autocapitalize=\"none\" spellcheck=\"false\" maxlength=\"40\" required></label>",
+      "css": ".ds-entry-label{display:block;color:var(--sw-text,#eef1e9);font:.9375rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);font-optical-sizing:auto;letter-spacing:.005em}.ds-entry-input{display:block;margin-top:10px;min-width:0;width:100%;box-sizing:border-box;border:1px solid var(--sw-border,#30392f);border-radius:6px;padding:13px 15px;background:var(--sw-surface,#171c17);color:var(--sw-text,#eef1e9);font:1rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);font-optical-sizing:auto;caret-color:var(--sw-accent,#b9eb9e)}.ds-entry-input::placeholder{color:var(--sw-muted,#a3ad9f);opacity:1}.ds-entry-input:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}"
     }
   ],
   "narrative": {
     "northStar": "An open studio",
-    "overview": "Sidework is an open studio of people and personal software. Large, compressed lettering and real software previews share a dark moss ground. The maker leads. Project previews change size and position instead of forming a regular public grid.\n\nThe same fonts and colors support a denser workbench. Its panels, forms, and evidence rows help people plan work. Public pages keep more open space. Both surfaces use clear @handles, direct source links, and plain descriptions.",
+    "overview": "Sidework is an invite-only open studio of people and personal software. Large, compressed lettering and real software previews share a dark moss ground. The maker leads. Project previews change size and position instead of forming a regular public grid.\n\nThe same fonts and colors support a denser workbench. Its panels, forms, and evidence rows help people plan work. The studio pages keep more open space. Entry and import pages use the same type and colors with a simpler reading path. All surfaces use clear @handles, direct source links, and plain descriptions. Here, public-facing describes the studio presentation; an invite is required to enter it.",
     "keyCharacteristics": [
       "People and @handles lead the public experience.",
       "Real screenshots retain their source colors.",
-      "Variable display type gives identity; plain body type supports reading.",
+      "Variable display type gives identity; distinctive body type supports reading.",
       "Public previews use depth; the workbench uses quiet borders and tonal layers.",
       "Keyboard access and reduced motion remain part of each interaction."
     ],
@@ -522,11 +562,11 @@
       }
     ],
     "dos": [
-      "Do use the self-hosted Anybody, Hanken Grotesk, and Martian Mono files.",
+      "Do use the self-hosted Anybody, Bricolage Grotesque, and Martian Mono files.",
       "Do place people before their projects on public discovery pages.",
       "Do vary public preview scale and alignment while keeping the reading order clear.",
       "Do show source links, state labels, and check dates with contribution claims.",
-      "Do state that saves, follows, project drafts, and plans stay in this browser.",
+      "Do state that saves, follows, imported project drafts, and plans stay in this browser.",
       "Do keep keyboard focus visible and respect reduced motion."
     ],
     "donts": [

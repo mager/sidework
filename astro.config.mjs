@@ -1,2 +1,3 @@
 import { defineConfig } from 'astro/config';
-export default defineConfig({ output: 'static', devToolbar: { enabled: false } });
+import vercel from '@astrojs/vercel';
+export default defineConfig({ output: 'server', adapter: vercel(), devToolbar: { enabled: false } });

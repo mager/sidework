@@ -1,6 +1,6 @@
 # Sidework
 
-Sidework is an Astro static prototype for developer profiles, personal software, upstream contributions, and opportunity discovery.
+Sidework is an Astro server-rendered, invite-only prototype for developer profiles, personal software, upstream contributions, and opportunity discovery.
 
 - Read README.md and DESIGN.md before UI work.
 - Display people with @handles in headings, navigation, account details, and exports. Keep repository owner/name identifiers and URLs unchanged.
@@ -10,4 +10,4 @@ Sidework is an Astro static prototype for developer profiles, personal software,
 - Do not introduce GitHub tokens into browser code. Public API refresh may fail; retain the snapshot.
 - Use safe HTTP(S) URLs and text nodes for user or API data.
 - Run `npm test` and `npm run build` for behavioral changes. Check both mobile and desktop for UI changes.
-- No deployment is configured. Repository creation or a push is not a website deployment.
+- Vercel deployment uses @astrojs/vercel. All application routes except /invite/ require a signed server cookie. Never bypass the gate for previews. Keep invite hashes and session secrets in server environment variables.

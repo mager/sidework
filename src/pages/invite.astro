@@ -1,0 +1,39 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Icon from '../components/SideworkIcon.astro';
+import '../styles/sidework.css';
+import '../styles/entry.css';
+import { COOKIE_NAME, SESSION_SECONDS, configuration, checkCode, createSession, validSession, safeNext } from '../lib/invite.mjs';
+const config = configuration();
+const destination = safeNext(Astro.url.searchParams.get('next'));
+let error = '';
+if (Astro.request.method === 'POST') {
+  if (Astro.request.headers.get('origin') !== Astro.url.origin) {
+    Astro.response.status = 403; error = 'This form expired. Reload the page and try again.';
+  } else if (Number(Astro.request.headers.get('content-length') || 0) > 2048) {
+    Astro.response.status = 413; error = 'That code is too long. Check your invitation.';
+  } else {
+    try {
+      const body = await Astro.request.text();
+      const code = body.length <= 2048 ? new URLSearchParams(body).get('code') : '';
+      const hash = checkCode(code, config);
+      if (hash) {
+        Astro.cookies.set(COOKIE_NAME, createSession(hash, config), { httpOnly: true, secure: Astro.url.protocol === 'https:', sameSite: 'lax', path: '/', maxAge: SESSION_SECONDS });
+        return Astro.redirect(destination, 303);
+      }
+      Astro.response.status = 400;
+      error = config.ready ? 'That code did not work. Check it and try again.' : 'Invites are not ready yet. Please contact @mager.';
+    } catch { Astro.response.status = 400; error = 'We could not read that code. Please try again.'; }
+  }
+} else if (validSession(Astro.cookies.get(COOKIE_NAME)?.value, config)) return Astro.redirect(destination, 303);
+---
+<!doctype html><html lang="en"><head><BaseHead title="An invitation to Sidework" description="A home for people and their personal software. Invite only."/><meta name="robots" content="noindex,nofollow"/></head><body class="entry-page">
+<header class="entry-header"><a href="/" class="entry-brand"><Icon name="branch" size={27}/>sidework.</a><span>Invite only</span></header>
+<main class="invite-main" id="main">
+<div class="invite-orbit" aria-hidden="true"><span></span><span></span><span></span><Icon name="branch" size={54}/></div>
+<h1>Small circle.<br/><span>Strange ideas.</span></h1>
+<p class="entry-intro">A home for the things you can’t<br class="wide-break"/> stop yourself from building.</p>
+<form method="POST" class="invite-form"><label for="code">Your invite code</label><div class="invite-input"><input id="code" name="code" type="password" required maxlength="200" autocomplete="off" spellcheck="false" aria-describedby={error ? 'invite-error' : undefined}/><button type="submit" class="sw-button sw-primary">Come in <Icon name="arrow" size={20}/></button></div>{error && <p id="invite-error" class="entry-error" role="alert">{error}</p>}</form>
+<p class="invite-contact">Reach out to <a href="https://x.com/mager">@mager</a> if you want an invite code.</p>
+</main><footer class="entry-footer"><span>Built with Astra</span><a href="https://github.com/mager/sidework">Source on GitHub <Icon name="external" size={14}/></a></footer>
+</body></html>

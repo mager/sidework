@@ -1,0 +1,7 @@
+.env*
+.sidework-invite
+.git/
+node_modules/
+dist/
+.astro/
+.impeccable/review/

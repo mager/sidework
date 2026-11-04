@@ -5,3 +5,8 @@ dist/
 .env*
 !.env.example
 .impeccable/review/
+
+.vercel/
+
+.sidework-invite
+.vercel

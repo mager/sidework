@@ -11,7 +11,7 @@ const {title, description, image = '/images/mager.jpg'} = Astro.props;
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-<link rel="preload" href="/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/fonts/anybody-latin.woff2" as="font" type="font/woff2" crossorigin />
 <script is:inline>
   try { document.documentElement.dataset.theme = localStorage.getItem('sidework-theme') === 'light' ? 'light' : 'dark'; } catch {}

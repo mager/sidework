@@ -38,12 +38,13 @@ typography:
     lineHeight: 1.1
     letterSpacing: -.04em
   body:
-    fontFamily: "'Hanken Grotesk', 'Segoe UI', sans-serif"
+    fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
     fontSize: 1rem
     fontWeight: 400
     lineHeight: 1.6
+    letterSpacing: .005em
   caption:
-    fontFamily: "'Hanken Grotesk', 'Segoe UI', sans-serif"
+    fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
     fontSize: 1.25rem
     lineHeight: 1.5
     letterSpacing: -.015em
@@ -58,6 +59,44 @@ typography:
     fontWeight: 550
     lineHeight: 1.15
     letterSpacing: -.035em
+  entry-display:
+    fontFamily: "'Anybody', 'Arial Narrow', sans-serif"
+    fontSize: clamp(3rem, 6vw, 5.5rem)
+    fontWeight: 540
+    lineHeight: 1.04
+    letterSpacing: -.04em
+  import-display:
+    fontFamily: "'Anybody', 'Arial Narrow', sans-serif"
+    fontSize: clamp(2.75rem, 5vw, 4.5rem)
+    fontWeight: 540
+    lineHeight: 1.04
+    letterSpacing: -.04em
+  entry-intro:
+    fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
+    fontSize: clamp(1.125rem, 2vw, 1.375rem)
+    fontWeight: 400
+    lineHeight: 1.6
+    letterSpacing: "0"
+  entry-meta:
+    fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
+    fontSize: .8125rem
+    fontWeight: 400
+    lineHeight: 1.6
+  entry-label:
+    fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
+    fontSize: .9375rem
+    fontWeight: 400
+    lineHeight: 1.6
+  repository-title:
+    fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
+    fontSize: 1.1875rem
+    fontWeight: 550
+    lineHeight: 1.6
+  import-note:
+    fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
+    fontSize: .875rem
+    fontWeight: 400
+    lineHeight: 1.6
 rounded:
   status: 4px
   field: 5px
@@ -120,6 +159,15 @@ components:
     textColor: "{colors.chalk-text}"
     rounded: "{rounded.popover}"
     padding: 24px
+  entry-field:
+    backgroundColor: "{colors.moss-surface}"
+    textColor: "{colors.chalk-text}"
+    rounded: "{rounded.control}"
+    padding: 13px 15px
+    typography: "{typography.body}"
+  repository-row:
+    textColor: "{colors.chalk-text}"
+    padding: 20px 0
 ---
 
 # Design System: Sidework
@@ -128,18 +176,18 @@ components:
 
 **Creative North Star: "An open studio"**
 
-Sidework is an open studio of people and personal software. Large, compressed lettering and real software previews share a dark moss ground. The maker leads. Project previews change size and position instead of forming a regular public grid.
+Sidework is an invite-only open studio of people and personal software. Large, compressed lettering and real software previews share a dark moss ground. The maker leads. Project previews change size and position instead of forming a regular public grid.
 
-The same fonts and colors support a denser workbench. Its panels, forms, and evidence rows help people plan work. Public pages keep more open space. Both surfaces use clear @handles, direct source links, and plain descriptions.
+The same fonts and colors support a denser workbench. Its panels, forms, and evidence rows help people plan work. The studio pages keep more open space. Entry and import pages use the same type and colors with a simpler reading path. All surfaces use clear @handles, direct source links, and plain descriptions. Here, public-facing describes the studio presentation; an invite is required to enter it.
 
 **Key Characteristics:**
 - People and @handles lead the public experience.
 - Real screenshots retain their source colors.
-- Variable display type gives identity; plain body type supports reading.
+- Variable display type gives identity; distinctive body type supports reading.
 - Public previews use depth; the workbench uses quiet borders and tonal layers.
 - Keyboard access and reduced motion remain part of each interaction.
 
-This document records the implemented source on November 4, 2026. Visual authority comes from PRODUCT.md and docs/sidework-surface.md. Token and component sources are src/styles/fonts.css, src/styles/sidework.css, src/styles/studio.css, src/components/Studio.astro, and src/pages/workbench.astro. Behavior was checked in src/scripts/studio.ts and src/components/BaseHead.astro. The current public world replaces the earlier dashboard treatment; unused public selectors in sidework.css do not define it.
+This document records the implemented source on November 4, 2026. Visual authority comes from PRODUCT.md and docs/sidework-surface.md. Token and component sources are src/styles/fonts.css, src/styles/sidework.css, src/styles/studio.css, src/components/Studio.astro, and src/pages/workbench.astro. Entry sources are src/styles/entry.css, src/pages/invite.astro, and src/pages/onboarding.astro. Behavior was checked in src/scripts/studio.ts, src/scripts/onboarding.ts, src/scripts/github-import.mjs, src/middleware.ts, src/lib/invite.mjs, and src/components/BaseHead.astro. The current public world replaces the earlier dashboard treatment; unused public selectors in sidework.css do not define it.
 
 ## Colors
 
@@ -169,10 +217,10 @@ Project markup also declares lavender and other project-tone values. The current
 ## Typography
 
 **Display Font:** Anybody, with Arial Narrow and sans-serif fallbacks.
-**Body Font:** Hanken Grotesk, with Segoe UI and sans-serif fallbacks.
+**Body Font:** Bricolage Grotesque, with Segoe UI and sans-serif fallbacks.
 **Label/Mono Font:** Martian Mono, with a monospace fallback.
 
-All three families use self-hosted Latin WOFF2 subsets with font-display swap. Their SIL licenses are in public/fonts. Anybody supports weights 400–700 and widths 75–100%; Hanken Grotesk supports weights 400–700; Martian Mono supports weights 400–500 at 87.5% width. Display headings normally use 90% width, with the wordmark at 82%. Public mobile lead type uses 88% width.
+All three families use self-hosted Latin WOFF2 subsets with font-display swap. Their SIL licenses are in public/fonts. Anybody supports weights 400–700 and widths 75–100%; Bricolage Grotesque supports weights 400–700 and widths 75–100%; Martian Mono supports weights 400–500 at 87.5% width. Display headings normally use 90% width, with the wordmark at 82%. Public mobile lead type uses 88% width. Bricolage Grotesque replaces Hanken Grotesk throughout the site. Body text uses automatic optical sizing and the tracking in the body token; the entry introduction explicitly resets tracking to zero.
 
 ### Hierarchy
 
@@ -181,7 +229,11 @@ All three families use self-hosted Latin WOFF2 subsets with font-display swap. T
 - **Body:** normal reading text. Project details use line height 1.8 and a maximum measure of 65ch.
 - **Caption:** the project purpose beneath its preview. It becomes 1.125rem on mobile.
 - **Label:** repository references, stack details, counts, and source metadata. Use compact mono only where it identifies evidence or technical context.
-- **Workbench title:** a compact display role. Forms use 1rem input text; ordinary workbench descriptions use smaller Hanken Grotesk text.
+- **Workbench title:** a compact display role. Forms use 1rem input text; ordinary workbench descriptions use smaller Bricolage Grotesque text.
+- **Entry display and import display:** the invite and import openings use Anybody at 90% width. The import heading has a maximum measure of 20ch.
+- **Entry intro:** a fluid Bricolage Grotesque introduction. On import, its maximum measure is 50ch.
+- **Entry meta and entry label:** quiet header/footer text, form labels, and invite contact text. These roles keep the entry page clear without adding decorative labels.
+- **Repository title and import note:** selected-source names and the local-draft notice. Repository descriptions retain body size and a maximum measure of 65ch; technical metadata uses the existing mono label.
 
 **The People First Rule.** Use @handles for personal identity. Keep project names and repository owner/name identifiers intact.
 
@@ -195,9 +247,11 @@ The fixed public dock is centered above the bottom safe area: at least 20px on d
 
 The supporting workbench has a 1536px maximum width. Its desktop shell uses a 204px rail, flexible main area, and 262px context panel. At 1180px these side areas reduce to 180px and 225px. At 960px the context panel disappears and the rail becomes 175px. At 700px the shell becomes one flow, navigation wraps above the content, and forms use one column. Main side padding is 32px by default, 42px from 1440px, 24px at intermediate widths, and 18px on mobile. Dense utility grids belong to this workbench.
 
+Entry pages use a full-height flex column. The invite content is centered in a 700px maximum measure; its form is at most 450px wide. Import uses a 920px maximum content width and a 580px form. Both content areas leave 24px side margins. The header and footer use 28px by 4vw padding, reduced to 22px by 24px at 650px. At that breakpoint, import buttons move to full width, the action bar wraps, and the footer can wrap. The invite input and its submit button remain on one row. Import actions stay visible at the bottom with a sticky ground-colored bar and a top border. These focused utility flows do not change the studio composition.
+
 ## Elevation & Depth
 
-Public depth comes from slightly rotated software windows, restrained perspective, and soft black shadows. Text remains flat. The primary lead preview turns 7 degrees on desktop; the secondary preview turns -8 degrees. Project previews use small turns from -1.5 to 2 degrees. Hover or keyboard focus settles these turns. The dock and saved collection float above the page with their own shadows. Workbench panels rely on tone and borders, without decorative shadows.
+Public depth comes from slightly rotated software windows, restrained perspective, and soft black shadows. Text remains flat. The primary lead preview turns 7 degrees on desktop; the secondary preview turns -8 degrees. Project previews use small turns from -1.5 to 2 degrees. Hover or keyboard focus settles these turns. The dock and saved collection float above the page with their own shadows. Workbench panels rely on tone and borders, without decorative shadows. Entry and import use the same flat treatment. The invite mark has three static elliptical outlines around the branch icon; it is not an animation.
 
 **The Useful Depth Rule.** Use perspective and shadows on software previews and floating controls. Keep reading text on a still plane.
 
@@ -241,6 +295,18 @@ Three previews use historical product screenshots. The prxps preview uses an aut
 
 The saved collection is a native popover with a 420px maximum width, 65dvh maximum height, 24px padding, and an 18px radius. It enters with a short opacity and vertical movement transition. It lists only locally saved known projects. Follow is also a local preference. A polite status message explains storage failures and local follow behavior. Public calls to action lead to the workbench or a project draft; they do not claim to publish.
 
+### Invite and repository import
+
+The invite page has a labeled password field, a primary submit action, and a direct @mager contact link. Entry inputs use the surface color, control radius, 13px by 15px padding, and body text. Their natural height is about 54px at the default root size; no fixed input height is set. Adjacent buttons use the shared 42px minimum height and 20px side padding, then stretch with the row. Errors use warm text and an alert role.
+
+The import page accepts an @handle, reports loading progress, and offers Cancel during loading. Search and native fork/archive checkboxes filter the result list. Forks and archived repositories are included by default. Checkboxes are 20px square with the accent color; each repository has a full clickable label row, a top divider, and 20px vertical padding. Names wrap when necessary. Existing projects have disabled checkboxes and an explicit status. Select matching applies to all matching results, including rows beyond the current 100-row display. Show more reveals another 100 rows.
+
+The sticky action bar keeps the selected count, local-draft notice, and Import action together. The Import action is disabled when the selection is empty and names the selected count when active. Filtering does not clear existing selections; the total remains visible. Success, empty results, API errors, cancellation, and storage errors use text status messages. Imports remain browser-local drafts; public publishing is not connected. The invite opens access with a reusable code and a seven-day session, not an individual account. Lock Sidework clears access without deleting local drafts.
+
+### Footer credit
+
+The studio, workbench, invite, and import footers carry the exact credit “Built with Astra”. It stays at the existing quiet footer size. The studio and workbench credits link to the source repository. The entry footer keeps the source link separate; import provides Lock Sidework.
+
 ### Image and font provenance
 
 The @mager portrait is the existing @hopperdraws illustration at public/images/mager.jpg. Homeport, Mood Shell, and Perch screenshot origins are recorded in docs/assets.json; the pages reference the original hosted images. These are historical previews, not live app sessions. Font paths and supported ranges are defined in src/styles/fonts.css, with licenses in public/fonts. No generated image defines this system.
@@ -248,11 +314,11 @@ The @mager portrait is the existing @hopperdraws illustration at public/images/m
 ## Do's and Don'ts
 
 ### Do:
-- **Do** use the self-hosted Anybody, Hanken Grotesk, and Martian Mono files.
+- **Do** use the self-hosted Anybody, Bricolage Grotesque, and Martian Mono files.
 - **Do** place people before their projects on public discovery pages.
 - **Do** vary public preview scale and alignment while keeping the reading order clear.
 - **Do** show source links, state labels, and check dates with contribution claims.
-- **Do** state that saves, follows, project drafts, and plans stay in this browser.
+- **Do** state that saves, follows, imported project drafts, and plans stay in this browser.
 - **Do** keep keyboard focus visible and respect reduced motion.
 
 ### Don't:

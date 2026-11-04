@@ -18,7 +18,7 @@ export function readState(raw, opportunityIds) {
   try {
     const value = JSON.parse(raw);
     if (!value || value.version !== 1) return empty;
-    const projects = Array.isArray(value.projects) ? value.projects.slice(0, 50).map(cleanProject).filter(Boolean) : [];
+    const projects = Array.isArray(value.projects) ? value.projects.slice(0, 5000).map(cleanProject).filter(Boolean) : [];
     const plan = {};
     for (const id of opportunityIds) {
       if (PLAN_STATES.includes(value.plan?.[id])) plan[id] = value.plan[id];
