@@ -5,6 +5,7 @@ import { stripTypeScriptTypes } from 'node:module';
 import { JSDOM } from 'jsdom';
 import * as state from '../src/scripts/sidework-state.mjs';
 import * as drafts from '../src/scripts/project-drafts.mjs';
+import * as transfer from '../src/scripts/draft-transfer.mjs';
 const read = file => readFileSync(new URL(file,import.meta.url),'utf8');
 const script = stripTypeScriptTypes(read('../src/scripts/sidework.ts')).replace(/^import .*;$/gm,'');
 const preview = stripTypeScriptTypes(read('../src/scripts/project-preview.ts')).replace(/^import .*;$/gm,'').replace('export function','function');
@@ -18,7 +19,7 @@ function editor() {
   for(const id of ['project-list','project-count','project-empty'])dom.window.document.querySelector('#projects').append(dom.window.document.getElementById(id));
   for(const id of ['showcase-projects','showcase-empty','featured-count','export-showcase'])dom.window.document.querySelector('#showcase').append(dom.window.document.getElementById(id));
   dom.window.confirm=()=>false;
-  dom.window.dependencies={...state,...drafts};
+  dom.window.dependencies={...state,...drafts,...transfer,setupAgentConnections:()=>{}};
   dom.window.eval(`const {${Object.keys(dom.window.dependencies).join(',')}}=window.dependencies;${preview}\n${script}`);
   return dom;
 }

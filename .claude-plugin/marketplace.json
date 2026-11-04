@@ -1,0 +1,6 @@
+{
+  "name": "sidework",
+  "owner": { "name": "@mager", "url": "https://github.com/mager" },
+  "metadata": { "description": "The official Sidework agent integration." },
+  "plugins": [{ "name": "sidework", "source": "./plugins/sidework", "description": "Build a Sidework profile draft from your public GitHub projects, then review it on the site." }]
+}

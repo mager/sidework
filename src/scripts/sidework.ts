@@ -2,6 +2,8 @@ import { STORAGE_KEY, safeUrl, cleanProject, readState, mergeProjects, filterCon
 
 import { MAX_FEATURED, STAGES, showcaseProjects, saveProjectDraft, toggleFeatured, moveFeatured, exportShowcase } from './project-drafts.mjs';
 import { projectPreview } from './project-preview';
+import { MAX_DRAFT_BYTES, parseProfileDraft, mergeProfileDraft, decodeReviewLink } from './draft-transfer.mjs';
+import { setupAgentConnections } from './agent-connections';
 
 type Project = { id: string; name: string; description: string; stack: string; url: string; source?: string; local?: boolean; tagline?: string; whyBuilt?: string; learned?: string; image?: string; imageAlt?: string; stage?: string; };
 type Contribution = { id: string; title: string; repository: string; number: number; url: string; status: string; date: string; checkedAt: string; };
@@ -41,11 +43,13 @@ const defaultShowcase = ['homeport','moodsh','perch','prxps'];
 let editorActive = false;
 let editingId = '';
 let editorBaseline = '';
+let pendingProfileDraft: ReturnType<typeof parseProfileDraft> | null = null;
 const allProjects = () => mergeProjects(seed.projects, [...state.projects, ...importedProjects]) as Project[];
-const views = ['overview', 'projects', 'showcase', 'editor', 'contributions', 'discover', 'plan', 'connections'];
+const views = ['overview', 'projects', 'showcase', 'editor', 'review', 'agents', 'contributions', 'discover', 'plan', 'connections'];
 function showView(id: string, focus = false) {
   let view = views.includes(id) ? id : 'overview';
   if (view === 'editor' && !editorActive) view = 'projects';
+  if (view === 'review' && !pendingProfileDraft) view = 'showcase';
   if (view !== 'editor' && editorActive) {
     if (editorDirty() && !window.confirm('Discard the unsaved changes to this project?')) { history.replaceState(null, '', '#editor'); return; }
     editorActive = false;
@@ -71,7 +75,7 @@ document.addEventListener('click', event => {
   if (location.hash !== `#${id}`) history.pushState(null, '', `#${id}`);
   showView(id, true);
 });
-window.addEventListener('hashchange', () => showView(location.hash.slice(1)));
+window.addEventListener('hashchange', () => location.hash.startsWith('#review=') ? loadReviewLink(location.hash.slice(8)) : showView(location.hash.slice(1)));
 window.addEventListener('popstate', () => showView(location.hash.slice(1)));
 
 function renderProjects() {
@@ -294,6 +298,51 @@ $('#export-showcase').addEventListener('click',()=>{
   setTimeout(()=>URL.revokeObjectURL(url),1000);notify('Profile draft exported. This file is a private backup; it has not been published.');
 });
 
+function openDraftReview(value: unknown) {
+  const draft = parseProfileDraft(value);
+  // Validate the entire merge before offering a save; leave current state intact.
+  mergeProfileDraft(state, draft, seed.projects);
+  pendingProfileDraft = draft;
+  $('#feedback').hidden=true;
+  const list = $('#draft-review-projects');list.replaceChildren();
+  draft.projects.forEach((project: Project, index: number) => {
+    const section=make('section','sw-showcase-project');
+    const key=(item:Project)=>(item.source || item.url).replace(/\/$/,'').toLowerCase();
+    const existing=allProjects().some(item=>item.id===project.id || key(item)===key(project));
+    section.append(make('p','sw-review-change',`${index+1} / ${draft.projects.length} · ${existing ? 'Replaces the local story' : 'Adds a local project'}`),projectPreview(project));list.append(section);
+  });
+  $('#review-count').textContent=`${draft.projects.length} ${draft.projects.length===1 ? 'project' : 'projects'} · Not saved yet`;
+  $('#draft-review-error').hidden=true;
+  history.replaceState(null,'','#review');showView('review',true);
+}
+
+async function loadReviewLink(encoded:string) {
+  // Remove draft contents from the address bar before parsing. Never send them in a request.
+  history.replaceState(null,'','#showcase');
+  try { openDraftReview(await decodeReviewLink(encoded)); }
+  catch { notify('This review link could not be opened. Ask your agent for a new link or a Sidework draft file.',true);showView('showcase',true); }
+}
+
+$('#profile-draft-file')?.addEventListener('change', async event => {
+  const input=event.target as HTMLInputElement, file=input.files?.[0];if(!file)return;
+  const status=$('#draft-file-status');status.hidden=false;status.textContent='Reading your draft…';
+  try {
+    if(file.size>MAX_DRAFT_BYTES)throw new Error('Choose a draft file smaller than 64 KB.');
+    openDraftReview(JSON.parse(await file.text()));status.hidden=true;
+  }catch(error){status.textContent=error instanceof Error ? error.message : 'Could not read this draft. Choose a Sidework JSON file.';}
+  finally{input.value='';}
+});
+$('#cancel-draft-review')?.addEventListener('click',()=>{pendingProfileDraft=null;$('#draft-review-projects').replaceChildren();history.replaceState(null,'','#showcase');showView('showcase',true);});
+$('#save-reviewed-draft')?.addEventListener('click',()=>{
+  if(!pendingProfileDraft)return;
+  try {
+    const next=mergeProfileDraft(state,pendingProfileDraft,seed.projects);
+    if(!persistDraftState(next))throw new Error('Could not save this browser’s draft. The review is still here. Allow browser storage or free some space, then try again.');
+    pendingProfileDraft=null;$('#draft-review-projects').replaceChildren();renderProjects();history.replaceState(null,'','#showcase');showView('showcase',true);notify('Reviewed projects saved in this browser. Your public profile is unchanged.');
+  }catch(error){$('#draft-review-error').textContent=error instanceof Error ? error.message : 'Could not save this draft.';$('#draft-review-error').hidden=false;}
+});
+setupAgentConnections();
+
 $('#copy-profile').addEventListener('click', async () => {
   const url = new URL('/mager/', location.origin).href;
   try { await navigator.clipboard.writeText(url); notify('Profile link copied. Local drafts and your weekly plan are not included.'); }
@@ -337,5 +386,7 @@ $('#refresh-github').addEventListener('click', async () => {
 });
 
 root.dataset.enhanced = 'true';
-showView(location.hash.slice(1)); renderProjects(); renderContributions(); renderPlan();
+const incomingReview=location.hash.startsWith('#review=') ? location.hash.slice(8) : '';
+showView(incomingReview ? 'showcase' : location.hash.slice(1)); renderProjects(); renderContributions(); renderPlan();
+if(incomingReview)loadReviewLink(incomingReview);
 if (!storageAvailable) notify('Browser storage is unavailable. You can explore, but edits and plans will only last for this visit.', true);

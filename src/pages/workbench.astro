@@ -4,10 +4,12 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Icon from '../components/SideworkIcon.astro';
 import ProjectComposer from '../components/ProjectComposer.astro';
+import AgentConnections from '../components/AgentConnections.astro';
 import { projects } from '../data/projects';
 import { contributions, opportunities } from '../data/sidework';
 import '../styles/sidework.css';
 import '../styles/composer.css';
+import '../styles/agents.css';
 
 const records = contributions.slice(0, 36);
 const seed = { projects, contributions: records, opportunities };
@@ -18,6 +20,7 @@ const navigation = [
   { id: 'contributions', label: 'Contributions', icon: 'branch' },
   { id: 'discover', label: 'Discover', icon: 'compass' },
   { id: 'plan', label: 'This week', icon: 'bookmark' },
+  { id: 'agents', label: 'Agents', icon: 'code' },
 ];
 ---
 <!doctype html>
@@ -51,6 +54,7 @@ const navigation = [
         <noscript><p class="sw-notice">All sections are shown below. Enable JavaScript to filter work, save a plan, or add a project.</p></noscript>
 
         <ProjectComposer />
+        <AgentConnections />
 
         <section class="sw-panel" id="overview" aria-labelledby="overview-title">
           <div class="sw-section-heading"><h2 id="overview-title">Built here. Shared everywhere.</h2><a href="#projects" data-view="projects">All projects <Icon name="arrow" size={16} /></a></div>
@@ -80,7 +84,15 @@ const navigation = [
           <div class="sw-section-heading"><div><h2 id="showcase-title">Make it yours.</h2><p>Choose up to six projects. Put the work you love first.</p></div><a href="/mager/">View public profile <Icon name="external" size={16}/></a></div>
           <div class="sw-showcase-toolbar"><p><strong id="featured-count">4 selected</strong><span>Private profile draft · Saved in this browser</span></p><button type="button" id="export-showcase" class="sw-button"><Icon name="download" size={16}/>Export draft</button></div>
           <p class="sw-showcase-boundary">This preview does not change your public profile. Export keeps a copy of your selected projects and stories.</p>
+          <details class="sw-draft-transfer"><summary>Review a draft file</summary><p>Open a draft from your agent or a previous export. You will review it before saving.</p><label for="profile-draft-file">Sidework draft · JSON, up to 64 KB</label><input id="profile-draft-file" type="file" accept="application/json,.json"/><p id="draft-file-status" role="status" hidden></p></details>
           <div id="showcase-projects"></div><div class="sw-empty" id="showcase-empty" hidden><h3>Your best work goes here.</h3><p>Open My projects and choose “Feature” on the projects you want to show.</p><a href="#projects" data-view="projects" class="sw-button sw-primary">Choose projects</a></div>
+        </section>
+
+        <section class="sw-panel sw-showcase" id="review" aria-labelledby="review-title" hidden>
+          <div class="sw-composer-heading"><div><h2 id="review-title">Ready for your review.</h2><p>Your agent prepared it. You decide what stays.</p></div></div>
+          <div class="sw-review-toolbar"><p id="review-count"></p><div class="sw-draft-actions"><button type="button" class="sw-button" id="cancel-draft-review">Cancel</button><button type="button" class="sw-button sw-primary" id="save-reviewed-draft">Save these projects <Icon name="arrow" size={16}/></button></div></div>
+          <p class="sw-review-notice">Saving replaces matching local project stories and sets this featured order. Other projects and your weekly plan stay saved. Your public profile will not change.</p>
+          <p class="sw-review-error" id="draft-review-error" role="alert" hidden></p><div id="draft-review-projects"></div>
         </section>
 
         <section class="sw-panel" id="contributions" aria-labelledby="contributions-title">

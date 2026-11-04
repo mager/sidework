@@ -28,7 +28,19 @@ The workbench can create and edit local project stories. Each story can include 
 
 People can feature up to six projects, change their order with labeled earlier/later buttons, and inspect an asymmetric private profile draft. The initial selection uses the four seeded projects. Feature changes and order stay in this browser. Bulk GitHub imports preserve this order and existing story fields.
 
-Export draft downloads a private JSON copy of only the selected projects and stories in order. Its prototype handle remains @mager. It excludes unselected projects and plans. There is no restore flow, public publishing action, or account-specific profile service.
+Export draft downloads a private JSON copy of only the selected projects and stories in order. Its prototype handle remains @mager. It excludes unselected projects and plans. Profile draft → Review a draft file can restore a valid version 1 export after review and an explicit save. Public publishing and account-specific profiles remain unconnected.
+
+## Agent setup and draft review
+
+The agent mode is Operate: an agent reads source evidence and prepares a draft for the user to review. The user can ask, “Set up my Sidework profile from my GitHub projects.” Sidework provides its own Streamable HTTP MCP endpoint and a Claude Code plugin distributed from this repository. [docs/agents.md](docs/agents.md) is the capability and setup reference.
+
+The MCP has six tools: read the profile, search published projects, read dated contributions, discover curated opportunities, page through public GitHub repositories, and prepare one to six projects in featured order. It also has one profile resource and one setup prompt. The plugin supplies setup-profile and find-contribution skills. Agents must use source evidence and the author’s input for project stories. They cannot read browser-local drafts, save a profile, publish, delete, send messages, or change GitHub. Exported drafts can supply the author’s latest local edits.
+
+Workbench → Agents issues a token with catalog:read, github:public, and draft:prepare scopes. It expires within 24 hours or when its source invite session expires, whichever is first. It is bound to the endpoint origin, grants no website access, and represents invite access rather than verified GitHub identity. The page keeps the token in memory, not localStorage. This remains a one-profile prototype for @mager; OAuth, individual accounts, and private GitHub access are not connected.
+
+Prepared drafts return a review link and JSON data. The link carries compressed draft data in its fragment, not a server inbox. Sidework removes the fragment before showing the review. The original link is not encrypted and may remain in the agent conversation, browser history, or clipboard tools. Long drafts use a JSON file; Review a draft file accepts the same format up to 64 KB.
+
+The review shows which projects will be added or replace local stories. Nothing is saved until the user chooses Save these projects. A successful save updates matching IDs or source URLs and sets the featured order. Other projects and the weekly plan remain. Invalid drafts and failed writes leave saved state unchanged. A pending review is held in memory and is lost on reload; the user can reopen its link or file. No agent or review action changes the committed public profile.
 
 ## Evidence on hand
 

@@ -1,6 +1,6 @@
 # Sidework: an open studio
 
-Routes: `/invite/` access gate, `/` discovery, `/mager/` maker profile, `/workbench/` browser-local planning tools, and `/onboarding/` public GitHub repository import. The exact `/mager/` profile and the invite page allow anonymous access. All other application routes require a valid invite session. The maker profile can be shared without an invite.
+Routes: `/invite/` access gate, `/` discovery, `/mager/` maker profile, `/workbench/` browser-local planning tools, and `/onboarding/` public GitHub repository import. The exact `/mager/` profile and the invite page allow anonymous access. Other website routes require a valid invite session. The separate `/api/mcp` endpoint requires an origin-bound agent Bearer token; it does not accept an invite cookie as authentication. The maker profile can be shared without an invite.
 
 The user rejected traditional columns and regular grids and requested an elegant social network for builders, nerds, coders, and vibers, with modern CSS. This explicit direction replaces the previous dashboard-first public surface. The existing workbench behavior and dated evidence remain.
 
@@ -16,7 +16,7 @@ FORM: Code-led open studio. Direction seed a8c227e1 assigned candidate 6. Ground
 
 SIGNATURE: Project previews shift gently in depth with scroll, then settle on hover or focus. Shared-element navigation carries the maker's identity between discovery and profile. Native details disclose project context. Locally saved projects form a useful collection. Motion is progressive enhancement, disabled for reduced-motion users.
 
-FINISH: The studio, invite/import/type extension, and story editor/profile-draft extension passed review. The story extension reached ship after keyboard focus was retained through feature and reorder changes. The preview is deployed at https://sidework-ten.vercel.app; the requested hostname was unavailable. Access uses reusable invite codes and seven-day sessions. Individual accounts, remote follows, and public posting remain unconnected. The design records preserve the studio world and document the implemented entry flow.
+FINISH: The studio, invite/import/type extension, story editor/profile-draft extension, and agent/review extension passed review. The agent extension reached ship after the clipboard-failure path gained an exact, labeled manual-copy fallback. The story extension reached ship after keyboard focus was retained through feature and reorder changes. The preview is deployed at https://sidework-ten.vercel.app; the requested hostname was unavailable. Access uses reusable invite codes and seven-day sessions. Individual accounts, remote follows, and public posting remain unconnected. The design records preserve the studio world and document the implemented entry flow.
 
 ## Content and provenance
 
@@ -40,6 +40,18 @@ The workbench keeps its compact controls while the local preview uses studio typ
 
 Story fields cover the project purpose, stage, stack, optional HTTPS screenshot and description, source, reason for building, and lessons learned. Native disclosures keep optional details compact. Saving creates a local draft or a local override of a seeded project. Failed saves retain the form text and last saved state. The public profile stays unchanged.
 
-Up to six projects can be featured and reordered with named earlier/later controls. Focus remains within the active panel after these controls update the view. The private JSON export includes selected stories in order and the prototype handle @mager; it is not a restore feature or a publishing action. GitHub imports preserve story fields and profile order.
+Up to six projects can be featured and reordered with named earlier/later controls. Focus remains within the active panel after these controls update the view. The private JSON export includes selected stories in order and the prototype handle @mager. Review a draft file can restore this format after explicit review and save; it does not publish. GitHub imports preserve story fields and profile order.
 
 Review passed at desktop 1440px and mobile 390px with no horizontal overflow. Evidence: .impeccable/review/editor-desktop.png, editor-mobile.png, showcase-desktop.png, and showcase-mobile.png. The recorded composer detector findings are empty.
+
+## Agents and draft review extension
+
+Agent mode is Operate: read evidence, prepare stories, then return the author to review. Workbench → Agents presents three numbered steps for a scoped token, Claude Code or generic MCP setup, and a direct review link. A labeled password field holds the token in page memory. If copying is blocked, a readonly text area shows the exact requested token, configuration, or install commands, takes focus, and selects the text. Hide text clears that value and returns focus to a copy control. Tokens and token-bearing configuration remain private.
+
+Agents and Review reuse the workbench shell with its context panel hidden, existing rail breakpoints, and single-column mobile layout at 700px. The Agents content is at most 960px wide. The panel uses existing moss surfaces, lime actions, Anybody headings, Bricolage Grotesque reading text, and Martian Mono commands. Token inputs reuse the 48px minimum height, 6px radius, and 12px by 14px padding of story fields. Setup code wraps; controls wrap on small screens. Review reuses the unboxed project preview, marks additions or replacements, and offers Save these projects or Cancel.
+
+The endpoint supplies six tools, one profile resource, and one setup prompt. The Claude Code plugin adds setup-profile and find-contribution skills without shell hooks or background jobs. Tokens last at most 24 hours and allow catalog reading, public GitHub reading, and draft preparation. The only profile is @mager. Agents cannot save browser state or publish. Review links carry compressed fragments, removed before display; there is no server inbox. JSON draft files provide the same review flow. The user’s explicit save merges matching local stories and the featured order while keeping other projects and the weekly plan. See [agents.md](agents.md) for the exact capabilities and limits.
+
+System comparison: this is an ordinary workbench extension. DESIGN.md and .impeccable/design.json remain unchanged. The local purpose text uses 1.0625rem at line height 1.7. That size already occurs in workbench CSS but is absent from the documented global type ramp; it remains a local extension, not a new global token. No visual world or global rule was added.
+
+Review evidence: .impeccable/review/agents-desktop.png, agents-mobile.png, agent-review-desktop.png, and agent-review-mobile.png. The reviewer accepted the desktop and mobile flows after the manual-copy fix. Source and DOM checks cover failed copying, exact fallback text, focus/selection, and clearing. Protocol validation found six tools, one resource, and one prompt; the live GitHub check returned 88 public repositories. Direct-link review, save/reload, and JSON-file restore were verified. These are dated validation results, not interface counts or product limits.

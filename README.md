@@ -32,6 +32,7 @@ The public studio places the maker at the center, with software previews around 
 - Saved opportunities and planned / in progress / submitted states.
 - Local project stories with a tagline, description, stage, screenshot, source links, and optional notes about purpose and learning.
 - Live project preview, up to six featured projects, accessible ordering controls, and JSON export of the selected profile draft.
+- An authenticated MCP endpoint and Claude Code plugin for public GitHub discovery and agent-prepared profile drafts, with direct review links.
 - Public GitHub refresh for @mager’s repositories and recent pull requests, with loading, timeout, and rate-limit recovery.
 - Markdown export of the public work record.
 - Responsive layouts, keyboard navigation, and light/dark themes.
@@ -72,7 +73,11 @@ Keep project ownership separate from upstream contribution credit. Keep activity
 
 Open My projects, then Edit story. Changes to a curated project create a local copy; they do not change the committed public profile. The editor previews safe text, HTTPS screenshots, and project links. It warns before discarding unsaved changes and retains the form when browser storage rejects a save.
 
-Feature up to six projects, then open Profile draft to change their order. Export draft downloads the selected stories as `sidework-profile-draft.json`, marked `private-draft`. This is a backup export; JSON restore and public publishing are not connected. Imports preserve existing stories, featured order, and weekly plans. Local drafts remain tied to this browser and origin.
+Feature up to six projects, then open Profile draft to change their order. Export draft downloads selected stories as `sidework-profile-draft.json`, marked `private-draft`. Review a draft file restores a backup or opens an agent-prepared file after review. Agents can also return a direct review link. Saving a reviewed draft updates matching local stories and replaces featured order; unrelated projects and weekly plans remain. Public publishing is not connected. Local drafts remain tied to this browser and origin.
+
+## Agent connections
+
+Open Workbench → Agents to create a scoped token and connect Claude Code or another MCP client. Six tools read committed records, find public GitHub repositories, and prepare drafts for review. They cannot publish or read browser storage. The plugin lives in `plugins/sidework`; `.claude-plugin/marketplace.json` makes it installable from `mager/sidework`. See [the agent guide](docs/agents.md) for setup and limits.
 
 ## License
 
@@ -82,7 +87,7 @@ Code is MIT licensed. The portrait, screenshot, personal project descriptions, a
 
 Live site: https://sidework-ten.vercel.app. The requested `sidework.vercel.app` alias was already in use.
 
-Astro renders all pages on the server with the Vercel adapter. Middleware requires a signed, HTTP-only cookie for every application route except `/invite/` and the exact `/mager/` profile route. Responses use `private, no-store`. Missing configuration closes access to protected routes; the public profile stays available. Static CSS, scripts, fonts, and the public portrait remain public; the source repository and its committed showcase data are public too. An invitation does not make those assets confidential.
+Astro renders all pages on the server with the Vercel adapter. Middleware requires a signed, HTTP-only cookie for every application route except `/invite/`, the exact `/mager/` profile, and `/api/mcp`, which enforces its own scoped agent token. Responses use `private, no-store`. Missing configuration closes access to protected routes; the public profile stays available. Static CSS, scripts, fonts, and the public portrait remain public; the source repository and its committed showcase data are public too. An invitation does not make those assets confidential.
 
 Run `node scripts/create-invite.mjs` once. It writes `.env` and `.sidework-invite` with owner-only permissions, and refuses to overwrite existing files. Both are ignored by Git. Read the code from `.sidework-invite` and send it only to intended invitees. The first prototype uses a reusable invitation, not a single-use code or identity check.
 

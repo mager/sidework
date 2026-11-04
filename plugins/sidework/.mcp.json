@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "sidework": {
+      "type": "http",
+      "url": "https://sidework-ten.vercel.app/api/mcp",
+      "headers": { "Authorization": "Bearer ${user_config.agent_token}" }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+---
+import Icon from './SideworkIcon.astro';
+---
+<section class="sw-panel sw-agents" id="agents" aria-labelledby="agents-title" hidden>
+  <div class="sw-composer-heading"><div><h2 id="agents-title">Bring your coding partner.</h2><p>Give your agent the context. Keep the final say.</p></div><a class="sw-button" href="https://github.com/mager/sidework/blob/main/docs/agents.md">Setup guide <Icon name="external" size={16}/></a></div>
+  <p class="sw-agent-intro">“Set up my Sidework profile from my GitHub projects.”</p>
+  <p class="sw-agent-purpose">Your agent can find public repositories, help tell their stories, and send a review link back here. You choose what to save.</p>
+  <ol class="sw-agent-steps">
+    <li><h3>Make the connection</h3><p>Create a token for reading project records and preparing drafts. It lasts up to 24 hours and cannot publish or open the website.</p><button type="button" id="create-agent-token" class="sw-button sw-primary">Create agent token <Icon name="plus" size={16}/></button>
+      <div id="agent-token-result" hidden><label for="agent-token">Your agent token</label><input id="agent-token" type="password" readonly autocomplete="off" spellcheck="false"/><div class="sw-agent-actions"><button type="button" class="sw-button" id="copy-agent-token">Copy token</button><button type="button" class="sw-button" id="copy-agent-config">Copy MCP config</button></div><p id="agent-token-expiry"></p><p>Keep the token private. It is not stored in this browser.</p></div>
+      <p id="agent-token-status" role="status" hidden></p>
+      <div class="sw-agent-copy" id="agent-copy-fallback" hidden><label for="agent-copy-text" id="agent-copy-label">Copy manually</label><textarea id="agent-copy-text" readonly rows="7" spellcheck="false" autocomplete="off"></textarea><button type="button" class="sw-button" id="hide-agent-copy">Hide text</button></div>
+    </li>
+    <li><h3>Add Sidework to Claude Code</h3><p>Run these commands in Claude Code. When the plugin asks for a Sidework agent token, paste the one above.</p><pre><code>/plugin marketplace add mager/sidework
+/plugin install sidework@sidework</code></pre><button type="button" class="sw-button" id="copy-plugin-install">Copy install commands</button><details><summary>Use another MCP client</summary><p>Use Streamable HTTP with a Bearer token. “Copy MCP config” includes the endpoint and your current token.</p><code class="sw-agent-endpoint" id="agent-endpoint"></code></details></li>
+    <li><h3>Ask. Review. Make it yours.</h3><p>Run <code>/sidework:setup-profile</code> to start. Your agent sends a link that opens a draft review here. Nothing is saved until you choose “Save these projects”.</p><p class="sw-agent-boundary">This prototype has one profile, @mager. Agents cannot read your browser-local drafts or publish changes. You can export a draft to give an agent your latest edits.</p><a class="sw-button" href="#showcase" data-view="showcase">Open profile draft <Icon name="arrow" size={16}/></a></li>
+  </ol>
+</section>
