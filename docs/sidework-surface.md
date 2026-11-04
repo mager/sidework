@@ -16,7 +16,7 @@ FORM: Code-led open studio. Direction seed a8c227e1 assigned candidate 6. Ground
 
 SIGNATURE: Project previews shift gently in depth with scroll, then settle on hover or focus. Shared-element navigation carries the maker's identity between discovery and profile. Native details disclose project context. Locally saved projects form a useful collection. Motion is progressive enhancement, disabled for reduced-motion users.
 
-FINISH: The studio and invite/import/type extension passed review. The preview is deployed at https://sidework-ten.vercel.app; the requested hostname was unavailable. Access uses reusable invite codes and seven-day sessions. Individual accounts, remote follows, and public posting remain unconnected. The design records preserve the studio world and document the implemented entry flow.
+FINISH: The studio, invite/import/type extension, and story editor/profile-draft extension passed review. The story extension reached ship after keyboard focus was retained through feature and reorder changes. The preview is deployed at https://sidework-ten.vercel.app; the requested hostname was unavailable. Access uses reusable invite codes and seven-day sessions. Individual accounts, remote follows, and public posting remain unconnected. The design records preserve the studio world and document the implemented entry flow.
 
 ## Content and provenance
 
@@ -33,3 +33,13 @@ The entry pages retain the moss, lime, and open type system. Anybody carries the
 The invite form is centered, with one code field and a contact link to @mager. The import flow is left aligned and wider: a handle form, loading status, search and source filters, unboxed checkbox rows, and a sticky selection action. On mobile the import controls wrap and the primary form action takes full width. These focused flows support the studio without changing it into a dashboard.
 
 GitHub results include owned public forks and archived repositories unless filtered out. Select matching includes results beyond the visible rows. Imports exclude existing projects and save selected repositories as drafts in this browser. No public publishing or shared account record is implied. Lock Sidework removes access but keeps browser-local drafts.
+
+## Story editor and profile draft extension
+
+The workbench keeps its compact controls while the local preview uses studio type. On desktop, the form and sticky preview share the available space; the context panel is hidden. At 960px and below, the preview follows the form. At 700px and below, the shell uses one content column. Profile drafts alternate wide and narrower project blocks on desktop and use full width on smaller screens. They do not use a repeated card grid or public preview motion.
+
+Story fields cover the project purpose, stage, stack, optional HTTPS screenshot and description, source, reason for building, and lessons learned. Native disclosures keep optional details compact. Saving creates a local draft or a local override of a seeded project. Failed saves retain the form text and last saved state. The public profile stays unchanged.
+
+Up to six projects can be featured and reordered with named earlier/later controls. Focus remains within the active panel after these controls update the view. The private JSON export includes selected stories in order and the prototype handle @mager; it is not a restore feature or a publishing action. GitHub imports preserve story fields and profile order.
+
+Review passed at desktop 1440px and mobile 390px with no horizontal overflow. Evidence: .impeccable/review/editor-desktop.png, editor-mobile.png, showcase-desktop.png, and showcase-mobile.png. The recorded composer detector findings are empty.

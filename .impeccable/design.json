@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-04T21:54:37.575Z",
+  "generatedAt": "2026-11-04T22:31:09.395Z",
   "title": "Design System: Sidework",
   "extensions": {
     "colorMeta": {
@@ -365,6 +365,18 @@
       "import-note": {
         "displayName": "Local draft notice",
         "purpose": "The selected count and local-storage limit in the action bar."
+      },
+      "composer-title": {
+        "displayName": "Story editor heading",
+        "purpose": "Anybody at 90% width; 1.875rem on mobile."
+      },
+      "story-title": {
+        "displayName": "Local project title",
+        "purpose": "Preview and profile-draft project names, with long-name wrapping."
+      },
+      "story-poster": {
+        "displayName": "Local project poster",
+        "purpose": "Clay placeholder when a screenshot is absent."
       }
     },
     "shadows": [
@@ -481,6 +493,18 @@
       {
         "name": "entry-mobile-max",
         "value": "650px"
+      },
+      {
+        "name": "composer-paired-fields-max",
+        "value": "1180px"
+      },
+      {
+        "name": "composer-stacked-max",
+        "value": "960px"
+      },
+      {
+        "name": "composer-mobile-max",
+        "value": "700px"
       }
     ]
   },
@@ -532,6 +556,22 @@
       "description": "A clearly labeled handle field for public GitHub import.",
       "html": "<label class=\"ds-entry-label\">Your GitHub handle<input class=\"ds-entry-input\" type=\"text\" placeholder=\"@mager\" autocomplete=\"off\" autocapitalize=\"none\" spellcheck=\"false\" maxlength=\"40\" required></label>",
       "css": ".ds-entry-label{display:block;color:var(--sw-text,#eef1e9);font:.9375rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);font-optical-sizing:auto;letter-spacing:.005em}.ds-entry-input{display:block;margin-top:10px;min-width:0;width:100%;box-sizing:border-box;border:1px solid var(--sw-border,#30392f);border-radius:6px;padding:13px 15px;background:var(--sw-surface,#171c17);color:var(--sw-text,#eef1e9);font:1rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);font-optical-sizing:auto;caret-color:var(--sw-accent,#b9eb9e)}.ds-entry-input::placeholder{color:var(--sw-muted,#a3ad9f);opacity:1}.ds-entry-input:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}"
+    },
+    {
+      "name": "Story field",
+      "kind": "input",
+      "refersTo": "story-field",
+      "description": "Local story input with a clear label and 48px minimum height.",
+      "html": "<label class=\"ds-story-label\">Project name<input class=\"ds-story-field\" type=\"text\" maxlength=\"60\" required autocomplete=\"off\"></label>",
+      "css": ".ds-story-label{display:flex;flex-direction:column;gap:9px;font:.9375rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);color:var(--sw-text,#eef1e9)}.ds-story-field{box-sizing:border-box;background:var(--sw-surface,#171c17);color:var(--sw-text,#eef1e9);border:1px solid var(--sw-border,#30392f);border-radius:6px;padding:12px 14px;min-height:48px;min-width:0;width:100%;font:1rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);font-optical-sizing:auto;caret-color:var(--sw-accent,#b9eb9e)}.ds-story-field:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}"
+    },
+    {
+      "name": "Featured project control",
+      "kind": "button",
+      "refersTo": "feature-selected",
+      "description": "Pressed state for a project included in the private profile draft.",
+      "html": "<button class=\"ds-feature\" aria-pressed=\"true\" aria-label=\"Unfeature Homeport\">Featured</button>",
+      "css": ".ds-feature{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:9px 13px;border:1px solid var(--sw-border,#30392f);border-radius:6px;background:transparent;color:var(--sw-text,#eef1e9);font:500 .75rem/1.5 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);cursor:pointer;transition:background 160ms ease,border-color 160ms ease}.ds-feature:hover{background:var(--sw-raised,#1e251e);border-color:var(--sw-muted,#a3ad9f)}.ds-feature[aria-pressed=true]{background:var(--sw-raised,#1e251e);color:var(--sw-accent,#b9eb9e);border-color:var(--sw-accent,#b9eb9e)}.ds-feature:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-feature{transition:none}}"
     }
   ],
   "narrative": {

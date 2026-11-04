@@ -1,6 +1,9 @@
 import { STORAGE_KEY, safeUrl, cleanProject, readState, mergeProjects, filterContributions, githubContribution } from './sidework-state.mjs';
 
-type Project = { id: string; name: string; description: string; stack: string; url: string; source?: string; local?: boolean; };
+import { MAX_FEATURED, STAGES, showcaseProjects, saveProjectDraft, toggleFeatured, moveFeatured, exportShowcase } from './project-drafts.mjs';
+import { projectPreview } from './project-preview';
+
+type Project = { id: string; name: string; description: string; stack: string; url: string; source?: string; local?: boolean; tagline?: string; whyBuilt?: string; learned?: string; image?: string; imageAlt?: string; stage?: string; };
 type Contribution = { id: string; title: string; repository: string; number: number; url: string; status: string; date: string; checkedAt: string; };
 type Opportunity = { id: string; name: string; title: string; next: string; url: string; skill: string; };
 const seed = JSON.parse(document.getElementById('sidework-seed')!.textContent!) as { projects: Project[]; contributions: Contribution[]; opportunities: Opportunity[] };
@@ -34,9 +37,20 @@ const save = () => {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, ...state })); return true; }
   catch { storageAvailable = false; notify('Browser storage is unavailable. Your changes work for this visit but will not survive a reload.', true); return false; }
 };
-const views = ['overview', 'projects', 'contributions', 'discover', 'plan', 'connections'];
+const defaultShowcase = ['homeport','moodsh','perch','prxps'];
+let editorActive = false;
+let editingId = '';
+let editorBaseline = '';
+const allProjects = () => mergeProjects(seed.projects, [...state.projects, ...importedProjects]) as Project[];
+const views = ['overview', 'projects', 'showcase', 'editor', 'contributions', 'discover', 'plan', 'connections'];
 function showView(id: string, focus = false) {
-  const view = views.includes(id) ? id : 'overview';
+  let view = views.includes(id) ? id : 'overview';
+  if (view === 'editor' && !editorActive) view = 'projects';
+  if (view !== 'editor' && editorActive) {
+    if (editorDirty() && !window.confirm('Discard the unsaved changes to this project?')) { history.replaceState(null, '', '#editor'); return; }
+    editorActive = false;
+  }
+  root.dataset.view = view;
   for (const panel of document.querySelectorAll<HTMLElement>('.sw-panel')) panel.hidden = panel.id !== view;
   for (const nav of document.querySelectorAll<HTMLElement>('.sw-rail [data-view]')) {
     if (nav.dataset.view === view) nav.setAttribute('aria-current', 'page');
@@ -50,7 +64,7 @@ function showView(id: string, focus = false) {
   }
 }
 document.addEventListener('click', event => {
-  const control = (event.target as Element).closest<HTMLAnchorElement>('[data-view], #manage-github');
+  const control = (event.target as Element).closest<HTMLAnchorElement>('a[data-view], #manage-github');
   if (!control) return;
   event.preventDefault();
   const id = control.dataset.view || 'connections';
@@ -62,7 +76,8 @@ window.addEventListener('popstate', () => showView(location.hash.slice(1)));
 
 function renderProjects() {
   const query = $('#project-search') as HTMLInputElement;
-  const all = mergeProjects(seed.projects, [...state.projects, ...importedProjects]) as Project[];
+  const all = allProjects();
+  const featured = showcaseProjects(state,all,defaultShowcase).map((item: Project) => item.id);
   const filtered = all.filter(project => `${project.name} ${project.description} ${project.stack}`.toLowerCase().includes(query.value.trim().toLowerCase()));
   const list = $('#project-list'); list.replaceChildren();
   $('#project-count').textContent = `${filtered.length} of ${all.length} projects`;
@@ -74,15 +89,18 @@ function renderProjects() {
     const copy = make('div'); const heading = make('h3'); heading.append(link(project.name, project.url));
     copy.append(heading, make('p', '', project.description), make('small', '', project.stack || 'Personal project'));
     const actions = make('div', 'sw-row-actions');
-    actions.append(link('Open project', project.url, 'sw-button'));
+    const edit = make('button','sw-button','Edit story') as HTMLButtonElement; edit.type='button'; edit.dataset.editProject=project.id; edit.setAttribute('aria-label',`Edit ${project.name}`);
+    const feature = make('button','sw-button sw-feature-toggle',featured.includes(project.id) ? 'Featured' : 'Feature') as HTMLButtonElement; feature.type='button'; feature.dataset.featureProject=project.id; feature.setAttribute('aria-pressed',String(featured.includes(project.id))); feature.setAttribute('aria-label',`${featured.includes(project.id) ? 'Unfeature' : 'Feature'} ${project.name}`);
+    actions.append(edit,feature,link('Open project', project.url, 'sw-button'));
     if (project.source && project.source !== project.url) actions.append(link('View source', project.source, 'sw-button'));
     if (project.local) {
-      const remove = make('button', 'sw-button', 'Remove local project') as HTMLButtonElement;
+      const remove = make('button', 'sw-button', seed.projects.some(item => item.id === project.id) ? 'Discard local changes' : 'Remove local project') as HTMLButtonElement;
       remove.type = 'button'; remove.dataset.removeProject = project.id; actions.append(remove);
       copy.append(make('small', '', 'Local draft · Not on your public profile'));
     }
     row.append(monogram, copy, actions); list.append(row);
   }
+  renderShowcase();
 }
 $('#project-search').addEventListener('input', renderProjects);
 $('#project-list').addEventListener('click', event => {
@@ -180,23 +198,100 @@ $('#plan-list').addEventListener('change', event => {
 });
 
 const form = $('#project-form') as HTMLFormElement;
-$('#add-project').addEventListener('click', () => {
-  $('#project-editor').hidden = false;
-  form.querySelector<HTMLInputElement>('[name=name]')!.focus();
-  $('#project-editor').scrollIntoView({ block: 'start', behavior: 'instant' });
-});
-$('#cancel-project').addEventListener('click', () => { $('#project-editor').hidden = true; form.reset(); $('#add-project').focus(); });
+const draftValues = () => Object.fromEntries(new FormData(form).entries());
+function editorDirty() { return editorActive && JSON.stringify(draftValues()) !== editorBaseline; }
+function updateEditorPreview() {
+  const values = draftValues();
+  const preview = projectPreview(values);
+  const oldFrame = $('#project-preview').querySelector('.sw-story-image');
+  const nextFrame = preview.querySelector('.sw-story-image');
+  const oldImage = oldFrame?.querySelector('img'), nextImage = nextFrame?.querySelector('img');
+  if (oldImage && nextImage && oldImage.src === nextImage.src) { oldImage.alt=nextImage.alt; nextFrame!.replaceWith(oldFrame!); }
+  $('#project-preview').replaceChildren(preview);
+  $('#draft-save-note').textContent = editorDirty() ? 'Unsaved changes · Save keeps them in this browser.' : 'Saved only in this browser. Your public profile stays unchanged.';
+}
+function openEditor(project?: Project) {
+  if (editorDirty() && !window.confirm('Discard the unsaved changes to this project?')) return;
+  form.reset();
+  for (const control of form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('input,textarea,select')) control.value=String((project as any)?.[control.name] || '');
+  editingId = project?.id || `local-${crypto.randomUUID()}`;
+  editorActive = true; editorBaseline = JSON.stringify(draftValues());
+  $('#editor-title').textContent = project ? `The story behind ${project.name}.` : 'Tell the story.';
+  $('#draft-error').hidden=true;
+  updateEditorPreview();
+  history.pushState(null,'','#editor'); showView('editor',true);
+  form.querySelector<HTMLInputElement>('[name=name]')!.focus({preventScroll:true});
+}
+function persistDraftState(next: typeof state) {
+  try { localStorage.setItem(STORAGE_KEY,JSON.stringify({version:1,...next}));state=next;return true; }
+  catch { notify('Could not save to this browser. Your last saved draft is unchanged. Allow browser storage or free some space, then try again.',true);return false; }
+}
+$('#add-project').addEventListener('click',()=>openEditor());
+$('#cancel-project').addEventListener('click',()=>{ showView('projects',true); if(!editorActive) history.pushState(null,'','#projects'); });
+form.addEventListener('input',event=>{ $('#draft-error').hidden=true; if((event.target as HTMLInputElement).name !== 'image')updateEditorPreview(); });
+form.addEventListener('change',updateEditorPreview);
+window.addEventListener('beforeunload',event=>{ if(editorDirty()){event.preventDefault();event.returnValue='';} });
 form.addEventListener('submit', event => {
   event.preventDefault();
-  const data = new FormData(form);
-  const values = Object.fromEntries(data.entries());
-  const project = cleanProject({ ...values, id: `local-${crypto.randomUUID()}`, local: true });
-  if (!project || (values.source && !safeUrl(values.source))) { notify('Use a complete http or https URL without a username or password.', true); return; }
-  if (state.projects.length >= 5000) { notify('This preview holds up to 5,000 local projects. Remove a project before adding another.', true); return; }
-  state.projects.unshift(project);
-  const persisted = save(); renderProjects(); form.reset(); $('#project-editor').hidden = true;
-  history.pushState(null, '', '#projects'); showView('projects', true);
-  if (persisted) notify('Project saved as a local draft. It is not published to your public profile.');
+  const values=draftValues();
+  const fail=(text:string)=>{ $('#draft-error').textContent=text;$('#draft-error').hidden=false;$('#draft-error').scrollIntoView({block:'nearest'}); };
+  if ((values.source && !safeUrl(values.source)) || !safeUrl(values.url)) {fail('Use a complete HTTP or HTTPS link without a username or password.');return;}
+  if (values.image && !safeUrl(values.image).startsWith('https://')) {fail('Use a public HTTPS image link for the screenshot.');return;}
+  try {
+    const next=saveProjectDraft(state,{...values,id:editingId},seed.projects);
+    if(!persistDraftState(next)){fail('Your draft could not be saved. Your changes are still here; try again after you allow browser storage or free some space.');return;}
+    editorBaseline=JSON.stringify(draftValues()); editorActive=false;
+    renderProjects(); history.pushState(null,'','#projects');showView('projects',true);
+    notify('Project story saved in this browser. Your public profile is unchanged.');
+  }catch(error){fail(error instanceof Error ? error.message : 'Could not save this draft. Try again.');}
+});
+document.addEventListener('click',event=>{
+  const button=(event.target as Element).closest<HTMLButtonElement>('[data-edit-project],[data-feature-project],[data-move-project]');
+  if(!button)return;
+  const id=button.dataset.editProject || button.dataset.featureProject || button.dataset.moveProject!;
+  const project=allProjects().find(item=>item.id===id);if(!project)return;
+  if(button.dataset.editProject){openEditor(project);return;}
+  try {
+    let next=state;
+    if(button.dataset.featureProject){
+      if(!seed.projects.some(item=>item.id===id) && !state.projects.some((item:Project)=>item.id===id)) next=saveProjectDraft(next,project,seed.projects);
+      next=toggleFeatured(next,id,allProjects(),defaultShowcase);
+    } else next=moveFeatured(next,id,Number(button.dataset.direction),allProjects(),defaultShowcase);
+    if(!persistDraftState(next))return;
+    const action=button.dataset.featureProject ? 'featureProject' : 'moveProject', direction=button.dataset.direction;
+    renderProjects();
+    const activePanel=document.getElementById(root.dataset.view || 'projects')!;
+    const replacement=[...activePanel.querySelectorAll<HTMLButtonElement>(action==='featureProject' ? '[data-feature-project]' : '[data-move-project]')].find(item=>item.dataset[action]===id && (action!=='moveProject'||item.dataset.direction===direction) && !item.disabled);
+    const fallback=[...activePanel.querySelectorAll<HTMLButtonElement>('[data-edit-project]')].find(item=>item.dataset.editProject===id) || activePanel.querySelector<HTMLButtonElement>('[data-edit-project]') || activePanel.querySelector<HTMLElement>('h2');
+    const focusTarget=replacement || fallback;
+    if(focusTarget?.tagName==='H2')focusTarget.setAttribute('tabindex','-1');
+    focusTarget?.focus({preventScroll:true});
+    notify('Profile draft saved in this browser. Your public profile is unchanged.');
+  }catch(error){notify(error instanceof Error ? error.message : 'Could not update the profile draft.',true);}
+});
+function renderShowcase() {
+  const selected=showcaseProjects(state,allProjects(),defaultShowcase) as Project[];
+  $('#featured-count').textContent=`${selected.length} of ${MAX_FEATURED} selected`;
+  $('#showcase-empty').hidden=selected.length>0;
+  ($('#export-showcase') as HTMLButtonElement).disabled=selected.length===0;
+  const list=$('#showcase-projects');list.replaceChildren();
+  selected.forEach((project,index)=>{
+    const section=make('section','sw-showcase-project');
+    const controls=make('div','sw-showcase-controls');
+    const position=make('span','',`${index+1} / ${selected.length}`);
+    const edit=make('button','sw-button','Edit story') as HTMLButtonElement;edit.type='button';edit.dataset.editProject=project.id;edit.setAttribute('aria-label',`Edit ${project.name} story`);
+    const earlier=make('button','sw-button','Move earlier') as HTMLButtonElement;earlier.type='button';earlier.dataset.moveProject=project.id;earlier.dataset.direction='-1';earlier.disabled=index===0;earlier.setAttribute('aria-label',`Move ${project.name} earlier`);
+    const later=make('button','sw-button','Move later') as HTMLButtonElement;later.type='button';later.dataset.moveProject=project.id;later.dataset.direction='1';later.disabled=index===selected.length-1;later.setAttribute('aria-label',`Move ${project.name} later`);
+    const remove=make('button','sw-button','Unfeature') as HTMLButtonElement;remove.type='button';remove.dataset.featureProject=project.id;remove.setAttribute('aria-label',`Unfeature ${project.name} from profile draft`);
+    controls.append(position,edit,earlier,later,remove);
+    section.append(controls,projectPreview(project));list.append(section);
+  });
+}
+$('#export-showcase').addEventListener('click',()=>{
+  const draft=exportShowcase(state,allProjects(),defaultShowcase);
+  const url=URL.createObjectURL(new Blob([JSON.stringify(draft,null,2)+'\n'],{type:'application/json'}));
+  const anchor=document.createElement('a');anchor.href=url;anchor.download='sidework-profile-draft.json';anchor.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);notify('Profile draft exported. This file is a private backup; it has not been published.');
 });
 
 $('#copy-profile').addEventListener('click', async () => {

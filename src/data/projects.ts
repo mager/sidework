@@ -1,5 +1,6 @@
 export const projects = [
   {
+    image: 'https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-04-perch/control-center-redacted-2026-10-11.jpg', imageAlt: 'Perch’s Mac monitoring control center.',
     id: 'perch', name: 'Perch', kind: 'Mac monitoring', stack: 'Node.js · Redis',
     tagline: 'A quiet lookout for your Mac.',
     description: 'I built Perch to check on my Mac mini without opening a terminal. A self-hosted dashboard brings together heartbeats, system resources, and tmux sessions.',
@@ -8,6 +9,7 @@ export const projects = [
     story: '/blog/2026-10-04-perch/',
   },
   {
+    image: 'https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-02-mood-shell/customize-ember.jpg', imageAlt: 'Mood Shell’s Ember palette editor.',
     id: 'moodsh', name: 'Mood Shell', kind: 'Terminal toolkit', stack: 'Rust',
     tagline: 'A little color in the command line.',
     description: 'A small prompt toolkit for Zsh, Bash, and PowerShell. Pick a palette, tune it with live previews, and share your theme as a Markdown file. The command is moodsh.',
@@ -16,6 +18,7 @@ export const projects = [
     story: '/blog/2026-10-02-mood-shell/',
   },
   {
+    image: 'https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-04-homeport/terminal-workspace.jpg', imageAlt: 'Homeport’s coding conversations and workspace.',
     id: 'homeport', name: 'Homeport', kind: 'Coding workspace', stack: 'Python · Pydantic · SQLite',
     tagline: 'Somewhere for the work to stay.',
     description: 'Start a Codex task, close your laptop, and return to the same conversation. A private browser workspace keeps the agent processes, repositories, and task history on your own computer.',

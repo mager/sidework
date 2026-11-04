@@ -97,6 +97,24 @@ typography:
     fontSize: .875rem
     fontWeight: 400
     lineHeight: 1.6
+  composer-title:
+    fontFamily: "'Anybody', 'Arial Narrow', sans-serif"
+    fontSize: clamp(1.875rem, 3vw, 2.75rem)
+    fontWeight: 520
+    lineHeight: 1.15
+    letterSpacing: -.035em
+  story-title:
+    fontFamily: "'Anybody', 'Arial Narrow', sans-serif"
+    fontSize: clamp(2.75rem, 3.5vw, 4.5rem)
+    fontWeight: 520
+    lineHeight: 1.08
+    letterSpacing: -.04em
+  story-poster:
+    fontFamily: "'Anybody', 'Arial Narrow', sans-serif"
+    fontSize: clamp(2.75rem, 4vw, 5rem)
+    fontWeight: 540
+    lineHeight: 1.05
+    letterSpacing: -.04em
 rounded:
   status: 4px
   field: 5px
@@ -168,6 +186,17 @@ components:
   repository-row:
     textColor: "{colors.chalk-text}"
     padding: 20px 0
+  story-field:
+    backgroundColor: "{colors.moss-surface}"
+    textColor: "{colors.chalk-text}"
+    rounded: "{rounded.control}"
+    padding: 12px 14px
+    typography: "{typography.body}"
+  feature-selected:
+    backgroundColor: "{colors.moss-raised}"
+    textColor: "{colors.lime-accent}"
+    rounded: "{rounded.control}"
+    padding: 9px 13px
 ---
 
 # Design System: Sidework
@@ -187,7 +216,7 @@ The same fonts and colors support a denser workbench. Its panels, forms, and evi
 - Public previews use depth; the workbench uses quiet borders and tonal layers.
 - Keyboard access and reduced motion remain part of each interaction.
 
-This document records the implemented source on November 4, 2026. Visual authority comes from PRODUCT.md and docs/sidework-surface.md. Token and component sources are src/styles/fonts.css, src/styles/sidework.css, src/styles/studio.css, src/components/Studio.astro, and src/pages/workbench.astro. Entry sources are src/styles/entry.css, src/pages/invite.astro, and src/pages/onboarding.astro. Behavior was checked in src/scripts/studio.ts, src/scripts/onboarding.ts, src/scripts/github-import.mjs, src/middleware.ts, src/lib/invite.mjs, and src/components/BaseHead.astro. The current public world replaces the earlier dashboard treatment; unused public selectors in sidework.css do not define it.
+This document records the implemented source on November 4, 2026. Visual authority comes from PRODUCT.md and docs/sidework-surface.md. Token and component sources are src/styles/fonts.css, src/styles/sidework.css, src/styles/studio.css, src/components/Studio.astro, and src/pages/workbench.astro. Entry sources are src/styles/entry.css, src/pages/invite.astro, and src/pages/onboarding.astro. Story editing and profile drafts use src/components/ProjectComposer.astro, src/styles/composer.css, src/scripts/project-preview.ts, src/scripts/project-drafts.mjs, src/scripts/sidework.ts, and src/scripts/sidework-state.mjs. Behavior was checked in src/scripts/studio.ts, src/scripts/onboarding.ts, src/scripts/github-import.mjs, src/middleware.ts, src/lib/invite.mjs, and src/components/BaseHead.astro. The current public world replaces the earlier dashboard treatment; unused public selectors in sidework.css do not define it.
 
 ## Colors
 
@@ -234,6 +263,8 @@ All three families use self-hosted Latin WOFF2 subsets with font-display swap. T
 - **Entry intro:** a fluid Bricolage Grotesque introduction. On import, its maximum measure is 50ch.
 - **Entry meta and entry label:** quiet header/footer text, form labels, and invite contact text. These roles keep the entry page clear without adding decorative labels.
 - **Repository title and import note:** selected-source names and the local-draft notice. Repository descriptions retain body size and a maximum measure of 65ch; technical metadata uses the existing mono label.
+- **Composer title:** the editing heading uses Anybody at 90% width. At 700px and below, it uses 1.875rem.
+- **Story title and story poster:** local previews use Anybody at 90% width. Long names wrap. Story taglines reuse the caption size and line height with a 45ch maximum measure. Story descriptions and build notes use body-size text at line height 1.8 and a 65ch maximum measure.
 
 **The People First Rule.** Use @handles for personal identity. Keep project names and repository owner/name identifiers intact.
 
@@ -249,6 +280,10 @@ The supporting workbench has a 1536px maximum width. Its desktop shell uses a 20
 
 Entry pages use a full-height flex column. The invite content is centered in a 700px maximum measure; its form is at most 450px wide. Import uses a 920px maximum content width and a 580px form. Both content areas leave 24px side margins. The header and footer use 28px by 4vw padding, reduced to 22px by 24px at 650px. At that breakpoint, import buttons move to full width, the action bar wraps, and the footer can wrap. The invite input and its submit button remain on one row. Import actions stay visible at the bottom with a sticky ground-colored bar and a top border. These focused utility flows do not change the studio composition.
 
+Story editing and profile drafts hide the workbench context panel. The remaining rail uses the existing 204px, 180px, and 175px responsive widths. Above 960px, the editor has equal form and preview columns with a gap of clamp(28px, 4vw, 64px), reduced to 28px at 1180px. The preview stays 24px below the viewport top, with a maximum height of calc(100dvh - 48px), internal scrolling, and a stable scrollbar gutter. At 960px and below, it follows the form in normal flow with no height cap. At 700px and below, the shell has one content column. Paired form fields already become one column at 1180px.
+
+The private profile draft uses an unboxed sequence. Projects use 90% width; even entries use 80% width and align right. At 960px and below, every project uses full width. Vertical margins change from 64px before and 90px after a project to 44px and 64px on mobile. The controls wrap and keep their order. This local preview borrows the studio’s varied alignment without adding its perspective motion.
+
 ## Elevation & Depth
 
 Public depth comes from slightly rotated software windows, restrained perspective, and soft black shadows. Text remains flat. The primary lead preview turns 7 degrees on desktop; the secondary preview turns -8 degrees. Project previews use small turns from -1.5 to 2 degrees. Hover or keyboard focus settles these turns. The dock and saved collection float above the page with their own shadows. Workbench panels rely on tone and borders, without decorative shadows. Entry and import use the same flat treatment. The invite mark has three static elliptical outlines around the branch icon; it is not an animation.
@@ -261,13 +296,13 @@ Reduced motion removes transitions, animations, preview perspective, and preview
 
 ## Shapes
 
-Public save and follow controls use pill shapes. The dock uses a larger capsule. Screenshot corners are small and become tighter on mobile. Workbench controls use compact rounded corners, while its feature and editor panels use the panel radius. Status labels have the smallest rounding. Portraits vary between circles and soft irregular shapes; they use the existing illustration rather than generic avatar initials.
+Public save and follow controls use pill shapes. The dock uses a larger capsule. Screenshot corners are small and become tighter on mobile. Workbench controls use compact rounded corners, while its feature cards use the panel radius. Story forms and their preview remain unboxed. Local story images and clay placeholders use the preview radius and a 16:10 frame. Status labels have the smallest rounding. Portraits vary between circles and soft irregular shapes; they use the existing illustration rather than generic avatar initials.
 
 ## Components
 
 ### Buttons
 
-Workbench actions have a compact 42px minimum height. Primary actions use the lime fill and lime ink; secondary actions use a transparent fill and moss border. Hover raises the secondary surface and slightly mixes the primary fill with the ground. Disabled buttons use 0.6 opacity and a wait cursor. Public Save and Follow buttons are at least 44px high. Their pressed state uses accent text and border, plus an updated text label.
+Workbench actions have a compact 42px minimum height. Primary actions use the lime fill and lime ink; secondary actions use a transparent fill and moss border. Hover raises the secondary surface and slightly mixes the primary fill with the ground. Disabled buttons use 0.6 opacity and a wait cursor, except disabled profile-draft reorder controls, which use the default cursor. Public Save and Follow buttons are at least 44px high. Their pressed state uses accent text and border, plus an updated text label.
 
 All links, buttons, summaries, and form controls have an accent focus outline (2px) offset by 4px. Search fields instead place the outline around the field group, offset by 2px.
 
@@ -281,7 +316,7 @@ Public projects are unboxed: identity and title above, preview in the middle, pu
 
 ### Inputs / Fields
 
-Search uses a surface-colored rounded border with a 44px input. Project editor fields use the ground color, a small radius, 10px by 12px padding, and 1rem text. Placeholder text uses the muted color at full opacity. Textareas resize vertically. Native required, URL, and length constraints remain active; no separate custom field-error appearance is defined. The workbench feedback notice uses the warm state color for errors.
+Search uses a surface-colored rounded border with a 44px input. Story editor fields use the surface color, control radius, 12px by 14px padding, a 48px minimum height, and 1rem text. Their labels use the entry-label size, with a 9px internal gap and 25px top margin. Help text uses the entry-meta size. Placeholder text uses the muted color at full opacity. Textareas resize vertically. Native required, URL, and length constraints remain active; no separate custom field-error appearance is defined. The workbench feedback notice and story editor alert use the warm state color for errors.
 
 ### Navigation
 
@@ -294,6 +329,18 @@ Three previews use historical product screenshots. The prxps preview uses an aut
 ### Saved collection and feedback
 
 The saved collection is a native popover with a 420px maximum width, 65dvh maximum height, 24px padding, and an 18px radius. It enters with a short opacity and vertical movement transition. It lists only locally saved known projects. Follow is also a local preference. A polite status message explains storage failures and local follow behavior. Public calls to action lead to the workbench or a project draft; they do not claim to publish.
+
+### Story editor and private profile draft
+
+Edit story opens a local composer and moves keyboard focus to the project name. Name, description, and project URL are required. The short version, stage, stack, screenshot URL and description, source URL, reason for building, and lessons learned are optional. Stage choices are Exploring, Building, Shipped, and Paused. Name, tagline, description, and stack limits are 60, 120, 280, and 80 characters. Each build note allows 1,200 characters; image description allows 180. URL fields allow 2,048 characters.
+
+Text edits update the preview as the user types. The screenshot changes when its field value is committed, rather than loading each partial URL. Existing images remain in place during other text edits. Screenshot links must use HTTPS. Images fit inside the frame without cropping; a failed image becomes a clear message. If no screenshot is present, a clay poster shows the project name. Empty preview fields use clear prompts. Project and source links accept complete HTTP or HTTPS URLs without credentials and open in a new tab with an accessible label.
+
+Native disclosures group screenshot/source fields and longer build notes. Their summaries are at least 48px high; the plus rotates when open. Save draft uses the shared primary button with 12px by 22px padding. Its nearby status distinguishes saved and unsaved text. Leaving a dirty editor asks before discarding changes; closing or reloading uses the browser’s unsaved-change prompt. A failed save keeps both the current form text and the previous saved draft. Editing a seeded project creates a local override; the public snapshot stays unchanged.
+
+Feature and Featured controls use an explicit pressed state. Selected controls have accent text and border on a raised surface. The profile draft holds up to six projects, with a visible position and count. Move earlier and Move later are labeled with the project name and disabled at their limits. After a feature or reorder change, focus returns to an enabled replacement control in the active panel, or to an edit action or section heading. Unfeature removes only the selection. An empty draft has a direct link back to project selection.
+
+Export draft downloads sidework-profile-draft.json with the selected projects and stories in their saved order, a private-draft marker, version, and the prototype handle @mager. It excludes unselected projects and weekly plans. The export is a local copy, not a published profile; no restore flow is implemented. GitHub imports preserve saved stories and profile order.
 
 ### Invite and repository import
 

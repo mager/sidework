@@ -20,7 +20,15 @@ The deployed preview is https://sidework-ten.vercel.app. The originally requeste
 
 After entering the site, people can open /onboarding/, supply a GitHub handle, and read all pages of that handle’s public owned repositories. Forks and archived repositories are included by default and can be filtered out. People can search, select matching results in bulk, clear the selection, or choose individual repositories. Existing seed and local projects are excluded from duplicate imports.
 
-Selected repositories become drafts in the current browser’s workbench. Imports preserve repository links, descriptions, and primary language; a safe repository homepage becomes the project link when present. The importer keeps existing drafts and plans. It supports up to 5,000 local project drafts, subject to browser storage limits. GitHub request limits, missing handles, cancellation, and storage failures are reported. Publishing, private repositories, OAuth, and account ownership checks are not connected.
+Selected repositories become drafts in the current browser’s workbench. Imports preserve repository links, descriptions, and primary language; a safe repository homepage becomes the project link when present. The importer keeps existing stories, profile-draft order, and plans. It supports up to 5,000 local project drafts, subject to browser storage limits. GitHub request limits, missing handles, cancellation, and storage failures are reported. Publishing, private repositories, OAuth, and account ownership checks are not connected.
+
+## Project stories and profile draft
+
+The workbench can create and edit local project stories. Each story can include a short tagline, description, stage, stack, HTTPS screenshot with descriptive text, source link, reason for building, and lessons learned. A live preview shows the story while it is edited. Edits to seeded projects are local overrides and do not change the public @mager snapshot. Save failures retain unsaved form text and the last saved draft.
+
+People can feature up to six projects, change their order with labeled earlier/later buttons, and inspect an asymmetric private profile draft. The initial selection uses the four seeded projects. Feature changes and order stay in this browser. Bulk GitHub imports preserve this order and existing story fields.
+
+Export draft downloads a private JSON copy of only the selected projects and stories in order. Its prototype handle remains @mager. It excludes unselected projects and plans. There is no restore flow, public publishing action, or account-specific profile service.
 
 ## Evidence on hand
 

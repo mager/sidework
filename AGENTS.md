@@ -6,6 +6,7 @@ Sidework is an Astro server-rendered prototype with a public @mager profile and 
 - Display people with @handles in headings, navigation, account details, and exports. Keep repository owner/name identifiers and URLs unchanged.
 - Use real source evidence. Do not invent users, follower counts, stars, testimonials, merged states, or learning outcomes.
 - Keep public profile snapshots separate from browser-local drafts and weekly plans.
+- Project stories and featured order are browser-local. Profile draft exports are private backups, not publishing. Preserve authored fields and selected order when importing repositories.
 - Preserve explicit draft/merged/open/closed states and check dates.
 - Do not introduce GitHub tokens into browser code. Public API refresh may fail; retain the snapshot.
 - Use safe HTTP(S) URLs and text nodes for user or API data.

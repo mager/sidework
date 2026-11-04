@@ -18,7 +18,7 @@ npm run dev
 - `/onboarding/`: search and bulk import of all public repositories owned by a GitHub handle.
 - `/mager/`: public profile, available without an invite, personal projects, and six recent pull requests.
 - `/`: people-first discovery with real software previews and a local saved collection.
-- `/workbench/`: workbench with projects, searchable contribution history, discovery, and a four-project weekly plan.
+- `/workbench/`: project story editor, private profile draft, searchable contribution history, discovery, and a four-project weekly plan.
 - `npm test`: state, URL safety, contribution normalization, saved collection, and follow checks.
 - `npm run build`: Vercel server output in `.vercel/output/`.
 
@@ -30,7 +30,8 @@ The public studio places the maker at the center, with software previews around 
 - Contribution search and status filters, with source links and dated evidence.
 - Skill filters for four curated contribution opportunities.
 - Saved opportunities and planned / in progress / submitted states.
-- Local project drafts with safe HTTP(S) links.
+- Local project stories with a tagline, description, stage, screenshot, source links, and optional notes about purpose and learning.
+- Live project preview, up to six featured projects, accessible ordering controls, and JSON export of the selected profile draft.
 - Public GitHub refresh for @mager’s repositories and recent pull requests, with loading, timeout, and rate-limit recovery.
 - Markdown export of the public work record.
 - Responsive layouts, keyboard navigation, and light/dark themes.
@@ -61,11 +62,17 @@ The three active Latin WOFF2 subsets are self-hosted. They are self-hosted with 
 
 1. Add a GitHub App with explicit repository selection and server-side synchronization.
 2. Add accounts, profile ownership, and an explicit publish workflow.
-3. Let developers explain a project or contribution in their own words.
+3. Extend authored stories to contributions, with source evidence and clear credit.
 4. Add follows, project updates, and opportunity recommendations based on stated learning goals.
 5. Add other source providers behind the same contribution model.
 
 Keep project ownership separate from upstream contribution credit. Keep activity separate from learning and impact. Never rank people by raw commit counts.
+
+## Project stories and profile drafts
+
+Open My projects, then Edit story. Changes to a curated project create a local copy; they do not change the committed public profile. The editor previews safe text, HTTPS screenshots, and project links. It warns before discarding unsaved changes and retains the form when browser storage rejects a save.
+
+Feature up to six projects, then open Profile draft to change their order. Export draft downloads the selected stories as `sidework-profile-draft.json`, marked `private-draft`. This is a backup export; JSON restore and public publishing are not connected. Imports preserve existing stories, featured order, and weekly plans. Local drafts remain tied to this browser and origin.
 
 ## License
 
