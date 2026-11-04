@@ -1,0 +1,12 @@
+---
+interface Props { homepage?: boolean; themeToggle?: boolean; }
+---
+<header class="sw-global-header"><a href="/mager/">A home for the things you build.</a><nav aria-label="Site navigation"><a href="/mager/">@mager’s profile</a><a href="/workbench/">Workbench</a><button type="button" id="theme-toggle" aria-label="Switch color theme">Light / dark</button><a href="https://github.com/mager/sidework">GitHub</a></nav></header>
+<script>
+  const button = document.querySelector('#theme-toggle');
+  button?.addEventListener('click', () => {
+    const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = theme;
+    try { localStorage.setItem('sidework-theme', theme); } catch {}
+  });
+</script>

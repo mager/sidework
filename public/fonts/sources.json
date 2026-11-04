@@ -1,0 +1,20 @@
+[
+  {
+    "family": "Anybody",
+    "source": "https://fonts.gstatic.com/s/anybody/v13/VuJxdNvK2Ib2ppdWSKHdOaNkaRs.woff2",
+    "license": "https://raw.githubusercontent.com/google/fonts/main/ofl/anybody/OFL.txt",
+    "bytes": 56860
+  },
+  {
+    "family": "Hanken Grotesk",
+    "source": "https://fonts.gstatic.com/s/hankengrotesk/v12/ieVn2YZDLWuGJpnzaiwFXS9tYtpd59CxCis4.woff2",
+    "license": "https://raw.githubusercontent.com/google/fonts/main/ofl/hankengrotesk/OFL.txt",
+    "bytes": 34664
+  },
+  {
+    "family": "Martian Mono",
+    "source": "https://fonts.gstatic.com/s/martianmono/v6/2V0PKIcADoYhV6w87xrTKjs4CYElh_VS9YA4TjPnaTq9wXulPFk.woff2",
+    "license": "https://raw.githubusercontent.com/google/fonts/main/ofl/martianmono/OFL.txt",
+    "bytes": 23524
+  }
+]

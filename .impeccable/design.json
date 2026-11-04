@@ -1,0 +1,540 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-04T21:38:22.525Z",
+  "title": "Design System: Sidework",
+  "extensions": {
+    "colorMeta": {
+      "moss-ground": {
+        "role": "neutral",
+        "displayName": "Moss Ground",
+        "tonalRamp": [
+          "oklch(15% 0.0077 145.25)",
+          "oklch(26% 0.0077 145.25)",
+          "oklch(38% 0.0077 145.25)",
+          "oklch(49% 0.0077 145.25)",
+          "oklch(61% 0.0077 145.25)",
+          "oklch(72% 0.0077 145.25)",
+          "oklch(84% 0.0077 145.25)",
+          "oklch(95% 0.0077 145.25)"
+        ]
+      },
+      "moss-surface": {
+        "role": "neutral",
+        "displayName": "Moss Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0122 145.15)",
+          "oklch(26% 0.0122 145.15)",
+          "oklch(38% 0.0122 145.15)",
+          "oklch(49% 0.0122 145.15)",
+          "oklch(61% 0.0122 145.15)",
+          "oklch(72% 0.0122 145.15)",
+          "oklch(84% 0.0122 145.15)",
+          "oklch(95% 0.0122 145.15)"
+        ]
+      },
+      "moss-raised": {
+        "role": "neutral",
+        "displayName": "Moss Raised",
+        "tonalRamp": [
+          "oklch(15% 0.0164 145.07)",
+          "oklch(26% 0.0164 145.07)",
+          "oklch(38% 0.0164 145.07)",
+          "oklch(49% 0.0164 145.07)",
+          "oklch(61% 0.0164 145.07)",
+          "oklch(72% 0.0164 145.07)",
+          "oklch(84% 0.0164 145.07)",
+          "oklch(95% 0.0164 145.07)"
+        ]
+      },
+      "chalk-text": {
+        "role": "neutral",
+        "displayName": "Chalk Text",
+        "tonalRamp": [
+          "oklch(15% 0.0111 123.46)",
+          "oklch(26% 0.0111 123.46)",
+          "oklch(38% 0.0111 123.46)",
+          "oklch(49% 0.0111 123.46)",
+          "oklch(61% 0.0111 123.46)",
+          "oklch(72% 0.0111 123.46)",
+          "oklch(84% 0.0111 123.46)",
+          "oklch(95% 0.0111 123.46)"
+        ]
+      },
+      "sage-muted": {
+        "role": "neutral",
+        "displayName": "Sage Muted",
+        "tonalRamp": [
+          "oklch(15% 0.0228 136.62)",
+          "oklch(26% 0.0228 136.62)",
+          "oklch(38% 0.0228 136.62)",
+          "oklch(49% 0.0228 136.62)",
+          "oklch(61% 0.0228 136.62)",
+          "oklch(72% 0.0228 136.62)",
+          "oklch(84% 0.0228 136.62)",
+          "oklch(95% 0.0228 136.62)"
+        ]
+      },
+      "moss-border": {
+        "role": "neutral",
+        "displayName": "Moss Border",
+        "tonalRamp": [
+          "oklch(15% 0.0211 142.37)",
+          "oklch(26% 0.0211 142.37)",
+          "oklch(38% 0.0211 142.37)",
+          "oklch(49% 0.0211 142.37)",
+          "oklch(61% 0.0211 142.37)",
+          "oklch(72% 0.0211 142.37)",
+          "oklch(84% 0.0211 142.37)",
+          "oklch(95% 0.0211 142.37)"
+        ]
+      },
+      "lime-accent": {
+        "role": "primary",
+        "displayName": "Lime Accent",
+        "tonalRamp": [
+          "oklch(15% 0.1143 135.03)",
+          "oklch(26% 0.1143 135.03)",
+          "oklch(38% 0.1143 135.03)",
+          "oklch(49% 0.1143 135.03)",
+          "oklch(61% 0.1143 135.03)",
+          "oklch(72% 0.1143 135.03)",
+          "oklch(84% 0.1143 135.03)",
+          "oklch(95% 0.1143 135.03)"
+        ]
+      },
+      "lime-ink": {
+        "role": "primary",
+        "displayName": "Lime Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0396 137.80)",
+          "oklch(26% 0.0396 137.80)",
+          "oklch(38% 0.0396 137.80)",
+          "oklch(49% 0.0396 137.80)",
+          "oklch(61% 0.0396 137.80)",
+          "oklch(72% 0.0396 137.80)",
+          "oklch(84% 0.0396 137.80)",
+          "oklch(95% 0.0396 137.80)"
+        ]
+      },
+      "warm-state": {
+        "role": "secondary",
+        "displayName": "Warm State",
+        "tonalRamp": [
+          "oklch(15% 0.0579 86.04)",
+          "oklch(26% 0.0579 86.04)",
+          "oklch(38% 0.0579 86.04)",
+          "oklch(49% 0.0579 86.04)",
+          "oklch(61% 0.0579 86.04)",
+          "oklch(72% 0.0579 86.04)",
+          "oklch(84% 0.0579 86.04)",
+          "oklch(95% 0.0579 86.04)"
+        ]
+      },
+      "blue-state": {
+        "role": "secondary",
+        "displayName": "Blue State",
+        "tonalRamp": [
+          "oklch(15% 0.0408 248.32)",
+          "oklch(26% 0.0408 248.32)",
+          "oklch(38% 0.0408 248.32)",
+          "oklch(49% 0.0408 248.32)",
+          "oklch(61% 0.0408 248.32)",
+          "oklch(72% 0.0408 248.32)",
+          "oklch(84% 0.0408 248.32)",
+          "oklch(95% 0.0408 248.32)"
+        ]
+      },
+      "clay-poster": {
+        "role": "secondary",
+        "displayName": "Clay Poster",
+        "tonalRamp": [
+          "oklch(15% 0.0670 61.53)",
+          "oklch(26% 0.0670 61.53)",
+          "oklch(38% 0.0670 61.53)",
+          "oklch(49% 0.0670 61.53)",
+          "oklch(61% 0.0670 61.53)",
+          "oklch(72% 0.0670 61.53)",
+          "oklch(84% 0.0670 61.53)",
+          "oklch(95% 0.0670 61.53)"
+        ]
+      },
+      "clay-ink": {
+        "role": "secondary",
+        "displayName": "Clay Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0130 51.59)",
+          "oklch(26% 0.0130 51.59)",
+          "oklch(38% 0.0130 51.59)",
+          "oklch(49% 0.0130 51.59)",
+          "oklch(61% 0.0130 51.59)",
+          "oklch(72% 0.0130 51.59)",
+          "oklch(84% 0.0130 51.59)",
+          "oklch(95% 0.0130 51.59)"
+        ]
+      },
+      "light-ground": {
+        "role": "neutral",
+        "displayName": "Light Ground",
+        "tonalRamp": [
+          "oklch(15% 0.0080 114.22)",
+          "oklch(26% 0.0080 114.22)",
+          "oklch(38% 0.0080 114.22)",
+          "oklch(49% 0.0080 114.22)",
+          "oklch(61% 0.0080 114.22)",
+          "oklch(72% 0.0080 114.22)",
+          "oklch(84% 0.0080 114.22)",
+          "oklch(95% 0.0080 114.22)"
+        ]
+      },
+      "light-surface": {
+        "role": "neutral",
+        "displayName": "Light Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0067 97.35)",
+          "oklch(26% 0.0067 97.35)",
+          "oklch(38% 0.0067 97.35)",
+          "oklch(49% 0.0067 97.35)",
+          "oklch(61% 0.0067 97.35)",
+          "oklch(72% 0.0067 97.35)",
+          "oklch(84% 0.0067 97.35)",
+          "oklch(95% 0.0067 97.35)"
+        ]
+      },
+      "light-raised": {
+        "role": "neutral",
+        "displayName": "Light Raised",
+        "tonalRamp": [
+          "oklch(15% 0.0143 128.63)",
+          "oklch(26% 0.0143 128.63)",
+          "oklch(38% 0.0143 128.63)",
+          "oklch(49% 0.0143 128.63)",
+          "oklch(61% 0.0143 128.63)",
+          "oklch(72% 0.0143 128.63)",
+          "oklch(84% 0.0143 128.63)",
+          "oklch(95% 0.0143 128.63)"
+        ]
+      },
+      "light-text": {
+        "role": "neutral",
+        "displayName": "Light Text",
+        "tonalRamp": [
+          "oklch(15% 0.0269 142.64)",
+          "oklch(26% 0.0269 142.64)",
+          "oklch(38% 0.0269 142.64)",
+          "oklch(49% 0.0269 142.64)",
+          "oklch(61% 0.0269 142.64)",
+          "oklch(72% 0.0269 142.64)",
+          "oklch(84% 0.0269 142.64)",
+          "oklch(95% 0.0269 142.64)"
+        ]
+      },
+      "light-muted": {
+        "role": "neutral",
+        "displayName": "Light Muted",
+        "tonalRamp": [
+          "oklch(15% 0.0345 137.48)",
+          "oklch(26% 0.0345 137.48)",
+          "oklch(38% 0.0345 137.48)",
+          "oklch(49% 0.0345 137.48)",
+          "oklch(61% 0.0345 137.48)",
+          "oklch(72% 0.0345 137.48)",
+          "oklch(84% 0.0345 137.48)",
+          "oklch(95% 0.0345 137.48)"
+        ]
+      },
+      "light-border": {
+        "role": "neutral",
+        "displayName": "Light Border",
+        "tonalRamp": [
+          "oklch(15% 0.0220 130.04)",
+          "oklch(26% 0.0220 130.04)",
+          "oklch(38% 0.0220 130.04)",
+          "oklch(49% 0.0220 130.04)",
+          "oklch(61% 0.0220 130.04)",
+          "oklch(72% 0.0220 130.04)",
+          "oklch(84% 0.0220 130.04)",
+          "oklch(95% 0.0220 130.04)"
+        ]
+      },
+      "light-accent": {
+        "role": "primary",
+        "displayName": "Light Accent",
+        "tonalRamp": [
+          "oklch(15% 0.1163 139.45)",
+          "oklch(26% 0.1163 139.45)",
+          "oklch(38% 0.1163 139.45)",
+          "oklch(49% 0.1163 139.45)",
+          "oklch(61% 0.1163 139.45)",
+          "oklch(72% 0.1163 139.45)",
+          "oklch(84% 0.1163 139.45)",
+          "oklch(95% 0.1163 139.45)"
+        ]
+      },
+      "light-accent-ink": {
+        "role": "primary",
+        "displayName": "Light Accent Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0000 89.88)",
+          "oklch(26% 0.0000 89.88)",
+          "oklch(38% 0.0000 89.88)",
+          "oklch(49% 0.0000 89.88)",
+          "oklch(61% 0.0000 89.88)",
+          "oklch(72% 0.0000 89.88)",
+          "oklch(84% 0.0000 89.88)",
+          "oklch(95% 0.0000 89.88)"
+        ]
+      },
+      "light-warm": {
+        "role": "secondary",
+        "displayName": "Light Warm",
+        "tonalRamp": [
+          "oklch(15% 0.0776 81.37)",
+          "oklch(26% 0.0776 81.37)",
+          "oklch(38% 0.0776 81.37)",
+          "oklch(49% 0.0776 81.37)",
+          "oklch(61% 0.0776 81.37)",
+          "oklch(72% 0.0776 81.37)",
+          "oklch(84% 0.0776 81.37)",
+          "oklch(95% 0.0776 81.37)"
+        ]
+      },
+      "light-blue": {
+        "role": "secondary",
+        "displayName": "Light Blue",
+        "tonalRamp": [
+          "oklch(15% 0.0804 247.25)",
+          "oklch(26% 0.0804 247.25)",
+          "oklch(38% 0.0804 247.25)",
+          "oklch(49% 0.0804 247.25)",
+          "oklch(61% 0.0804 247.25)",
+          "oklch(72% 0.0804 247.25)",
+          "oklch(84% 0.0804 247.25)",
+          "oklch(95% 0.0804 247.25)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Public display",
+        "purpose": "Desktop public opening; compressed to 90% width."
+      },
+      "headline": {
+        "displayName": "Project headline",
+        "purpose": "Project titles; compressed to 90% width."
+      },
+      "body": {
+        "displayName": "Reading text",
+        "purpose": "Descriptions, navigation, and forms."
+      },
+      "caption": {
+        "displayName": "Project purpose",
+        "purpose": "Short purpose beneath a software preview."
+      },
+      "label": {
+        "displayName": "Source metadata",
+        "purpose": "Repositories, stack details, and evidence at 87.5% width."
+      },
+      "workbench-title": {
+        "displayName": "Workbench title",
+        "purpose": "Compact utility heading at 88% width."
+      }
+    },
+    "shadows": [
+      {
+        "name": "lead-preview",
+        "value": "0 32px 70px #0005",
+        "purpose": "The main floating software screenshot."
+      },
+      {
+        "name": "secondary-preview",
+        "value": "0 25px 55px #0004",
+        "purpose": "The smaller desktop screenshot."
+      },
+      {
+        "name": "project-preview",
+        "value": "0 25px 65px #0003",
+        "purpose": "Project screenshots in the open field."
+      },
+      {
+        "name": "preview-action",
+        "value": "0 8px 25px #0003",
+        "purpose": "Desktop Open action over a screenshot."
+      },
+      {
+        "name": "dock",
+        "value": "0 15px 40px #0004",
+        "purpose": "Fixed public navigation."
+      },
+      {
+        "name": "saved-collection",
+        "value": "0 24px 65px #0005",
+        "purpose": "Saved projects popover."
+      },
+      {
+        "name": "feedback",
+        "value": "0 12px 30px #0005",
+        "purpose": "Polite status message above the dock."
+      }
+    ],
+    "motion": [
+      {
+        "name": "preview-settle",
+        "value": "rotate .5s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1)",
+        "purpose": "Lead preview hover and keyboard focus."
+      },
+      {
+        "name": "project-settle",
+        "value": "rotate .55s cubic-bezier(.16,1,.3,1)",
+        "purpose": "Project preview hover and keyboard focus."
+      },
+      {
+        "name": "utility-state",
+        "value": "background 160ms ease, border-color 160ms ease",
+        "purpose": "Workbench button state changes."
+      },
+      {
+        "name": "details-height",
+        "value": "block-size .4s, content-visibility .4s; transition-behavior: allow-discrete",
+        "purpose": "Native project disclosure where supported."
+      },
+      {
+        "name": "collection-entry",
+        "value": "opacity .2s, translate .25s, display .25s allow-discrete, overlay .25s allow-discrete",
+        "purpose": "Saved collection enters from 10px below."
+      },
+      {
+        "name": "scroll-preview",
+        "value": "animation-timeline: view(); animation-range: entry 0% cover 45%; perspective(1600px) rotateX(5deg) scale(.985) to perspective(1600px) rotateX(0) scale(1)",
+        "purpose": "Optional scroll depth with no-preference motion only."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "transition: none !important; animation: none !important; scroll-behavior: auto",
+        "purpose": "Remove animations and smooth scrolling; preview transforms and turns are also reset."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "caption-container-max",
+        "value": "520px"
+      },
+      {
+        "name": "studio-mobile-max",
+        "value": "650px"
+      },
+      {
+        "name": "workbench-mobile-max",
+        "value": "700px"
+      },
+      {
+        "name": "workbench-context-hidden-max",
+        "value": "960px"
+      },
+      {
+        "name": "studio-intermediate-max",
+        "value": "1000px"
+      },
+      {
+        "name": "studio-centered-maker-min",
+        "value": "1001px"
+      },
+      {
+        "name": "workbench-compact-max",
+        "value": "1180px"
+      },
+      {
+        "name": "workbench-wide-min",
+        "value": "1440px"
+      },
+      {
+        "name": "studio-wide-min",
+        "value": "1600px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary workbench button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Filled action for saving a local project or refreshing data.",
+      "html": "<button class=\"ds-primary\">Save project</button>",
+      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;border:1px solid var(--sw-border,#30392f);border-radius:6px;padding:9px 13px;font:500 .75rem/1.5 var(--sw-font,'Hanken Grotesk', 'Segoe UI', sans-serif);cursor:pointer;transition:background 160ms ease,border-color 160ms ease;background:var(--sw-accent,#b9eb9e);color:var(--sw-accent-ink,#172512);border-color:var(--sw-accent,#b9eb9e)}.ds-primary:hover{background:color-mix(in srgb,var(--sw-accent,#b9eb9e) 85%,var(--sw-bg,#101310))}.ds-primary:disabled{opacity:.6;cursor:wait}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}"
+    },
+    {
+      "name": "Workbench search",
+      "kind": "input",
+      "refersTo": "search-field",
+      "description": "Search field with a focus outline around its whole group.",
+      "html": "<label class=\"ds-search\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\"/><path d=\"m16 16 4 4\"/></svg><input type=\"search\" aria-label=\"Search projects\" placeholder=\"Find a project or technology…\"></label>",
+      "css": ".ds-search{display:flex;align-items:center;gap:10px;border:1px solid var(--sw-border,#30392f);background:var(--sw-surface,#171c17);border-radius:6px;padding:0 13px;color:var(--sw-muted,#a3ad9f)}.ds-search input{width:100%;min-width:0;min-height:44px;background:none;border:0;color:var(--sw-text,#eef1e9);font:1rem/1.6 var(--sw-font,'Hanken Grotesk', 'Segoe UI', sans-serif);caret-color:var(--sw-accent,#b9eb9e)}.ds-search input::placeholder{color:var(--sw-muted,#a3ad9f);opacity:1}.ds-search:focus-within{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:2px}.ds-search input:focus{outline:none}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}"
+    },
+    {
+      "name": "Skill filter chip",
+      "kind": "chip",
+      "refersTo": "filter-chip",
+      "description": "Workbench skill filter; the selected state remains visible.",
+      "html": "<button class=\"ds-chip\" aria-pressed=\"true\">All skills</button>",
+      "css": ".ds-chip{padding:9px 13px;min-height:42px;border:1px solid var(--sw-border,#30392f);border-radius:6px;color:var(--sw-muted,#a3ad9f);background:transparent;font:.75rem/1.6 var(--sw-font,'Hanken Grotesk', 'Segoe UI', sans-serif);cursor:pointer}.ds-chip[aria-pressed=true]{color:var(--sw-accent,#b9eb9e);background:var(--sw-raised,#1e251e);border-color:var(--sw-accent,#b9eb9e)}.ds-chip:hover{color:var(--sw-text,#eef1e9);background:var(--sw-surface,#171c17)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}"
+    },
+    {
+      "name": "Workbench feature copy",
+      "kind": "card",
+      "refersTo": "workbench-feature",
+      "description": "The contained copy area of a workbench feature; screenshots remain source assets.",
+      "html": "<article class=\"ds-card\"><h3>Homeport</h3><p>A home for coding work that keeps going when you close your laptop.</p><a href=\"https://github.com/mager/homeport\">View source ↗</a></article>",
+      "css": ".ds-card{overflow:hidden;border:1px solid var(--sw-border,#30392f);border-radius:var(--sw-radius,10px);background:var(--sw-surface,#171c17);color:var(--sw-text,#eef1e9);padding:20px;font-family:var(--sw-font,'Hanken Grotesk', 'Segoe UI', sans-serif)}.ds-card h3{margin:8px 0 0;font-size:1.5625rem;font-weight:500;line-height:1.22;letter-spacing:-.03em}.ds-card p{margin:10px 0 0;color:var(--sw-muted,#a3ad9f);font-size:.9375rem;line-height:1.7}.ds-card a{display:inline-flex;align-items:center;min-height:36px;margin-top:14px;color:var(--sw-text,#eef1e9);font-size:.75rem;text-decoration:none}.ds-card a:hover{color:var(--sw-accent,#b9eb9e)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}"
+    },
+    {
+      "name": "Public navigation dock",
+      "kind": "nav",
+      "refersTo": "studio-dock",
+      "description": "Floating public navigation; shown here in normal flow for inspection.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Explore Sidework\"><a href=\"/\" aria-current=\"page\">Explore</a><a href=\"/mager/\">@mager</a><a href=\"/workbench/\">Workbench</a></nav>",
+      "css": ".ds-nav{display:inline-flex;align-items:center;gap:5px;padding:7px;border:1px solid color-mix(in srgb,var(--sw-text,#eef1e9) 17%,transparent);border-radius:50px;background:color-mix(in srgb,var(--sw-bg,#101310) 84%,transparent);backdrop-filter:blur(24px);box-shadow:0 15px 40px #0004}.ds-nav a{display:flex;align-items:center;justify-content:center;min-height:46px;padding:10px 16px;border-radius:30px;font:500 .8125rem/1 var(--sw-font,'Hanken Grotesk', 'Segoe UI', sans-serif);color:var(--sw-muted,#a3ad9f);text-decoration:none;white-space:nowrap}.ds-nav a[aria-current],.ds-nav a:hover{color:var(--sw-text,#eef1e9);background:var(--sw-raised,#1e251e)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "An open studio",
+    "overview": "Sidework is an open studio of people and personal software. Large, compressed lettering and real software previews share a dark moss ground. The maker leads. Project previews change size and position instead of forming a regular public grid.\n\nThe same fonts and colors support a denser workbench. Its panels, forms, and evidence rows help people plan work. Public pages keep more open space. Both surfaces use clear @handles, direct source links, and plain descriptions.",
+    "keyCharacteristics": [
+      "People and @handles lead the public experience.",
+      "Real screenshots retain their source colors.",
+      "Variable display type gives identity; plain body type supports reading.",
+      "Public previews use depth; the workbench uses quiet borders and tonal layers.",
+      "Keyboard access and reduced motion remain part of each interaction."
+    ],
+    "rules": [
+      {
+        "name": "People First",
+        "body": "Use @handles for personal identity. Keep project names and repository owner/name identifiers intact.",
+        "section": "typography"
+      },
+      {
+        "name": "Source Color",
+        "body": "Keep real software screenshots in their original colors. Do not tint them to match the interface.",
+        "section": "colors"
+      },
+      {
+        "name": "Useful Depth",
+        "body": "Use perspective and shadows on software previews and floating controls. Keep reading text on a still plane.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use the self-hosted Anybody, Hanken Grotesk, and Martian Mono files.",
+      "Do place people before their projects on public discovery pages.",
+      "Do vary public preview scale and alignment while keeping the reading order clear.",
+      "Do show source links, state labels, and check dates with contribution claims.",
+      "Do state that saves, follows, project drafts, and plans stay in this browser.",
+      "Do keep keyboard focus visible and respect reduced motion."
+    ],
+    "donts": [
+      "Don't turn public discovery or maker profiles into regular card grids or dashboard columns.",
+      "Don't invent people, follower counts, activity totals, testimonials, or live app sessions.",
+      "Don't imply that a local draft publishes to the public profile.",
+      "Don't extend public display sizes to workbench forms and evidence rows.",
+      "Don't recolor the supplied portrait or historical screenshots."
+    ]
+  }
+}

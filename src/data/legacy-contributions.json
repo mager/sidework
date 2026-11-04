@@ -1,0 +1,302 @@
+[
+  {
+    "id": "pbakaus-impeccable-998",
+    "repository": "pbakaus/impeccable",
+    "title": "Add advisory detection for hard offset shadows",
+    "url": "https://github.com/pbakaus/impeccable/pull/998",
+    "number": 998,
+    "status": "open",
+    "date": "2026-10-09T01:06:29Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "pbakaus-impeccable-996",
+    "repository": "pbakaus/impeccable",
+    "title": "Fix Firefox extension scanner startup",
+    "url": "https://github.com/pbakaus/impeccable/pull/996",
+    "number": 996,
+    "status": "merged",
+    "date": "2026-10-09T00:47:50Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "block-buzz-2875",
+    "repository": "block/buzz",
+    "title": "docs(buzz-acp): correct agent key generation instructions",
+    "url": "https://github.com/block/buzz/pull/2875",
+    "number": 2875,
+    "status": "merged",
+    "date": "2026-07-25T18:46:10Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "openclaw-openclaw-46653",
+    "repository": "openclaw/openclaw",
+    "title": "feat: add `openclaw tunnel` command for managed SSH port-forwarding",
+    "url": "https://github.com/openclaw/openclaw/pull/46653",
+    "number": 46653,
+    "status": "closed",
+    "date": "2026-03-14T23:36:34Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-48",
+    "repository": "uber/uber-direct-sdk",
+    "title": "Add sandbox environment support",
+    "url": "https://github.com/uber/uber-direct-sdk/pull/48",
+    "number": 48,
+    "status": "open",
+    "date": "2025-11-25T01:17:58Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-samples-16",
+    "repository": "uber/uber-direct-sdk-samples",
+    "title": "Add contract type to Create Org",
+    "url": "https://github.com/uber/uber-direct-sdk-samples/pull/16",
+    "number": 16,
+    "status": "merged",
+    "date": "2024-10-24T16:42:04Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-44",
+    "repository": "uber/uber-direct-sdk",
+    "title": "Org API: Add support for contract type",
+    "url": "https://github.com/uber/uber-direct-sdk/pull/44",
+    "number": 44,
+    "status": "merged",
+    "date": "2024-10-22T21:04:53Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-43",
+    "repository": "uber/uber-direct-sdk",
+    "title": "Update organizations YAML & add decentralized test",
+    "url": "https://github.com/uber/uber-direct-sdk/pull/43",
+    "number": 43,
+    "status": "merged",
+    "date": "2024-10-22T20:13:50Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-samples-7",
+    "repository": "uber/uber-direct-sdk-samples",
+    "title": "Improve developer experience for vanilla JS examples Part 2",
+    "url": "https://github.com/uber/uber-direct-sdk-samples/pull/7",
+    "number": 7,
+    "status": "merged",
+    "date": "2024-08-18T18:39:34Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-samples-6",
+    "repository": "uber/uber-direct-sdk-samples",
+    "title": "Improve developer experience for vanilla JS examples",
+    "url": "https://github.com/uber/uber-direct-sdk-samples/pull/6",
+    "number": 6,
+    "status": "merged",
+    "date": "2024-08-18T13:20:22Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-29",
+    "repository": "uber/uber-direct-sdk",
+    "title": "Update README",
+    "url": "https://github.com/uber/uber-direct-sdk/pull/29",
+    "number": 29,
+    "status": "merged",
+    "date": "2024-08-16T14:52:38Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-25",
+    "repository": "uber/uber-direct-sdk",
+    "title": "Improve exports and README",
+    "url": "https://github.com/uber/uber-direct-sdk/pull/25",
+    "number": 25,
+    "status": "merged",
+    "date": "2024-08-15T23:38:58Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-samples-5",
+    "repository": "uber/uber-direct-sdk-samples",
+    "title": "Remove dist from examples",
+    "url": "https://github.com/uber/uber-direct-sdk-samples/pull/5",
+    "number": 5,
+    "status": "merged",
+    "date": "2024-08-15T19:41:00Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-24",
+    "repository": "uber/uber-direct-sdk",
+    "title": "Fix package.json: Point to the compiled JavaScript file",
+    "url": "https://github.com/uber/uber-direct-sdk/pull/24",
+    "number": 24,
+    "status": "merged",
+    "date": "2024-08-15T18:50:33Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-22",
+    "repository": "uber/uber-direct-sdk",
+    "title": "Cleanup dist references",
+    "url": "https://github.com/uber/uber-direct-sdk/pull/22",
+    "number": 22,
+    "status": "merged",
+    "date": "2024-08-14T23:00:44Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-21",
+    "repository": "uber/uber-direct-sdk",
+    "title": "Fix build in package.json",
+    "url": "https://github.com/uber/uber-direct-sdk/pull/21",
+    "number": 21,
+    "status": "merged",
+    "date": "2024-08-14T22:55:44Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-17",
+    "repository": "uber/uber-direct-sdk",
+    "title": "Improve test commands, remove unused test",
+    "url": "https://github.com/uber/uber-direct-sdk/pull/17",
+    "number": 17,
+    "status": "merged",
+    "date": "2024-08-14T00:48:31Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-12",
+    "repository": "uber/uber-direct-sdk",
+    "title": "Consolidate getHeaders func, fix tests",
+    "url": "https://github.com/uber/uber-direct-sdk/pull/12",
+    "number": 12,
+    "status": "merged",
+    "date": "2024-07-25T14:18:51Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-11",
+    "repository": "uber/uber-direct-sdk",
+    "title": "Add back integration tests",
+    "url": "https://github.com/uber/uber-direct-sdk/pull/11",
+    "number": 11,
+    "status": "open",
+    "date": "2024-07-25T13:27:29Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-8",
+    "repository": "uber/uber-direct-sdk",
+    "title": "Add Github actions for unit & integration tests",
+    "url": "https://github.com/uber/uber-direct-sdk/pull/8",
+    "number": 8,
+    "status": "merged",
+    "date": "2024-07-10T14:45:46Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-7",
+    "repository": "uber/uber-direct-sdk",
+    "title": "Add user agent",
+    "url": "https://github.com/uber/uber-direct-sdk/pull/7",
+    "number": 7,
+    "status": "merged",
+    "date": "2024-07-09T14:29:35Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-6",
+    "repository": "uber/uber-direct-sdk",
+    "title": "Add support for customerID when creating deliveriesClient",
+    "url": "https://github.com/uber/uber-direct-sdk/pull/6",
+    "number": 6,
+    "status": "merged",
+    "date": "2024-05-31T20:19:18Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "uber-uber-direct-sdk-3",
+    "repository": "uber/uber-direct-sdk",
+    "title": "Add Gitignore",
+    "url": "https://github.com/uber/uber-direct-sdk/pull/3",
+    "number": 3,
+    "status": "merged",
+    "date": "2024-05-16T14:48:18Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "premint-premintbot-21",
+    "repository": "premint/premintbot",
+    "title": "Add more BQ fields: RoleAdded, ErrorMsg",
+    "url": "https://github.com/premint/premintbot/pull/21",
+    "number": 21,
+    "status": "merged",
+    "date": "2022-07-23T17:37:56Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "premint-premintbot-17",
+    "repository": "premint/premintbot",
+    "title": "Revert \"Disable BigQuery writes\"",
+    "url": "https://github.com/premint/premintbot/pull/17",
+    "number": 17,
+    "status": "merged",
+    "date": "2022-06-08T12:17:38Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "premint-premintbot-16",
+    "repository": "premint/premintbot",
+    "title": "Only grant role if user ID matches PREMINT Discord ID",
+    "url": "https://github.com/premint/premintbot/pull/16",
+    "number": 16,
+    "status": "merged",
+    "date": "2022-06-04T13:15:15Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "premint-premintbot-15",
+    "repository": "premint/premintbot",
+    "title": "Disable BigQuery writes",
+    "url": "https://github.com/premint/premintbot/pull/15",
+    "number": 15,
+    "status": "merged",
+    "date": "2022-05-29T21:40:49Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "premint-premintbot-14",
+    "repository": "premint/premintbot",
+    "title": "Log address in BQ, and don't lowercase it when calling PREMINT API",
+    "url": "https://github.com/premint/premintbot/pull/14",
+    "number": 14,
+    "status": "merged",
+    "date": "2022-05-28T20:12:25Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "premint-premintbot-11",
+    "repository": "premint/premintbot",
+    "title": "API Key & Role ID: Validate bad chars & better docs",
+    "url": "https://github.com/premint/premintbot/pull/11",
+    "number": 11,
+    "status": "merged",
+    "date": "2022-05-26T00:20:45Z",
+    "checkedAt": "2026-10-12"
+  },
+  {
+    "id": "premint-premintbot-9",
+    "repository": "premint/premintbot",
+    "title": "Rename Go module to github.com/premint/premintbot",
+    "url": "https://github.com/premint/premintbot/pull/9",
+    "number": 9,
+    "status": "merged",
+    "date": "2022-05-17T14:21:51Z",
+    "checkedAt": "2026-10-12"
+  }
+]

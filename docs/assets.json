@@ -1,0 +1,26 @@
+[
+  {
+    "asset": "public/images/mager.jpg",
+    "origin": "https://mager.co/images/mager.jpg",
+    "creator": "@hopperdraws",
+    "usage": "Existing @mager identity illustration, copied from magerblog. Source attribution is also embedded in the JPEG."
+  },
+  {
+    "asset": "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-04-homeport/terminal-workspace.jpg",
+    "origin": "https://mager.co/blog/2026-10-04-homeport/",
+    "creator": "@mager",
+    "usage": "Historical screenshot, referenced remotely without altering the source. Not a live app session."
+  },
+  {
+    "asset": "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-02-mood-shell/customize-ember.jpg",
+    "origin": "https://mager.co/blog/2026-10-02-mood-shell/",
+    "creator": "@mager",
+    "usage": "Historical screenshot, referenced remotely without altering the source. Not a live app session."
+  },
+  {
+    "asset": "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-04-perch/control-center-redacted-2026-10-11.jpg",
+    "origin": "https://mager.co/blog/2026-10-04-perch/",
+    "creator": "@mager",
+    "usage": "Historical screenshot, referenced remotely without altering the source. Not a live app session."
+  }
+]

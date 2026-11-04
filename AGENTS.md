@@ -1,0 +1,13 @@
+# Sidework
+
+Sidework is an Astro static prototype for developer profiles, personal software, upstream contributions, and opportunity discovery.
+
+- Read README.md and DESIGN.md before UI work.
+- Display people with @handles in headings, navigation, account details, and exports. Keep repository owner/name identifiers and URLs unchanged.
+- Use real source evidence. Do not invent users, follower counts, stars, testimonials, merged states, or learning outcomes.
+- Keep public profile snapshots separate from browser-local drafts and weekly plans.
+- Preserve explicit draft/merged/open/closed states and check dates.
+- Do not introduce GitHub tokens into browser code. Public API refresh may fail; retain the snapshot.
+- Use safe HTTP(S) URLs and text nodes for user or API data.
+- Run `npm test` and `npm run build` for behavioral changes. Check both mobile and desktop for UI changes.
+- No deployment is configured. Repository creation or a push is not a website deployment.

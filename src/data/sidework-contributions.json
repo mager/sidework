@@ -1,0 +1,62 @@
+[
+  {
+    "id": "mvanhorn-last30days-skill-1353",
+    "repository": "mvanhorn/last30days-skill",
+    "title": "fix: keep response instructions out of research evidence",
+    "url": "https://github.com/mvanhorn/last30days-skill/pull/1353",
+    "number": 1353,
+    "status": "merged",
+    "date": "2026-10-31T16:53:10Z",
+    "checkedAt": "2026-11-04"
+  },
+  {
+    "id": "mvanhorn-last30days-skill-1352",
+    "repository": "mvanhorn/last30days-skill",
+    "title": "fix: honor cookie refusal across automatic credential sources",
+    "url": "https://github.com/mvanhorn/last30days-skill/pull/1352",
+    "number": 1352,
+    "status": "merged",
+    "date": "2026-10-31T16:51:59Z",
+    "checkedAt": "2026-11-04"
+  },
+  {
+    "id": "pbakaus-impeccable-1213",
+    "repository": "pbakaus/impeccable",
+    "title": "Strengthen bolder workflow scope checks",
+    "url": "https://github.com/pbakaus/impeccable/pull/1213",
+    "number": 1213,
+    "status": "draft",
+    "date": "2026-10-28T21:07:09Z",
+    "checkedAt": "2026-11-04"
+  },
+  {
+    "id": "pbakaus-impeccable-1195",
+    "repository": "pbakaus/impeccable",
+    "title": "Fix DESIGN.md sidecar freshness with content fingerprints",
+    "url": "https://github.com/pbakaus/impeccable/pull/1195",
+    "number": 1195,
+    "status": "draft",
+    "date": "2026-10-26T23:40:39Z",
+    "checkedAt": "2026-11-04"
+  },
+  {
+    "id": "pbakaus-impeccable-1157",
+    "repository": "pbakaus/impeccable",
+    "title": "Add Copy all findings to the extension popup",
+    "url": "https://github.com/pbakaus/impeccable/pull/1157",
+    "number": 1157,
+    "status": "merged",
+    "date": "2026-10-23T20:35:41Z",
+    "checkedAt": "2026-11-04"
+  },
+  {
+    "id": "pbakaus-impeccable-1108",
+    "repository": "pbakaus/impeccable",
+    "title": "Preserve Tune values when reopening the panel",
+    "url": "https://github.com/pbakaus/impeccable/pull/1108",
+    "number": 1108,
+    "status": "merged",
+    "date": "2026-10-21T21:46:23Z",
+    "checkedAt": "2026-11-04"
+  }
+]

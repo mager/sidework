@@ -1,0 +1,124 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/SideworkIcon.astro';
+import { projects } from '../data/projects';
+import { contributions, opportunities } from '../data/sidework';
+import '../styles/sidework.css';
+
+const records = contributions.slice(0, 36);
+const seed = { projects, contributions: records, opportunities };
+const navigation = [
+  { id: 'overview', label: 'Workbench', icon: 'grid' },
+  { id: 'projects', label: 'My projects', icon: 'code' },
+  { id: 'contributions', label: 'Contributions', icon: 'branch' },
+  { id: 'discover', label: 'Discover', icon: 'compass' },
+  { id: 'plan', label: 'This week', icon: 'bookmark' },
+];
+---
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <BaseHead title="Sidework · @mager’s developer workbench" description="A prototype for sharing personal projects, tracking open source contributions, and finding useful work." image="/images/mager.jpg" defaultTheme="dark" />
+    <meta name="robots" content="noindex, nofollow" />
+  </head>
+  <body class="publication sidework">
+    <a class="skip-link" href="#main-content">Skip to workbench</a>
+    <Header homepage themeToggle />
+    <div class="sw-shell" id="sidework">
+      <aside class="sw-rail" aria-label="Sidework navigation">
+        <a href="/" class="sw-brand"><span class="sw-brand-mark" aria-hidden="true"><Icon name="branch" /></span>sidework<span class="sw-preview">preview</span></a>
+        <nav aria-label="Workbench views">{navigation.map(item => <a href={`#${item.id}`} data-view={item.id} aria-current={item.id === 'overview' ? 'page' : undefined}><Icon name={item.icon} /><span>{item.label}</span>{item.id === 'plan' && <span class="sw-nav-count" id="saved-count">0</span>}</a>)}</nav>
+        <div class="sw-rail-goal">
+          <p>Make room for<br /><strong>something useful.</strong></p>
+          <span>Four projects. One week.</span>
+          <a href="#discover" data-view="discover">Find your next contribution <Icon name="arrow" size={16} /></a>
+        </div>
+        <a class="sw-profile-mini" href="https://github.com/mager"><img src="/images/mager.jpg" width="34" height="34" alt="" /><span><strong>@mager</strong><small>Chicago</small></span><Icon name="external" size={14} /></a>
+      </aside>
+
+      <main id="main-content" class="sw-main">
+        <header class="sw-page-heading">
+          <div><h1>@mager’s workbench<span>.</span></h1><p>Personal software. Shared progress. Your next contribution.</p></div>
+          <a class="sw-button" href="/mager/">View profile <Icon name="external" size={15}/></a><button class="sw-button sw-primary" id="add-project" type="button"><Icon name="plus" size={17} />Add a project</button>
+        </header>
+        <div class="sw-source-line"><span class="sw-source-dot" aria-hidden="true"></span><span>GitHub snapshot · <time datetime="2026-11-04">Nov 4, 2026</time></span><a href="#connections" id="manage-github">Manage GitHub</a></div>
+        <p class="sw-notice" id="feedback" role="status" aria-live="polite" hidden></p>
+        <noscript><p class="sw-notice">All sections are shown below. Enable JavaScript to filter work, save a plan, or add a project.</p></noscript>
+
+        <section class="sw-editor" id="project-editor" aria-labelledby="editor-title" hidden>
+          <h2 id="editor-title">Add your project</h2><p>Tell people what it does. This preview saves your entry in this browser.</p>
+          <form id="project-form">
+            <div class="sw-form-grid"><label>Project name<input name="name" required maxlength="60" autocomplete="off" /></label><label>Project or demo URL<input name="url" type="url" required placeholder="https://example.com" /></label></div>
+            <label>What does it do?<textarea name="description" required maxlength="280" rows="2"></textarea></label>
+            <div class="sw-form-grid"><label>Built with<input name="stack" maxlength="80" placeholder="TypeScript · Astro" /></label><label>Source code URL <span>(optional)</span><input name="source" type="url" placeholder="https://github.com/you/project" /></label></div>
+            <div class="sw-form-actions"><button type="submit" class="sw-button sw-primary">Save project</button><button type="button" class="sw-button" id="cancel-project">Cancel</button></div>
+          </form>
+        </section>
+
+        <section class="sw-panel" id="overview" aria-labelledby="overview-title">
+          <div class="sw-section-heading"><h2 id="overview-title">Built here. Shared everywhere.</h2><a href="#projects" data-view="projects">All projects <Icon name="arrow" size={16} /></a></div>
+          <div class="sw-overview-grid">
+            <article class="sw-feature">
+              <a class="sw-feature-image" href="https://homeport-gamma.vercel.app/"><img src="https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-04-homeport/terminal-workspace.jpg" alt="Homeport’s browser workspace with coding conversations and a project sidebar" width="1536" height="1024" fetchpriority="high" /></a>
+              <div class="sw-feature-copy"><h3>Homeport</h3><p>A home for coding work that keeps going when you close your laptop.</p><div class="sw-feature-bottom"><span>Python / Pydantic / SQLite</span><a href="https://github.com/mager/homeport" aria-label="View Homeport source"><Icon name="external" size={18} /></a></div></div>
+            </article>
+            <div class="sw-mini-projects">
+              {projects.filter(p => p.id !== 'homeport').map(p => <a href={p.url} class={`sw-mini-project sw-${p.id}`}><span class="sw-project-monogram" aria-hidden="true">{p.name.slice(0,1)}</span><div><h3>{p.name}</h3><p>{p.kind}</p><small>{p.stack}</small></div><Icon name="external" size={15} /></a>)}
+              <a href="#projects" data-view="projects" class="sw-project-invite">The small tools count, too.<span>Give your next idea a home. <Icon name="arrow" size={15} /></span></a>
+            </div>
+          </div>
+          <div class="sw-section-heading sw-space-above"><h2>Contributions with a story</h2><a href="#contributions" data-view="contributions">View history <Icon name="arrow" size={16} /></a></div>
+          <div class="sw-recent-list" id="recent-list">{records.slice(0, 4).map(item => <article class="sw-contribution"><span class={`sw-status sw-status-${item.status}`}>{item.status}</span><div><a href={item.url}><h3>{item.title}</h3></a><p>{item.repository} <span>#{item.number}</span></p></div><a class="sw-evidence" href={item.url} aria-label={`View pull request ${item.number}`}><Icon name="external" size={16} /></a></article>)}</div>
+          <a href="#discover" data-view="discover" class="sw-discover-strip"><Icon name="compass" size={28} /><div><h3>Put what you know to work.</h3><p>Four opportunities, selected for your browser, tooling, and documentation experience.</p></div><Icon name="arrow" /></a>
+        </section>
+
+        <section class="sw-panel" id="projects" aria-labelledby="projects-title">
+          <div class="sw-section-heading"><div><h2 id="projects-title">My projects</h2><p>What it is, what it does, and where to try it.</p></div><span id="project-count" class="sw-count">{projects.length} projects</span></div>
+          <label class="sw-search"><Icon name="search" size={18} /><span class="sw-sr-only">Search projects</span><input id="project-search" type="search" placeholder="Find a project or technology…" /></label>
+          <div id="project-list" class="sw-project-list">{projects.map(p => <article class="sw-project-row"><span class={`sw-project-monogram sw-${p.id}`} aria-hidden="true">{p.name[0]}</span><div><h3><a href={p.url}>{p.name}</a></h3><p>{p.description}</p><small>{p.stack}</small></div><a class="sw-button" href={p.url}>Open project <Icon name="external" size={15} /></a></article>)}</div>
+          <p id="project-empty" class="sw-empty" hidden>No projects match. Try a name or technology from your list.</p>
+        </section>
+
+        <section class="sw-panel" id="contributions" aria-labelledby="contributions-title">
+          <div class="sw-section-heading"><div><h2 id="contributions-title">Contribution history</h2><p>The work behind the pull request. Each entry links to its source.</p></div><button type="button" class="sw-button" id="export-work"><Icon name="download" size={16} />Export work</button></div>
+          <div class="sw-filter-row"><label class="sw-search"><Icon name="search" size={18} /><span class="sw-sr-only">Search contributions</span><input id="contribution-search" type="search" placeholder="Search changes or repositories…" /></label><label class="sw-select-label"><span class="sw-sr-only">Contribution status</span><select id="contribution-status"><option value="all">All states</option><option value="merged">Merged</option><option value="open">Open</option><option value="draft">Draft</option><option value="closed">Closed</option></select></label></div>
+          <p class="sw-data-note" id="contribution-note">Six recent records checked Nov 4, 2026. Older records retain their Oct 12 snapshot. This is a selection, not a complete GitHub history.</p>
+          <div id="contribution-list">{records.map(item => <article class="sw-contribution"><span class={`sw-status sw-status-${item.status}`}>{item.status}</span><div><a href={item.url}><h3>{item.title}</h3></a><p>{item.repository} <span>#{item.number}</span></p><small>State checked {item.checkedAt}</small></div><a class="sw-evidence" href={item.url} aria-label={`View pull request ${item.number}`}><Icon name="external" size={16} /></a></article>)}</div>
+          <p id="contribution-empty" class="sw-empty" hidden>No contributions match these filters. Try another search or state.</p>
+          <button type="button" id="more-contributions" class="sw-button" hidden>Show more contributions</button>
+        </section>
+
+        <section class="sw-panel" id="discover" aria-labelledby="discover-title">
+          <div class="sw-section-heading"><div><h2 id="discover-title">Find your next contribution</h2><p>Start with a real issue. Leave with something you learned.</p></div></div>
+          <div class="sw-discovery-filters" aria-label="Filter opportunities by skill">{['All skills', 'Browser testing', 'Accessibility', 'Documentation', 'URL handling'].map((skill, i) => <button type="button" class="sw-chip" data-skill={i === 0 ? 'all' : skill} aria-pressed={i === 0}>{skill}</button>)}</div>
+          <p class="sw-data-note">Curated on Nov 4, 2026. Recheck each issue before starting. Saving an issue does not assign it to you.</p>
+          <div class="sw-opportunities">{opportunities.map(item => <article class="sw-opportunity" data-opportunity={item.id} data-skill-name={item.skill}><div class="sw-opportunity-top"><a href={`https://github.com/${item.repository}`} class="sw-repo-name">{item.repository}</a><span class="sw-type">{item.effort}</span></div><h3><a href={item.url}>{item.title}</a></h3><p>{item.description}</p><div class="sw-match"><Icon name="branch" size={16}/><span>{item.reason}</span></div><details><summary>Suggested first step</summary><p>{item.next}</p></details><div class="sw-opportunity-bottom"><span>{item.language} <span class="sw-dot">/</span> {item.availability}</span><button type="button" class="sw-button sw-save" data-save={item.id} aria-pressed="false"><Icon name="plus" size={15}/><span>Save to week</span></button></div></article>)}</div>
+        </section>
+
+        <section class="sw-panel" id="plan" aria-labelledby="plan-title">
+          <div class="sw-section-heading"><div><h2 id="plan-title">Four projects. One week.</h2><p>Plan, build, submit. Leave time for review.</p></div><a class="sw-button" href="#discover" data-view="discover"><Icon name="plus" size={16} />Find a project</a></div>
+          <div class="sw-plan-summary"><div><span id="week-label">Your next seven days</span><h3><span id="submitted-count">0</span> of 4 projects submitted</h3><p>Submission is self-reported. A merge stays in the maintainer’s hands.</p></div><div class="sw-goal-steps" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div>
+          <div id="plan-list"></div><div class="sw-empty" id="plan-empty"><Icon name="bookmark" size={30}/><h3>Keep a small, useful list.</h3><p>Save an opportunity from Discover. Track its first step here.</p><a href="#discover" data-view="discover" class="sw-button sw-primary">Explore opportunities</a></div>
+          <p class="sw-data-note">Your plan is stored in this browser. It is not posted to GitHub or visible to other people.</p>
+        </section>
+
+        <section class="sw-panel" id="connections" aria-labelledby="connections-title">
+          <h2 id="connections-title">Your GitHub record</h2><p class="sw-connection-intro">Refresh @mager’s public repositories and recent pull requests from GitHub. Your saved plan and local projects stay here.</p>
+          <div class="sw-connection"><img src="/images/mager.jpg" width="48" height="48" alt="" /><div><h3>@mager</h3><p>Public data only · No account permissions requested</p></div><button type="button" class="sw-button sw-primary" id="refresh-github"><Icon name="refresh" size={16}/><span>Refresh GitHub</span></button></div>
+          <p id="refresh-status" class="sw-data-note" role="status">The preview starts with a saved snapshot. Refresh needs an internet connection and is subject to GitHub’s public API limit.</p>
+          <div class="sw-connection-roadmap"><h3>What comes next</h3><p>A GitHub App can keep this record current, let you choose repositories, and support more developers. Profiles, follows, and shared project updates need accounts and a server; they are not connected in this prototype.</p></div>
+        </section>
+      </main>
+      <aside class="sw-context" aria-label="Your profile and weekly plan">
+        <div class="sw-profile"><img src="/images/mager.jpg" alt="@mager’s illustrated portrait" width="64" height="64" /><h2>@mager</h2><p>Building personal software.<br/>Contributing along the way.</p><a href="https://github.com/mager">@mager <Icon name="external" size={14}/></a><div class="sw-profile-tags"><span>Developer tools</span><span>Open source</span><span>Chicago</span></div></div>
+        <div class="sw-week-card"><div class="sw-section-heading"><h2>This week</h2><span>4 projects</span></div><p id="week-hint">Start with one useful fix.</p><div class="sw-week-slots" id="week-slots">{[1,2,3,4].map(n => <a href="#discover" data-view="discover"><span class="sw-slot-number">{n}</span><span>Choose a project</span><Icon name="plus" size={15}/></a>)}</div><a href="#plan" data-view="plan" class="sw-week-link">Open your plan <Icon name="arrow" size={16}/></a></div>
+        <div class="sw-local-note"><p>A working prototype, built around real work.</p><span>Project edits and saved plans stay in this browser.</span><button type="button" id="copy-profile">Copy profile link <Icon name="external" size={13}/></button></div>
+      </aside>
+    </div>
+    <Footer homepage />
+    <script id="sidework-seed" type="application/json" set:html={JSON.stringify(seed).replace(/</g, '\\u003c')} />
+    <script src="../scripts/sidework.ts"></script>
+  </body>
+</html>

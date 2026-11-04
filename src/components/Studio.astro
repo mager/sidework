@@ -1,0 +1,48 @@
+---
+import BaseHead from './BaseHead.astro';
+import Icon from './SideworkIcon.astro';
+import {projects} from '../data/projects';
+import contributions from '../data/sidework-contributions.json';
+import '../styles/sidework.css';
+import '../styles/studio.css';
+const {profile = false} = Astro.props;
+const ordered = ['homeport','moodsh','perch','prxps'].map(id => projects.find(p => p.id === id)!);
+const pictures: Record<string,{url:string;alt:string}> = {
+ homeport: {url:'https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-04-homeport/terminal-workspace.jpg',alt:'Homeport’s browser workspace with persistent coding conversations'},
+ moodsh: {url:'https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-02-mood-shell/customize-ember.jpg',alt:'Mood Shell’s Ember palette editor with warm terminal prompts and editable colors'},
+ perch: {url:'https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-04-perch/control-center-redacted-2026-10-11.jpg',alt:'Perch’s control center with a Mac heartbeat, CPU history, memory, and disk space'},
+};
+---
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head><BaseHead title={profile ? '@mager · Sidework' : 'Sidework · Personal software, interesting people'} description="Discover personal software and the people who make it. An open studio for builders, coders, and the curious." /><meta name="robots" content="noindex, nofollow" /></head>
+<body class="studio" data-profile={profile}>
+<a class="skip-link" href="#studio-main">Skip to projects</a>
+<header class="studio-header"><a href="/" class="studio-wordmark" aria-label="Sidework home"><Icon name="branch" size={27}/>sidework<span class="wordmark-dot">.</span></a><p>For people who make things.</p><a class="studio-share" href="/workbench/#projects">Your workbench <Icon name="plus" size={17}/></a></header>
+<main id="studio-main">
+<section class="studio-intro" aria-label={profile ? '@mager’s studio' : 'Discover personal software'}>
+ <div class="studio-intro-copy">
+  {profile ? <><h1>Built by <a class="studio-handle" href="https://github.com/mager">@mager</a></h1><p>Small tools. Long rabbit holes.<br/>Personal software from Chicago.</p><div class="studio-person"><img src="/images/mager.jpg" alt="@mager’s illustrated portrait" width="44" height="44"/><a href="https://github.com/mager">@mager <Icon name="external" size={14}/></a><button id="follow-maker" type="button" aria-pressed="false">Follow</button></div></> : <><h1>People who<br/><span>make things.</span></h1><p>Meet the builders behind the small tools, strange experiments, and software worth opening.</p><div class="studio-intro-maker"><a href="/mager/"><img src="/images/mager.jpg" alt="@mager’s illustrated portrait" width="116" height="116" /></a><div><a href="/mager/">@mager <Icon name="arrow" size={22}/></a><p>Personal tools. Open source.<br/>A studio in Chicago.</p></div></div></>}
+ </div>
+ <a class="studio-floating-preview" href="#project-homeport" aria-label="Explore Homeport"><img src={pictures.homeport.url} alt={pictures.homeport.alt} width="1536" height="1024" fetchpriority="high"/><span><span class="preview-marker"></span> Homeport <span>by @mager</span><Icon name="arrow" size={20}/></span></a>
+ <a class="studio-satellite" href="#project-moodsh" aria-label="Explore Mood Shell"><img src={pictures.moodsh.url} alt={pictures.moodsh.alt} width="1536" height="1024" /><span>Mood Shell <span>by @mager</span><Icon name="arrow" size={17}/></span></a>
+ <div class="studio-margin-note"><span>Independent software</span><span>Open to the curious <Icon name="compass" size={15}/></span></div>
+</section>
+<section class="studio-field" aria-label="Personal software">
+ {ordered.map((project,index) => <article class={`studio-project studio-project-${project.id}`} id={`project-${project.id}`} style={`--project-tone: ${['#b9eb9e','#d4b9f0','#b5dce7','#f2bf96'][index]}; --project-turn: ${[-1.5,2,-1,1.5][index]}deg`}>
+  <div class="studio-project-heading"><div><a class="studio-byline" href="/mager/"><img src="/images/mager.jpg" alt="" width="24" height="24"/>Built by @mager</a><h2><a href={project.url}>{project.name}<Icon name="external" size={27}/></a></h2></div><button class="studio-save" data-save-project={project.id} type="button" aria-pressed="false" aria-label={`Save ${project.name}`}><Icon name="bookmark" size={20}/><span>Save</span></button></div>
+  {pictures[project.id] ? <a class="studio-project-visual" href={project.url} aria-label={`Open ${project.name}`}><img src={pictures[project.id].url} alt={pictures[project.id].alt} loading="lazy" width="1536" height="1024"/><span class="studio-open">Open {project.name} <Icon name="external" size={18}/></span></a> : <a class="studio-project-visual studio-prxps-poster" href={project.url}><span>prxps</span><p>Make the call.<br/>Keep the receipt.</p><small>Free sports picks · Public record</small><span class="studio-open">Open prxps <Icon name="external" size={18}/></span></a>}
+  <div class="studio-project-caption"><p>{project.tagline}</p><span>{project.kind}</span></div>
+  <details class="studio-project-story"><summary>Behind the project <Icon name="plus" size={17}/></summary><div><p>{project.description}</p><p class="studio-stack">{project.stack} · {project.note}</p><nav aria-label={`${project.name} links`}><a href={project.url}>Try it <Icon name="external" size={14}/></a>{project.source && <a href={project.source}>Source <Icon name="code" size={16}/></a>}<a href={`https://mager.co${project.story}`}>Build log <Icon name="arrow" size={16}/></a></nav></div></details>
+ </article>)}
+</section>
+{profile ? <section class="studio-contributions" aria-labelledby="upstream-title"><header><h2 id="upstream-title">Good things<br/>go further<span>.</span></h2><p>My changes to the tools we share.<br/>The source tells the story.</p></header><div>{contributions.map(item => <article class="studio-contribution"><span class={`sw-status sw-status-${item.status}`}>{item.status}</span><div><a href={item.url}>{item.title} <Icon name="external" size={14}/></a><p>{item.repository} · #{item.number}</p></div></article>)}</div><p class="studio-source-note">Selected pull requests. State checked November 4, 2026. Drafts are still in progress.</p></section> : <section class="studio-meet"><a class="studio-maker-portrait" href="/mager/"><img src="/images/mager.jpg" alt="Meet @mager" width="150" height="150"/></a><div><h2>Meet <a href="/mager/">@mager<Icon name="arrow" size={36}/></a></h2><p>The first studio on Sidework.<br/>Personal tools, experiments, and a few useful fixes.</p></div></section>}
+<section class="studio-closing"><h2>What are<br/><span>you building?</span></h2><a href="/workbench/#projects">Start a project draft <Icon name="arrow" size={26}/></a><p>A small beginning: four real projects, one real maker.<br/>Profiles and shared updates are coming. Saved projects stay in this browser.</p></section>
+</main>
+<footer class="studio-footer"><a href="https://github.com/mager/sidework">Built in the open <Icon name="code" size={15}/></a><span>Sidework, by <a href="/mager/">@mager</a></span><button type="button" id="studio-theme">Light / dark</button></footer>
+<nav class="studio-dock" aria-label="Explore Sidework"><a href="/" aria-current={!profile ? 'page' : undefined}><Icon name="compass" size={19}/><span>Explore</span></a><button type="button" popovertarget="saved-projects"><Icon name="bookmark" size={18}/><span>Saved <span id="saved-count">0</span></span></button><a href="/mager/" aria-current={profile ? 'page' : undefined}><img src="/images/mager.jpg" alt="" width="22" height="22"/><span>@mager</span></a><a href="/workbench/" aria-label="Your workbench"><Icon name="code" size={20}/><span>Workbench</span></a></nav>
+<aside id="saved-projects" popover class="studio-saved"><header><h2>Your collection</h2><button type="button" popovertarget="saved-projects" popovertargetaction="hide" aria-label="Close saved projects">×</button></header><p>Interesting software, kept in this browser.</p><div id="saved-project-list"><p>Save a project and come back to it here.</p></div></aside>
+<p role="status" aria-live="polite" class="studio-toast" id="studio-feedback" hidden></p>
+<script id="studio-project-data" type="application/json" set:html={JSON.stringify(ordered.map(({id,name,tagline})=>({id,name,tagline}))).replace(/</g,'\\u003c')} />
+<script src="../scripts/studio.ts"></script>
+</body></html>
