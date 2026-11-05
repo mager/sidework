@@ -64,4 +64,6 @@ The user requested distinctive carefully tuned fonts, @handles for all personal 
 
 The user confirmed people-first discovery, with their projects around them. The first public scene introduces @mager and surrounds that identity with real project previews.
 
-The body font is the self-hosted variable Bricolage Grotesque, paired with Anybody display type and Martian Mono source metadata. All main surfaces carry the footer credit “Built with Astra”.
+The heading and body font is the self-hosted variable Bricolage Grotesque. Anybody is reserved for the wordmark; Martian Mono carries code, source metadata, and public project names. All main surfaces carry the footer credit “Built with Astra”.
+
+The user requested a more code-focused, less decorative refinement. Compact type, straight screenshots, a real linked profile manifest, and visible stack/source rows now define the public studio. The moss/lime palette, uneven project sequence, and distinct browsing and management interfaces remain. Decorative depth motion is removed; functional disclosure, focus, and state feedback remain.

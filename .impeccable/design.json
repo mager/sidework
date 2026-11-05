@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-04T22:31:09.395Z",
+  "generatedAt": "2026-11-05T00:05:54.817Z",
   "title": "Design System: Sidework",
   "extensions": {
     "colorMeta": {
@@ -314,87 +314,96 @@
       }
     },
     "typographyMeta": {
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "Anybody for the wordmark only."
+      },
       "display": {
-        "displayName": "Public display",
-        "purpose": "Desktop public opening; compressed to 90% width."
+        "displayName": "Display",
+        "purpose": "The display role recorded in DESIGN.md."
       },
       "headline": {
-        "displayName": "Project headline",
-        "purpose": "Project titles; compressed to 90% width."
+        "displayName": "Headline",
+        "purpose": "The headline role recorded in DESIGN.md."
+      },
+      "project-title": {
+        "displayName": "Project Title",
+        "purpose": "Public project names in Martian Mono."
       },
       "body": {
-        "displayName": "Reading text",
-        "purpose": "Descriptions, navigation, and forms. Automatic optical sizing; Bricolage Grotesque supports 75–100% width."
+        "displayName": "Body",
+        "purpose": "Reading and form text with automatic optical sizing."
       },
       "caption": {
-        "displayName": "Project purpose",
-        "purpose": "Short purpose beneath a software preview."
+        "displayName": "Caption",
+        "purpose": "The caption role recorded in DESIGN.md."
+      },
+      "story-caption": {
+        "displayName": "Story Caption",
+        "purpose": "The story caption role recorded in DESIGN.md."
       },
       "label": {
-        "displayName": "Source metadata",
-        "purpose": "Repositories, stack details, and evidence at 87.5% width."
+        "displayName": "Label",
+        "purpose": "The label role recorded in DESIGN.md."
+      },
+      "code-body": {
+        "displayName": "Code Body",
+        "purpose": "The code body role recorded in DESIGN.md."
+      },
+      "agent-prompt": {
+        "displayName": "Agent Prompt",
+        "purpose": "The agent setup request as readable mono text."
       },
       "workbench-title": {
-        "displayName": "Workbench title",
-        "purpose": "Compact utility heading at 88% width."
+        "displayName": "Workbench Title",
+        "purpose": "The workbench title role recorded in DESIGN.md."
       },
       "entry-display": {
-        "displayName": "Invite opening",
-        "purpose": "Anybody at 90% width, with a centered invite form."
-      },
-      "import-display": {
-        "displayName": "Import opening",
-        "purpose": "Anybody at 90% width and a 20ch maximum measure."
+        "displayName": "Entry Display",
+        "purpose": "The entry display role recorded in DESIGN.md."
       },
       "entry-intro": {
-        "displayName": "Entry introduction",
-        "purpose": "Fluid Bricolage Grotesque body text, with zero tracking."
+        "displayName": "Entry Intro",
+        "purpose": "The entry intro role recorded in DESIGN.md."
       },
       "entry-meta": {
-        "displayName": "Entry metadata",
-        "purpose": "Quiet entry header and footer text."
+        "displayName": "Entry Meta",
+        "purpose": "The entry meta role recorded in DESIGN.md."
       },
       "entry-label": {
-        "displayName": "Entry labels",
-        "purpose": "Form labels and invite contact text."
+        "displayName": "Entry Label",
+        "purpose": "The entry label role recorded in DESIGN.md."
       },
       "repository-title": {
-        "displayName": "Repository name",
-        "purpose": "Source repository names, with safe long-name wrapping."
+        "displayName": "Repository Title",
+        "purpose": "The repository title role recorded in DESIGN.md."
       },
       "import-note": {
-        "displayName": "Local draft notice",
-        "purpose": "The selected count and local-storage limit in the action bar."
+        "displayName": "Import Note",
+        "purpose": "The import note role recorded in DESIGN.md."
       },
       "composer-title": {
-        "displayName": "Story editor heading",
-        "purpose": "Anybody at 90% width; 1.875rem on mobile."
+        "displayName": "Composer Title",
+        "purpose": "The composer title role recorded in DESIGN.md."
       },
       "story-title": {
-        "displayName": "Local project title",
-        "purpose": "Preview and profile-draft project names, with long-name wrapping."
+        "displayName": "Story Title",
+        "purpose": "The story title role recorded in DESIGN.md."
       },
       "story-poster": {
-        "displayName": "Local project poster",
-        "purpose": "Clay placeholder when a screenshot is absent."
+        "displayName": "Story Poster",
+        "purpose": "The story poster role recorded in DESIGN.md."
+      },
+      "utility-button": {
+        "displayName": "Utility Button",
+        "purpose": "The utility button role recorded in DESIGN.md."
+      },
+      "agent-purpose": {
+        "displayName": "Agent Purpose",
+        "purpose": "The agent purpose role recorded in DESIGN.md."
       }
     },
     "shadows": [
-      {
-        "name": "lead-preview",
-        "value": "0 32px 70px #0005",
-        "purpose": "The main floating software screenshot."
-      },
-      {
-        "name": "secondary-preview",
-        "value": "0 25px 55px #0004",
-        "purpose": "The smaller desktop screenshot."
-      },
-      {
-        "name": "project-preview",
-        "value": "0 25px 65px #0003",
-        "purpose": "Project screenshots in the open field."
-      },
       {
         "name": "preview-action",
         "value": "0 8px 25px #0003",
@@ -402,7 +411,7 @@
       },
       {
         "name": "dock",
-        "value": "0 15px 40px #0004",
+        "value": "0 8px 28px #0003",
         "purpose": "Fixed public navigation."
       },
       {
@@ -417,16 +426,6 @@
       }
     ],
     "motion": [
-      {
-        "name": "preview-settle",
-        "value": "rotate .5s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1)",
-        "purpose": "Lead preview hover and keyboard focus."
-      },
-      {
-        "name": "project-settle",
-        "value": "rotate .55s cubic-bezier(.16,1,.3,1)",
-        "purpose": "Project preview hover and keyboard focus."
-      },
       {
         "name": "utility-state",
         "value": "background 160ms ease, border-color 160ms ease",
@@ -443,14 +442,14 @@
         "purpose": "Saved collection enters from 10px below."
       },
       {
-        "name": "scroll-preview",
-        "value": "animation-timeline: view(); animation-range: entry 0% cover 45%; perspective(1600px) rotateX(5deg) scale(.985) to perspective(1600px) rotateX(0) scale(1)",
-        "purpose": "Optional scroll depth with no-preference motion only."
-      },
-      {
         "name": "reduced-motion",
         "value": "transition: none !important; animation: none !important; scroll-behavior: auto",
         "purpose": "Remove animations and smooth scrolling; preview transforms and turns are also reset."
+      },
+      {
+        "name": "preview-action",
+        "value": "opacity .2s, transform .3s",
+        "purpose": "Reveal the desktop Open action; the software image remains still."
       }
     ],
     "breakpoints": [
@@ -475,20 +474,12 @@
         "value": "1000px"
       },
       {
-        "name": "studio-centered-maker-min",
-        "value": "1001px"
-      },
-      {
         "name": "workbench-compact-max",
         "value": "1180px"
       },
       {
         "name": "workbench-wide-min",
         "value": "1440px"
-      },
-      {
-        "name": "studio-wide-min",
-        "value": "1600px"
       },
       {
         "name": "entry-mobile-max",
@@ -539,7 +530,7 @@
       "refersTo": "workbench-feature",
       "description": "The contained copy area of a workbench feature; screenshots remain source assets.",
       "html": "<article class=\"ds-card\"><h3>Homeport</h3><p>A home for coding work that keeps going when you close your laptop.</p><a href=\"https://github.com/mager/homeport\">View source ↗</a></article>",
-      "css": ".ds-card{overflow:hidden;border:1px solid var(--sw-border,#30392f);border-radius:var(--sw-radius,10px);background:var(--sw-surface,#171c17);color:var(--sw-text,#eef1e9);padding:20px;font-family:var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif)}.ds-card h3{margin:8px 0 0;font-size:1.5625rem;font-weight:500;line-height:1.22;letter-spacing:-.03em}.ds-card p{margin:10px 0 0;color:var(--sw-muted,#a3ad9f);font-size:.9375rem;line-height:1.7}.ds-card a{display:inline-flex;align-items:center;min-height:36px;margin-top:14px;color:var(--sw-text,#eef1e9);font-size:.75rem;text-decoration:none}.ds-card a:hover{color:var(--sw-accent,#b9eb9e)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}} .ds-card{font-optical-sizing:auto;letter-spacing:.005em}"
+      "css": ".ds-card{overflow:hidden;border:1px solid var(--sw-border,#30392f);border-radius:var(--sw-radius,4px);background:var(--sw-surface,#171c17);color:var(--sw-text,#eef1e9);padding:20px;font-family:var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif)}.ds-card h3{margin:8px 0 0;font-size:1.5625rem;font-weight:500;line-height:1.22;letter-spacing:-.03em}.ds-card p{margin:10px 0 0;color:var(--sw-muted,#a3ad9f);font-size:.9375rem;line-height:1.7}.ds-card a{display:inline-flex;align-items:center;min-height:36px;margin-top:14px;color:var(--sw-text,#eef1e9);font-size:.75rem;text-decoration:none}.ds-card a:hover{color:var(--sw-accent,#b9eb9e)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}} .ds-card{font-optical-sizing:auto;letter-spacing:.005em}"
     },
     {
       "name": "Public navigation dock",
@@ -547,7 +538,7 @@
       "refersTo": "studio-dock",
       "description": "Floating public navigation; shown here in normal flow for inspection.",
       "html": "<nav class=\"ds-nav\" aria-label=\"Explore Sidework\"><a href=\"/\" aria-current=\"page\">Explore</a><a href=\"/mager/\">@mager</a><a href=\"/workbench/\">Workbench</a></nav>",
-      "css": ".ds-nav{display:inline-flex;align-items:center;gap:5px;padding:7px;border:1px solid color-mix(in srgb,var(--sw-text,#eef1e9) 17%,transparent);border-radius:50px;background:color-mix(in srgb,var(--sw-bg,#101310) 84%,transparent);backdrop-filter:blur(24px);box-shadow:0 15px 40px #0004}.ds-nav a{display:flex;align-items:center;justify-content:center;min-height:46px;padding:10px 16px;border-radius:30px;font:500 .8125rem/1 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);color:var(--sw-muted,#a3ad9f);text-decoration:none;white-space:nowrap}.ds-nav a[aria-current],.ds-nav a:hover{color:var(--sw-text,#eef1e9);background:var(--sw-raised,#1e251e)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}} .ds-nav{font-optical-sizing:auto;letter-spacing:.005em}"
+      "css": ".ds-nav{display:inline-flex;align-items:center;gap:5px;padding:7px;border:1px solid color-mix(in srgb,var(--sw-text,#eef1e9) 17%,transparent);border-radius:6px;background:var(--sw-bg,#101310);box-shadow:0 8px 28px #0003}.ds-nav a{display:flex;align-items:center;justify-content:center;min-height:46px;padding:10px 16px;border-radius:4px;font:500 .8125rem/1 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);color:var(--sw-muted,#a3ad9f);text-decoration:none;white-space:nowrap}.ds-nav a[aria-current],.ds-nav a:hover{color:var(--sw-text,#eef1e9);background:var(--sw-raised,#1e251e)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}} .ds-nav{font-optical-sizing:auto;letter-spacing:.005em}"
     },
     {
       "name": "Entry text field",
@@ -572,49 +563,57 @@
       "description": "Pressed state for a project included in the private profile draft.",
       "html": "<button class=\"ds-feature\" aria-pressed=\"true\" aria-label=\"Unfeature Homeport\">Featured</button>",
       "css": ".ds-feature{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:9px 13px;border:1px solid var(--sw-border,#30392f);border-radius:6px;background:transparent;color:var(--sw-text,#eef1e9);font:500 .75rem/1.5 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);cursor:pointer;transition:background 160ms ease,border-color 160ms ease}.ds-feature:hover{background:var(--sw-raised,#1e251e);border-color:var(--sw-muted,#a3ad9f)}.ds-feature[aria-pressed=true]{background:var(--sw-raised,#1e251e);color:var(--sw-accent,#b9eb9e);border-color:var(--sw-accent,#b9eb9e)}.ds-feature:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-feature{transition:none}}"
+    },
+    {
+      "name": "Linked profile manifest",
+      "kind": "custom",
+      "refersTo": "profile-manifest",
+      "description": "Real project IDs link to the corresponding software sections.",
+      "html": "<section class=\"ds-manifest\"><div class=\"ds-file\">profile.json<a href=\"https://github.com/mager\">GitHub ↗</a></div><pre><code>{\n  <span class=\"ds-key\">\"handle\"</span>: <span class=\"ds-value\">\"@mager\"</span>,\n  <span class=\"ds-key\">\"projects\"</span>: [\n    <a href=\"/#project-homeport\" class=\"ds-value\">\"homeport\"</a>\n  ]\n}</code></pre></section>",
+      "css": ".ds-manifest{max-width:420px;border:1px solid var(--sw-border,#30392f);border-radius:4px;background:var(--sw-surface,#171c17);color:var(--sw-text,#eef1e9)}.ds-file{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--sw-border,#30392f);font:.6875rem/1.5 var(--sw-mono,'Martian Mono', monospace);color:var(--sw-muted,#a3ad9f)}.ds-file a{margin-left:auto;display:flex;align-items:center;min-height:24px;color:inherit;text-decoration:none}.ds-manifest pre{margin:0;padding:16px;font:.8125rem/1.8 var(--sw-mono,'Martian Mono', monospace);overflow:auto;tab-size:2}.ds-manifest code{font:inherit}.ds-key{color:var(--sw-blue,#b4cbe2)}.ds-value{color:var(--sw-accent,#b9eb9e);text-decoration:none}.ds-manifest a:hover{text-decoration:underline;color:var(--sw-accent,#b9eb9e)}.ds-manifest a:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}"
     }
   ],
   "narrative": {
-    "northStar": "An open studio",
-    "overview": "Sidework is an open studio of people and personal software, with a public @mager profile and invite-only discovery and management tools. Large, compressed lettering and real software previews share a dark moss ground. The maker leads. Project previews change size and position instead of forming a regular public grid.\n\nThe same fonts and colors support a denser workbench. Its panels, forms, and evidence rows help people plan work. The studio pages keep more open space. Entry and import pages use the same type and colors with a simpler reading path. All surfaces use clear @handles, direct source links, and plain descriptions. The exact `/mager/` profile route is public. Discovery and management tools require an invite.",
+    "northStar": "An open studio, with source in view",
+    "overview": "Sidework is an open studio of people and personal software. Compact headings, straight screenshots, and visible source records make the software easy to inspect. The maker and @handle remain the starting point. Uneven project widths preserve the studio’s open sequence without a regular public card grid.\n\nThe public-facing studio supports browsing; the workbench supports editing, import, and agent review. Both use moss surfaces, lime actions, Bricolage Grotesque reading text, and Martian Mono technical content. Anybody is reserved for the wordmark. The exact /mager/ profile is public; discovery and management need an invite. Agent access uses a separate scoped token.",
     "keyCharacteristics": [
-      "People and @handles lead the public experience.",
-      "Real screenshots retain their source colors.",
-      "Variable display type gives identity; distinctive body type supports reading.",
-      "Public previews use depth; the workbench uses quiet borders and tonal layers.",
-      "Keyboard access and reduced motion remain part of each interaction."
+      "People and @handles lead; source evidence stays visible.",
+      "Compact Bricolage headings and mono project names replace large display treatments.",
+      "Real screenshots stay straight and retain their original colors.",
+      "The public sequence remains asymmetric; management uses compact controls.",
+      "Local drafts, review, and public records remain distinct."
     ],
     "rules": [
-      {
-        "name": "People First",
-        "body": "Use @handles for personal identity. Keep project names and repository owner/name identifiers intact.",
-        "section": "typography"
-      },
       {
         "name": "Source Color",
         "body": "Keep real software screenshots in their original colors. Do not tint them to match the interface.",
         "section": "colors"
       },
       {
-        "name": "Useful Depth",
-        "body": "Use perspective and shadows on software previews and floating controls. Keep reading text on a still plane.",
+        "name": "Type Roles",
+        "body": "Use Anybody for the wordmark, Bricolage Grotesque for headings and reading, and Martian Mono for code, source metadata, and public project names.",
+        "section": "typography"
+      },
+      {
+        "name": "Still Software",
+        "body": "Keep software previews straight and still. Use borders and surface tones for separation; reserve shadows for floating controls and feedback.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Do use the self-hosted Anybody, Bricolage Grotesque, and Martian Mono files.",
-      "Do place people before their projects on public discovery pages.",
-      "Do vary public preview scale and alignment while keeping the reading order clear.",
-      "Do show source links, state labels, and check dates with contribution claims.",
-      "Do state that saves, follows, imported project drafts, and plans stay in this browser.",
-      "Do keep keyboard focus visible and respect reduced motion."
+      "Do use @handles for people and preserve repository owner/name identifiers.",
+      "Do expose the real stack and source link before each public project preview.",
+      "Do keep the profile manifest tied to the same project records and working anchors.",
+      "Do retain uneven public project widths and a clear mobile reading order.",
+      "Do keep keyboard focus visible and support reduced motion.",
+      "Do state that reviewed drafts save in this browser and do not publish."
     ],
     "donts": [
-      "Don't turn public discovery or maker profiles into regular card grids or dashboard columns.",
-      "Don't invent people, follower counts, activity totals, testimonials, or live app sessions.",
-      "Don't imply that a local draft publishes to the public profile.",
-      "Don't extend public display sizes to workbench forms and evidence rows.",
-      "Don't recolor the supplied portrait or historical screenshots."
+      "Don't use Anybody for content headings.",
+      "Don't add tilted screenshots, perspective drift, or a simulated terminal.",
+      "Don't turn the public studio into a regular card grid.",
+      "Don't invent source records, people, activity counts, or learning outcomes.",
+      "Don't claim that an agent can read local drafts or publish a profile."
     ]
   }
 }

@@ -1,9 +1,9 @@
 .sw-shell[data-view='agents'],.sw-shell[data-view='review'] { grid-template-columns:204px minmax(0,1fr); }
 .sw-shell[data-view='agents']>.sw-context,.sw-shell[data-view='review']>.sw-context { display:none; }
 .sw-agents { max-width:960px; }
-.sw-agent-intro { font:520 clamp(1.875rem,3vw,2.75rem)/1.2 var(--sw-display); font-stretch:90%; letter-spacing:-.035em; text-wrap:balance; max-width:24ch; margin-top:44px; }
+.sw-agent-intro { font:400 .9375rem/1.8 var(--sw-mono); letter-spacing:0; max-width:68ch; margin-top:28px; padding:18px 20px; border:1px solid var(--sw-border); background:var(--sw-surface); border-radius:4px; }
 .sw-agent-purpose { max-width:60ch; margin-top:20px; color:var(--sw-muted); font-size:1.0625rem; line-height:1.7; }
-.sw-agent-steps { list-style:decimal; padding-left:24px; margin-top:48px; }
+.sw-agent-steps { list-style:decimal; padding-left:24px; margin-top:32px; }
 .sw-agent-steps>li { padding:0 0 32px 12px; margin:0 0 32px; border-bottom:1px solid var(--sw-border); }
 .sw-agent-steps>li::marker { color:var(--sw-accent); font-family:var(--sw-mono); font-size:.8125rem; }
 .sw-agent-steps h3 { font-size:1.25rem; font-weight:550; margin-bottom:12px; }

@@ -24,7 +24,7 @@ npm run dev
 
 ## What works
 
-The public studio places the maker at the center, with software previews around them. An uneven project sequence, CSS scroll timelines, native popovers, auto-height details, container queries, and cross-document view transitions support exploration. All content remains usable without motion; reduced-motion settings disable the spatial movement.
+The public studio starts with the maker, linked project data, and a real software preview. Repository links and stacks are visible before each project screenshot. An uneven project sequence, native popovers, auto-height details, container queries, and cross-document view transitions support exploration. Screenshots stay level; reduced-motion settings disable transitions.
 
 - Public project showcase with demo, source, and build-log links.
 - Contribution search and status filters, with source links and dated evidence.
@@ -55,7 +55,7 @@ The weekly goal counts distinct saved projects marked submitted by the user. It 
 
 ## Typography
 
-Anybody gives the wordmark and project headings their narrow, rounded shapes. Bricolage Grotesque gives descriptions, navigation, and controls expressive curves. Automatic optical sizing, .005em body tracking, and 1.6 line height keep small text clear. Martian Mono marks repository identifiers and data. Variable width and weight create a shared rhythm without using display lettering for dense reading. Text sizes use rem units. Compact source labels use the monospace face, while descriptions keep the reading face.
+Anybody gives the wordmark its narrow, rounded shape. Bricolage Grotesque supports headings, descriptions, navigation, and controls. Automatic optical sizing, .005em body tracking, and 1.6 line height keep small text clear. Martian Mono marks project names, @handles, repository identifiers, profile data, and agent commands. Compact headings and source labels keep the focus on the software; descriptions retain the reading face. Text sizes use rem units.
 
 The three active Latin WOFF2 subsets are self-hosted. They are self-hosted with `font-display: swap`; the interface and display fonts are preloaded. No external font request is needed. Other writing systems use the fallback stack. Sources and SIL Open Font Licenses are in `public/fonts/`.
 
