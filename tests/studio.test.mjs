@@ -4,8 +4,8 @@ import {readFileSync} from 'node:fs';
 import {stripTypeScriptTypes} from 'node:module';
 import {JSDOM} from 'jsdom';
 const script=stripTypeScriptTypes(readFileSync(new URL('../src/scripts/studio.ts',import.meta.url),'utf8'));
-function studio(saved='[]') {
- const dom=new JSDOM(`<button data-save-project="homeport"><span>Save</span></button><button data-save-project="perch"><span>Save</span></button><span id="saved-count"></span><div id="saved-project-list"></div><button id="follow-maker"></button><button id="studio-theme"></button><p id="studio-feedback" hidden></p><script id="studio-project-data" type="application/json">[{"id":"homeport","name":"Homeport","tagline":"Keep your work."},{"id":"perch","name":"Perch","tagline":"A quiet lookout."}]</script>`,{url:'https://sidework.example',runScripts:'outside-only'});
+function studio(saved='[]',url='https://sidework.example') {
+ const dom=new JSDOM(`<section data-project-browser><nav class="studio-project-tabs"><a id="tab-homeport" data-project-tab="homeport" href="#project-homeport">Homeport</a><a id="tab-perch" data-project-tab="perch" href="#project-perch">Perch</a></nav><article id="project-homeport" data-project-panel="homeport">Homeport details</article><article id="project-perch" data-project-panel="perch">Perch details</article></section><button data-save-project="homeport"><span>Save</span></button><button data-save-project="perch"><span>Save</span></button><span id="saved-count"></span><div id="saved-project-list"></div><button id="follow-maker"></button><button id="studio-theme"></button><p id="studio-feedback" hidden></p><script id="studio-project-data" type="application/json">[{"id":"homeport","name":"Homeport","tagline":"Keep your work."},{"id":"perch","name":"Perch","tagline":"A quiet lookout."}]</script>`,{url,runScripts:'outside-only'});
  dom.window.localStorage.setItem('sidework-collection-v1',saved);dom.window.eval(script);return dom;
 }
 test('saved collection recovers from malformed storage and ignores unknown IDs',()=>{
@@ -28,4 +28,30 @@ test('saving stays usable when browser storage rejects writes',()=>{
  const dom=studio();Object.defineProperty(dom.window.Storage.prototype,'setItem',{value(){throw new Error('Storage unavailable');}});
  dom.window.document.querySelector('[data-save-project="perch"]').click();
  assert.equal(dom.window.document.querySelector('#saved-count').textContent,'1');assert.match(dom.window.document.querySelector('#studio-feedback').textContent,/this visit/);dom.window.close();
+});
+
+test('project switcher honors direct links and changes the selected panel without a page reload',()=>{
+ const dom=studio('[]','https://sidework.example/mager/#project-perch'),doc=dom.window.document;
+ assert.equal(doc.querySelector('#tab-perch').getAttribute('aria-selected'),'true');
+ assert.equal(doc.querySelector('#project-homeport').hidden,true);
+ doc.querySelector('#tab-homeport').click();
+ assert.equal(dom.window.location.hash,'#project-homeport');
+ assert.equal(doc.querySelector('#project-perch').hidden,true);
+ assert.equal(doc.querySelector('#project-homeport').hidden,false);
+ dom.window.history.replaceState(null,'','#project-perch');dom.window.dispatchEvent(new dom.window.PopStateEvent('popstate'));
+ assert.equal(doc.querySelector('#project-perch').hidden,false);dom.window.close();
+});
+test('project tabs support arrow keys, Home, End, Space and one tab stop',()=>{
+ const dom=studio(),doc=dom.window.document;
+ const key=(id,key)=>doc.querySelector(id).dispatchEvent(new dom.window.KeyboardEvent('keydown',{key,bubbles:true,cancelable:true}));
+ key('#tab-homeport','ArrowRight');assert.equal(doc.activeElement.id,'tab-perch');
+ assert.equal(doc.querySelector('#tab-homeport').tabIndex,-1);assert.equal(doc.querySelector('#tab-perch').tabIndex,0);
+ key('#tab-perch','ArrowRight');assert.equal(doc.activeElement.id,'tab-homeport');
+ key('#tab-homeport','End');assert.equal(doc.activeElement.id,'tab-perch');
+ key('#tab-perch','Home');assert.equal(doc.activeElement.id,'tab-homeport');
+ key('#tab-homeport',' ');assert.equal(dom.window.location.hash,'#project-homeport');dom.window.close();
+});
+test('saved project links retain the public profile route',()=>{
+ const dom=studio('["perch"]','https://sidework.example/mager/');
+ assert.equal(dom.window.document.querySelector('#saved-project-list a').getAttribute('href'),'/mager/#project-perch');dom.window.close();
 });

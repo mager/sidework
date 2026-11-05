@@ -26,7 +26,7 @@ function renderSaved() {
  const selected=projectData.filter(p=>saved.has(p.id));
  if (!selected.length) { const p=document.createElement('p');p.textContent='Save a project and come back to it here.';list.append(p); }
  for(const project of selected) {
-  const link=document.createElement('a');link.href=`/#project-${project.id}`;
+  const link=document.createElement('a');link.href=`${location.pathname}#project-${project.id}`;
   const name=document.createElement('strong');name.textContent=project.name;
   const description=document.createElement('span');description.textContent=project.tagline;
   link.append(name,description);link.addEventListener('click',()=>document.querySelector<HTMLElement>('#saved-projects')?.hidePopover());list.append(link);
@@ -49,3 +49,35 @@ document.querySelector('#studio-theme')?.addEventListener('click',()=>{
  try{localStorage.setItem('sidework-theme',theme);}catch{}
 });
 renderSaved();renderFollow();
+
+// Enhance real anchor navigation into a keyboard-accessible project switcher.
+const projectBrowser=document.querySelector<HTMLElement>('[data-project-browser]');
+if(projectBrowser){
+ const tabs=[...projectBrowser.querySelectorAll<HTMLAnchorElement>('[data-project-tab]')];
+ const panels=[...projectBrowser.querySelectorAll<HTMLElement>('[data-project-panel]')];
+ const tablist=projectBrowser.querySelector<HTMLElement>('.studio-project-tabs')!;
+ const select=(id:string,focus=false)=>{
+  if(!tabs.some(tab=>tab.dataset.projectTab===id))return;
+  for(const tab of tabs){const active=tab.dataset.projectTab===id;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;if(active&&focus)tab.focus({preventScroll:true});}
+  for(const panel of panels)panel.hidden=panel.dataset.projectPanel!==id;
+ };
+ tablist.setAttribute('role','tablist');
+ for(const tab of tabs){
+  tab.setAttribute('role','tab');tab.setAttribute('aria-controls',`project-${tab.dataset.projectTab}`);
+  tab.addEventListener('click',event=>{if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;event.preventDefault();select(tab.dataset.projectTab!);history.pushState(null,'',tab.hash);});
+  tab.addEventListener('keydown',event=>{
+   const index=tabs.indexOf(tab);let next:number;
+   if(event.key==='ArrowRight')next=(index+1)%tabs.length;
+   else if(event.key==='ArrowLeft')next=(index+tabs.length-1)%tabs.length;
+   else if(event.key==='Home')next=0;
+   else if(event.key==='End')next=tabs.length-1;
+   else if(event.key===' '){event.preventDefault();tab.click();return;}
+   else return;
+   event.preventDefault();select(tabs[next].dataset.projectTab!,true);history.replaceState(null,'',tabs[next].hash);
+   tabs[next].scrollIntoView?.({block:'nearest',inline:'nearest',behavior:'instant'});
+  });
+ }
+ for(const panel of panels){panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby',`tab-${panel.dataset.projectPanel}`);panel.tabIndex=0;}
+ const fromHash=()=>{const id=location.hash.slice('#project-'.length);select(location.hash.startsWith('#project-')&&known.has(id)?id:tabs[0].dataset.projectTab!);};
+ projectBrowser.dataset.enhanced='true';fromHash();window.addEventListener('hashchange',fromHash);window.addEventListener('popstate',fromHash);
+}

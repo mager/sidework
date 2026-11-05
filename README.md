@@ -24,7 +24,7 @@ npm run dev
 
 ## What works
 
-The public studio starts with the maker, linked project data, and a real software preview. Repository links and stacks are visible before each project screenshot. An uneven project sequence, native popovers, auto-height details, container queries, and cross-document view transitions support exploration. Screenshots stay level; reduced-motion settings disable transitions.
+The public interface is a compact software browser. A maker row and recent contribution lead into a project switcher. Choose a project to see its app preview, purpose, stack, and source links in one place. The switcher supports direct links, browser history, arrow keys, Home, and End. Without JavaScript, all four project records remain visible. Saved projects return to the current public route. Contributions appear directly below the selected project; the separate workbench retains editing and planning tools.
 
 - Public project showcase with demo, source, and build-log links.
 - Contribution search and status filters, with source links and dated evidence.
@@ -55,7 +55,7 @@ The weekly goal counts distinct saved projects marked submitted by the user. It 
 
 ## Typography
 
-Anybody gives the wordmark its narrow, rounded shape. Bricolage Grotesque supports headings, descriptions, navigation, and controls. Automatic optical sizing, .005em body tracking, and 1.6 line height keep small text clear. Martian Mono marks project names, @handles, repository identifiers, profile data, and agent commands. Compact headings and source labels keep the focus on the software; descriptions retain the reading face. Text sizes use rem units.
+Anybody gives the wordmark its narrow, rounded shape. Bricolage Grotesque supports headings, descriptions, navigation, and controls. Automatic optical sizing, .005em body tracking, and 1.6 line height keep small text clear. Martian Mono marks project names, @handles, repository identifiers, project tabs, and agent commands. Compact headings and source labels keep the focus on the software; descriptions retain the reading face. Text sizes use rem units.
 
 The three active Latin WOFF2 subsets are self-hosted. They are self-hosted with `font-display: swap`; the interface and display fonts are preloaded. No external font request is needed. Other writing systems use the fallback stack. Sources and SIL Open Font Licenses are in `public/fonts/`.
 

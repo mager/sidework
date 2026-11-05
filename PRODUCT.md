@@ -60,10 +60,6 @@ The user selected a shareable developer profile and a personal projects/contribu
 
 ## Confirmed visual direction
 
-The user requested distinctive carefully tuned fonts, @handles for all personal identity, and a futuristic public experience without traditional columns or regular grids. Discovery and the maker profile should feel like an open studio of real software. The workbench remains a supporting tool.
+The shared identity uses self-hosted Bricolage Grotesque headings and body text, Martian Mono handles, project names and source metadata, and an Anybody wordmark. Moss/lime colors and the “Built with Astra” footer remain.
 
-The user confirmed people-first discovery, with their projects around them. The first public scene introduces @mager and surrounds that identity with real project previews.
-
-The heading and body font is the self-hosted variable Bricolage Grotesque. Anybody is reserved for the wordmark; Martian Mono carries code, source metadata, and public project names. All main surfaces carry the footer credit “Built with Astra”.
-
-The user requested a more code-focused, less decorative refinement. Compact type, straight screenshots, a real linked profile manifest, and visible stack/source rows now define the public studio. The moss/lime palette, uneven project sequence, and distinct browsing and management interfaces remain. Decorative depth motion is removed; functional disclosure, focus, and state feedback remain.
+The user rejected the long public presentation because it still felt like a blog. The approved public mode is now Operate: a compact maker row and latest real contribution lead into a horizontal software switcher. One selected project shows its screenshot beside its purpose, stack, notes, app link, and source. Six compact contribution rows follow. The sticky header replaces the bottom dock; the manifest and marketing close are removed. Real anchors preserve direct links and all project content without JavaScript. The separate private workbench keeps its existing editing, showcase, import, and agent-review flows.
