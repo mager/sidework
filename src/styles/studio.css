@@ -1,8 +1,8 @@
 /* Public software browser. Shared palette and type live in sidework.css. */
 @view-transition { navigation:auto; }
-.studio { min-height:100svh; }
+.studio { --studio-gutter:clamp(16px,3vw,64px); min-height:100svh; }
 .studio a,.studio button { touch-action:manipulation; }
-.studio-header { display:flex; align-items:center; gap:32px; padding:12px 28px;  background:var(--sw-bg); position:sticky; top:0; z-index:10; }
+.studio-header { display:flex; align-items:center; gap:32px; padding:12px var(--studio-gutter);  background:var(--sw-bg); position:sticky; top:0; z-index:10; }
 .studio-wordmark { display:inline-flex; align-items:center; gap:8px; font:650 1.5rem/1 var(--sw-brand-font); font-stretch:82%; letter-spacing:-.04em; }
 .studio-wordmark svg,.studio-wordmark > span { color:var(--sw-accent); }
 .studio-wordmark > span { margin-left:-7px; }
@@ -12,7 +12,7 @@
 .studio-settings { margin-left:auto; display:inline-flex; align-items:center; min-height:44px; font-size:.8125rem; color:var(--sw-muted); }
 .studio-import { margin-left:0; }
 #saved-count { font:.6875rem var(--sw-mono); color:var(--sw-muted); }
-.studio-main { width:100%; padding:0 clamp(16px,3vw,64px); margin:auto; }
+.studio-main { width:100%; padding:0 var(--studio-gutter); margin:auto; }
 .studio-discovery { display:flex; align-items:baseline; flex-wrap:wrap; gap:16px; padding-top:24px; }
 .studio-discovery h1 { font-size:1.25rem; font-weight:550; }
 .studio-discovery span,.studio-discovery a { font-size:.75rem; color:var(--sw-muted); }
@@ -27,7 +27,7 @@
 .studio-maker-actions > a { font-size:.8125rem; display:flex; align-items:center; gap:8px; min-height:44px; }
 .studio-maker-actions button[aria-pressed='true'] { color:var(--sw-accent); border-color:var(--sw-accent); }
 .studio-local-note { font-size:.75rem; color:var(--sw-muted); margin:20px 0; }
-.studio-footer { display:flex; justify-content:space-between; align-items:center; gap:16px; width:100%; margin:32px auto 0; padding:16px clamp(16px,3vw,64px); color:var(--sw-muted); font-size:.75rem; }
+.studio-footer { display:flex; justify-content:space-between; align-items:center; gap:16px; width:100%; margin:32px auto 0; padding:16px var(--studio-gutter); color:var(--sw-muted); font-size:.75rem; }
 .studio-footer a { display:inline-flex; align-items:center; gap:8px; min-height:36px; }
 .studio-footer button { border:0; background:none; color:inherit; min-height:44px; }
 .studio-saved { position:fixed; inset:76px 28px auto auto; width:min(420px,calc(100vw - 32px)); max-height:70dvh; overflow-y:auto; margin:0; padding:24px; border:0; border-radius:6px; background:var(--sw-surface); color:var(--sw-text); box-shadow:0 16px 40px #0004; }
@@ -40,9 +40,10 @@
 #saved-project-list strong { display:block; font-size:.875rem; }
 #saved-project-list span { font-size:.8125rem; color:var(--sw-muted); }
 .studio-toast { position:fixed; z-index:20; bottom:24px; left:50%; translate:-50% 0; width:max-content; max-width:calc(100vw - 32px); padding:14px 20px; border:0; border-radius:6px; background:var(--sw-raised); font-size:.8125rem; box-shadow:0 8px 24px #0003; }
-@media(max-width:900px) { .studio-header { gap:16px; padding-inline:20px; } .studio-import { display:none; } }
+@media(max-width:900px) { .studio-header { gap:16px; } .studio-import { display:none; } }
 @media(max-width:760px) {
- .studio-header { padding:8px 16px 0; flex-wrap:wrap; gap:0; }
+ .studio { --studio-gutter:16px; }
+ .studio-header { padding:8px var(--studio-gutter) 0; flex-wrap:wrap; gap:0; }
  .studio-header > nav { order:3; width:100%; margin:0; justify-content:space-between; gap:0; }
  .studio-header > nav a,.studio-header > nav button { font-size:.75rem; padding:8px; }
  .studio-header > nav svg { display:none; }
@@ -58,7 +59,7 @@
  .studio-maker-actions { grid-column:3; grid-row:1; gap:4px; }
  .studio-maker-actions > a { width:44px; justify-content:center; }
  .studio-maker-actions > a span { display:none; }
- .studio-footer { padding:12px 16px; flex-wrap:wrap; gap:4px 16px; }
+ .studio-footer { padding:12px var(--studio-gutter); flex-wrap:wrap; gap:4px 16px; }
  .studio-saved { inset:110px 16px auto; }
 }
 
