@@ -1,6 +1,6 @@
 # GitHub sign-in and waitlist
 
-GitHub OAuth and Firestore are configured, and local sign-in has been checked. Production deployment, production OAuth, and the cancellation check remain pending. No email delivery is connected.
+GitHub OAuth and Firestore are live at [Sidework](https://sidework-ten.vercel.app). Production sign-in, account storage, waiting access, consent changes, and sign-out were checked. No email delivery is connected.
 
 ## Current setup
 
@@ -9,7 +9,7 @@ GitHub OAuth app `3998242` is registered under @mager. Its secret is configured 
 - Production: `https://sidework-ten.vercel.app/auth/github/callback/`
 - Local: `http://127.0.0.1:4345/auth/github/callback/`
 
-Firebase/GCP project `sidework-9da9c` uses the `(default)` Firestore database in `us-east4`, Standard edition, with the free tier and billing disabled. The server uses Vercel OIDC Workload Identity through pool `sidework-vercel` and provider `vercel`. Trust is limited to the Sidework project and team by immutable IDs, with production and development environments allowed. Preview is not allowed. The service account `sidework-accounts@sidework-9da9c.iam.gserviceaccount.com` has `roles/datastore.user`. No GCP service account keys are used.
+Firebase/GCP project `sidework-9da9c` uses the `(default)` Firestore database in `us-east4`, Standard edition, with the free tier and billing disabled. The server uses Vercel OIDC Workload Identity through pool `sidework-vercel` and provider `vercel`. Trust is limited to the Sidework project and team by immutable IDs, with production and development environments allowed. Preview is not allowed. The service account `sidework-accounts@sidework-9da9c.iam.gserviceaccount.com` has `roles/datastore.user`. No GCP service account keys are used. Provider and service account policy readback confirmed the project/team conditions and only the Sidework production/development principals.
 
 `firestore.rules` denies all browser reads and writes. These rules were deployed with the Firebase CLI. Server access uses IAM. There is no SQL schema migration; the account transaction creates documents as needed. The earlier free Neon database is empty and unused by the new code. It is disconnected from Sidework, and its Vercel variables were removed. It has not been deleted.
 
@@ -48,7 +48,7 @@ OAuth state and PKCE use a signed, HTTP-only, same-site cookie that expires afte
 
 The Firestore `sidework_accounts` collection uses the numeric GitHub ID as each document ID. It stores ID, login, email, `waiting` or `approved` status, email update consent, and creation, login, and consent-change dates. A new record for the configured owner starts approved. Other new records start waiting. A Firestore transaction creates the record or refreshes identity and login time without replacing status or consent. Consent can be changed on the waiting page or in Settings. It does not send email.
 
-**Do not approve other accounts yet.** Private exports, draft review, and MCP templates still use @mager. These flows must support the correct identity before other accounts receive tool access. Waitlist signup can collect records after deployment; public multi-profile publishing is not connected.
+**Do not approve other accounts yet.** Private exports, draft review, and MCP templates still use @mager. These flows must support the correct identity before other accounts receive tool access. Waitlist signup can collect records; public multi-profile publishing is not connected.
 
 | Route | Access |
 | --- | --- |
@@ -72,4 +72,12 @@ The local validation record has 75 passing tests and a production build. Real Gi
 
 Ready signup and waiting pages were captured at 390 × 844 and 1280 × 900. Files are `.impeccable/review/github-signup-ready-{mobile,desktop}.jpg` and `.impeccable/review/github-waiting-{mobile,desktop}.jpg`.
 
-Production deployment, production OAuth, and the cancellation check remain pending. Run `npm test` and `npm run build` for behavioral changes. Do not treat successful signup as approval to admit other accounts.
+## Production record — November 6, 2026
+
+Main commit `9a2b93cf085e8a140bff085f54a645c7857c6341` deployed with Ready status at [the deployment URL](https://sidework-c8bgkhfjc-mager1s-projects.vercel.app), aliased to [Sidework](https://sidework-ten.vercel.app). [GitHub CI run 42242671941](https://github.com/mager/sidework/actions/runs/42242671941) succeeded.
+
+Real production GitHub sign-in returned the owner to Friends and verified server access to Firestore. With the owner temporarily waiting, Workbench redirected to the waiting page. Unchecked consent was saved, sign-out returned to signup, and repeat GitHub sign-in retained waiting status. Owner approval was restored and Friends was verified. Live mobile captures are `.impeccable/review/github-waiting-live-mobile.jpg` and `.impeccable/review/github-owner-live-mobile.jpg`.
+
+HTTP checks returned 200 for anonymous signup and the public profile, 303 to signup for anonymous Friends and the old invite route, and 403 for a cross-origin OAuth start. A cancellation callback with valid server-issued state and its cookie redirected to `/signup/?error=cancelled` without an account cookie. This was an HTTP callback check, not a full GitHub UI cancellation test.
+
+Run `npm test` and `npm run build` for behavioral changes. Do not treat successful signup as approval to admit other accounts.
