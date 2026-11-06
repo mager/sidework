@@ -1,37 +1,42 @@
 ---
-import { PROJECT_CATEGORIES, SOFTWARE_TYPES, projectMatches } from '../scripts/project-metadata.mjs';
+import { PROJECT_CATEGORIES } from '../scripts/project-metadata.mjs';
+import { workFeed } from '../scripts/work-feed.mjs';
 import '../styles/project-metadata.css';
 import StudioLayout from './StudioLayout.astro';
 import Icon from './SideworkIcon.astro';
 import {projects} from '../data/projects';
-import contributions from '../data/sidework-contributions.json';
-import ContributionStories from './ContributionStories.astro';
+import stories from '../data/contribution-stories.json';
 const {profile = false} = Astro.props;
 const ordered = ['cantalo','homeport','moodsh','perch','prxps'].map(id => projects.find(p => p.id === id)!);
-const requestedCategory = Astro.url.searchParams.get('category') || '';
-const category = Object.hasOwn(PROJECT_CATEGORIES, requestedCategory) ? requestedCategory : '';
-const visibleProjects = ordered.filter(project => projectMatches(project, '', category));
+const { kind, category, entries } = workFeed(ordered, stories, {
+ kind: Astro.url.searchParams.get('kind') || '', category: Astro.url.searchParams.get('category') || '',
+});
 const availableCategories = Object.entries(PROJECT_CATEGORIES).filter(([id]) => ordered.some(project => project.category === id));
 ---
 <StudioLayout title={profile ? '@mager · Sidework' : 'Explore · Sidework'} active={profile ? 'profile' : 'explore'}>
- {!profile && <div class="studio-discovery"><h1>Explore builders</h1><span>First on Sidework</span><a href="/contributions/">Community contributions <Icon name="arrow" size={15}/></a></div>}
+ {!profile && <div class="studio-discovery"><h1>Explore work</h1></div>}
  <section class="studio-maker" aria-label="@mager’s profile">
   <a href={profile ? 'https://github.com/mager' : '/mager/'} class="studio-avatar"><img src="/images/mager.jpg" alt="@mager’s illustrated portrait" width="56" height="56"/></a>
   <div class="studio-identity">{profile ? <h1><a href="https://github.com/mager">@mager</a></h1> : <h2><a href="/mager/">@mager</a></h2>}<p>Personal software from Chicago.<span class="studio-bio-extra"> Small tools. Long rabbit holes.</span></p></div>
   <div class="studio-maker-actions"><a href="https://github.com/mager" aria-label="@mager on GitHub"><Icon name="code" size={17}/><span>GitHub</span></a><button id="follow-maker" type="button" aria-pressed="false" class="sw-button">Follow</button></div>
  </section>
- <nav class="project-categories" aria-label="Project categories"><a href={Astro.url.pathname} aria-current={!category ? 'page' : undefined}>All projects</a>{availableCategories.map(([id, label]) => <a href={`${Astro.url.pathname}?category=${id}`} aria-current={category === id ? 'page' : undefined}>{label}</a>)}</nav>
- <p class:list={['project-result-count', { 'sw-sr-only': !category }]} role="status">{visibleProjects.length} of {ordered.length} projects</p>
- <section class="studio-project-index" aria-label="Projects by @mager">
-  {visibleProjects.map((project, index) => <article id={`project-${project.id}`} class={`studio-project-preview ${project.image ? '' : 'studio-project-text'}`}>
-   <a href={`/projects/${project.id}/`} class="studio-preview-link">
-    {project.image && <img src={project.image} alt={project.imageAlt} width="1536" height="1024" loading={index === 0 ? 'eager' : 'lazy'}/>}
-    <div class="studio-preview-heading"><h2>{project.name}</h2><Icon name="arrow" size={24}/></div>
-    <p>{project.tagline}</p><span>{[PROJECT_CATEGORIES[project.category], SOFTWARE_TYPES[project.softwareType]].filter(Boolean).join(' · ') || project.kind}</span>
+ <nav class="studio-work-filters" aria-label="Work type">
+  <a href={Astro.url.pathname} aria-current={kind === 'all' ? 'page' : undefined}>All work</a>
+  <a href={`${Astro.url.pathname}?kind=projects`} aria-current={kind === 'projects' ? 'page' : undefined}>Projects</a>
+  <a href={`${Astro.url.pathname}?kind=contributions`} aria-current={kind === 'contributions' ? 'page' : undefined}>Contributions</a>
+ </nav>
+ {kind === 'projects' && <nav class="project-categories" aria-label="Project categories"><a href={`${Astro.url.pathname}?kind=projects`} aria-current={!category ? 'page' : undefined}>All categories</a>{availableCategories.map(([id, label]) => <a href={`${Astro.url.pathname}?kind=projects&category=${id}`} aria-current={category === id ? 'page' : undefined}>{label}</a>)}</nav>}
+ <p class="sw-sr-only" role="status">{entries.length} {entries.length === 1 ? 'work story' : 'work stories'}</p>
+ <section class="studio-work-index" aria-label="Work by @mager">
+  {entries.map((item, index) => <article id={`${item.kind}-${item.id}`} class="studio-work-item">
+   <a href={item.href} class="studio-work-link">
+    <span class="studio-work-thumbnail" aria-hidden="true">{item.image ? <img src={item.image} alt="" width="96" height="64" loading={index < 4 ? 'eager' : 'lazy'}/> : <Icon name={item.kind === 'contribution' ? 'branch' : 'code'} size={28}/>}</span>
+    <div class="studio-work-copy"><h2>{item.name}</h2><p>{item.description}</p><span class="studio-work-meta">{item.kind === 'project' ? 'Project' : 'Contribution'} · {item.detail}</span></div>
+    <Icon name="arrow" size={18}/>
    </a>
   </article>)}
  </section>
- {visibleProjects.length === 0 && <p>No projects in this category yet. <a href={Astro.url.pathname}>See all projects</a>.</p>}
- <section class="studio-contributions" id="contributions" aria-labelledby="upstream-title"><header><h2 id="upstream-title">Open source &amp; collaboration</h2><a href="/contributions/">Community contributions <Icon name="arrow" size={14}/></a></header><ContributionStories nested /></section>
- <section class="studio-contributions" aria-labelledby="recent-pr-title"><header><h2 id="recent-pr-title">Recent pull requests</h2><span>Checked Nov 4, 2026</span><a href="/workbench/#contributions">Open workbench <Icon name="arrow" size={14}/></a></header><div>{contributions.map(item=><article class="studio-contribution"><Icon name="branch" size={17}/><div><a href={item.url}>{item.title}<Icon name="external" size={13}/></a><p>{item.repository} · #{item.number}</p></div><span class={`sw-status sw-status-${item.status}`}>{item.status}</span></article>)}</div><p class="studio-local-note">Saves and follows stay in this browser. Shared updates are not connected yet.</p></section>
+ {entries.length === 0 && <p>No work in this view yet. <a href={Astro.url.pathname}>See all work</a>.</p>}
+ <div class="studio-work-end"><a href="/contributions/drafts/">Add a contribution <Icon name="plus" size={16}/></a><a href="/workbench/#contributions">GitHub history <Icon name="arrow" size={16}/></a></div>
+ <p class="studio-local-note">Saves and follows stay in this browser.</p>
 </StudioLayout>

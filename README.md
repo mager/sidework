@@ -20,7 +20,7 @@ npm run dev
 - `/projects/cantalo/`, `/projects/homeport/`, `/projects/moodsh/`, `/projects/perch/`, `/projects/prxps/`: invite-only project detail pages.
 - `/contributions/`, `/contributions/[slug]/`, `/contributions/drafts/`: invite-only stories, source evidence, and private draft editor.
 - `/onboarding/`: search and bulk import of all public repositories owned by a GitHub handle.
-- `/mager/`: public profile with personal projects, six contribution stories, and recent pull requests; available without an invite.
+- `/mager/`: public profile with one list of personal projects and external contribution stories; available without an invite.
 - `/`: people-first discovery with real software previews and a local saved collection.
 - `/workbench/`: project story editor, private profile draft, searchable contribution history, discovery, and a four-project weekly plan.
 - `npm test`: state, URL safety, contribution normalization, saved collection, follows, theme, and workspace reset checks.
@@ -28,7 +28,9 @@ npm run dev
 
 ## What works
 
-The profile and discovery index show five projects, with Cántalo first in two columns on desktop and one column on mobile. Normal links open separate, full-width project pages with no content borders or panel frames. Detail pages show an original-color screenshot at its natural ratio, purpose, source metadata, app and save actions, and More by @mager links. prxps uses a real test-account screenshot captured with owner permission. Project navigation works without JavaScript. Saved links open the matching detail page. The exact /mager/ profile stays public; project detail pages require invite access. Six contribution stories follow the project index on @mager’s profile. The separate workbench retains editing and planning tools.
+The profile and Explore alternate five personal projects with six authored external contribution stories, starting with Cántalo and Uber Direct SDK. Both use the same compact row layout: two columns on desktop and one on mobile. Small project thumbnails keep their original colors; full screenshots appear only on detail pages. All work, Projects, and Contributions are normal links that work without JavaScript. Categories appear only under Projects; existing category URLs still work. The contribution list excludes repositories owned by the story author.
+
+Normal links open separate detail pages with no content borders or panel frames. Project pages show the screenshot at its natural ratio, purpose, source metadata, app and save actions, and More by @mager links. prxps uses a real test-account screenshot captured with owner permission. Saved links open the matching detail page. The exact /mager/ profile stays public; detail pages require invite access. Raw PR history stays in the workbench, with selected evidence on contribution detail pages. Add a contribution opens the existing private editor; it does not publish.
 
 - Public project showcase with demo, source, and build-log links.
 - Friends with empty and followed-profile views for the real @mager profile.
@@ -87,7 +89,7 @@ Feature up to six projects, then open Profile draft to change their order. Expor
 
 ## Contribution stories and drafts
 
-`/contributions/` shows six authored @mager stories from the software page. Each detail page separates the story from selected PR or commit evidence, with source links and check dates. PR states remain explicit; commits do not receive a merge state. These routes require an invite. The exact public `/mager/` profile embeds the same committed stories.
+`/contributions/` shows six authored @mager stories from the software page. Each detail page separates the story from selected PR or commit evidence, with source links and check dates. PR states remain explicit; commits do not receive a merge state. These routes require an invite. The exact public `/mager/` profile and Explore place the same external stories beside personal projects in one work list.
 
 `/contributions/drafts/` previews and saves up to 20 private stories in this browser. Each needs a project name, @handle, upstream repository, description, and HTTPS GitHub PR, issue, or commit URL from that repository. URL validation does not verify identity, authorship, or current source state. Contribution drafts use `contributionDrafts` in `sidework-workbench-v1`; project imports, draft review, and workbench saves preserve them. Reset and restore include them. Contribution publishing, export, and agent draft preparation are not connected.
 

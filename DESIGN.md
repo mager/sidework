@@ -288,7 +288,7 @@ Bricolage Grotesque carries reading text, Martian Mono identifies projects and s
 - Normal project links work without JavaScript.
 - Local drafts, saves, follows, and public records remain distinct.
 
-This records the approved November 5, 2026 project, contribution, and Settings updates. It supersedes the compact software browser and project tabs. Source authority is the applied CSS in src/styles/sidework.css, studio.css, settings.css, friends.css, entry.css, composer.css, agents.css, and contribution-stories.css. The project surfaces use Studio.astro, StudioLayout.astro, and src/pages/projects/[slug].astro. PRODUCT.md and docs/sidework-surface.md record product scope and review. Fonts come from src/styles/fonts.css; images from docs/assets.json.
+This records the approved work-list direction and the November 5, 2026 project, contribution, and Settings updates. It supersedes the compact software browser and project tabs. Source authority is the applied CSS in src/styles/sidework.css, studio.css, settings.css, friends.css, entry.css, composer.css, agents.css, and contribution-stories.css. The project surfaces use Studio.astro, StudioLayout.astro, and src/pages/projects/[slug].astro. PRODUCT.md and docs/sidework-surface.md record product scope and review. Fonts come from src/styles/fonts.css; images from docs/assets.json.
 
 ## Colors
 
@@ -322,7 +322,7 @@ All use self-hosted Latin WOFF2 subsets and font-display swap. Anybody and Brico
 
 - **Wordmark:** Anybody for brand use only. Project navigation uses 1.5rem, reduced to 1.375rem at 760px; entry pages retain 1.75rem and the workbench retains 1.5625rem.
 - **Maker handle:** Martian Mono identity at 1.5rem, reduced to 1.25rem at 760px.
-- **Project title:** Martian Mono names scale from 1.25rem to 1.75rem in the index. Contribution story names reuse this mono scale.
+- **Work-list title:** project and contribution names use Martian Mono at 1.125rem, reduced to 1rem at 760px. The separate contribution index retains its 1.25rem–1.75rem mono title scale.
 - **Project detail:** the mono title scales to 4.5rem. The Bricolage tagline scales to 1.75rem, and the description to 1.5rem with a 65ch measure. These larger roles are intentional.
 - **Settings and contribution page title:** Bricolage scales from 2rem to 3rem. Contribution detail names use the same size range in Martian Mono. Section headings use 1.25rem, and section descriptions and the theme selector use .9375rem.
 - **Body and story caption:** workbench reading and local story purpose remain unchanged. Local story notes use body size with line height 1.8 and 65ch measure; taglines use 1.25rem and 45ch.
@@ -333,15 +333,15 @@ All use self-hosted Latin WOFF2 subsets and font-display swap. Anybody and Brico
 
 ## Layout
 
-The project header is sticky with a ground fill and 12px by 28px padding. It has no bottom border. Settings sits on the right. Main content and footer use the full width with clamp(16px, 3vw, 64px) side padding. A 56px portrait, identity, and GitHub/Follow actions form the maker row. Project categories follow this row. The latest-contribution strip is removed; dated PR evidence remains below the projects.
+The project header is sticky with a ground fill and 12px by 28px padding. It has no bottom border. Settings sits on the right. Main content and footer use the full width with clamp(16px, 3vw, 64px) side padding. A 56px portrait, identity, and GitHub/Follow actions form the maker row. All work, Projects, and Contributions links follow this row. Project categories appear only in Projects. Raw PR history stays in the workbench; selected evidence stays on contribution detail pages.
 
-The project index has two equal columns, with 36px between columns and 56px between rows. Each preview is an ordinary link. Images use a 1.5 aspect ratio and object-fit contain, with no outline or rounded frame. Project headings sit 20px below the image. All five projects have real screenshots, including the real Cántalo and authorized prxps captures.
+The profile and Explore alternate five personal projects with six authored external contribution stories, starting with Cántalo and Uber Direct SDK. Both use the same row layout in two equal columns with a 64px column gap. Each row is an ordinary link, at least 120px high, with 24px vertical padding and a 20px internal gap. The 96 × 64px image or icon sits beside the title, short description, and type/source label. Descriptions show at most two lines. Project thumbnails use object-fit contain with no frame and keep their source colors. Full screenshots appear only on detail pages.
 
 Detail pages place the project title and tagline beside Save and Open app, then show the real screenshot across the content width at its natural ratio. A caption follows. Description and source metadata use a 2fr/1fr grid with a 240px minimum metadata column and 10vw gap. This section has 64px top and 80px bottom margins. More by @mager links follow.
 
-At 900px the header uses 20px side padding and hides Import projects. At 760px and below, the header uses 8px top padding and no row gap. Its wordmark and Settings row sits above full-width navigation, for a measured height of 96px. The 44px portrait, @handle, GitHub icon link, and Follow action share one row. The shorter bio, “Personal software from Chicago.”, sits below it. Project categories use one horizontal scroll row with links at least 44px high. The unfiltered project count is available to screen readers only; a filtered count remains visible. The project index becomes one column with 40px gaps and 8px top padding. At the checked 390px and 424px profile widths, the first image starts 249px from the viewport top. Detail headings stack above actions, and the story becomes one column with a 36px gap and 40px/48px vertical margins. The screenshot retains its natural ratio.
+At 900px the header uses 20px side padding and hides Import projects. At 760px and below, the header uses 8px top padding and no row gap. Its wordmark and Settings row sits above full-width navigation, for a measured height of 96px. The 44px portrait, @handle, GitHub icon link, and Follow action share one row. The shorter bio, “Personal software from Chicago.”, sits below it. Project categories use one horizontal scroll row with links at least 44px high. The work count is available to screen readers. The work list becomes one column, with 20px vertical row padding and 12px internal gaps. Thumbnails and icons use a 64 × 48px space. Detail headings stack above actions, and the story becomes one column with a 36px gap and 40px/48px vertical margins. The screenshot retains its natural ratio.
 
-The public profile places authored contribution stories after the project index. Story rows pair name and repository with a short description in two equal columns. They stack at 760px. Recent PR rows retain explicit status. The footer follows content in normal flow. Contribution page composition and evidence rules are in `.impeccable/surfaces/contributions.md`.
+All work, Projects, Contributions, and category filters use server-rendered GET links. Existing category-only URLs select Projects. The contribution feed excludes repositories owned by the story author. Add a contribution opens the private editor; GitHub history opens the workbench. The footer follows content in normal flow. Separate contribution pages and evidence rules are in `.impeccable/surfaces/contributions.md`.
 
 Settings content is at most 960px wide, with 48px top and 64px bottom padding. Appearance, Workspace, and Invite access use unboxed sections with 56px top margins. Each section has a flexible description column and an action column, with 20px vertical and 48px horizontal gaps. At 760px, sections stack, their top margins reduce to 40px, and page top padding becomes 28px.
 
@@ -391,7 +391,7 @@ Each detail page has a mono name, Bricolage tagline and description, maker link,
 
 ### Contribution stories
 
-Story rows have no card border or frame. Mono names and repository labels sit beside Bricolage descriptions. Normal links open separate detail pages. Name @mager once above the collection rather than on each row. Use h2 for standalone story titles and h3 when the list sits inside the profile section. Detail pages keep the authored story separate from dated source evidence.
+Contribution stories share the project row layout in the profile and Explore, with h2 names and an icon in the thumbnail space. The separate contribution index retains borderless story rows: mono names and repository labels sit beside Bricolage descriptions. Normal links open separate detail pages. Name @mager once above the collection rather than on each row. Detail pages keep the authored story separate from dated source evidence.
 
 The private editor reuses shared fields and buttons. Its preview sits beside the form on desktop and below it on mobile. Place “Private preview” below the preview title. Keep copy short and put source status beside the relevant evidence.
 

@@ -6,7 +6,7 @@ Developers who make personal software and contribute to other projects. They nee
 
 ## Positioning
 
-A personal software gallery: help visitors understand what a project does and decide whether to try it. Clear descriptions and useful classification come before social activity.
+A gallery of personal software and external contributions: help visitors understand the work and inspect its source. Clear descriptions and useful classification come before social activity.
 
 A social space for builders, nerds, coders, and vibers to discover personal software and meet its makers. Project ownership and upstream contributions belong in one story but retain distinct attribution. GitHub supplies evidence; authored descriptions supply meaning.
 
@@ -42,9 +42,9 @@ Export draft downloads a private JSON copy of only the selected projects and sto
 
 ## Contribution stories
 
-Six authored @mager stories from the software page explain upstream work. The public `/mager/` profile shows them below personal projects. The separate contribution index, detail pages, and draft editor require invite access. Detail pages show selected PR or commit evidence with source links, check dates, and explicit PR states. This selection does not claim a complete history or prove every statement in the authored story.
+Six authored @mager stories from the software page explain upstream work. The public `/mager/` profile and Explore alternate them with five personal projects in one list, starting with Cántalo and Uber Direct SDK. Projects and contributions use the same row layout and visual weight. Stories about repositories owned by their author are excluded from the contribution list. Raw PR history is available in the workbench, not on the profile. The separate contribution index, detail pages, and draft editor require invite access. Detail pages show selected PR or commit evidence with source links, check dates, and explicit PR states. This selection does not claim a complete history or prove every statement in the authored story.
 
-People can create and edit up to 20 private contribution drafts in this browser. Each has a project name, @handle, upstream repository, story, and a GitHub PR, issue, or commit URL for that repository. The editor validates the URL format and repository match; it does not verify the handle or source claims. A live preview shows the draft. Project imports, draft review, and workbench saves preserve contribution drafts. Workspace reset and restore include them. Contribution publishing, export, and agent preparation are not connected.
+People can create and edit up to 20 private contribution drafts in this browser. Each has a project name, @handle, upstream repository, story, and a GitHub PR, issue, or commit URL for that repository. The editor validates the URL format and repository match; it does not verify the handle or source claims. A live preview shows the draft. Project imports, draft review, and workbench saves preserve contribution drafts. Workspace reset and restore include them. Add a contribution opens this private editor. Contribution publishing, export, and agent preparation are not connected.
 
 ## Agent setup and draft review
 
@@ -78,7 +78,7 @@ The user selected a shareable developer profile and a personal projects/contribu
 
 The shared identity uses self-hosted Bricolage Grotesque headings and body text, Martian Mono handles, project names and source metadata, and an Anybody wordmark. The user selected a minimal black and white interface so that the work stays in focus. Black, white, and neutral gray apply to controls, surfaces, focus, and status. Project screenshots retain their original colors. Light, Dark, and System modes are available, with System as the default. The existing layout, fonts, and “Built with Astra” footer remain.
 
-Project browsing uses Experience mode. The profile and discovery index show a two-column project grid on desktop and one column on mobile. Normal links open separate, full-width project detail pages. Content has no card borders or panel frames. Real screenshots keep their original colors and natural ratio on detail pages. The prxps entry uses a real test-account screenshot captured with owner permission on November 5, 2026. Each detail page shows purpose, description, source metadata, app and save actions, and More by @mager links. These detail routes require an invite; the exact /mager/ profile remains public.
+Project browsing uses Experience mode. The profile and Explore show one compact work list, with two columns on desktop and one column on mobile. All work, Projects, and Contributions use normal GET links. Project categories appear only in Projects; existing category URLs still select that view. Project thumbnails are 96 × 64px on desktop and 64 × 48px on mobile. Contribution icons use the same space. Full screenshots appear only on detail pages. Normal links open separate, full-width project detail pages. Content has no card borders or panel frames. Real screenshots keep their original colors and natural ratio on detail pages. The prxps entry uses a real test-account screenshot captured with owner permission on November 5, 2026. Each detail page shows purpose, description, source metadata, app and save actions, and More by @mager links. These detail routes require an invite; the exact /mager/ profile remains public.
 
 Contribution browsing uses the same open, monochrome layout. Short story rows link to separate detail pages. The editor places its form beside a private preview on desktop and above it on mobile. Copy stays brief; source details belong with the evidence.
 
@@ -89,7 +89,7 @@ Settings uses Operate mode. It holds all theme controls, workspace reset and res
 
 Each project can have one category, one software type, a short intended audience, and up to five concrete features. The description explains the task and how the software works; the tagline names the main action. Categories describe purpose (Developer tools, Productivity, Creative tools, Learning, Games & recreation, Utilities). Software types describe delivery (Web app, Command-line tool, Desktop app, Mobile app, Browser extension, Library, API / service). Programming languages remain in the existing stack field.
 
-The shared vocabulary lives in `src/scripts/project-metadata.mjs`. Missing metadata is allowed, including in older version 1 drafts. GitHub imports provide repository facts and leave classification, audience, and features blank for author review. Imports preserve existing authored metadata. The editor, preview, JSON backups, draft review, and MCP use the same fields and limits. Agents can prepare them from evidence but cannot publish. The gallery has category links that work without JavaScript; project pages show the audience and features. Add categories only when real projects need them; nested categories, rankings, and automatic classification are outside this first version.
+The shared vocabulary lives in `src/scripts/project-metadata.mjs`. Missing metadata is allowed, including in older version 1 drafts. GitHub imports provide repository facts and leave classification, audience, and features blank for author review. Imports preserve existing authored metadata. The editor, preview, JSON backups, draft review, and MCP use the same fields and limits. Agents can prepare them from evidence but cannot publish. The Projects view has category links that work without JavaScript; project pages show the audience and features. Add categories only when real projects need them; nested categories, rankings, and automatic classification are outside this first version.
 
 ## Latest project: Cántalo
 
