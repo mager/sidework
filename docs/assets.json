@@ -33,6 +33,36 @@
     "asset": "public/images/cantalo-matadora.jpg",
     "origin": "https://cantalo-peach.vercel.app/#/song/matadora",
     "creator": "@mager",
-    "usage": "Actual C\u00e1ntalo song page captured November 5, 2026 for the owner-requested project showcase. Original blue, yellow, and pink colors. Spotify artwork remains part of the source screen."
+    "usage": "Actual Cántalo song page captured November 5, 2026 for the owner-requested project showcase. Original blue, yellow, and pink colors. Spotify artwork remains part of the source screen."
+  },
+  {
+    "asset": "https://avatars.githubusercontent.com/u/538264?v=4&s=112",
+    "origin": "https://api.github.com/repos/uber/uber-direct-sdk",
+    "usage": "GitHub repository owner avatar for uber; verified November 6, 2026. Referenced remotely in original colors for contribution attribution."
+  },
+  {
+    "asset": "https://avatars.githubusercontent.com/u/43004?v=4&s=112",
+    "origin": "https://api.github.com/repos/pbakaus/impeccable",
+    "usage": "GitHub repository owner avatar for pbakaus; verified November 6, 2026. Referenced remotely in original colors for contribution attribution."
+  },
+  {
+    "asset": "https://avatars.githubusercontent.com/u/101993260?v=4&s=112",
+    "origin": "https://api.github.com/repos/premint/premintbot",
+    "usage": "GitHub repository owner avatar for premint; verified November 6, 2026. Referenced remotely in original colors for contribution attribution."
+  },
+  {
+    "asset": "https://avatars.githubusercontent.com/u/426014?v=4&s=112",
+    "origin": "https://api.github.com/repos/postmates/consul_mut_ex",
+    "usage": "GitHub repository owner avatar for postmates; verified November 6, 2026. Referenced remotely in original colors for contribution attribution."
+  },
+  {
+    "asset": "https://avatars.githubusercontent.com/u/251374?v=4&s=112",
+    "origin": "https://api.github.com/repos/spotify/apps-tutorial",
+    "usage": "GitHub repository owner avatar for spotify; verified November 6, 2026. Referenced remotely in original colors for contribution attribution."
+  },
+  {
+    "asset": "https://avatars.githubusercontent.com/u/93415?v=4&s=112",
+    "origin": "https://api.github.com/repos/simplegeo/python-simplegeo",
+    "usage": "GitHub repository owner avatar for simplegeo; verified November 6, 2026. Referenced remotely in original colors for contribution attribution."
   }
 ]

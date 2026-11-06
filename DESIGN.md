@@ -335,7 +335,7 @@ All use self-hosted Latin WOFF2 subsets and font-display swap. Anybody and Brico
 
 The project header is sticky with a ground fill and 12px vertical padding. It has no bottom border. Settings sits on the right. Header, main content, and footer share the full-width `--studio-gutter`: clamp(16px, 3vw, 64px), fixed at 16px at 760px and below. This keeps the logo, page heading, maker row, filters, work list, and footer on one left edge. A 56px portrait, identity, and GitHub/Follow actions form the maker row. All work, Projects, and Contributions links follow this row. Project categories appear only in Projects. Raw PR history stays in the workbench; selected evidence stays on contribution detail pages.
 
-The profile and Explore alternate five personal projects with six authored external contribution stories, starting with Cántalo and Uber Direct SDK. Both use the same row layout in two equal columns with a 64px column gap. Each row is an ordinary link, at least 120px high, with 24px vertical padding and a 20px internal gap. The 96 × 64px image or icon sits beside the title, short description, and type/source label. Descriptions show at most two lines. Project thumbnails use object-fit contain with no frame and keep their source colors. Full screenshots appear only on detail pages.
+The profile and Explore alternate five personal projects with six authored external contribution stories, starting with Cántalo and Uber Direct SDK. Both use the same row layout in two equal columns with a 64px column gap. Each row is an ordinary link, at least 120px high, with 24px vertical padding and a 20px internal gap. The 96 × 64px media space sits beside the title, short description, and type/source label. Contributions use the verified GitHub owner avatar at 56px square, reduced to 44px on mobile, in its original colors. Descriptions show at most two lines. Project thumbnails use object-fit contain with no frame and keep their source colors. Full screenshots appear only on detail pages.
 
 Detail pages place the project title and tagline beside Save and Open app, then show the real screenshot across the content width at its natural ratio. A caption follows. Description and source metadata use a 2fr/1fr grid with a 240px minimum metadata column and 10vw gap. This section has 64px top and 80px bottom margins. More by @mager links follow.
 
@@ -395,13 +395,13 @@ Each detail page has a mono name, Bricolage tagline and description, maker link,
 
 ### Contribution stories
 
-Contribution stories share the project row layout in the profile and Explore, with h2 names and an icon in the thumbnail space. The separate contribution index retains borderless story rows: mono names and repository labels sit beside Bricolage descriptions. Normal links open separate detail pages. Name @mager once above the collection rather than on each row. Detail pages keep the authored story separate from dated source evidence.
+Contribution stories share the project row layout in the profile and Explore, with h2 names and GitHub owner avatars in the thumbnail space. The title link covers the story row; the repository label is a separate GitHub link with an external-link icon. The two links are not nested. The separate contribution index retains borderless story rows: mono names and repository labels sit beside Bricolage descriptions. Normal links open separate detail pages. Name @mager once above the collection rather than on each row. Detail pages keep the authored story separate from dated source evidence.
 
 The private editor reuses shared fields and buttons. Its preview sits beside the form on desktop and below it on mobile. Place “Private preview” below the preview title. Keep copy short and put source status beside the relevant evidence.
 
 ### Friends rows
 
-Friends reuses the shared monochrome controls and links to Settings. Border-separated rows place a 52px portrait beside a Martian Mono @handle and Bricolage description. View work and Follow or Unfollow use the existing button styles. The empty view uses the same border treatment, a compact icon, a short heading, and an Explore link. Status messages use a bordered text block and the shared neutral colors. Workspace reset and restore live in Settings.
+Friends reuses the shared monochrome controls and links to Settings. Border-separated rows place a 52px portrait beside a Martian Mono @handle and Bricolage description. View work and Follow or Unfollow use the existing button styles. The empty view uses the same border treatment, a compact icon, a short heading, and an Explore link. The footer has no top border, so the final profile row does not produce two consecutive dividers. Status messages use a bordered text block and the shared neutral colors. Workspace reset and restore live in Settings.
 
 ### Saved collection and feedback
 

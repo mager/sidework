@@ -1,4 +1,5 @@
 import { PROJECT_CATEGORIES, projectMatches } from './project-metadata.mjs';
+import { safeUrl } from './sidework-state.mjs';
 
 // Alternate authored work, not raw activity. Preserve each collection's order.
 export function workFeed(projects, stories, { kind = '', category = '' } = {}) {
@@ -16,6 +17,8 @@ export function workFeed(projects, stories, { kind = '', category = '' } = {}) {
   }).map(story => ({
     id: story.id, kind: 'contribution', name: story.name, description: story.story,
     href: `/contributions/${story.id}/`, detail: story.repository,
+    repositoryUrl: /^[a-z\d-]+\/[a-z\d_.-]+$/i.test(story.repository) ? `https://github.com/${story.repository}` : '',
+    image: safeUrl(story.ownerAvatarUrl).startsWith('https://avatars.githubusercontent.com/') ? safeUrl(story.ownerAvatarUrl) : '',
   }));
   if (kind === 'projects') return { kind, category, entries: personal };
   if (kind === 'contributions') return { kind, category, entries: upstream };

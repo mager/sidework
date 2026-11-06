@@ -29,7 +29,7 @@
 .friends-reset summary { cursor:pointer; min-height:44px; padding-block:12px; width:fit-content; }
 .friends-reset h2 { color:var(--sw-text); font-size:1.125rem; margin:16px 0 8px; }
 .friends-reset p { max-width:65ch; margin-bottom:16px; }
-.friends-footer { display:flex; align-items:center; justify-content:space-between; gap:16px; width:min(100% - 48px,1040px); margin:0 auto; padding:16px 0; border-top:1px solid var(--sw-border); color:var(--sw-muted); font-size:.75rem; }
+.friends-footer { display:flex; align-items:center; justify-content:space-between; gap:16px; width:min(100% - 48px,1040px); margin:0 auto; padding:16px 0; color:var(--sw-muted); font-size:.75rem; }
 .friends-footer > a { display:inline-flex; align-items:center; min-height:44px; }
 @media(max-width:760px) {
  .friends-header { flex-wrap:wrap; gap:10px; padding:12px 16px 0; }

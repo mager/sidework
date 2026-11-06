@@ -29,11 +29,11 @@ const availableCategories = Object.entries(PROJECT_CATEGORIES).filter(([id]) => 
  <p class="sw-sr-only" role="status">{entries.length} {entries.length === 1 ? 'work story' : 'work stories'}</p>
  <section class="studio-work-index" aria-label="Work by @mager">
   {entries.map((item, index) => <article id={`${item.kind}-${item.id}`} class="studio-work-item">
-   <a href={item.href} class="studio-work-link">
-    <span class="studio-work-thumbnail" aria-hidden="true">{item.image ? <img src={item.image} alt="" width="96" height="64" loading={index < 4 ? 'eager' : 'lazy'}/> : <Icon name={item.kind === 'contribution' ? 'branch' : 'code'} size={28}/>}</span>
-    <div class="studio-work-copy"><h2>{item.name}</h2><p>{item.description}</p><span class="studio-work-meta">{item.kind === 'project' ? 'Project' : 'Contribution'} · {item.detail}</span></div>
+   <div class="studio-work-link">
+    <span class:list={["studio-work-thumbnail", {"studio-work-thumbnail--avatar": item.kind === "contribution"}]} aria-hidden="true">{item.image ? <img src={item.image} alt="" width="96" height="64" loading={index < 4 ? 'eager' : 'lazy'}/> : <Icon name={item.kind === 'contribution' ? 'branch' : 'code'} size={28}/>}</span>
+    <div class="studio-work-copy"><h2><a class="studio-work-story" href={item.href}>{item.name}</a></h2><p>{item.description}</p><span class="studio-work-meta">{item.kind === 'project' ? 'Project' : 'Contribution'} · {item.repositoryUrl ? <a class="studio-work-repository" href={item.repositoryUrl} aria-label={`${item.detail} on GitHub`}>{item.detail}<Icon name="external" size={12}/></a> : item.detail}</span></div>
     <Icon name="arrow" size={18}/>
-   </a>
+   </div>
   </article>)}
  </section>
  {entries.length === 0 && <p>No work in this view yet. <a href={Astro.url.pathname}>See all work</a>.</p>}
