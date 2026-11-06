@@ -17,7 +17,7 @@ npm run dev
 - `/invite/`: server-checked invitation for discovery and management tools.
 - `/friends/`: invite-only local follows and first-project entry.
 - `/settings/`: invite-only Appearance, workspace reset and restore, and invite locking.
-- `/projects/homeport/`, `/projects/moodsh/`, `/projects/perch/`, `/projects/prxps/`: invite-only project detail pages.
+- `/projects/cantalo/`, `/projects/homeport/`, `/projects/moodsh/`, `/projects/perch/`, `/projects/prxps/`: invite-only project detail pages.
 - `/contributions/`, `/contributions/[slug]/`, `/contributions/drafts/`: invite-only stories, source evidence, and private draft editor.
 - `/onboarding/`: search and bulk import of all public repositories owned by a GitHub handle.
 - `/mager/`: public profile with personal projects, six contribution stories, and recent pull requests; available without an invite.
@@ -28,7 +28,7 @@ npm run dev
 
 ## What works
 
-The profile and discovery index show four projects in two columns on desktop and one column on mobile. Normal links open separate, full-width project pages with no content borders or panel frames. Detail pages show an original-color screenshot at its natural ratio, purpose, source metadata, app and save actions, and More by @mager links. prxps uses a real test-account screenshot captured with owner permission. Project navigation works without JavaScript. Saved links open the matching detail page. The exact /mager/ profile stays public; project detail pages require invite access. Six contribution stories follow the project index on @mager’s profile. The separate workbench retains editing and planning tools.
+The profile and discovery index show five projects, with Cántalo first in two columns on desktop and one column on mobile. Normal links open separate, full-width project pages with no content borders or panel frames. Detail pages show an original-color screenshot at its natural ratio, purpose, source metadata, app and save actions, and More by @mager links. prxps uses a real test-account screenshot captured with owner permission. Project navigation works without JavaScript. Saved links open the matching detail page. The exact /mager/ profile stays public; project detail pages require invite access. Six contribution stories follow the project index on @mager’s profile. The separate workbench retains editing and planning tools.
 
 - Public project showcase with demo, source, and build-log links.
 - Friends with empty and followed-profile views for the real @mager profile.
@@ -59,9 +59,10 @@ The weekly goal counts distinct saved projects marked submitted by the user. It 
 - Six recent PR states were fetched from GitHub on November 4, 2026. The snapshot preserves merged, draft, open, and closed as separate states.
 - Older contribution evidence comes from @mager’s October 12, 2026 [public contribution record](https://mager.co/software/contributions.json). The workbench displays a selection; it does not claim a full GitHub history or complete activity totals.
 - Six contribution stories come from @mager’s software page, checked November 5, 2026. Their selected evidence retains its own check dates and states; it is not a complete activity record.
-- Project descriptions and links come from [@mager’s software directory](https://mager.co/software/).
+- Cántalo’s description and features were checked against its live MATADORA page and `mager/cantalo` README on November 5, 2026. Its repository is private; no source code is included in Sidework.
+- Other project descriptions and links come from [@mager’s software directory](https://mager.co/software/).
 - The illustrated @mager portrait is an existing asset from magerblog, by [@hopperdraws](https://x.com/hopperdraws). It is included for this profile; it is not a reusable product logo.
-- The Homeport, Mood Shell, and Perch screenshots remain on @mager’s existing Vercel Blob image host. The real prxps capture is stored at `public/images/prxps-games.jpg`. Asset origins and permission notes are in `docs/assets.json`.
+- The Homeport, Mood Shell, and Perch screenshots remain on @mager’s existing Vercel Blob image host. Real Cántalo and prxps captures are stored at `public/images/cantalo-matadora.jpg` and `public/images/prxps-games.jpg`. Asset origins and permission notes are in `docs/assets.json`.
 
 ## Typography
 

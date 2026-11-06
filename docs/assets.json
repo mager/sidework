@@ -28,5 +28,11 @@
     "origin": "https://www.prxps.xyz",
     "creator": "@mager",
     "usage": "Actual prxps test-account screen captured with owner permission on November 5, 2026. Upcoming games and sports filters. Original colors; no login details in the image."
+  },
+  {
+    "asset": "public/images/cantalo-matadora.jpg",
+    "origin": "https://cantalo-peach.vercel.app/#/song/matadora",
+    "creator": "@mager",
+    "usage": "Actual C\u00e1ntalo song page captured November 5, 2026 for the owner-requested project showcase. Original blue, yellow, and pink colors. Spotify artwork remains part of the source screen."
   }
 ]

@@ -1,5 +1,17 @@
 export const projects = [
   {
+    id: 'cantalo', name: 'Cántalo', kind: 'Spanish through music', stack: 'JavaScript · Node.js · Firestore',
+    image: '/images/cantalo-matadora.jpg', imageAlt: 'Cántalo’s bright blue and yellow MATADORA page with its Spotify player.',
+    tagline: 'Practice Spanish through music.',
+    category: 'learning', softwareType: 'web-app',
+    audience: 'Spanish learners who love music.',
+    features: ['Tap words for meanings and pronunciation.', 'Practice with original Spanish phrases.', 'Keep words in a personal dictionary.'],
+    description: 'Start with MATADORA by KAROL G. Listen on Spotify, explore original Spanish practice phrases, and build a personal dictionary.',
+    note: 'Prototype · Private repository',
+    url: 'https://cantalo-peach.vercel.app/#/song/matadora', source: 'https://github.com/mager/cantalo',
+    story: 'https://cantalo-peach.vercel.app/#/story',
+  },
+  {
     image: 'https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-04-perch/control-center-redacted-2026-10-11.jpg', imageAlt: 'Perch’s Mac monitoring control center.',
     id: 'perch', name: 'Perch', kind: 'Mac monitoring', stack: 'Node.js · Redis',
     tagline: 'Check your Mac’s health and running sessions from a browser.',

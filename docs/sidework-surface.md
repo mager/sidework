@@ -1,6 +1,6 @@
 # Sidework: project pages and Settings
 
-Routes: `/invite/` access gate, `/friends/` local follows, `/` discovery, `/mager/` maker profile, `/projects/homeport/`, `/projects/moodsh/`, `/projects/perch/`, and `/projects/prxps/` project details, `/settings/` preferences and workspace recovery, `/workbench/` browser-local planning tools, and `/onboarding/` public GitHub repository import. The exact `/mager/` profile and the invite page allow anonymous access. Other website routes require a valid invite session. The separate `/api/mcp` endpoint requires an origin-bound agent Bearer token; it does not accept an invite cookie as authentication. Unknown project slugs return 404 after the access gate.
+Routes: `/invite/` access gate, `/friends/` local follows, `/` discovery, `/mager/` maker profile, `/projects/cantalo/`, `/projects/homeport/`, `/projects/moodsh/`, `/projects/perch/`, and `/projects/prxps/` project details, `/settings/` preferences and workspace recovery, `/workbench/` browser-local planning tools, and `/onboarding/` public GitHub repository import. The exact `/mager/` profile and the invite page allow anonymous access. Other website routes require a valid invite session. The separate `/api/mcp` endpoint requires an origin-bound agent Bearer token; it does not accept an invite cookie as authentication. Unknown project slugs return 404 after the access gate.
 
 The current direction uses open, full-width project pages with no content framing. The November 5 project-page and Settings update supersedes the compact software browser and project tabs. The black and white interface, three fonts, real evidence, and separate private workbench remain.
 
@@ -8,7 +8,7 @@ THESIS: Give real software room to be seen. Follow a project link, learn its pur
 
 OWN-WORLD: Black, white, and neutral gray keep attention on the work. Light, Dark, and System modes share the same layout; System is the default. Bricolage Grotesque carries headings and reading text; Martian Mono carries public project names, @handles, code, and source metadata; Anybody marks the brand. Real screenshots retain their colors and remain straight. Space and type separate project content without card borders or panel frames.
 
-STORY: The profile and discovery index show four real projects. Normal links open separate detail pages, which require invite access. Each page shows its purpose, description, real screenshot when available, source metadata, and app/save actions. More by @mager links connect the projects. Settings holds all theme controls, workspace reset and restore, and invite locking. Personal planning remains in the private workbench.
+STORY: The profile and discovery index show five real projects, with Cántalo first. Normal links open separate detail pages, which require invite access. Each page shows its purpose, description, real screenshot when available, source metadata, and app/save actions. More by @mager links connect the projects. Settings holds all theme controls, workspace reset and restore, and invite locking. Personal planning remains in the private workbench.
 
 FIRST VIEWPORT: The project index starts with shared sticky navigation, a compact maker row, the latest real contribution, and a two-column project grid. Mobile uses one column. A detail page starts with a back link, large project title and purpose, actions, and a wide natural-ratio screenshot. prxps uses a real, authorized test-account screenshot. Settings starts with its title and unboxed Appearance, Workspace, and Invite access sections.
 
@@ -20,7 +20,7 @@ FINISH: Ship at the reviewed project-page and Settings scope. Seven review image
 
 ## Content and provenance
 
-- Personal software and screenshot URLs come from magerblog project posts. Screenshots are historical previews, not embedded live app sessions.
+- Cántalo content comes from its live MATADORA page and private `mager/cantalo` README, checked November 5, 2026. Other project descriptions and links come from magerblog. Homeport, Mood Shell, and Perch screenshots come from those posts; Cántalo and prxps use real captures made November 5, 2026. Origins and permission notes are in `docs/assets.json`. Screenshots are previews, not embedded live app sessions.
 - Six recent PR records were read from GitHub on November 4, 2026; older records retain their prior dates.
 - The portrait is the existing @hopperdraws illustration for @mager.
 - The prototype starts with one real maker. Do not invent people, reactions, followers, ratings, or messages.

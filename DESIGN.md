@@ -335,7 +335,7 @@ All use self-hosted Latin WOFF2 subsets and font-display swap. Anybody and Brico
 
 The project header is sticky with a ground fill and 12px by 28px padding. It has no bottom border. Settings sits on the right. Main content and footer use the full width with clamp(16px, 3vw, 64px) side padding. A 56px portrait, identity, and GitHub/Follow actions form the maker row. The latest real contribution appears below it.
 
-The project index has two equal columns, with 36px between columns and 56px between rows. Each preview is an ordinary link. Images use a 1.5 aspect ratio and object-fit contain, with no outline or rounded frame. Project headings sit 20px below the image. All four projects have real screenshots, including the authorized prxps capture.
+The project index has two equal columns, with 36px between columns and 56px between rows. Each preview is an ordinary link. Images use a 1.5 aspect ratio and object-fit contain, with no outline or rounded frame. Project headings sit 20px below the image. All five projects have real screenshots, including the real Cántalo and authorized prxps captures.
 
 Detail pages place the project title and tagline beside Save and Open app, then show the real screenshot across the content width at its natural ratio. A caption follows. Description and source metadata use a 2fr/1fr grid with a 240px minimum metadata column and 10vw gap. This section has 64px top and 80px bottom margins. More by @mager links follow.
 
@@ -385,9 +385,9 @@ Workspace places Reset my workspace and Restore previous workspace beside the ex
 
 The shared sticky header contains Explore, @mager, Saved with a count, Workbench, and Settings. With invite access, Friends replaces the @mager navigation item. Current and hover navigation states use the raised surface. Links are at least 44px high. Import projects is a separate desktop action.
 
-The index uses normal links to /projects/homeport/, /projects/moodsh/, /projects/perch/, and /projects/prxps/. There are no tabs or selected-project panels. Server rendering supplies the index and each detail page, so project links work without JavaScript. Saved links open the matching detail page. Unknown project slugs return 404 after the access gate.
+The index uses normal links to /projects/cantalo/, /projects/homeport/, /projects/moodsh/, /projects/perch/, and /projects/prxps/. There are no tabs or selected-project panels. Server rendering supplies the index and each detail page, so project links work without JavaScript. Saved links open the matching detail page. Unknown project slugs return 404 after the access gate.
 
-Each detail page has a mono name, Bricolage tagline and description, maker link, Save, Open app, build-log link, and source metadata. More by @mager links to the other three projects. Screenshots use the full content width and natural ratio. prxps uses the authorized real capture in `public/images/prxps-games.jpg`; its provenance is in `docs/assets.json`. Do not simulate app views.
+Each detail page has a mono name, Bricolage tagline and description, maker link, Save, Open app, story link, and source metadata. More by @mager links to the other projects. Screenshots use the full content width and natural ratio. prxps uses the authorized real capture in `public/images/prxps-games.jpg`; its provenance is in `docs/assets.json`. Do not simulate app views.
 
 ### Contribution stories
 

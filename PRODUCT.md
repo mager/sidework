@@ -60,7 +60,7 @@ The review shows which projects will be added or replace local stories. Nothing 
 
 ## Evidence on hand
 
-Four personal projects from magerblog, six authored contribution stories checked November 5, 2026, six recent PR states checked November 4, 2026, selected older PR evidence from October 12, and four dated contribution opportunities.
+Five personal projects, including Cántalo from its live site and repository and four projects from magerblog, six authored contribution stories checked November 5, 2026, six recent PR states checked November 4, 2026, selected older PR evidence from October 12, and four dated contribution opportunities.
 
 ## Product principles
 
@@ -90,3 +90,7 @@ Settings uses Operate mode. It holds all theme controls, workspace reset and res
 Each project can have one category, one software type, a short intended audience, and up to five concrete features. The description explains the task and how the software works; the tagline names the main action. Categories describe purpose (Developer tools, Productivity, Creative tools, Learning, Games & recreation, Utilities). Software types describe delivery (Web app, Command-line tool, Desktop app, Mobile app, Browser extension, Library, API / service). Programming languages remain in the existing stack field.
 
 The shared vocabulary lives in `src/scripts/project-metadata.mjs`. Missing metadata is allowed, including in older version 1 drafts. GitHub imports provide repository facts and leave classification, audience, and features blank for author review. Imports preserve existing authored metadata. The editor, preview, JSON backups, draft review, and MCP use the same fields and limits. Agents can prepare them from evidence but cannot publish. The gallery has category links that work without JavaScript; project pages show the audience and features. Add categories only when real projects need them; nested categories, rankings, and automatic classification are outside this first version.
+
+## Latest project: Cántalo
+
+Cántalo is first in the public project gallery. It pairs Spotify listening with original Spanish practice phrases and a personal dictionary. Its real MATADORA screenshot retains the bright source colors. The project detail links to the requested song, project story, and private `mager/cantalo` repository. Adding it to the public snapshot does not change browser-local drafts or their selected order.
