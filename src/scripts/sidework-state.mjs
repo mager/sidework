@@ -1,6 +1,7 @@
 import { cleanMetadata } from './project-metadata.mjs';
 import { cleanContributionDrafts } from './contribution-drafts.mjs';
-export const STORAGE_KEY = 'sidework-workbench-v1';
+import { storageKey } from './storage-key.mjs';
+export const STORAGE_KEY = storageKey('sidework-workbench-v1');
 export const PLAN_STATES = ['planned', 'started', 'submitted'];
 export function safeUrl(value) {
   if (typeof value !== 'string' || value.length > 2048) return '';

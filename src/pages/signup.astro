@@ -1,0 +1,27 @@
+---
+import AccountLayout from '../components/AccountLayout.astro';
+import Icon from '../components/SideworkIcon.astro';
+import { authConfiguration } from '../lib/github-auth.mjs';
+if (Astro.locals.account) return Astro.redirect(Astro.locals.hasAccess ? '/friends/' : '/waiting/',303);
+const config = authConfiguration();
+const ready = config.ready && config.origin === Astro.url.origin;
+const errors:Record<string,string> = {
+ unavailable:'GitHub sign-in is not ready yet. Please check back soon.',
+ expired:'Your sign-in expired. Please try again.',
+ cancelled:'GitHub sign-in was cancelled. You can try again when you’re ready.',
+ retry:'We could not complete sign-in. Please try again.',
+ email:'Add a verified email to your GitHub account, then try again.',
+};
+const error = errors[Astro.url.searchParams.get('error') || ''] || '';
+---
+<AccountLayout title="Join the preview">
+ <h1>Your work<br/>belongs here.</h1>
+ <p class="account-intro">Personal projects. Open source contributions.<br/>Join the Sidework preview waitlist.</p>
+ <form action="/auth/github/" method="POST" class="account-form">
+  <label class="account-check"><input type="checkbox" name="updates"/>Email me Sidework updates.</label>
+  <button class="sw-button sw-primary" type="submit" disabled={!ready}><Icon name="code" size={20}/>Continue with GitHub</button>
+  <p class="account-note">Uses your GitHub profile and verified email. New accounts wait for preview access.</p>
+ </form>
+ {(error || !ready) && <p class="entry-error" role="status">{error || errors.unavailable}</p>}
+ <p class="account-note">Already signed up? Use the same GitHub account.</p>
+</AccountLayout>

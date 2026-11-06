@@ -1,6 +1,6 @@
 # Sidework: work list, project pages, and Settings
 
-Routes: `/invite/` access gate, `/friends/` local follows, `/` discovery, `/mager/` maker profile, `/projects/cantalo/`, `/projects/homeport/`, `/projects/moodsh/`, `/projects/perch/`, and `/projects/prxps/` project details, `/settings/` preferences and workspace recovery, `/workbench/` browser-local planning tools, and `/onboarding/` public GitHub repository import. The exact `/mager/` profile and the invite page allow anonymous access. Other website routes require a valid invite session. The separate `/api/mcp` endpoint requires an origin-bound agent Bearer token; it does not accept an invite cookie as authentication. Unknown project slugs return 404 after the access gate.
+Routes: `/signup/` GitHub entry, `/waiting/` pending access and consent, `/invite/` legacy redirect, `/friends/` local follows, `/` discovery, `/mager/` maker profile, `/projects/cantalo/`, `/projects/homeport/`, `/projects/moodsh/`, `/projects/perch/`, and `/projects/prxps/` project details, `/settings/` preferences and workspace recovery, `/workbench/` browser-local planning tools, and `/onboarding/` public GitHub repository import. The exact `/mager/` profile, signup, exact OAuth start and callback routes, legacy invite redirect, and sign-out endpoint allow anonymous access. Waiting accounts can use the pending page and consent endpoint. Other website routes require approved account or valid legacy session access. The separate `/api/mcp` endpoint requires an origin-bound agent Bearer token; it does not accept a browser cookie as authentication. Version 2 account tokens recheck approval on each request. Unknown project slugs return 404 after the access gate.
 
 The current direction uses a compact work list with equal space for personal projects and external contributions. Small thumbnails lead to open, full-width detail pages. This replaces the large browse screenshots and separate profile contribution section. The November 5 project-page and Settings update superseded the compact software browser and project tabs. The black and white interface, three fonts, real evidence, and separate private workbench remain.
 
@@ -8,7 +8,7 @@ THESIS: Give real software room to be seen. Follow a project link, learn its pur
 
 OWN-WORLD: Black, white, and neutral gray keep attention on the work. Light, Dark, and System modes share the same layout; System is the default. Bricolage Grotesque carries headings and reading text; Martian Mono carries public project names, @handles, code, and source metadata; Anybody marks the brand. Real screenshots retain their colors and remain straight. Space and type separate project content without card borders or panel frames.
 
-STORY: The profile and Explore alternate five real projects with six authored external contribution stories, starting with Cántalo and Uber Direct SDK. Both use the same rows. Normal links open separate detail pages, which require invite access. Project details retain their full screenshots, purpose, source metadata, and app/save actions. Settings holds theme controls, workspace reset and restore, and invite locking. Personal planning and raw PR history remain in the private workbench. Selected evidence remains on contribution detail pages.
+STORY: The profile and Explore alternate five real projects with six authored external contribution stories, starting with Cántalo and Uber Direct SDK. Both use the same rows. Normal links open separate detail pages, which require approved account or valid legacy session access. Project details retain their full screenshots, purpose, source metadata, and app/save actions. Settings holds theme controls, workspace reset and restore, email consent, and sign-out. Personal planning and raw PR history remain in the private workbench. Selected evidence remains on contribution detail pages.
 
 FIRST VIEWPORT: Shared sticky navigation and a compact maker row lead to All work, Projects, and Contributions links. These use normal GET requests and work without JavaScript. Categories appear only under Projects; existing category-only URLs still work. The list has two columns on desktop and one at 760px and below. Project thumbnails use 96 × 64px on desktop and 64 × 48px on mobile, with their original colors. Contribution icons use the same space. Both row types use the same title size and short text. Full screenshots appear only on detail pages. Add a contribution opens the existing private editor. Repositories owned by the story author are excluded from the contribution feed.
 
@@ -16,11 +16,17 @@ FORM: Code-led update using the existing palette, source assets, and three-font 
 
 SIGNATURE: Compact, borderless rows give projects and external contributions equal space. Small source-color thumbnails lead to full-width detail pages. Detail titles still scale to 4.5rem. Settings is the single location for theme controls.
 
-FINISH: The work-list update passed its scoped finish review with no material defects. All 62 tests and the production build passed; the layout detector returned no findings. Review captures are `.impeccable/review/work-feed-mobile.jpg`, `work-feed-desktop.jpg`, `work-feed-320.jpg`, `work-feed-light.jpg`, `work-feed-contributions.jpg`, `work-feed-detail.jpg`, and `work-feed-explore.jpg`. HTTP checks confirmed 11 All work entries, six Contributions, five Projects, and one result for the existing Learning category URL. Anonymous project detail, contribution detail, and draft routes still redirect to the invite gate. These checks describe local validation.
+Historical work-list validation: The work-list update passed its scoped finish review with no material defects. All 62 tests and the production build passed; the layout detector returned no findings. Review captures are `.impeccable/review/work-feed-mobile.jpg`, `work-feed-desktop.jpg`, `work-feed-320.jpg`, `work-feed-light.jpg`, `work-feed-contributions.jpg`, `work-feed-detail.jpg`, and `work-feed-explore.jpg`. HTTP checks confirmed 11 All work entries, six Contributions, five Projects, and one result for the existing Learning category URL. Anonymous project detail, contribution detail, and draft routes still redirect to the invite gate. These checks describe local validation.
 
 Historical mobile correction: The earlier narrow-layout review passed with 58 tests, a production build, and no layout findings. Captures are `.impeccable/review/mobile-content-390.jpg`, `mobile-content-320.jpg`, `mobile-content-424.jpg`, and `mobile-content-desktop.jpg`. Its large browse images and project-only list are superseded by the work list.
 
 Historical project-page and Settings validation: Seven review images cover desktop and mobile project indexes, project detail, and Settings: `.impeccable/review/projects-desktop.png`, `projects-user.png`, `projects-mobile-light.png`, `project-detail-desktop.png`, `project-detail-mobile.png`, `settings-mobile.png`, and `settings-desktop-light.png`. The final Settings capture is `.impeccable/review/settings-ready.png`. At that stage, 50 tests and the production build passed. HTTP checks confirmed that detail and Settings routes require invite access, authenticated requests return 200, missing projects return 404, and the exact public profile returns 200. Normal project links work without JavaScript. Reset tests cover success and backup failure. These checks do not claim a new deployment.
+
+## GitHub waitlist update — November 6, 2026
+
+Mode: Operate. Sign in with GitHub, store verified identity and optional email update consent, then wait for access. New accounts receive `waiting` status; only the configured owner starts approved. No email delivery is connected. Do not approve other accounts until private exports, draft review, and MCP templates support their identity. These still use @mager, and public multi-profile publishing is not connected.
+
+The shared fonts, monochrome palette, and Built with Astra footer remain. Source for these pages is `AccountLayout.astro`, `signup.astro`, `waiting.astro`, and `account.css`. The GitHub app and Neon database are not yet configured. The change is not deployed. The signup unavailable state was captured at mobile and desktop sizes in `.impeccable/review/github-signup-mobile.jpg` and `.impeccable/review/github-signup-desktop.jpg`. All 73 tests and the production build passed after the public-profile database-failure fix. The actual waiting-page UI and OAuth/database integration remain unverified until configuration is complete. See [github-auth.md](github-auth.md) for setup and access checks. Earlier validation below applies only to its recorded scope.
 
 ## Content and provenance
 
@@ -30,13 +36,13 @@ Historical project-page and Settings validation: Seven review images cover deskt
 - The prototype starts with one real maker. Do not invent people, reactions, followers, ratings, or messages.
 - Saved projects, draft edits, and plans stay in localStorage. Public profile data is committed source content.
 
-## Invite and import extension
+## GitHub entry and import extension
 
 The entry pages use the shared neutral palette and existing type system. Compact Bricolage Grotesque carries the openings. Anybody is reserved for the wordmark. Bricolage Grotesque gives reading text a more distinctive character, with automatic optical sizing and light tracking. Martian Mono stays limited to source metadata. Every main footer carries “Built with Astra”.
 
-The invite form is centered, with one code field and a contact link to @mager. The import flow is left aligned and wider: a handle form, loading status, search and source filters, unboxed checkbox rows, and a sticky selection action. On mobile the import controls wrap and the primary form action takes full width. These focused flows support the studio without changing it into a dashboard.
+GitHub signup replaces the invite-code form. It uses a centered, borderless column with one GitHub action and optional email consent. Missing configuration disables the action and shows an unavailable message. The waiting page shows the verified @handle, pending access, a public profile link, email preference, and sign-out. The import flow is left aligned and wider: a handle form, loading status, search and source filters, unboxed checkbox rows, and a sticky selection action. On mobile the import controls wrap and the primary form action takes full width. These focused flows support the studio without changing it into a dashboard.
 
-GitHub results include owned public forks and archived repositories unless filtered out. Select matching includes results beyond the visible rows. Imports exclude existing projects and save selected repositories as drafts in this browser. No public publishing or shared account record is implied. Lock Sidework removes access but keeps browser-local drafts.
+GitHub results include owned public forks and archived repositories unless filtered out. Select matching includes results beyond the visible rows. Imports exclude existing projects and save selected repositories as drafts in this browser. Import does not publish or change the account record. Sign out removes browser access cookies but keeps local drafts. GitHub account workspaces use numeric ID storage keys. Existing legacy data is retained without automatic migration; the theme remains browser-global.
 
 ## Story editor and profile draft extension
 
@@ -80,7 +86,7 @@ DESIGN.md and .impeccable/design.json record the implemented palette and theme c
 
 Validation on November 5: 44 tests, the production build, and diff checks passed. Browser checks covered Light, Dark, and System, saved choices, device changes, the no-JavaScript fallback, and layouts from 320px to 1440px with no page overflow. The final design review returned ship for this theme change. Evidence is in .impeccable/review/mono-*.png; mono-agents-final.png is the final Agents capture.
 
-## Friends and fresh workspace extension — November 5, 2026 (reset location superseded)
+## Friends and fresh workspace extension — November 5, 2026 (entry flow and reset location superseded)
 
 Mode: Operate. The user asked for Friends after invite access and a return to the state just after entry. A direct invite visit or a return path of `/` now opens Friends. Other explicit return paths remain. Friends requires the same signed invite cookie as the workbench.
 

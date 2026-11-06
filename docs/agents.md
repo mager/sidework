@@ -6,7 +6,7 @@ The agent reads public repositories, helps you choose up to six projects, and pr
 
 ## Connect Claude Code
 
-1. Open [Workbench → Agents](https://sidework-ten.vercel.app/workbench/#agents) with an invite.
+1. Open [Workbench → Agents](https://sidework-ten.vercel.app/workbench/#agents) with an approved account or a valid legacy session.
 2. Select **Create agent token**, then **Copy token**.
 3. Run these commands inside Claude Code:
 
@@ -36,7 +36,7 @@ The endpoint is **https://sidework-ten.vercel.app/api/mcp**. It uses Streamable 
 }
 ```
 
-Clients may use a different configuration wrapper. Use their Streamable HTTP and custom-header fields. This prototype uses manually issued tokens; OAuth discovery and authorization are not implemented.
+Clients may use a different configuration wrapper. Use their Streamable HTTP and custom-header fields. This prototype uses manually issued tokens; MCP OAuth discovery and authorization are not implemented. Website GitHub sign-in is a separate flow.
 
 ## Tools
 
@@ -53,7 +53,7 @@ The `sidework://profiles/mager` resource supplies the profile. The `setup_profil
 
 ## Review and storage
 
-The first prototype supports **@mager** only. A token represents invite access, not verified GitHub identity. Agents cannot read browser-local drafts. Export a draft to provide your latest edits. Accounts, private repositories, and server-saved drafts are not connected.
+The profile resource, private exports, draft review, and MCP templates still support **@mager** only. Do not approve other accounts until those flows support their identity. Waitlist signup does not grant MCP access. Agents cannot read browser-local drafts. Export a draft to provide your latest edits. Private repositories, server-saved drafts, and public multi-profile publishing are not connected. See [GitHub account setup](github-auth.md) for configuration status.
 
 Saving a reviewed draft updates matching project IDs or source URLs and sets the featured order. Other projects and the weekly plan remain. An invalid draft or failed storage write leaves the saved state unchanged.
 
@@ -61,9 +61,9 @@ Review links contain compressed draft data in a URL fragment, removed before the
 
 ## Token limits
 
-Tokens expire within 24 hours or when the source invite session expires, whichever is first. Signed tokens are bound to the endpoint's origin and the scopes `catalog:read`, `github:public`, and `draft:prepare`. They cannot unlock the website or issue more tokens. MCP does not accept a browser cookie as authentication.
+Tokens expire within 24 hours or when the source account or legacy invite session expires, whichever is first. Signed tokens are bound to the endpoint's origin and the scopes `catalog:read`, `github:public`, and `draft:prepare`. They cannot unlock the website or issue more tokens. MCP does not accept a browser cookie as authentication.
 
-Creating another token does not revoke earlier tokens. Remove the source invitation hash or rotate the session secret and redeploy to revoke them. Individual revocation and per-user rate limits require durable account storage and are not implemented. Requests are limited to 100 KB and drafts to 64 KB. GitHub requests have an eight-second timeout and use public API limits. The application does not log tokens.
+Version 2 tokens identify the GitHub account and recheck its `approved` status in Neon on each request. Missing approval rejects access; a database failure returns 503. Version 1 tokens retain the legacy invite checks and expire or become invalid when their source invitation hash is removed. Creating another token does not revoke earlier tokens. Rotating the session secret and redeploying revokes all signed tokens. Per-token revocation and per-user rate limits are not implemented. Requests are limited to 100 KB and drafts to 64 KB. GitHub requests have an eight-second timeout and use public API limits. The application does not log tokens.
 
 ## Development
 

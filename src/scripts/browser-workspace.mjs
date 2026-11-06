@@ -1,7 +1,8 @@
 import { STORAGE_KEY } from './sidework-state.mjs';
-export const FOLLOW_KEY = 'sidework-follow-mager';
-export const COLLECTION_KEY = 'sidework-collection-v1';
-export const RESET_BACKUP_KEY = 'sidework-reset-backup-v1';
+import { storageKey } from './storage-key.mjs';
+export const FOLLOW_KEY = storageKey('sidework-follow-mager');
+export const COLLECTION_KEY = storageKey('sidework-collection-v1');
+export const RESET_BACKUP_KEY = storageKey('sidework-reset-backup-v1');
 export const WORKSPACE_KEYS = [STORAGE_KEY, FOLLOW_KEY, COLLECTION_KEY];
 const emptyWorkspace = () => JSON.stringify({ version: 1, projects: [], plan: {}, weekStartedAt: null, showcase: [], includeExamples: false });
 

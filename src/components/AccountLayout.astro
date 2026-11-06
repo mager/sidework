@@ -1,0 +1,14 @@
+---
+import BaseHead from './BaseHead.astro';
+import Icon from './SideworkIcon.astro';
+import '../styles/sidework.css';
+import '../styles/entry.css';
+import '../styles/account.css';
+const {title} = Astro.props;
+---
+<!doctype html><html lang="en"><head><BaseHead title={`${title} · Sidework`} description="Personal projects and open source contributions. Join the preview."/><meta name="robots" content="noindex,nofollow"/></head><body class="entry-page">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="entry-header"><a href="/mager/" class="entry-brand"><Icon name="branch" size={27}/>sidework.</a><a href="/mager/">Explore the work <Icon name="arrow" size={16}/></a></header>
+<main id="main" class="account-main"><slot /></main>
+<footer class="entry-footer"><span>Built with Astra</span><a href="https://github.com/mager/sidework">Source on GitHub <Icon name="external" size={14}/></a></footer>
+</body></html>

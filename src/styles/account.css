@@ -1,0 +1,14 @@
+.entry-header > a:last-child { display:inline-flex; align-items:center; gap:8px; min-height:44px; font-size:.875rem; color:var(--sw-muted); }
+.account-main { flex:1; width:min(100% - 48px,560px); margin:clamp(40px,8vh,96px) auto 64px; }
+.account-main h1 { font:550 clamp(2.5rem,6vw,4rem)/1.1 var(--sw-display); letter-spacing:-.035em; text-wrap:balance; }
+.account-intro { font-size:1.125rem; line-height:1.65; color:var(--sw-muted); margin:24px 0 32px; }
+.account-form { display:grid; justify-items:start; gap:16px; margin:24px 0; }
+.account-check { display:flex; align-items:center; gap:12px; min-height:44px; font-size:.9375rem; }
+.account-check input { width:20px; height:20px; accent-color:var(--sw-accent); flex-shrink:0; }
+.account-main .sw-button { min-height:48px; border:0; }
+.account-note { color:var(--sw-muted); font-size:.8125rem; line-height:1.65; max-width:55ch; overflow-wrap:anywhere; }
+.account-handle { font:500 1.125rem/1.5 var(--sw-mono); margin-top:20px; }
+.account-preferences { margin-top:48px; }
+.account-preferences h2 { font-size:1.125rem; font-weight:550; margin-bottom:8px; }
+.account-signout { background:none; border:0; padding:8px 0; min-height:44px; color:var(--sw-muted); font:inherit; font-size:.875rem; }
+@media(max-width:650px) { .account-main { margin-top:40px; } .entry-header { gap:12px; } .entry-header > a:last-child { font-size:.75rem; } .account-form .sw-primary { width:100%; justify-content:center; } }

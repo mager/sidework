@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {stripTypeScriptTypes} from 'node:module';
 import {JSDOM} from 'jsdom';
-const script=stripTypeScriptTypes(readFileSync(new URL('../src/scripts/studio.ts',import.meta.url),'utf8'));
+const keyScript=readFileSync(new URL('../src/scripts/storage-key.mjs',import.meta.url),'utf8').replace('export function','function');
+const script=keyScript+'\n'+stripTypeScriptTypes(readFileSync(new URL('../src/scripts/studio.ts',import.meta.url),'utf8')).replace(/^import .*;$/gm,'');
 function studio(saved='[]',url='https://sidework.example') {
  const dom=new JSDOM(`<button data-save-project="homeport"><span>Save</span></button><button data-save-project="perch"><span>Save</span></button><span id="saved-count"></span><div id="saved-project-list"></div><button id="follow-maker"></button><button id="studio-theme"></button><p id="studio-feedback" hidden></p><script id="studio-project-data" type="application/json">[{"id":"homeport","name":"Homeport","tagline":"Keep your work."},{"id":"perch","name":"Perch","tagline":"A quiet lookout."}]</script>`,{url,runScripts:'outside-only'});
  dom.window.localStorage.setItem('sidework-collection-v1',saved);dom.window.eval(script);return dom;

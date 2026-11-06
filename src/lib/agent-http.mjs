@@ -2,7 +2,7 @@ import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/
 import { authorizeAgentRequest } from './agent-auth.mjs';
 
 export async function handleAgentRequest(request, config, makeServer) {
-  const denied = authorizeAgentRequest(request, config);
+  const denied = await authorizeAgentRequest(request, config);
   if (denied) return Response.json({ error: denied.error }, { status: denied.status, headers: denied.status === 401 ? { 'WWW-Authenticate': 'Bearer realm="sidework"' } : {} });
   if (request.method !== 'POST') return new Response(null, { status: 405, headers: { Allow: 'POST' } });
   if (!request.headers.get('content-type')?.toLowerCase().startsWith('application/json')) return Response.json({ error: 'Send application/json.' }, { status: 415 });

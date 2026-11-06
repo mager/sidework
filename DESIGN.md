@@ -288,7 +288,7 @@ Bricolage Grotesque carries reading text, Martian Mono identifies projects and s
 - Normal project links work without JavaScript.
 - Local drafts, saves, follows, and public records remain distinct.
 
-This records the approved work-list direction and the November 5, 2026 project, contribution, and Settings updates. It supersedes the compact software browser and project tabs. Source authority is the applied CSS in src/styles/sidework.css, studio.css, settings.css, friends.css, entry.css, composer.css, agents.css, and contribution-stories.css. The project surfaces use Studio.astro, StudioLayout.astro, and src/pages/projects/[slug].astro. PRODUCT.md and docs/sidework-surface.md record product scope and review. Fonts come from src/styles/fonts.css; images from docs/assets.json.
+This records the approved work-list direction and the November 5, 2026 project, contribution, and Settings updates. It supersedes the compact software browser and project tabs. Source authority is the applied CSS in src/styles/sidework.css, studio.css, settings.css, friends.css, entry.css, composer.css, agents.css, contribution-stories.css, and account.css. The project surfaces use Studio.astro, StudioLayout.astro, and src/pages/projects/[slug].astro. PRODUCT.md and docs/sidework-surface.md record product scope and review. Fonts come from src/styles/fonts.css; images from docs/assets.json.
 
 ## Colors
 
@@ -343,13 +343,13 @@ At 900px the header uses 20px side padding and hides Import projects. At 760px a
 
 All work, Projects, Contributions, and category filters use server-rendered GET links. Existing category-only URLs select Projects. The contribution feed excludes repositories owned by the story author. Add a contribution opens the private editor; GitHub history opens the workbench. The footer follows content in normal flow. Separate contribution pages and evidence rules are in `.impeccable/surfaces/contributions.md`.
 
-Settings content is at most 960px wide, with 48px top and 64px bottom padding. Appearance, Workspace, and Invite access use unboxed sections with 56px top margins. Each section has a flexible description column and an action column, with 20px vertical and 48px horizontal gaps. At 760px, sections stack, their top margins reduce to 40px, and page top padding becomes 28px.
+Settings content is at most 960px wide, with 48px top and 64px bottom padding. Appearance, Workspace, Email updates, and Preview access use unboxed sections with 56px top margins. Each section has a flexible description column and an action column, with 20px vertical and 48px horizontal gaps. At 760px, sections stack, their top margins reduce to 40px, and page top padding becomes 28px.
 
 The workbench has a 1536px maximum width, a 204px rail, flexible main area, and 262px context panel. At 1180px side areas reduce to 180px and 225px. At 960px the context panel disappears and the rail becomes 175px. At 700px the shell becomes one flow with wrapping navigation. Main side padding is 32px, 42px from 1440px, 24px at intermediate widths, and 18px on mobile. At 400px, the shared workbench header navigation wraps so that its links and Settings link fit.
 
 Editor, showcase, Agents, and Review hide the context panel. The editor splits form and preview equally above 960px, with a clamp(28px, 4vw, 64px) gap, reduced to 28px at 1180px. Its preview sticks 24px below the top, with internal scrolling capped at calc(100dvh - 48px). At 960px it follows the form without a height cap. Paired form fields stack at 1180px. Private showcase entries alternate 90% and 80% widths, become full width at 960px, and reduce vertical margins on mobile.
 
-Entry content is at most 700px for invites and 920px for import, with 24px side margins; forms are at most 450px and 580px. At 650px import actions and footers wrap, and the import form button uses full width. Its bottom action bar remains sticky. Agents content is at most 960px wide. Commands and manual-copy text wrap or scroll inside their own surfaces.
+GitHub signup and waiting pages use a centered 560px content column with 24px side margins, open space, and no card frame. The main heading uses Bricolage Grotesque; the waiting account uses a Martian Mono @handle. At 650px and below, the signup action fills the form width. Import content remains at most 920px wide, with 24px side margins and a 580px form. At 650px import actions and footers wrap, and the import form button uses full width. Its bottom action bar remains sticky. Agents content is at most 960px wide. Commands and manual-copy text wrap or scroll inside their own surfaces.
 
 Friends uses a 1040px maximum content width with 24px side margins. The welcome row pairs a compact heading with the first-project action. Profile rows align identity and actions horizontally. At 760px and below, navigation takes a separate row, the welcome and profile rows stack, and side margins reduce to 16px.
 
@@ -375,15 +375,19 @@ Workbench buttons retain a 42px minimum height, 6px radius, and 9px by 13px padd
 
 Story fields and token fields use 48px minimum height and 12px by 14px padding. Entry fields use 13px by 15px padding. Textareas resize vertically. Focus uses a 2px accent outline offset 4px; the search group uses a 2px offset. Native required, URL, and length constraints remain. Errors use neutral state text and an explicit message.
 
+### Account entry
+
+Signup uses one GitHub action and an optional, unchecked email consent checkbox. Missing configuration disables the action and shows a clear unavailable message. The waiting page shows the signed-in @handle, pending access, the public profile link, saved email preference, and sign-out. Native checkboxes have a 44px label target; form buttons have a 48px minimum height. Error and saved messages use the shared neutral palette. No email delivery or immediate tool access is promised.
+
 ### Settings and theme control
 
-Settings is the only location for the theme control. Appearance has a labeled native select with System, Light, and Dark. It uses a 44px minimum height, 160px minimum width, 6px corners, a surface fill, and no border. Focus uses the shared visible outline. The control appears after its script connects. Other headers and the import page link to Settings; the invite footer has no theme control.
+Settings is the only location for the theme control. Appearance has a labeled native select with System, Light, and Dark. It uses a 44px minimum height, 160px minimum width, 6px corners, a surface fill, and no border. Focus uses the shared visible outline. The control appears after its script connects. Other headers and the import page link to Settings; the account footer has no theme control.
 
-Workspace places Reset my workspace and Restore previous workspace beside the explanation. Restore appears when a backup exists. Status messages span the section. Invite access contains Lock Sidework. These are unboxed sections, not cards.
+Workspace places Reset my workspace and Restore previous workspace beside the explanation. Restore appears when a backup exists. Status messages span the section. Signed-in accounts have an Email updates form. Preview access names the signed-in @handle, or the legacy session, and contains Sign out. These are unboxed sections, not cards.
 
 ### Project navigation and content
 
-The shared sticky header contains Explore, @mager, Saved with a count, Workbench, and Settings. With invite access, Friends replaces the @mager navigation item. Current and hover navigation states use the raised surface. Links are at least 44px high. Import projects is a separate desktop action.
+The shared sticky header contains Explore, @mager, Saved with a count, Workbench, and Settings. With approved account or valid legacy session access, Friends replaces the @mager navigation item. Current and hover navigation states use the raised surface. Links are at least 44px high. Import projects is a separate desktop action.
 
 The index uses normal links to /projects/cantalo/, /projects/homeport/, /projects/moodsh/, /projects/perch/, and /projects/prxps/. There are no tabs or selected-project panels. Server rendering supplies the index and each detail page, so project links work without JavaScript. Saved links open the matching detail page. Unknown project slugs return 404 after the access gate.
 

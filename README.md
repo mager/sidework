@@ -10,15 +10,18 @@ Use Node.js 22.19 or later.
 
 ```sh
 npm install
-node scripts/create-invite.mjs
 npm run dev
 ```
 
-- `/invite/`: server-checked invitation for discovery and management tools.
-- `/friends/`: invite-only local follows and first-project entry.
-- `/settings/`: invite-only Appearance, workspace reset and restore, and invite locking.
-- `/projects/cantalo/`, `/projects/homeport/`, `/projects/moodsh/`, `/projects/perch/`, `/projects/prxps/`: invite-only project detail pages.
-- `/contributions/`, `/contributions/[slug]/`, `/contributions/drafts/`: invite-only stories, source evidence, and private draft editor.
+Configure GitHub sign-in and Neon with [the setup guide](docs/github-auth.md). Without that setup, the public profile works and signup shows an unavailable state.
+
+- `/signup/`: GitHub sign-in and optional email update consent.
+- `/waiting/`: signed-in waitlist status and email preference.
+- `/invite/`: old links redirect to signup; codes no longer create sessions.
+- `/friends/`: access-controlled local follows and first-project entry.
+- `/settings/`: access-controlled Appearance, workspace reset and restore, and sign-out.
+- `/projects/cantalo/`, `/projects/homeport/`, `/projects/moodsh/`, `/projects/perch/`, `/projects/prxps/`: access-controlled project detail pages.
+- `/contributions/`, `/contributions/[slug]/`, `/contributions/drafts/`: access-controlled stories, source evidence, and private draft editor.
 - `/onboarding/`: search and bulk import of all public repositories owned by a GitHub handle.
 - `/mager/`: public profile with one list of personal projects and external contribution stories; available without an invite.
 - `/`: people-first discovery with real software previews and a local saved collection.
@@ -30,7 +33,7 @@ npm run dev
 
 The profile and Explore alternate five personal projects with six authored external contribution stories, starting with Cántalo and Uber Direct SDK. Both use the same compact row layout: two columns on desktop and one on mobile. Small project thumbnails keep their original colors; full screenshots appear only on detail pages. All work, Projects, and Contributions are normal links that work without JavaScript. Categories appear only under Projects; existing category URLs still work. The contribution list excludes repositories owned by the story author.
 
-Normal links open separate detail pages with no content borders or panel frames. Project pages show the screenshot at its natural ratio, purpose, source metadata, app and save actions, and More by @mager links. prxps uses a real test-account screenshot captured with owner permission. Saved links open the matching detail page. The exact /mager/ profile stays public; detail pages require invite access. Raw PR history stays in the workbench, with selected evidence on contribution detail pages. Add a contribution opens the existing private editor; it does not publish.
+Normal links open separate detail pages with no content borders or panel frames. Project pages show the screenshot at its natural ratio, purpose, source metadata, app and save actions, and More by @mager links. prxps uses a real test-account screenshot captured with owner permission. Saved links open the matching detail page. The exact /mager/ profile stays public; detail pages require approved account or valid legacy session access. Raw PR history stays in the workbench, with selected evidence on contribution detail pages. Add a contribution opens the existing private editor; it does not publish.
 
 - Public project showcase with demo, source, and build-log links.
 - Friends with empty and followed-profile views for the real @mager profile.
@@ -50,7 +53,9 @@ The interface uses black, white, and neutral gray to keep attention on the work.
 
 ## Prototype boundaries
 
-An invitation unlocks the site for seven days. It is shared access, not a user account. There is no multi-user backend, automatic synchronization, or connected social graph. Saves and follows are browser-local preferences. Friends uses the same follow preference as the public profile. Local drafts and plans use `localStorage` and are available to anyone using the same browser profile. They are not posted to GitHub or included in the public profile. Refreshed GitHub results last for the current visit; saved plans and local drafts survive reloads when browser storage is available.
+GitHub signup records the verified numeric ID, login, verified email, waiting status, and optional update consent in Neon. Only the configured owner starts approved. Other accounts wait for access. Email delivery is not connected. The GitHub OAuth app and database are not yet configured, and this change is not deployed.
+
+Private exports, draft review, and MCP templates still use @mager. Do not approve other accounts until those flows support their identity. There is no public multi-profile publishing, automatic draft synchronization, or connected social graph. Saves, follows, local drafts, and plans use browser `localStorage` with a GitHub numeric ID suffix for signed-in accounts. Legacy browser data is retained and is not automatically migrated. The theme is shared within the browser. Anyone with access to the browser profile can inspect its local data. Local drafts and plans are not posted to GitHub or included in the public profile. Refreshed GitHub results last for the current visit; saved plans and local drafts survive reloads when browser storage is available.
 
 The profile is a committed snapshot. Updating a local draft does not publish it. To update the profile, edit `src/data/projects.ts`, `src/data/contribution-stories.json`, or the contribution snapshot and rebuild. Source links provide the current GitHub state. All routes use `noindex` while this remains a prototype.
 
@@ -74,10 +79,12 @@ The three active Latin WOFF2 subsets are self-hosted. They are self-hosted with 
 
 ## Next build
 
-1. Add a GitHub App with explicit repository selection and server-side synchronization.
-2. Add accounts, profile ownership, and an explicit publish workflow.
-3. Connect follows between accounts, project updates, and opportunity recommendations based on stated learning goals.
-4. Add other source providers behind the same contribution model.
+1. Complete the GitHub OAuth and Neon setup and verify signup, waiting access, and owner access.
+2. Add account-specific exports, draft review, and MCP templates before approving other accounts.
+3. Add profile ownership and an explicit publish workflow.
+4. Add a GitHub App with explicit repository selection and server-side synchronization.
+5. Connect follows between accounts, project updates, and opportunity recommendations based on stated learning goals.
+6. Add other source providers behind the same contribution model.
 
 Keep project ownership separate from upstream contribution credit. Keep activity separate from learning and impact. Never rank people by raw commit counts.
 
@@ -89,15 +96,15 @@ Feature up to six projects, then open Profile draft to change their order. Expor
 
 ## Contribution stories and drafts
 
-`/contributions/` shows six authored @mager stories from the software page. Each detail page separates the story from selected PR or commit evidence, with source links and check dates. PR states remain explicit; commits do not receive a merge state. These routes require an invite. The exact public `/mager/` profile and Explore place the same external stories beside personal projects in one work list.
+`/contributions/` shows six authored @mager stories from the software page. Each detail page separates the story from selected PR or commit evidence, with source links and check dates. PR states remain explicit; commits do not receive a merge state. These routes require approved account or valid legacy session access. The exact public `/mager/` profile and Explore place the same external stories beside personal projects in one work list.
 
-`/contributions/drafts/` previews and saves up to 20 private stories in this browser. Each needs a project name, @handle, upstream repository, description, and HTTPS GitHub PR, issue, or commit URL from that repository. URL validation does not verify identity, authorship, or current source state. Contribution drafts use `contributionDrafts` in `sidework-workbench-v1`; project imports, draft review, and workbench saves preserve them. Reset and restore include them. Contribution publishing, export, and agent draft preparation are not connected.
+`/contributions/drafts/` previews and saves up to 20 private stories in this browser. Each needs a project name, @handle, upstream repository, description, and HTTPS GitHub PR, issue, or commit URL from that repository. URL validation does not verify identity, authorship, or current source state. Contribution drafts use `contributionDrafts` in `sidework-workbench-v1` (with `:github:<numeric-id>` for accounts); project imports, draft review, and workbench saves preserve them. Reset and restore include them. Contribution publishing, export, and agent draft preparation are not connected.
 
 ## Friends and starting fresh
 
-After a direct invite visit, or an invite request for `/`, access opens Friends. Other explicit return paths are preserved. Friends lists local follows and offers the sole public profile, @mager. Follow and Unfollow do not send requests or create a shared social record.
+After GitHub sign-in, approved accounts open Friends and waiting accounts open the pending page. Friends lists local follows and offers the sole public profile, @mager. Follow and Unfollow do not send requests or create a shared social record.
 
-Open Settings → Workspace → Reset my workspace to return to an empty workspace. The reset clears local project and contribution drafts, featured order, the weekly plan, saves, and follows. It keeps invite access and the theme choice. Before changing those values, it stores one restore copy in `localStorage` under `sidework-reset-backup-v1`. Restore previous workspace recovers that copy. Each later reset replaces it; clearing browser storage removes it. The copy stays in the same browser and origin. A successful reset or restore opens Friends.
+Open Settings → Workspace → Reset my workspace to return to an empty workspace. The reset clears local project and contribution drafts, featured order, the weekly plan, saves, and follows. It keeps access and the theme choice. Before changing those values, it stores one restore copy in `localStorage` under `sidework-reset-backup-v1` (with `:github:<numeric-id>` for accounts). Restore previous workspace recovers that copy. Each later reset replaces it; clearing browser storage removes it. The copy stays in the same browser and origin. A successful reset or restore opens Friends.
 
 The public @mager profile and its dated evidence remain unchanged. Your workbench labels that public evidence separately from local work. A fresh workspace can import a repository even when it is part of the public snapshot.
 
@@ -109,14 +116,14 @@ Open Workbench → Agents to create a scoped token and connect Claude Code or an
 
 Code is MIT licensed. The portrait, screenshot, personal project descriptions, and third-party contribution records retain their original rights and attribution; the code license does not grant rights to reuse those assets as your own identity or work.
 
-## Invite access and deployment
+## Account access and deployment
 
 Live site: https://sidework-ten.vercel.app. The requested `sidework.vercel.app` alias was already in use.
 
-Astro renders all pages on the server with the Vercel adapter. Middleware requires a signed, HTTP-only cookie for every application route except `/invite/`, the exact `/mager/` profile, and `/api/mcp`, which enforces its own scoped agent token. Responses use `private, no-store`. Missing configuration closes access to protected routes; the public profile stays available. Static CSS, scripts, fonts, and the public portrait remain public; the source repository and its committed showcase data are public too. An invitation does not make those assets confidential.
+Astro renders all pages on the server with the Vercel adapter. Public application routes are `/signup/`, the exact `/auth/github/` start and `/auth/github/callback/` routes, the exact `/mager/` profile, `/invite/` (redirect only), and `/api/signout`. Waiting accounts may use `/waiting/` and `/api/account/updates`. Other website routes require an approved account session or a valid legacy invite cookie. `/api/mcp` requires its own scoped bearer token. Account tokens recheck approval in the database on each request.
 
-Run `node scripts/create-invite.mjs` once. It writes `.env` and `.sidework-invite` with owner-only permissions, and refuses to overwrite existing files. Both are ignored by Git. Read the code from `.sidework-invite` and send it only to intended invitees. The first prototype uses a reusable invitation, not a single-use code or identity check.
+Responses use `private, no-store`. Protected account routes fail closed when the database is unavailable; the public profile stays available. Static assets and committed showcase data remain public. See [GitHub sign-in setup](docs/github-auth.md) for environment variables, migration, access limits, and pending checks.
 
-Configure `SIDEWORK_INVITE_HASHES` and `SIDEWORK_SESSION_SECRET` as sensitive Vercel environment variables for production and preview. The hashes are comma-separated SHA-256 digests of high-entropy invite codes. Removing a hash revokes that code and its sessions after redeployment. Rotating the session secret ends every session. Keep codes and secrets out of client code, logs, and Git. Generate codes with at least 24 random bytes; never use a short guessable password. `Lock Sidework` clears this browser’s access cookie; local drafts stay in the browser.
+Old invite codes are no longer accepted. Existing invite cookies and version 1 agent tokens remain valid until expiry or removal of their invitation hash. Keep `SIDEWORK_INVITE_HASHES` and the existing `SIDEWORK_SESSION_SECRET` to preserve those sessions. Rotating the session secret ends all signed sessions and tokens. Sign out clears this browser’s account, OAuth, and legacy invite cookies; local work remains.
 
 Public repository import requests GitHub directly from the browser. It reads pages of 100 until complete; a failed page does not return partial success. Forks and archived repositories are included and can be filtered. Search, bulk selection, duplicate checks, cancellation, API errors, and storage errors are handled. Imported drafts persist in the current browser, up to 5,000 projects, and do not publish to a profile or claim verified ownership. Organization-owned repositories are not part of a user’s owned-repository list; enter the organization handle to find its public repositories.

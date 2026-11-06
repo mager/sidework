@@ -3,7 +3,7 @@ export const COOKIE_NAME = 'sidework-access';
 export const SESSION_SECONDS = 60 * 60 * 24 * 7;
 export function requiresInvite(pathname) {
   const path = pathname.replace(/\/+$/, '') || '/';
-  return path !== '/invite' && path !== '/mager';
+  return !['/invite', '/signup', '/mager', '/auth/github', '/auth/github/callback', '/api/signout'].includes(path);
 }
 export const hashCode = code => createHash('sha256').update(code).digest('hex');
 const equal = (a, b) => {

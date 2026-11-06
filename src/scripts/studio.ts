@@ -1,12 +1,15 @@
+import { storageKey } from './storage-key.mjs';
+const collectionKey = storageKey('sidework-collection-v1');
+const followKey = storageKey('sidework-follow-mager');
 type Project = {id:string;name:string;tagline:string};
 const projectData:Project[] = JSON.parse(document.querySelector('#studio-project-data')?.textContent || '[]');
 const known = new Set(projectData.map(p => p.id));
 let saved = new Set<string>();
 let following = false;
 try {
- const raw = JSON.parse(localStorage.getItem('sidework-collection-v1') || '[]');
+ const raw = JSON.parse(localStorage.getItem(collectionKey) || '[]');
  if (Array.isArray(raw)) saved = new Set(raw.filter(id => typeof id === 'string' && known.has(id)));
- following = localStorage.getItem('sidework-follow-mager') === 'true';
+ following = localStorage.getItem(followKey) === 'true';
 } catch {}
 let feedbackTimer:ReturnType<typeof setTimeout>;
 const feedback = (message:string) => {
@@ -34,14 +37,14 @@ function renderSaved() {
 }
 document.querySelectorAll<HTMLButtonElement>('[data-save-project]').forEach(button=>button.addEventListener('click',()=>{
  const id=button.dataset.saveProject!;saved.has(id)?saved.delete(id):saved.add(id);renderSaved();
- try {localStorage.setItem('sidework-collection-v1',JSON.stringify([...saved]));}
+ try {localStorage.setItem(collectionKey,JSON.stringify([...saved]));}
  catch {feedback('Saved for this visit. Browser storage is not available.');}
 }));
 const follow=document.querySelector<HTMLButtonElement>('#follow-maker');
 const renderFollow=()=>{if(follow){follow.textContent=following?'Following':'Follow';follow.setAttribute('aria-pressed',String(following));}};
 follow?.addEventListener('click',()=>{
  following=!following;renderFollow();
- try {localStorage.setItem('sidework-follow-mager',String(following));feedback(following?'Following @mager in this browser. Shared updates are not connected yet.':'Removed @mager from your local follows.');}
+ try {localStorage.setItem(followKey,String(following));feedback(following?'Following @mager in this browser. Shared updates are not connected yet.':'Removed @mager from your local follows.');}
  catch {feedback('This preference lasts for this visit. Browser storage is not available.');}
 });
 renderSaved();renderFollow();

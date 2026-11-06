@@ -16,7 +16,7 @@ export function issueAgentToken(session, config, origin, now = Date.now()) {
 }
 
 export function verifyAgentToken(value, config, origin, now = Date.now()) {
-  if (!config.ready || typeof value !== 'string' || value.length > 1500) return null;
+  if (config.secret.length < 32 || typeof value !== 'string' || value.length > 1500) return null;
   const [prefix, body, signature, extra] = value.split('.');
   if (prefix !== 'sw_agent' || !body || !signature || extra) return null;
   const expected = Buffer.from(sign(body, config)), actual = Buffer.from(signature);
@@ -24,17 +24,35 @@ export function verifyAgentToken(value, config, origin, now = Date.now()) {
   try {
     const claims = JSON.parse(Buffer.from(body, 'base64url').toString('utf8'));
     const remaining = claims.exp - Math.floor(now / 1000);
-    if (claims.v !== 1 || claims.aud !== agentAudience(origin) || !Number.isInteger(claims.exp) || remaining <= 0 || remaining > AGENT_SECONDS || !config.hashes.includes(claims.invitation)) return null;
+    if (claims.aud !== agentAudience(origin) || !Number.isInteger(claims.exp) || remaining <= 0 || remaining > AGENT_SECONDS) return null;
+    if (claims.v === 1) { if (!config.ready || !config.hashes.includes(claims.invitation)) return null; }
+    else if (claims.v === 2) { if (typeof claims.sub !== 'string' || !/^\d+$/.test(claims.sub)) return null; }
+    else return null;
     if (JSON.stringify(claims.scopes) !== JSON.stringify(AGENT_SCOPES)) return null;
     return claims;
   } catch { return null; }
 }
 
-export function authorizeAgentRequest(request, config) {
+export function issueAccountAgentToken(session, account, config, origin, now = Date.now()) {
+  const current = Math.floor(now / 1000);
+  if (!session || account?.status !== 'approved' || session.sub !== account.github_id || session.exp <= current || config.secret.length < 32) throw new Error('Approved account required');
+  const exp = Math.min(session.exp, current + AGENT_SECONDS);
+  const claims = {v:2, sub:account.github_id, aud:agentAudience(origin), exp, scopes:AGENT_SCOPES, jti:randomUUID()};
+  const body = Buffer.from(JSON.stringify(claims)).toString('base64url');
+  return { token:`sw_agent.${body}.${sign(body, config)}`, expiresAt:new Date(exp * 1000).toISOString(), scopes:AGENT_SCOPES };
+}
+
+export async function authorizeAgentRequest(request, config) {
   const origin = new URL(request.url).origin;
   const sentOrigin = request.headers.get('origin');
   if (sentOrigin && sentOrigin !== origin) return { status: 403, error: 'This origin is not allowed.' };
   const header = request.headers.get('authorization') || '';
-  if (!header.startsWith('Bearer ') || !verifyAgentToken(header.slice(7), config, origin)) return { status: 401, error: 'Create a new agent token in Sidework → Agents. Tokens last up to 24 hours.' };
+  const claims = header.startsWith('Bearer ') && verifyAgentToken(header.slice(7), config, origin);
+  if (!claims) return { status: 401, error: 'Create a new agent token in Sidework → Agents. Tokens last up to 24 hours.' };
+  if (claims.v === 2) {
+    try {
+      if (!config.findAccount || (await config.findAccount(claims.sub))?.status !== 'approved') return {status:401,error:'Preview access is required.'};
+    } catch { return {status:503,error:'Account access is temporarily unavailable.'}; }
+  }
   return null;
 }
