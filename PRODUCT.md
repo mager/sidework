@@ -12,7 +12,7 @@ A social space for builders, nerds, coders, and vibers to discover personal soft
 
 ## Operating context
 
-The exact `/mager/` profile route is public and can be shared without an invite. Friends, discovery, project detail, Settings, workbench, and import routes require a valid invite session. The invite page is their entry point. Reusable invite codes grant seven days of access. They do not create individual accounts or verify a GitHub identity. Lock Sidework clears the access session. A direct invite visit or a return path of `/` opens `/friends/` after access is granted. Other explicit return paths are preserved.
+The exact `/mager/` profile route is public and can be shared without an invite. Friends, discovery, project detail, all contribution routes, Settings, workbench, and import routes require a valid invite session. The invite page is their entry point. Reusable invite codes grant seven days of access. They do not create individual accounts or verify a GitHub identity. Lock Sidework clears the access session. A direct invite visit or a return path of `/` opens `/friends/` after access is granted. Other explicit return paths are preserved.
 
 The prototype has one source-backed maker profile, @mager, and browser-local workbench state. Public GitHub data can be read without sign-in or account permissions. No multi-user or social service is connected. Local saves, follows, plans, and imported drafts are not shared between browsers or published to a profile.
 
@@ -22,7 +22,7 @@ The deployed preview is https://sidework-ten.vercel.app. The originally requeste
 
 Friends lists builders followed in this browser. The only available profile is @mager. An empty list explains how to follow a builder; a followed profile provides View work and Unfollow controls. Friends and the public profile use the same local follow preference. There are no mutual friend requests, remote follows, or new accounts.
 
-Settings → Workspace → Reset my workspace clears local project drafts, featured order, the weekly plan, saved projects, and follows. It keeps the invite cookie and theme choice. The reset first stores one local restore copy under `sidework-reset-backup-v1`; Restore previous workspace restores that copy. A later reset replaces the copy. This is recovery in the same browser and origin, not a downloaded backup or public publishing. A successful reset or restore opens Friends. Settings also holds Appearance with Light, Dark, and System choices, and Invite access with Lock Sidework. Theme controls appear only in Settings.
+Settings → Workspace → Reset my workspace clears local project and contribution drafts, featured order, the weekly plan, saved projects, and follows. It keeps the invite cookie and theme choice. The reset first stores one local restore copy under `sidework-reset-backup-v1`; Restore previous workspace restores that copy. A later reset replaces the copy. This is recovery in the same browser and origin, not a downloaded backup or public publishing. A successful reset or restore opens Friends. Settings also holds Appearance with Light, Dark, and System choices, and Invite access with Lock Sidework. Theme controls appear only in Settings.
 
 The workbench is titled Your workbench. A fresh or reset workspace has no local projects or profile selections. Its overview links to import, story creation, and Friends. Public @mager contribution evidence remains available and is labeled separately from local work.
 
@@ -30,7 +30,7 @@ The workbench is titled Your workbench. A fresh or reset workspace has no local 
 
 After entering the site, people can open /onboarding/, supply a GitHub handle, and read all pages of that handle’s public owned repositories. Forks and archived repositories are included by default and can be filtered out. People can search, select matching results in bulk, clear the selection, or choose individual repositories. Projects already in the workbench are excluded from duplicate imports. A fresh workbench can import repositories that also appear in the public snapshot.
 
-Selected repositories become drafts in the current browser’s workbench. Imports preserve repository links, descriptions, and primary language; a safe repository homepage becomes the project link when present. The importer keeps existing stories, profile-draft order, and plans. It supports up to 5,000 local project drafts, subject to browser storage limits. GitHub request limits, missing handles, cancellation, and storage failures are reported. Publishing, private repositories, OAuth, and account ownership checks are not connected.
+Selected repositories become drafts in the current browser’s workbench. Imports preserve repository links, descriptions, and primary language; a safe repository homepage becomes the project link when present. The importer keeps existing project stories, contribution drafts, profile-draft order, and plans. It supports up to 5,000 local project drafts, subject to browser storage limits. GitHub request limits, missing handles, cancellation, and storage failures are reported. Publishing, private repositories, OAuth, and account ownership checks are not connected.
 
 ## Project stories and profile draft
 
@@ -38,7 +38,13 @@ The workbench can create and edit local project stories. Each story can include 
 
 People can feature up to six projects, change their order with labeled earlier/later buttons, and inspect an asymmetric private profile draft. Fresh workspaces start with no projects or featured selections. Existing version 1 workspaces without an `includeExamples` field retain the seeded projects. Feature changes and order stay in this browser. Bulk GitHub imports preserve this order and existing story fields.
 
-Export draft downloads a private JSON copy of only the selected projects and stories in order. Its prototype handle remains @mager. It excludes unselected projects and plans. Profile draft → Review a draft file can restore a valid version 1 export after review and an explicit save. Public publishing and account-specific profiles remain unconnected.
+Export draft downloads a private JSON copy of only the selected projects and stories in order. Its prototype handle remains @mager. It excludes unselected projects, contribution drafts, and plans. Profile draft → Review a draft file can restore a valid version 1 export after review and an explicit save. Public publishing and account-specific profiles remain unconnected.
+
+## Contribution stories
+
+Six authored @mager stories from the software page explain upstream work. The public `/mager/` profile shows them below personal projects. The separate contribution index, detail pages, and draft editor require invite access. Detail pages show selected PR or commit evidence with source links, check dates, and explicit PR states. This selection does not claim a complete history or prove every statement in the authored story.
+
+People can create and edit up to 20 private contribution drafts in this browser. Each has a project name, @handle, upstream repository, story, and a GitHub PR, issue, or commit URL for that repository. The editor validates the URL format and repository match; it does not verify the handle or source claims. A live preview shows the draft. Project imports, draft review, and workbench saves preserve contribution drafts. Workspace reset and restore include them. Contribution publishing, export, and agent preparation are not connected.
 
 ## Agent setup and draft review
 
@@ -54,7 +60,7 @@ The review shows which projects will be added or replace local stories. Nothing 
 
 ## Evidence on hand
 
-Four personal projects from magerblog, six recent PR states checked November 4, 2026, selected older PR evidence from October 12, and four dated contribution opportunities.
+Four personal projects from magerblog, six authored contribution stories checked November 5, 2026, six recent PR states checked November 4, 2026, selected older PR evidence from October 12, and four dated contribution opportunities.
 
 ## Product principles
 
@@ -72,7 +78,9 @@ The user selected a shareable developer profile and a personal projects/contribu
 
 The shared identity uses self-hosted Bricolage Grotesque headings and body text, Martian Mono handles, project names and source metadata, and an Anybody wordmark. The user selected a minimal black and white interface so that the work stays in focus. Black, white, and neutral gray apply to controls, surfaces, focus, and status. Project screenshots retain their original colors. Light, Dark, and System modes are available, with System as the default. The existing layout, fonts, and “Built with Astra” footer remain.
 
-Project browsing uses Experience mode. The profile and discovery index show a two-column project grid on desktop and one column on mobile. Normal links open separate, full-width project detail pages. Content has no card borders or panel frames. Real screenshots keep their original colors and natural ratio on detail pages. The prxps entry uses text because no source screenshot is available. Each detail page shows purpose, description, source metadata, app and save actions, and More by @mager links. These detail routes require an invite; the exact /mager/ profile remains public.
+Project browsing uses Experience mode. The profile and discovery index show a two-column project grid on desktop and one column on mobile. Normal links open separate, full-width project detail pages. Content has no card borders or panel frames. Real screenshots keep their original colors and natural ratio on detail pages. The prxps entry uses a real test-account screenshot captured with owner permission on November 5, 2026. Each detail page shows purpose, description, source metadata, app and save actions, and More by @mager links. These detail routes require an invite; the exact /mager/ profile remains public.
+
+Contribution browsing uses the same open, monochrome layout. Short story rows link to separate detail pages. The editor places its form beside a private preview on desktop and above it on mobile. Copy stays brief; source details belong with the evidence.
 
 Settings uses Operate mode. It holds all theme controls, workspace reset and restore, and invite locking. Headers link to Settings. The private workbench retains its editing, showcase, import, and agent-review flows. This November 5, 2026 direction supersedes the compact software browser and project tabs.
 

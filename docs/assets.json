@@ -22,5 +22,11 @@
     "origin": "https://mager.co/blog/2026-10-04-perch/",
     "creator": "@mager",
     "usage": "Historical screenshot, referenced remotely without altering the source. Not a live app session."
+  },
+  {
+    "asset": "public/images/prxps-games.jpg",
+    "origin": "https://www.prxps.xyz",
+    "creator": "@mager",
+    "usage": "Actual prxps test-account screen captured with owner permission on November 5, 2026. Upcoming games and sports filters. Original colors; no login details in the image."
   }
 ]

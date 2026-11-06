@@ -1,0 +1,22 @@
+---
+import StudioLayout from '../../components/StudioLayout.astro';
+import stories from '../../data/contribution-stories.json';
+import '../../styles/contribution-stories.css';
+const story = stories.find(item => item.id === Astro.params.slug);
+if (!story) Astro.response.status = 404;
+const date = (value: string) => new Date(value).toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric',timeZone:'UTC'});
+---
+<StudioLayout title={`${story?.name || 'Story not found'} · Sidework`}>
+ <a class="contribution-back" href="/contributions/">All community contributions</a>
+ {story ? <>
+  <header class="contribution-heading"><div><h1 class="contribution-project-name">{story.name}</h1><p class="contribution-repo">{story.repository}</p></div><a class="sw-button" href={`https://github.com/${story.repository}`}>View repository</a></header>
+  <section class="contribution-detail" aria-label="Contribution story">
+   <div><h2>@mager’s contribution</h2><p class="contribution-statement">{story.story}</p><a class="contribution-author" href="/mager/">More by @mager</a></div>
+   <aside><h2>Story source</h2><p><a href={story.source}>@mager’s software page</a><br/>Checked {date(story.storyCheckedAt)}</p></aside>
+  </section>
+  <section class="contribution-evidence"><h2>The work</h2><p class="contribution-note">Open a source link for its current state.</p>
+   {story.evidence.map(item => <article><div><a href={item.url}>{item.title}</a><p>{item.kind} · {date(item.date)} · Checked {date(item.checkedAt)}</p></div>{'status' in item && <span class={`sw-status sw-status-${item.status}`}>{item.status}</span>}</article>)}
+  </section>
+  <a class="contribution-back" href="/contributions/drafts/">Add your work</a>
+ </> : <header class="contribution-heading"><div><h1>Story not found</h1><p>Choose a story from the community collection.</p></div></header>}
+</StudioLayout>

@@ -1,4 +1,5 @@
 import { STORAGE_KEY, safeUrl, cleanProject, readState, mergeProjects, filterContributions, githubContribution } from './sidework-state.mjs';
+import { withLatestContributionDrafts } from './contribution-drafts.mjs';
 
 import { MAX_FEATURED, STAGES, showcaseProjects, saveProjectDraft, toggleFeatured, moveFeatured, exportShowcase } from './project-drafts.mjs';
 import { projectPreview } from './project-preview';
@@ -38,7 +39,7 @@ let items = seed.contributions;
 let importedProjects: Project[] = [];
 let contributionLimit = 12;
 const save = () => {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, ...state })); return true; }
+  try { const next = withLatestContributionDrafts(localStorage.getItem(STORAGE_KEY), state); localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, ...next })); state = next; return true; }
   catch { storageAvailable = false; notify('Browser storage is unavailable. Your changes work for this visit but will not survive a reload.', true); return false; }
 };
 const catalog = state.includeExamples ? seed.projects : [];
@@ -240,7 +241,7 @@ function openEditor(project?: Project) {
   form.querySelector<HTMLInputElement>('[name=name]')!.focus({preventScroll:true});
 }
 function persistDraftState(next: typeof state) {
-  try { localStorage.setItem(STORAGE_KEY,JSON.stringify({version:1,...next}));state=next;return true; }
+  try { const updated=withLatestContributionDrafts(localStorage.getItem(STORAGE_KEY),next);localStorage.setItem(STORAGE_KEY,JSON.stringify({version:1,...updated}));state=updated;return true; }
   catch { notify('Could not save to this browser. Your last saved draft is unchanged. Allow browser storage or free some space, then try again.',true);return false; }
 }
 $('#add-project').addEventListener('click',()=>openEditor());

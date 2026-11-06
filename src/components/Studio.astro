@@ -5,6 +5,7 @@ import StudioLayout from './StudioLayout.astro';
 import Icon from './SideworkIcon.astro';
 import {projects} from '../data/projects';
 import contributions from '../data/sidework-contributions.json';
+import ContributionStories from './ContributionStories.astro';
 const {profile = false} = Astro.props;
 const ordered = ['homeport','moodsh','perch','prxps'].map(id => projects.find(p => p.id === id)!);
 const latest = contributions[0];
@@ -14,7 +15,7 @@ const visibleProjects = ordered.filter(project => projectMatches(project, '', ca
 const availableCategories = Object.entries(PROJECT_CATEGORIES).filter(([id]) => ordered.some(project => project.category === id));
 ---
 <StudioLayout title={profile ? '@mager · Sidework' : 'Explore · Sidework'} active={profile ? 'profile' : 'explore'}>
- {!profile && <div class="studio-discovery"><h1>Explore builders</h1><span>First on Sidework</span><a href="/workbench/#agents">Connect your agent <Icon name="arrow" size={15}/></a></div>}
+ {!profile && <div class="studio-discovery"><h1>Explore builders</h1><span>First on Sidework</span><a href="/contributions/">Community contributions <Icon name="arrow" size={15}/></a></div>}
  <section class="studio-maker" aria-label="@mager’s profile">
   <a href={profile ? 'https://github.com/mager' : '/mager/'} class="studio-avatar"><img src="/images/mager.jpg" alt="@mager’s illustrated portrait" width="56" height="56"/></a>
   <div class="studio-identity">{profile ? <h1><a href="https://github.com/mager">@mager</a></h1> : <h2><a href="/mager/">@mager</a></h2>}<p>Personal software from Chicago. Small tools. Long rabbit holes.</p></div>
@@ -33,5 +34,6 @@ const availableCategories = Object.entries(PROJECT_CATEGORIES).filter(([id]) => 
   </article>)}
  </section>
  {visibleProjects.length === 0 && <p>No projects in this category yet. <a href={Astro.url.pathname}>See all projects</a>.</p>}
- <section class="studio-contributions" id="contributions" aria-labelledby="upstream-title"><header><h2 id="upstream-title">Contributions</h2><span>Selected pull requests · Checked Nov 4, 2026</span><a href="/workbench/#contributions">Open workbench <Icon name="arrow" size={14}/></a></header><div>{contributions.map(item=><article class="studio-contribution"><Icon name="branch" size={17}/><div><a href={item.url}>{item.title}<Icon name="external" size={13}/></a><p>{item.repository} · #{item.number}</p></div><span class={`sw-status sw-status-${item.status}`}>{item.status}</span></article>)}</div><p class="studio-local-note">Saves and follows stay in this browser. Shared updates are not connected yet.</p></section>
+ <section class="studio-contributions" id="contributions" aria-labelledby="upstream-title"><header><h2 id="upstream-title">Open source &amp; collaboration</h2><a href="/contributions/">Community contributions <Icon name="arrow" size={14}/></a></header><ContributionStories nested /></section>
+ <section class="studio-contributions" aria-labelledby="recent-pr-title"><header><h2 id="recent-pr-title">Recent pull requests</h2><span>Checked Nov 4, 2026</span><a href="/workbench/#contributions">Open workbench <Icon name="arrow" size={14}/></a></header><div>{contributions.map(item=><article class="studio-contribution"><Icon name="branch" size={17}/><div><a href={item.url}>{item.title}<Icon name="external" size={13}/></a><p>{item.repository} · #{item.number}</p></div><span class={`sw-status sw-status-${item.status}`}>{item.status}</span></article>)}</div><p class="studio-local-note">Saves and follows stay in this browser. Shared updates are not connected yet.</p></section>
 </StudioLayout>

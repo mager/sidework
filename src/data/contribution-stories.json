@@ -1,0 +1,304 @@
+[
+  {
+    "id": "uber-direct-sdk",
+    "name": "Uber Direct SDK",
+    "repository": "uber/uber-direct-sdk",
+    "author": "@mager",
+    "story": "I built the SDK for developers integrating Uber Direct delivery into their apps.",
+    "source": "https://www.mager.co/software/",
+    "storyCheckedAt": "2026-11-05",
+    "evidence": [
+      {
+        "number": 48,
+        "title": "Add sandbox environment support",
+        "url": "https://github.com/uber/uber-direct-sdk/pull/48",
+        "date": "2025-11-25T01:17:58Z",
+        "status": "open",
+        "mergedAt": null,
+        "kind": "Pull request",
+        "checkedAt": "2026-10-12"
+      },
+      {
+        "number": 44,
+        "title": "Org API: Add support for contract type",
+        "url": "https://github.com/uber/uber-direct-sdk/pull/44",
+        "date": "2024-10-22T21:04:53Z",
+        "status": "merged",
+        "mergedAt": "2024-10-23T16:21:40Z",
+        "kind": "Pull request",
+        "checkedAt": "2026-10-12"
+      },
+      {
+        "number": 43,
+        "title": "Update organizations YAML & add decentralized test",
+        "url": "https://github.com/uber/uber-direct-sdk/pull/43",
+        "date": "2024-10-22T20:13:50Z",
+        "status": "merged",
+        "mergedAt": "2024-10-22T20:25:44Z",
+        "kind": "Pull request",
+        "checkedAt": "2026-10-12"
+      },
+      {
+        "number": 29,
+        "title": "Update README",
+        "url": "https://github.com/uber/uber-direct-sdk/pull/29",
+        "date": "2024-08-16T14:52:38Z",
+        "status": "merged",
+        "mergedAt": "2024-08-16T14:52:45Z",
+        "kind": "Pull request",
+        "checkedAt": "2026-10-12"
+      }
+    ]
+  },
+  {
+    "id": "impeccable",
+    "name": "Impeccable",
+    "repository": "pbakaus/impeccable",
+    "author": "@mager",
+    "story": "I’m just getting started here, with an interest in helping agents build better interfaces.",
+    "source": "https://www.mager.co/software/",
+    "storyCheckedAt": "2026-11-05",
+    "evidence": [
+      {
+        "id": "pbakaus-impeccable-1213",
+        "repository": "pbakaus/impeccable",
+        "title": "Strengthen bolder workflow scope checks",
+        "url": "https://github.com/pbakaus/impeccable/pull/1213",
+        "number": 1213,
+        "status": "draft",
+        "date": "2026-10-28T21:07:09Z",
+        "checkedAt": "2026-11-04",
+        "kind": "Pull request"
+      },
+      {
+        "id": "pbakaus-impeccable-1195",
+        "repository": "pbakaus/impeccable",
+        "title": "Fix DESIGN.md sidecar freshness with content fingerprints",
+        "url": "https://github.com/pbakaus/impeccable/pull/1195",
+        "number": 1195,
+        "status": "draft",
+        "date": "2026-10-26T23:40:39Z",
+        "checkedAt": "2026-11-04",
+        "kind": "Pull request"
+      },
+      {
+        "id": "pbakaus-impeccable-1157",
+        "repository": "pbakaus/impeccable",
+        "title": "Add Copy all findings to the extension popup",
+        "url": "https://github.com/pbakaus/impeccable/pull/1157",
+        "number": 1157,
+        "status": "merged",
+        "date": "2026-10-23T20:35:41Z",
+        "checkedAt": "2026-11-04",
+        "kind": "Pull request"
+      },
+      {
+        "id": "pbakaus-impeccable-1108",
+        "repository": "pbakaus/impeccable",
+        "title": "Preserve Tune values when reopening the panel",
+        "url": "https://github.com/pbakaus/impeccable/pull/1108",
+        "number": 1108,
+        "status": "merged",
+        "date": "2026-10-21T21:46:23Z",
+        "checkedAt": "2026-11-04",
+        "kind": "Pull request"
+      }
+    ]
+  },
+  {
+    "id": "premint-bot",
+    "name": "PREMINT Bot",
+    "repository": "premint/premintbot",
+    "author": "@mager",
+    "story": "I worked on Discord roles, wallet address handling, and logging for the PREMINT bot.",
+    "source": "https://www.mager.co/software/",
+    "storyCheckedAt": "2026-11-05",
+    "evidence": [
+      {
+        "number": 21,
+        "title": "Add more BQ fields: RoleAdded, ErrorMsg",
+        "url": "https://github.com/premint/premintbot/pull/21",
+        "date": "2022-07-23T17:37:56Z",
+        "status": "merged",
+        "mergedAt": "2022-07-23T17:40:01Z",
+        "kind": "Pull request",
+        "checkedAt": "2026-10-12"
+      },
+      {
+        "number": 17,
+        "title": "Revert \"Disable BigQuery writes\"",
+        "url": "https://github.com/premint/premintbot/pull/17",
+        "date": "2022-06-08T12:17:38Z",
+        "status": "merged",
+        "mergedAt": "2022-06-08T12:18:05Z",
+        "kind": "Pull request",
+        "checkedAt": "2026-10-12"
+      },
+      {
+        "number": 16,
+        "title": "Only grant role if user ID matches PREMINT Discord ID",
+        "url": "https://github.com/premint/premintbot/pull/16",
+        "date": "2022-06-04T13:15:15Z",
+        "status": "merged",
+        "mergedAt": "2022-06-06T17:04:41Z",
+        "kind": "Pull request",
+        "checkedAt": "2026-10-12"
+      },
+      {
+        "number": 15,
+        "title": "Disable BigQuery writes",
+        "url": "https://github.com/premint/premintbot/pull/15",
+        "date": "2022-05-29T21:40:49Z",
+        "status": "merged",
+        "mergedAt": "2022-05-29T21:42:00Z",
+        "kind": "Pull request",
+        "checkedAt": "2026-10-12"
+      }
+    ]
+  },
+  {
+    "id": "consul-mut-ex",
+    "name": "Postmates · ConsulMutEx",
+    "repository": "postmates/consul_mut_ex",
+    "author": "@mager",
+    "story": "I contributed Consul-backed locking and packaging improvements to this Elixir library.",
+    "source": "https://www.mager.co/software/",
+    "storyCheckedAt": "2026-11-05",
+    "evidence": [
+      {
+        "number": 7,
+        "title": "Update to use :consul@1.1.0",
+        "url": "https://github.com/postmates/consul_mut_ex/pull/7",
+        "date": "2017-03-20T22:44:12Z",
+        "status": "open",
+        "mergedAt": null,
+        "kind": "Pull request",
+        "checkedAt": "2026-10-12"
+      },
+      {
+        "number": 5,
+        "title": "Setup package for hex.pm",
+        "url": "https://github.com/postmates/consul_mut_ex/pull/5",
+        "date": "2017-03-20T20:43:42Z",
+        "status": "merged",
+        "mergedAt": "2017-03-20T21:53:01Z",
+        "kind": "Pull request",
+        "checkedAt": "2026-10-12"
+      },
+      {
+        "number": 4,
+        "title": "v1.0.0",
+        "url": "https://github.com/postmates/consul_mut_ex/pull/4",
+        "date": "2017-03-20T17:55:14Z",
+        "status": "merged",
+        "mergedAt": "2017-03-20T19:37:21Z",
+        "kind": "Pull request",
+        "checkedAt": "2026-10-12"
+      },
+      {
+        "number": 1,
+        "title": "Consul as a backend",
+        "url": "https://github.com/postmates/consul_mut_ex/pull/1",
+        "date": "2017-01-08T23:49:51Z",
+        "status": "merged",
+        "mergedAt": "2017-01-11T19:15:22Z",
+        "kind": "Pull request",
+        "checkedAt": "2026-10-12"
+      }
+    ]
+  },
+  {
+    "id": "spotify-apps",
+    "name": "Spotify App Tutorials",
+    "repository": "spotify/apps-tutorial",
+    "author": "@mager",
+    "story": "I wrote working examples and tutorials to help developers build with the Spotify Apps API.",
+    "source": "https://www.mager.co/software/",
+    "storyCheckedAt": "2026-11-05",
+    "evidence": [
+      {
+        "sha": "c8da1a2d00c41516b2a8f92ae14a13e9548c7ada",
+        "title": "Remove old CSS",
+        "url": "https://github.com/spotify/apps-tutorial/commit/c8da1a2d00c41516b2a8f92ae14a13e9548c7ada",
+        "date": "2012-12-15T12:17:38.000-05:00",
+        "kind": "Commit",
+        "checkedAt": "2026-10-12"
+      },
+      {
+        "sha": "20619227feed8783c549966f2d17f3569f76af0e",
+        "title": "Remove old tutorials folder",
+        "url": "https://github.com/spotify/apps-tutorial/commit/20619227feed8783c549966f2d17f3569f76af0e",
+        "date": "2012-12-05T10:08:47.000-05:00",
+        "kind": "Commit",
+        "checkedAt": "2026-10-12"
+      },
+      {
+        "sha": "2da5ee09541ed929a95b8ed7124fba55a1fef82f",
+        "title": "Cleaned up log statements, found bug in Artist.singles",
+        "url": "https://github.com/spotify/apps-tutorial/commit/2da5ee09541ed929a95b8ed7124fba55a1fef82f",
+        "date": "2012-12-02T15:53:13.000+01:00",
+        "kind": "Commit",
+        "checkedAt": "2026-10-12"
+      },
+      {
+        "sha": "2e949e1621a01a9e40c85740d88f9d583652d44b",
+        "title": "Add a user's photo",
+        "url": "https://github.com/spotify/apps-tutorial/commit/2e949e1621a01a9e40c85740d88f9d583652d44b",
+        "date": "2012-12-01T18:22:06.000+01:00",
+        "kind": "Commit",
+        "checkedAt": "2026-10-12"
+      }
+    ]
+  },
+  {
+    "id": "simplegeo-python",
+    "name": "SimpleGeo · Python",
+    "repository": "simplegeo/python-simplegeo",
+    "author": "@mager",
+    "story": "I added location queries and API features to SimpleGeo’s Python client.",
+    "source": "https://www.mager.co/software/",
+    "storyCheckedAt": "2026-11-05",
+    "evidence": [
+      {
+        "number": 23,
+        "title": "Adding ability to use filter parameter in Context client.",
+        "url": "https://github.com/simplegeo/python-simplegeo/pull/23",
+        "date": "2011-06-15T20:33:07Z",
+        "status": "merged",
+        "mergedAt": "2011-06-21T00:10:38Z",
+        "kind": "Pull request",
+        "checkedAt": "2026-10-12"
+      },
+      {
+        "number": 22,
+        "title": "Added support for the num parameter in the Places client, added new bounding box function in the Context client, added get_centroid to Context client",
+        "url": "https://github.com/simplegeo/python-simplegeo/pull/22",
+        "date": "2011-05-26T16:06:28Z",
+        "status": "merged",
+        "mergedAt": "2011-06-21T00:12:01Z",
+        "kind": "Pull request",
+        "checkedAt": "2026-10-12"
+      },
+      {
+        "number": 20,
+        "title": "Added contrib section with Google Translate call",
+        "url": "https://github.com/simplegeo/python-simplegeo/pull/20",
+        "date": "2011-05-19T17:22:54Z",
+        "status": "closed",
+        "mergedAt": null,
+        "kind": "Pull request",
+        "checkedAt": "2026-10-12"
+      },
+      {
+        "number": 19,
+        "title": "Added translate_address_from_feature() function with Google Translate API",
+        "url": "https://github.com/simplegeo/python-simplegeo/pull/19",
+        "date": "2011-05-19T16:47:43Z",
+        "status": "merged",
+        "mergedAt": "2011-05-19T17:02:28Z",
+        "kind": "Pull request",
+        "checkedAt": "2026-10-12"
+      }
+    ]
+  }
+]

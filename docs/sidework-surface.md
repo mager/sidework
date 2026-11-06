@@ -10,11 +10,11 @@ OWN-WORLD: Black, white, and neutral gray keep attention on the work. Light, Dar
 
 STORY: The profile and discovery index show four real projects. Normal links open separate detail pages, which require invite access. Each page shows its purpose, description, real screenshot when available, source metadata, and app/save actions. More by @mager links connect the projects. Settings holds all theme controls, workspace reset and restore, and invite locking. Personal planning remains in the private workbench.
 
-FIRST VIEWPORT: The project index starts with shared sticky navigation, a compact maker row, the latest real contribution, and a two-column project grid. Mobile uses one column. A detail page starts with a back link, large project title and purpose, actions, and a wide natural-ratio screenshot. prxps uses text only. Settings starts with its title and unboxed Appearance, Workspace, and Invite access sections.
+FIRST VIEWPORT: The project index starts with shared sticky navigation, a compact maker row, the latest real contribution, and a two-column project grid. Mobile uses one column. A detail page starts with a back link, large project title and purpose, actions, and a wide natural-ratio screenshot. prxps uses a real, authorized test-account screenshot. Settings starts with its title and unboxed Appearance, Workspace, and Invite access sections.
 
 FORM: Code-led update using the existing palette, source assets, and three-font system. The current source is the visual authority. No generated comp defines this update. Project browsing uses Experience mode; Settings uses Operate mode. The private workbench keeps its existing editing and showcase layouts.
 
-SIGNATURE: Borderless project previews link to full-width detail pages. Source images keep their original colors and detail-page ratio. The prxps name scales to 4rem, its tagline to 2.25rem, and detail titles to 4.5rem. These large text roles are intentional. Settings is the single location for theme controls.
+SIGNATURE: Borderless project previews link to full-width detail pages. Source images keep their original colors and detail-page ratio. Project index names use the shared mono role, and detail titles scale to 4.5rem. These large text roles are intentional. Settings is the single location for theme controls.
 
 FINISH: Ship at the reviewed project-page and Settings scope. Seven review images cover desktop and mobile project indexes, project detail, and Settings: `.impeccable/review/projects-desktop.png`, `projects-user.png`, `projects-mobile-light.png`, `project-detail-desktop.png`, `project-detail-mobile.png`, `settings-mobile.png`, and `settings-desktop-light.png`. The final Settings capture is `.impeccable/review/settings-ready.png`. Validation: 50 tests and the production build passed. HTTP checks confirmed that detail and Settings routes require invite access, authenticated requests return 200, missing projects return 404, and the exact public profile returns 200. Normal project links work without JavaScript. Reset tests cover success and backup failure. These checks do not claim a new deployment.
 
@@ -95,3 +95,9 @@ The user approved removal of project tabs, separate full-width project pages, an
 All theme controls moved to Settings → Appearance. The public header, workbench header, Friends, and import flow link to Settings. The invite footer no longer has a theme selector. Workspace reset and restore moved from Friends to Settings. They keep the same single local restore copy, preserve theme and invite access, and open Friends after success. Invite access provides Lock Sidework. The private story editor, profile draft, and agent-review behavior remain as documented above.
 
 The current review evidence and validation are recorded in FINISH. Earlier review sections describe their original scope; their tab layout and theme/reset locations are not current guidance. DESIGN.md and its schema-v2 sidecar record the implemented project pages and Settings.
+
+## Contribution showcase extension
+
+The next version adds six authored contribution stories, separate source-detail pages, and a private local editor. See `.impeccable/surfaces/contributions.md`. The layout uses short text and borderless rows. The real prxps screenshot is `public/images/prxps-games.jpg`, with provenance in `docs/assets.json`.
+
+Validation: 58 tests and the production build passed. Desktop, 390px mobile, and the 424px user viewport were checked; Light and Dark modes were inspected. The finish review scored all five code and design corrections resolved. Anonymous contribution routes redirect to the invite gate; the exact public profile remains available. This records local validation, not deployment.

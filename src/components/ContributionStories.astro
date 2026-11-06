@@ -1,0 +1,12 @@
+---
+import stories from '../data/contribution-stories.json';
+import Icon from './SideworkIcon.astro';
+import '../styles/contribution-stories.css';
+const Heading = Astro.props.nested ? 'h3' : 'h2';
+---
+<div class="contribution-stories">
+ {stories.map(item => <article class="contribution-story">
+  <div><Heading class="contribution-story-title"><a href={`/contributions/${item.id}/`}>{item.name}<Icon name="arrow" size={22}/></a></Heading><p class="contribution-repo">{item.repository}</p></div>
+  <p class="contribution-summary">{item.story}</p>
+ </article>)}
+</div>

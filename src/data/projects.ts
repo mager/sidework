@@ -37,6 +37,7 @@ export const projects = [
   },
   {
     id: 'prxps', name: 'prxps', kind: 'Sports picks', stack: 'SvelteKit · TypeScript · Rust',
+    image: '/images/prxps-games.jpg', imageAlt: 'prxps upcoming games with sport filters and RXP reputation.',
     tagline: 'Make free sports picks and track your public record.',
     category: 'games', softwareType: 'web-app',
     audience: 'Sports fans who want to keep a record of their picks.',

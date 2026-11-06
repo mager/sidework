@@ -288,7 +288,7 @@ Bricolage Grotesque carries reading text, Martian Mono identifies projects and s
 - Normal project links work without JavaScript.
 - Local drafts, saves, follows, and public records remain distinct.
 
-This records the approved November 5, 2026 project-page and Settings update. It supersedes the compact software browser and project tabs. Source authority is the applied CSS in src/styles/sidework.css, studio.css, settings.css, friends.css, entry.css, composer.css, and agents.css. The project surfaces use Studio.astro, StudioLayout.astro, and src/pages/projects/[slug].astro. PRODUCT.md and docs/sidework-surface.md record product scope and review. Fonts come from src/styles/fonts.css; images from docs/assets.json.
+This records the approved November 5, 2026 project, contribution, and Settings updates. It supersedes the compact software browser and project tabs. Source authority is the applied CSS in src/styles/sidework.css, studio.css, settings.css, friends.css, entry.css, composer.css, agents.css, and contribution-stories.css. The project surfaces use Studio.astro, StudioLayout.astro, and src/pages/projects/[slug].astro. PRODUCT.md and docs/sidework-surface.md record product scope and review. Fonts come from src/styles/fonts.css; images from docs/assets.json.
 
 ## Colors
 
@@ -322,9 +322,9 @@ All use self-hosted Latin WOFF2 subsets and font-display swap. Anybody and Brico
 
 - **Wordmark:** Anybody for brand use only. Project navigation uses 1.5rem, reduced to 1.375rem at 760px; entry pages retain 1.75rem and the workbench retains 1.5625rem.
 - **Maker handle:** Martian Mono identity at 1.5rem, reduced to 1.25rem at 760px.
-- **Project title:** Martian Mono names scale from 1.25rem to 1.75rem in the index. The text-only prxps name scales to 4rem; its tagline scales to 2.25rem with a 20ch measure.
+- **Project title:** Martian Mono names scale from 1.25rem to 1.75rem in the index. Contribution story names reuse this mono scale.
 - **Project detail:** the mono title scales to 4.5rem. The Bricolage tagline scales to 1.75rem, and the description to 1.5rem with a 65ch measure. These larger roles are intentional.
-- **Settings title:** Bricolage scales from 2rem to 3rem. Section headings use 1.25rem, and section descriptions and the theme selector use .9375rem.
+- **Settings and contribution page title:** Bricolage scales from 2rem to 3rem. Contribution detail names use the same size range in Martian Mono. Section headings use 1.25rem, and section descriptions and the theme selector use .9375rem.
 - **Body and story caption:** workbench reading and local story purpose remain unchanged. Local story notes use body size with line height 1.8 and 65ch measure; taglines use 1.25rem and 45ch.
 - **Code body and label:** commands, repository paths, stacks, counts, and evidence. Contribution repository lines use .6875rem, reduced to .625rem on mobile. Agent prompts retain their mono prompt role.
 - **Workbench, entry, composer, and story titles:** existing compact Bricolage roles for each management task. Form text remains 1rem. The composer heading is 1.875rem at 700px and below.
@@ -335,13 +335,13 @@ All use self-hosted Latin WOFF2 subsets and font-display swap. Anybody and Brico
 
 The project header is sticky with a ground fill and 12px by 28px padding. It has no bottom border. Settings sits on the right. Main content and footer use the full width with clamp(16px, 3vw, 64px) side padding. A 56px portrait, identity, and GitHub/Follow actions form the maker row. The latest real contribution appears below it.
 
-The project index has two equal columns, with 36px between columns and 56px between rows. Each preview is an ordinary link. Images use a 1.5 aspect ratio and object-fit contain, with no outline or rounded frame. Project headings sit 20px below the image. The text-only prxps entry aligns to the bottom of its grid cell.
+The project index has two equal columns, with 36px between columns and 56px between rows. Each preview is an ordinary link. Images use a 1.5 aspect ratio and object-fit contain, with no outline or rounded frame. Project headings sit 20px below the image. All four projects have real screenshots, including the authorized prxps capture.
 
 Detail pages place the project title and tagline beside Save and Open app, then show the real screenshot across the content width at its natural ratio. A caption follows. Description and source metadata use a 2fr/1fr grid with a 240px minimum metadata column and 10vw gap. This section has 64px top and 80px bottom margins. More by @mager links follow.
 
 At 900px the header uses 20px side padding and hides Import projects. At 760px the header wraps into a wordmark and Settings row above full-width navigation. The portrait becomes 44px and maker actions take their own row. The project index becomes one column with 40px gaps. Detail headings stack above actions, and the story becomes one column with a 36px gap and 40px/48px vertical margins. The screenshot retains its natural ratio.
 
-Contributions begin 72px below the index, or 48px at 760px. Six unboxed rows use 14px vertical padding and explicit status. The footer follows content in normal flow.
+The public profile places authored contribution stories after the project index. Story rows pair name and repository with a short description in two equal columns. They stack at 760px. Recent PR rows retain explicit status. The footer follows content in normal flow. Contribution page composition and evidence rules are in `.impeccable/surfaces/contributions.md`.
 
 Settings content is at most 960px wide, with 48px top and 64px bottom padding. Appearance, Workspace, and Invite access use unboxed sections with 56px top margins. Each section has a flexible description column and an action column, with 20px vertical and 48px horizontal gaps. At 760px, sections stack, their top margins reduce to 40px, and page top padding becomes 28px.
 
@@ -387,7 +387,13 @@ The shared sticky header contains Explore, @mager, Saved with a count, Workbench
 
 The index uses normal links to /projects/homeport/, /projects/moodsh/, /projects/perch/, and /projects/prxps/. There are no tabs or selected-project panels. Server rendering supplies the index and each detail page, so project links work without JavaScript. Saved links open the matching detail page. Unknown project slugs return 404 after the access gate.
 
-Each detail page has a mono name, Bricolage tagline and description, maker link, Save, Open app, build-log link, and source metadata. More by @mager links to the other three projects. Screenshots use the full content width and natural ratio. prxps has text only; do not invent a screenshot or a simulated app view.
+Each detail page has a mono name, Bricolage tagline and description, maker link, Save, Open app, build-log link, and source metadata. More by @mager links to the other three projects. Screenshots use the full content width and natural ratio. prxps uses the authorized real capture in `public/images/prxps-games.jpg`; its provenance is in `docs/assets.json`. Do not simulate app views.
+
+### Contribution stories
+
+Story rows have no card border or frame. Mono names and repository labels sit beside Bricolage descriptions. Normal links open separate detail pages. Name @mager once above the collection rather than on each row. Use h2 for standalone story titles and h3 when the list sits inside the profile section. Detail pages keep the authored story separate from dated source evidence.
+
+The private editor reuses shared fields and buttons. Its preview sits beside the form on desktop and below it on mobile. Place “Private preview” below the preview title. Keep copy short and put source status beside the relevant evidence.
 
 ### Friends rows
 

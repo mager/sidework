@@ -1,0 +1,24 @@
+---
+import StudioLayout from '../../components/StudioLayout.astro';
+import '../../styles/contribution-stories.css';
+---
+<StudioLayout title="Your contribution stories · Sidework">
+ <a href="/contributions/" class="contribution-back">Community contributions</a>
+ <header class="contribution-heading"><div><h1>Your contributions</h1><p>What did you work on?</p></div></header>
+ <p class="contribution-note">Private drafts, saved in this browser. Publishing is not connected.</p>
+ <noscript><p>Enable JavaScript to write and save a draft.</p></noscript>
+ <div class="contribution-compose" id="contribution-editor" hidden>
+  <form id="contribution-form">
+   <label>Project name<input name="name" maxlength="100" required autocomplete="off" /></label>
+   <label>Your GitHub handle<input name="handle" placeholder="@handle" maxlength="40" required pattern="@[a-zA-Z0-9][a-zA-Z0-9-]{0,38}" autocomplete="off" /></label>
+   <label>Upstream repository<input name="repository" placeholder="owner/repository" maxlength="200" required pattern="[a-zA-Z0-9_.\-]+/[a-zA-Z0-9_.\-]+" autocomplete="off" /></label>
+   <label>Your contribution<textarea name="story" rows="5" maxlength="2000" required></textarea><small>Describe your part in the work.</small></label>
+   <label>Source evidence<input name="evidence" type="url" placeholder="https://github.com/owner/repository/pull/123" maxlength="2048" required /><small>A GitHub pull request, issue, or commit.</small></label>
+   <div class="contribution-actions"><button class="sw-button sw-primary" type="submit">Save private draft</button><button class="sw-button" type="button" id="new-contribution">New story</button></div>
+   <p id="contribution-status" class="contribution-status" role="status" aria-live="polite"></p>
+  </form>
+  <aside class="contribution-preview" aria-label="Private story preview"><h2 id="preview-name">Your project contribution</h2><p class="contribution-note">Private preview</p><p class="contribution-repo" id="preview-repository">Upstream repository</p><p class="contribution-summary" id="preview-story">Explain what you added, fixed, tested, or documented.</p><p class="contribution-author" id="preview-handle">Your @handle</p></aside>
+ </div>
+ <section class="contribution-draft-list" aria-labelledby="drafts-heading"><h2 id="drafts-heading">Saved contribution drafts</h2><div id="contribution-draft-list"><p>No drafts loaded.</p></div></section>
+ <script src="../../scripts/contribution-editor.ts"></script>
+</StudioLayout>

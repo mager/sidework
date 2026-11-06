@@ -1,0 +1,52 @@
+.contribution-heading { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:48px 0 24px; }
+.contribution-heading h1 { font-size:clamp(2rem,4vw,3rem); font-weight:550; line-height:1.15; letter-spacing:-.035em; text-wrap:balance; }
+.contribution-heading p { margin-top:16px; font-size:1.25rem; color:var(--sw-muted); }
+.contribution-heading .sw-button { flex-shrink:0; }
+.contribution-note { color:var(--sw-muted); max-width:75ch; font-size:.9375rem; }
+.contribution-note a,.contribution-detail aside a { text-decoration:underline; text-underline-offset:4px; }
+.contribution-stories { margin-top:40px; }
+.contribution-story { display:grid; grid-template-columns:1fr 1fr; gap:48px; padding:32px 0; }
+.contribution-story .contribution-story-title { font:500 clamp(1.25rem,2vw,1.75rem)/1.5 var(--sw-mono); letter-spacing:-.025em; }
+.contribution-story .contribution-story-title a { display:inline-flex; align-items:baseline; gap:16px; }
+.contribution-story .contribution-story-title svg { flex-shrink:0; }
+.contribution-repo { font:.75rem/1.8 var(--sw-mono); color:var(--sw-muted); overflow-wrap:anywhere; }
+.contribution-story .contribution-repo { margin-top:12px; }
+.contribution-summary { font-size:1.25rem; line-height:1.65; max-width:65ch; }
+.contribution-author { display:inline-block; font:.8125rem/1.8 var(--sw-mono); margin-top:16px; padding-block:8px; }
+.contribution-end { margin:48px 0; }
+.contribution-back { display:inline-flex; align-items:center; min-height:44px; margin-top:24px; color:var(--sw-muted); font-size:.9375rem; }
+.contribution-heading .contribution-project-name { font-family:var(--sw-mono); font-weight:500; }
+.contribution-heading .contribution-repo { font-size:.875rem; }
+.contribution-detail { display:grid; grid-template-columns:2fr 1fr; gap:10vw; margin:40px 0 72px; }
+.contribution-detail h2,.contribution-evidence h2,.contribution-draft-list h2 { font-size:1.25rem; font-weight:550; margin-bottom:16px; }
+.contribution-statement { font-size:clamp(1.375rem,2.5vw,2rem); line-height:1.6; max-width:65ch; }
+.contribution-detail aside p { font-size:.9375rem; color:var(--sw-muted); margin-top:16px; max-width:65ch; }
+.contribution-evidence { max-width:1100px; }
+.contribution-evidence article { display:flex; align-items:baseline; justify-content:space-between; gap:24px; padding:20px 0; }
+.contribution-evidence article a { font-size:1.125rem; }
+.contribution-evidence article p { font-size:.8125rem; color:var(--sw-muted); margin-top:8px; }
+.contribution-evidence .sw-status { flex-shrink:0; }
+.contribution-compose { display:grid; grid-template-columns:1fr 1fr; gap:clamp(32px,6vw,96px); margin:32px 0 64px; }
+.contribution-compose form { display:grid; gap:20px; }
+.contribution-compose label { display:grid; gap:8px; font-size:.9375rem; }
+.contribution-compose input,.contribution-compose textarea { width:100%; min-height:48px; padding:12px 14px; border:0; border-radius:6px; color:var(--sw-text); background:var(--sw-surface); font:inherit; caret-color:var(--sw-accent); }
+.contribution-compose textarea { resize:vertical; }
+.contribution-compose small { color:var(--sw-muted); font-size:.8125rem; }
+.contribution-preview { align-self:start; position:sticky; top:100px; overflow-wrap:anywhere; }
+.contribution-preview h2 { font:500 1.5rem/1.5 var(--sw-mono); margin:24px 0 12px; }
+.contribution-preview .contribution-summary { white-space:pre-wrap; }
+.contribution-actions { display:flex; flex-wrap:wrap; gap:12px; }
+.contribution-draft-list { margin:48px 0; }
+.contribution-draft-list article { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:20px 0; }
+.contribution-draft-list h3 { font-size:1.125rem; overflow-wrap:anywhere; }
+.contribution-draft-list p { font-size:.875rem; color:var(--sw-muted); }
+.contribution-status { min-height:1.6em; }
+@media(max-width:760px) {
+ .contribution-heading { align-items:start; flex-direction:column; padding-top:28px; }
+ .contribution-story { grid-template-columns:1fr; gap:16px; padding:24px 0; }
+ .contribution-stories { margin-top:24px; }
+ .contribution-detail,.contribution-compose { grid-template-columns:1fr; gap:36px; margin-top:24px; }
+ .contribution-preview { position:static; }
+ .contribution-evidence article { align-items:start; gap:12px; }
+ .contribution-draft-list article { align-items:start; flex-direction:column; gap:12px; }
+}
