@@ -49,7 +49,7 @@ Normal links open separate detail pages with no content borders or panel frames.
 - Markdown export of the public work record.
 - Responsive layouts, keyboard navigation, and Light, Dark, and System themes.
 
-The interface uses black, white, and neutral gray to keep attention on the work. Project screenshots retain their original colors. System is the default theme. The theme selector appears only in Settings → Appearance. Headers and the import page link to Settings. A saved choice applies before paint; System follows changes to the device theme. Theme changes also update other open tabs. Without JavaScript, CSS follows the device theme.
+The interface uses black, white, and neutral gray to keep attention on the work. Project screenshots retain their original colors. System is the default theme. The theme selector appears only in Settings → Appearance. Home and Friends use the same header, including Saved and Import projects. Signed-in headers show the GitHub avatar at the far right; it links to Settings and has an accessible @handle label. Waiting accounts return to preview preferences, and legacy sessions use a profile icon. A saved choice applies before paint; System follows changes to the device theme. Theme changes also update other open tabs. Without JavaScript, CSS follows the device theme.
 
 ## Prototype boundaries
 

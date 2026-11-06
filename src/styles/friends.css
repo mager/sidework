@@ -1,11 +1,6 @@
 .friends-page { min-height:100svh; display:flex; flex-direction:column; }
-.friends-header { display:flex; align-items:center; gap:32px; padding:12px 28px; border-bottom:1px solid var(--sw-border); }
-.friends-brand { display:inline-flex; align-items:center; gap:8px; font:650 1.5rem/1 var(--sw-brand-font); font-stretch:82%; letter-spacing:-.04em; }
-.friends-header nav { display:flex; gap:8px; }
-.friends-header nav a { min-height:44px; display:inline-flex; align-items:center; padding:8px 12px; border-radius:4px; color:var(--sw-muted); font-size:.8125rem; }
-.friends-header nav a:hover,.friends-header nav [aria-current] { color:var(--sw-text); background:var(--sw-raised); }
-.friends-header > .friends-settings { margin-left:auto; }
-.friends-main { width:min(100% - 48px,1040px); margin:0 auto; flex:1; padding:48px 0 32px; }
+.friends-page > .studio-main { flex:1; }
+.friends-main { width:min(100%,1040px); margin:0 auto; flex:1; padding:48px 0 32px; }
 .friends-welcome { display:flex; align-items:center; justify-content:space-between; gap:28px; padding-bottom:40px; border-bottom:1px solid var(--sw-border); }
 .friends-welcome h1 { font-size:clamp(1.5rem,2.5vw,2rem); font-weight:550; letter-spacing:-.035em; }
 .friends-welcome p { color:var(--sw-muted); margin-top:12px; max-width:55ch; }
@@ -32,13 +27,9 @@
 .friends-footer { display:flex; align-items:center; justify-content:space-between; gap:16px; width:min(100% - 48px,1040px); margin:0 auto; padding:16px 0; color:var(--sw-muted); font-size:.75rem; }
 .friends-footer > a { display:inline-flex; align-items:center; min-height:44px; }
 @media(max-width:760px) {
- .friends-header { flex-wrap:wrap; gap:10px; padding:12px 16px 0; }
- .friends-header nav { order:3; width:100%; justify-content:space-between; }
- .friends-main { width:calc(100% - 32px); padding-top:28px; }
+ .friends-main { padding-top:28px; }
  .friends-welcome { align-items:start; flex-direction:column; gap:20px; padding-bottom:28px; }
  .friend-row { align-items:start; flex-direction:column; gap:20px; }
  .friend-actions { flex-shrink:1; }
  .friends-footer { width:calc(100% - 32px); }
 }
-
-.friends-settings { min-height:44px; display:inline-flex; align-items:center; font-size:.8125rem; color:var(--sw-muted); }

@@ -1,24 +1,24 @@
 ---
 import BaseHead from './BaseHead.astro';
 import Icon from './SideworkIcon.astro';
+import AccountLink from './AccountLink.astro';
 import { projects } from '../data/projects';
 import '../styles/sidework.css';
 import '../styles/studio.css';
-interface Props { title: string; description?: string; active?: string; }
-const { title, description = 'Personal software and the people who build it.', active } = Astro.props;
+interface Props { title: string; description?: string; active?: string; bodyClass?: string; }
+const { title, description = 'Personal software and the people who build it.', active, bodyClass } = Astro.props;
 const signedIn = Astro.locals.hasAccess;
 const ordered = projects;
 ---
 <!doctype html><html lang="en"><head><BaseHead title={title} description={description}/><meta name="robots" content="noindex,nofollow"/></head>
-<body class="studio"><a class="skip-link" href="#studio-main">Skip to content</a>
+<body class:list={['studio', bodyClass]}><a class="skip-link" href="#studio-main">Skip to content</a>
 <header class="studio-header">
  <a href="/" class="studio-wordmark" aria-label="Sidework home"><Icon name="branch" size={23}/>sidework<span>.</span></a>
- <nav aria-label="Explore Sidework"><a href="/" aria-current={active === 'explore' ? 'page' : undefined}>Explore</a>{signedIn ? <a href="/friends/">Friends</a> : <a href="/mager/" aria-current={active === 'profile' ? 'page' : undefined}>@mager</a>}<button type="button" popovertarget="saved-projects"><Icon name="bookmark" size={16}/>Saved <span id="saved-count">0</span></button><a href="/workbench/"><Icon name="code" size={17}/>Workbench</a></nav>
- <a class="studio-settings" href={signedIn ? '/settings/' : Astro.locals.account ? '/waiting/' : '/signup/'} aria-current={active === 'settings' ? 'page' : undefined}>{signedIn ? 'Settings' : Astro.locals.account ? 'Your status' : 'Join preview'}</a>
- {signedIn && <a href="/onboarding/" class="sw-button studio-import"><Icon name="plus" size={16}/>Import projects</a>}
+ <nav aria-label="Explore Sidework"><a href="/" aria-current={active === 'explore' ? 'page' : undefined}>Explore</a>{signedIn ? <a href="/friends/" aria-current={active === 'friends' ? 'page' : undefined}>Friends</a> : <a href="/mager/" aria-current={active === 'profile' ? 'page' : undefined}>@mager</a>}<button type="button" popovertarget="saved-projects"><Icon name="bookmark" size={16}/>Saved <span id="saved-count">0</span></button><a href="/workbench/"><Icon name="code" size={17}/>Workbench</a></nav>
+ <div class="studio-account-actions">{signedIn && <a href="/onboarding/" class="sw-button studio-import"><Icon name="plus" size={16}/>Import projects</a>}<AccountLink active={active === 'settings'}/></div>
 </header>
 <main id="studio-main" class="studio-main"><slot /></main>
-<footer class="studio-footer"><a href="https://github.com/mager/sidework">Built with Astra <Icon name="code" size={15}/></a><span>Sidework, by <a href="/mager/">@mager</a></span></footer>
+<slot name="footer"><footer class="studio-footer"><a href="https://github.com/mager/sidework">Built with Astra <Icon name="code" size={15}/></a><span>Sidework, by <a href="/mager/">@mager</a></span></footer></slot>
 <aside id="saved-projects" popover class="studio-saved"><header><h2>Saved projects</h2><button type="button" popovertarget="saved-projects" popovertargetaction="hide" aria-label="Close saved projects">×</button></header><p>Kept in this browser.</p><div id="saved-project-list"><p>Save a project and come back to it here.</p></div></aside>
 <p role="status" aria-live="polite" class="studio-toast" id="studio-feedback" hidden></p>
 <script id="studio-project-data" type="application/json" set:html={JSON.stringify(ordered.map(({id,name,tagline})=>({id,name,tagline}))).replace(/</g,'\\u003c')}/>

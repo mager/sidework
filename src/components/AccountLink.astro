@@ -1,0 +1,28 @@
+---
+import Icon from './SideworkIcon.astro';
+const { active = false } = Astro.props;
+const account = Astro.locals.account;
+const hasAccess = Astro.locals.hasAccess;
+const avatar = account && /^[1-9]\d*$/.test(account.github_id)
+  ? `https://avatars.githubusercontent.com/u/${account.github_id}?s=80`
+  : null;
+const href = hasAccess ? '/settings/' : account ? '/waiting/' : '/signup/';
+const label = account ? `@${account.login} · ${hasAccess ? 'Settings' : 'Preview preferences'}` : 'Settings';
+---
+{account || hasAccess ? <a class="account-link" href={href} aria-label={label} title={label} aria-current={active ? 'page' : undefined}>
+ <Icon name="profile" size={22}/>
+ {avatar && <img src={avatar} alt="" width="36" height="36" referrerpolicy="no-referrer"/>}
+</a> : <a class="account-join" href={href}>Join preview</a>}
+<style>
+ .account-link { position:relative; display:inline-flex; flex-shrink:0; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; color:var(--sw-text); }
+ .account-link:hover,.account-link[aria-current] { background:var(--sw-raised); }
+ .account-link img { position:absolute; width:36px; height:36px; object-fit:cover; border-radius:50%; background:var(--sw-surface); }
+ .account-join { display:inline-flex; align-items:center; min-height:44px; font-size:.8125rem; color:var(--sw-muted); }
+</style>
+<script>
+ document.querySelectorAll<HTMLImageElement>('.account-link img').forEach(image => {
+  const showFallback = () => { image.hidden = true; };
+  image.addEventListener('error', showFallback);
+  if (image.complete && !image.naturalWidth) showFallback();
+ });
+</script>

@@ -9,7 +9,7 @@
 .studio-header > nav { display:flex; align-items:center; gap:8px; }
 .studio-header > nav a,.studio-header > nav button { display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:8px 12px; border:0; background:none; border-radius:4px; color:var(--sw-muted); font-size:.8125rem; white-space:nowrap; }
 .studio-header > nav [aria-current],.studio-header > nav a:hover,.studio-header > nav button:hover { background:var(--sw-raised); color:var(--sw-text); }
-.studio-settings { margin-left:auto; display:inline-flex; align-items:center; min-height:44px; font-size:.8125rem; color:var(--sw-muted); }
+.studio-account-actions { margin-left:auto; display:flex; align-items:center; gap:24px; }
 .studio-import { margin-left:0; }
 #saved-count { font:.6875rem var(--sw-mono); color:var(--sw-muted); }
 .studio-main { width:100%; padding:0 var(--studio-gutter); margin:auto; }

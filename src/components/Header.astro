@@ -1,4 +1,5 @@
 ---
+import AccountLink from './AccountLink.astro';
 interface Props { homepage?: boolean; themeToggle?: boolean; }
 ---
-<header class="sw-global-header"><a href="/mager/">A home for the things you build.</a><nav aria-label="Site navigation"><a href="/">Explore</a><a href="/friends/">Friends</a><a href="/workbench/">Workbench</a><a href="/settings/">Settings</a><a href="https://github.com/mager/sidework">GitHub</a></nav></header>
+<header class="sw-global-header"><a href="/mager/">A home for the things you build.</a><nav aria-label="Site navigation"><a href="/">Explore</a><a href="/friends/">Friends</a><a href="/workbench/">Workbench</a><a href="https://github.com/mager/sidework">GitHub</a><AccountLink/></nav></header>
