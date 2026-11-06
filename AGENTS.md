@@ -6,6 +6,7 @@ Sidework is an Astro server-rendered prototype with a public @mager profile and 
 - Display people with @handles in headings, navigation, account details, and exports. Keep repository owner/name identifiers and URLs unchanged.
 - Use real source evidence. Do not invent users, follower counts, stars, testimonials, merged states, or learning outcomes.
 - Keep public profile snapshots separate from browser-local drafts and weekly plans. Use GitHub numeric ID storage keys for account workspaces. Retain legacy browser data without automatic migration; theme stays browser-global.
+- Account records use the server-only Firestore `sidework_accounts` collection, keyed by GitHub numeric ID. Use Vercel OIDC Workload Identity; do not create GCP service account keys. Keep browser Firestore access denied.
 - Only the configured owner may start approved. Do not approve other accounts until private exports, draft review, and MCP templates support their identity; these still use @mager. Waitlist signup does not publish a profile or send email.
 - Project stories and featured order are browser-local. Profile draft exports are private backups, not publishing. Preserve authored fields and selected order when importing repositories.
 - MCP tools may read committed records and public repositories or prepare drafts, never publish. Review links and files require an explicit browser save. Keep agent tokens separate from account and legacy invite cookies; never log them. API authentication lives in agent-auth.mjs and agent-http.mjs.

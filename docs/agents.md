@@ -63,7 +63,7 @@ Review links contain compressed draft data in a URL fragment, removed before the
 
 Tokens expire within 24 hours or when the source account or legacy invite session expires, whichever is first. Signed tokens are bound to the endpoint's origin and the scopes `catalog:read`, `github:public`, and `draft:prepare`. They cannot unlock the website or issue more tokens. MCP does not accept a browser cookie as authentication.
 
-Version 2 tokens identify the GitHub account and recheck its `approved` status in Neon on each request. Missing approval rejects access; a database failure returns 503. Version 1 tokens retain the legacy invite checks and expire or become invalid when their source invitation hash is removed. Creating another token does not revoke earlier tokens. Rotating the session secret and redeploying revokes all signed tokens. Per-token revocation and per-user rate limits are not implemented. Requests are limited to 100 KB and drafts to 64 KB. GitHub requests have an eight-second timeout and use public API limits. The application does not log tokens.
+Version 2 tokens identify the GitHub account and recheck its `approved` status in Firestore on each request. Missing approval rejects access; a database failure returns 503. Version 1 tokens retain the legacy invite checks and expire or become invalid when their source invitation hash is removed. Creating another token does not revoke earlier tokens. Rotating the session secret and redeploying revokes all signed tokens. Per-token revocation and per-user rate limits are not implemented. Requests are limited to 100 KB and drafts to 64 KB. GitHub requests have an eight-second timeout and use public API limits. The application does not log tokens.
 
 ## Development
 

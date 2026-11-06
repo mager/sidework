@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto';
 import { authConfiguration, beginGithubLogin, readOauthState, createAccountSession, readAccountSession, githubIdentity, accountAccess, readForm, ACCOUNT_SECONDS } from '../src/lib/github-auth.mjs';
 import { issueAccountAgentToken, authorizeAgentRequest } from '../src/lib/agent-auth.mjs';
 const now = 1800000000000;
-const config = authConfiguration({SIDEWORK_ORIGIN:'https://sidework.example', GITHUB_CLIENT_ID:'test-client', GITHUB_CLIENT_SECRET:'test-secret', SIDEWORK_SESSION_SECRET:'x'.repeat(64), DATABASE_URL:'postgresql://test.invalid/db'});
+const config = authConfiguration({SIDEWORK_ORIGIN:'https://sidework.example', GITHUB_CLIENT_ID:'test-client', GITHUB_CLIENT_SECRET:'test-secret', SIDEWORK_SESSION_SECRET:'x'.repeat(64), GCP_PROJECT_ID:'test-project',GCP_PROJECT_NUMBER:'123',GCP_SERVICE_ACCOUNT_EMAIL:'test@test-project.iam.gserviceaccount.com',GCP_WORKLOAD_IDENTITY_POOL_ID:'test-pool',GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID:'test-provider'});
 
 test('GitHub setup fails closed; production HTTP origins are rejected', () => {
   assert.equal(config.ready,true);

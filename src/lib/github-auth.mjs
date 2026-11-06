@@ -10,8 +10,8 @@ export function authConfiguration(env = process.env) {
     const url = new URL(env.SIDEWORK_ORIGIN || '');
     if (url.protocol === 'https:' || (url.protocol === 'http:' && ['127.0.0.1', 'localhost'].includes(url.hostname))) origin = url.origin;
   } catch {}
-  const config = { origin, clientId: env.GITHUB_CLIENT_ID || '', clientSecret: env.GITHUB_CLIENT_SECRET || '', secret: env.SIDEWORK_SESSION_SECRET || '', databaseUrl: env.DATABASE_URL || '', ownerId: env.SIDEWORK_OWNER_GITHUB_ID || '' };
-  return { ...config, ready: !!(origin && config.clientId && config.clientSecret && config.secret.length >= 32 && config.databaseUrl) };
+  const config = { origin, clientId: env.GITHUB_CLIENT_ID || '', clientSecret: env.GITHUB_CLIENT_SECRET || '', secret: env.SIDEWORK_SESSION_SECRET || '', projectId: env.GCP_PROJECT_ID || '', projectNumber: env.GCP_PROJECT_NUMBER || '', serviceAccountEmail: env.GCP_SERVICE_ACCOUNT_EMAIL || '', poolId: env.GCP_WORKLOAD_IDENTITY_POOL_ID || '', providerId: env.GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID || '', ownerId: env.SIDEWORK_OWNER_GITHUB_ID || '' };
+  return { ...config, ready: !!(origin && config.clientId && config.clientSecret && config.secret.length >= 32 && [config.projectId, config.projectNumber, config.serviceAccountEmail, config.poolId, config.providerId].every(Boolean)) };
 }
 const signature = (body, secret, purpose) => createHmac('sha256', secret).update(`sidework-${purpose}:${body}`).digest('base64url');
 function seal(claims, config, purpose, seconds, now) {

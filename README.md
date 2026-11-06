@@ -10,10 +10,10 @@ Use Node.js 22.19 or later.
 
 ```sh
 npm install
-npm run dev
+npm run dev -- --host 127.0.0.1 --port 4345
 ```
 
-Configure GitHub sign-in and Neon with [the setup guide](docs/github-auth.md). Without that setup, the public profile works and signup shows an unavailable state.
+Use [the setup guide](docs/github-auth.md) for GitHub sign-in and Firestore. Local access uses a short-lived Vercel OIDC token. Missing configuration leaves the public profile available and shows signup as unavailable.
 
 - `/signup/`: GitHub sign-in and optional email update consent.
 - `/waiting/`: signed-in waitlist status and email preference.
@@ -53,7 +53,7 @@ The interface uses black, white, and neutral gray to keep attention on the work.
 
 ## Prototype boundaries
 
-GitHub signup records the verified numeric ID, login, verified email, waiting status, and optional update consent in Neon. Only the configured owner starts approved. Other accounts wait for access. Email delivery is not connected. The GitHub OAuth app and database are not yet configured, and this change is not deployed.
+GitHub signup records the verified numeric ID, login, verified email, waiting status, and optional update consent in Firestore. Only the configured owner starts approved. Other accounts wait for access. Email delivery is not connected. GitHub OAuth and Firestore are configured. Local sign-in, owner access, waiting access, consent changes, sign-out, and repeat sign-in were checked. Production deployment, production OAuth, and the cancellation check remain pending.
 
 Private exports, draft review, and MCP templates still use @mager. Do not approve other accounts until those flows support their identity. There is no public multi-profile publishing, automatic draft synchronization, or connected social graph. Saves, follows, local drafts, and plans use browser `localStorage` with a GitHub numeric ID suffix for signed-in accounts. Legacy browser data is retained and is not automatically migrated. The theme is shared within the browser. Anyone with access to the browser profile can inspect its local data. Local drafts and plans are not posted to GitHub or included in the public profile. Refreshed GitHub results last for the current visit; saved plans and local drafts survive reloads when browser storage is available.
 
@@ -79,7 +79,7 @@ The three active Latin WOFF2 subsets are self-hosted. They are self-hosted with 
 
 ## Next build
 
-1. Complete the GitHub OAuth and Neon setup and verify signup, waiting access, and owner access.
+1. Deploy the configured GitHub and Firestore flow, then check production OAuth and cancellation.
 2. Add account-specific exports, draft review, and MCP templates before approving other accounts.
 3. Add profile ownership and an explicit publish workflow.
 4. Add a GitHub App with explicit repository selection and server-side synchronization.
@@ -122,7 +122,7 @@ Live site: https://sidework-ten.vercel.app. The requested `sidework.vercel.app` 
 
 Astro renders all pages on the server with the Vercel adapter. Public application routes are `/signup/`, the exact `/auth/github/` start and `/auth/github/callback/` routes, the exact `/mager/` profile, `/invite/` (redirect only), and `/api/signout`. Waiting accounts may use `/waiting/` and `/api/account/updates`. Other website routes require an approved account session or a valid legacy invite cookie. `/api/mcp` requires its own scoped bearer token. Account tokens recheck approval in the database on each request.
 
-Responses use `private, no-store`. Protected account routes fail closed when the database is unavailable; the public profile stays available. Static assets and committed showcase data remain public. See [GitHub sign-in setup](docs/github-auth.md) for environment variables, migration, access limits, and pending checks.
+Responses use `private, no-store`. Protected account routes fail closed when the database is unavailable; the public profile stays available. Static assets and committed showcase data remain public. See [GitHub sign-in setup](docs/github-auth.md) for environment variables, keyless database access, access limits, and pending checks.
 
 Old invite codes are no longer accepted. Existing invite cookies and version 1 agent tokens remain valid until expiry or removal of their invitation hash. Keep `SIDEWORK_INVITE_HASHES` and the existing `SIDEWORK_SESSION_SECRET` to preserve those sessions. Rotating the session secret ends all signed sessions and tokens. Sign out clears this browser’s account, OAuth, and legacy invite cookies; local work remains.
 

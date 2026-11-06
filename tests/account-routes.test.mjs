@@ -5,7 +5,7 @@ import { stripTypeScriptTypes } from 'node:module';
 import * as auth from '../src/lib/github-auth.mjs';
 import * as legacy from '../src/lib/invite.mjs';
 import { storageKey } from '../src/scripts/storage-key.mjs';
-const config=auth.authConfiguration({SIDEWORK_ORIGIN:'https://sidework.example',GITHUB_CLIENT_ID:'test',GITHUB_CLIENT_SECRET:'test',SIDEWORK_SESSION_SECRET:'x'.repeat(64),DATABASE_URL:'postgresql://test.invalid/db'});
+const config=auth.authConfiguration({SIDEWORK_ORIGIN:'https://sidework.example',GITHUB_CLIENT_ID:'test',GITHUB_CLIENT_SECRET:'test',SIDEWORK_SESSION_SECRET:'x'.repeat(64),GCP_PROJECT_ID:'test-project',GCP_PROJECT_NUMBER:'123',GCP_SERVICE_ACCOUNT_EMAIL:'test@test-project.iam.gserviceaccount.com',GCP_WORKLOAD_IDENTITY_POOL_ID:'test-pool',GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID:'test-provider'});
 const oldConfig=legacy.configuration({SIDEWORK_SESSION_SECRET:config.secret,SIDEWORK_INVITE_HASHES:legacy.hashCode('test')});
 function load(file, exported, dependencies) {
   const code=stripTypeScriptTypes(readFileSync(new URL(file,import.meta.url),'utf8')).replace(/^import .*;$/gm,'').replace(new RegExp(`export const ${exported}\\s*=`),'return');
