@@ -2,6 +2,7 @@ export const projects = [
   {
     id: 'cantalo', name: 'Cántalo', kind: 'Spanish through music', stack: 'JavaScript · Node.js · Firestore',
     image: '/images/cantalo-matadora.jpg', imageAlt: 'Cántalo’s bright blue and yellow MATADORA page with its Spotify player.',
+    imageWidth: 1280, imageHeight: 720, imageDisplayWidth: 960,
     tagline: 'Practice Spanish through music.',
     category: 'learning', softwareType: 'web-app',
     audience: 'Spanish learners who love music.',
@@ -12,7 +13,9 @@ export const projects = [
     story: 'https://cantalo-peach.vercel.app/#/story',
   },
   {
-    image: 'https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-04-perch/control-center-redacted-2026-10-11.jpg', imageAlt: 'Perch’s Mac monitoring control center.',
+    image: '/images/perch-demo.png', imageAlt: 'Perch’s sample dashboard with system resources, CPU history, and tmux sessions.',
+    imageWidth: 2560, imageHeight: 1440, imageDisplayWidth: 1280,
+    imageCaption: 'Perch demo · Sample data',
     id: 'perch', name: 'Perch', kind: 'Mac monitoring', stack: 'Node.js · Redis',
     tagline: 'Check your Mac’s health and running sessions from a browser.',
     category: 'utilities', softwareType: 'web-app',
@@ -25,6 +28,7 @@ export const projects = [
   },
   {
     image: 'https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-02-mood-shell/customize-ember.jpg', imageAlt: 'Mood Shell’s Ember palette editor.',
+    imageWidth: 1600, imageHeight: 1074, imageDisplayWidth: 1066,
     id: 'moodsh', name: 'Mood Shell', kind: 'Terminal toolkit', stack: 'Rust',
     tagline: 'Customize and share your shell prompt.',
     category: 'developer-tools', softwareType: 'cli',
@@ -37,6 +41,7 @@ export const projects = [
   },
   {
     image: 'https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-04-homeport/terminal-workspace.jpg', imageAlt: 'Homeport’s coding conversations and workspace.',
+    imageWidth: 1280, imageHeight: 720, imageDisplayWidth: 960,
     id: 'homeport', name: 'Homeport', kind: 'Coding workspace', stack: 'Python · Pydantic · SQLite',
     tagline: 'Run coding tasks on your own computer and return from another device.',
     category: 'developer-tools', softwareType: 'web-app',
@@ -50,6 +55,7 @@ export const projects = [
   {
     id: 'prxps', name: 'prxps', kind: 'Sports picks', stack: 'SvelteKit · TypeScript · Rust',
     image: '/images/prxps-games.jpg', imageAlt: 'prxps upcoming games with sport filters and RXP reputation.',
+    imageWidth: 1280, imageHeight: 720, imageDisplayWidth: 960,
     tagline: 'Make free sports picks and track your public record.',
     category: 'games', softwareType: 'web-app',
     audience: 'Sports fans who want to keep a record of their picks.',

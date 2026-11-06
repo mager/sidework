@@ -277,7 +277,7 @@ components:
 
 Sidework gives personal software room to be seen. Black, white, and neutral gray keep the interface quiet. Open space separates project content without card borders or panel frames. Real screenshots keep their original colors and remain straight.
 
-Bricolage Grotesque carries reading text, Martian Mono identifies projects and source records, and Anybody marks the brand. Project pages use large type and full-width images. Management pages use clear labels and compact controls. The same fonts and palette connect both uses.
+Bricolage Grotesque carries reading text, Martian Mono identifies projects and source records, and Anybody marks the brand. Project pages use large type and images sized to their source quality. Management pages use clear labels and compact controls. The same fonts and palette connect both uses.
 
 **Key Characteristics:**
 - A minimal black and white interface keeps the work in view.
@@ -391,7 +391,7 @@ The shared sticky header contains Explore, @mager, Saved with a count, Workbench
 
 The index uses normal links to /projects/cantalo/, /projects/homeport/, /projects/moodsh/, /projects/perch/, and /projects/prxps/. There are no tabs or selected-project panels. Server rendering supplies the index and each detail page, so project links work without JavaScript. Saved links open the matching detail page. Unknown project slugs return 404 after the access gate.
 
-Each detail page has a mono name, Bricolage tagline and description, maker link, Save, Open app, story link, and source metadata. More by @mager links to the other projects. Screenshots use the full content width and natural ratio. prxps uses the authorized real capture in `public/images/prxps-games.jpg`; its provenance is in `docs/assets.json`. Do not simulate app views.
+Each detail page has a mono name, Bricolage tagline and description, maker link, Save, Open app, story link, and source metadata. More by @mager links to the other projects. Screenshots keep their natural ratio and shared left edge. Each uses its real pixel dimensions and a display-width limit below the source width; the image height is at most 60svh. Do not stretch screenshots to fill a wide monitor. Images link to the full-size source. Perch uses a sharp 2× capture of its built-in demo, clearly labeled as sample data, without browser chrome. prxps uses the authorized real capture in `public/images/prxps-games.jpg`; its provenance is in `docs/assets.json`. Do not simulate app views.
 
 ### Contribution stories
 

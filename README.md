@@ -69,7 +69,7 @@ The weekly goal counts distinct saved projects marked submitted by the user. It 
 - Cántalo’s description and features were checked against its live MATADORA page and `mager/cantalo` README on November 5, 2026. Its repository is private; no source code is included in Sidework.
 - Other project descriptions and links come from [@mager’s software directory](https://mager.co/software/).
 - The illustrated @mager portrait is an existing asset from magerblog, by [@hopperdraws](https://x.com/hopperdraws). It is included for this profile; it is not a reusable product logo.
-- The Homeport, Mood Shell, and Perch screenshots remain on @mager’s existing Vercel Blob image host. Real Cántalo and prxps captures are stored at `public/images/cantalo-matadora.jpg` and `public/images/prxps-games.jpg`. Asset origins and permission notes are in `docs/assets.json`.
+- The Homeport and Mood Shell screenshots remain on @mager’s existing Vercel Blob image host. Real Cántalo and prxps captures are stored at `public/images/cantalo-matadora.jpg` and `public/images/prxps-games.jpg`. Perch uses `public/images/perch-demo.png`, a 2× capture of its built-in demo, labeled as sample data. Detail images use their actual dimensions, stay below their source width, and link to the full-size image. Asset origins and permission notes are in `docs/assets.json`.
 
 ## Typography
 

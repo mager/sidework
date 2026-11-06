@@ -18,10 +18,10 @@
     "usage": "Historical screenshot, referenced remotely without altering the source. Not a live app session."
   },
   {
-    "asset": "https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-04-perch/control-center-redacted-2026-10-11.jpg",
-    "origin": "https://mager.co/blog/2026-10-04-perch/",
+    "asset": "public/images/perch-demo.png",
+    "origin": "https://github.com/mager/perch",
     "creator": "@mager",
-    "usage": "Historical screenshot, referenced remotely without altering the source. Not a live app session."
+    "usage": "Actual Perch built-in demo captured November 6, 2026 at 1280 × 720 CSS pixels and 2× pixel density (2560 × 1440 PNG). Uses the existing fictional demo dataset, visibly labeled SAMPLE DATA. No private machine data or browser chrome. Replaces the soft historical redacted screenshot."
   },
   {
     "asset": "public/images/prxps-games.jpg",
