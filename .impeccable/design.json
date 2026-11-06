@@ -1,315 +1,259 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-05T00:21:47.628Z",
+  "generatedAt": "2026-11-05T23:46:41.686617+00:00",
   "title": "Design System: Sidework",
   "extensions": {
     "colorMeta": {
-      "moss-ground": {
+      "dark-ground": {
         "role": "neutral",
-        "displayName": "Moss Ground",
+        "displayName": "Dark Ground",
         "tonalRamp": [
-          "oklch(15% 0.0077 145.25)",
-          "oklch(26% 0.0077 145.25)",
-          "oklch(38% 0.0077 145.25)",
-          "oklch(49% 0.0077 145.25)",
-          "oklch(61% 0.0077 145.25)",
-          "oklch(72% 0.0077 145.25)",
-          "oklch(84% 0.0077 145.25)",
-          "oklch(95% 0.0077 145.25)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
-      "moss-surface": {
+      "dark-surface": {
         "role": "neutral",
-        "displayName": "Moss Surface",
+        "displayName": "Dark Surface",
         "tonalRamp": [
-          "oklch(15% 0.0122 145.15)",
-          "oklch(26% 0.0122 145.15)",
-          "oklch(38% 0.0122 145.15)",
-          "oklch(49% 0.0122 145.15)",
-          "oklch(61% 0.0122 145.15)",
-          "oklch(72% 0.0122 145.15)",
-          "oklch(84% 0.0122 145.15)",
-          "oklch(95% 0.0122 145.15)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
-      "moss-raised": {
+      "dark-raised": {
         "role": "neutral",
-        "displayName": "Moss Raised",
+        "displayName": "Dark Raised",
         "tonalRamp": [
-          "oklch(15% 0.0164 145.07)",
-          "oklch(26% 0.0164 145.07)",
-          "oklch(38% 0.0164 145.07)",
-          "oklch(49% 0.0164 145.07)",
-          "oklch(61% 0.0164 145.07)",
-          "oklch(72% 0.0164 145.07)",
-          "oklch(84% 0.0164 145.07)",
-          "oklch(95% 0.0164 145.07)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
-      "chalk-text": {
+      "dark-text": {
         "role": "neutral",
-        "displayName": "Chalk Text",
+        "displayName": "Dark Text",
         "tonalRamp": [
-          "oklch(15% 0.0111 123.46)",
-          "oklch(26% 0.0111 123.46)",
-          "oklch(38% 0.0111 123.46)",
-          "oklch(49% 0.0111 123.46)",
-          "oklch(61% 0.0111 123.46)",
-          "oklch(72% 0.0111 123.46)",
-          "oklch(84% 0.0111 123.46)",
-          "oklch(95% 0.0111 123.46)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
-      "sage-muted": {
+      "dark-muted": {
         "role": "neutral",
-        "displayName": "Sage Muted",
+        "displayName": "Dark Muted",
         "tonalRamp": [
-          "oklch(15% 0.0228 136.62)",
-          "oklch(26% 0.0228 136.62)",
-          "oklch(38% 0.0228 136.62)",
-          "oklch(49% 0.0228 136.62)",
-          "oklch(61% 0.0228 136.62)",
-          "oklch(72% 0.0228 136.62)",
-          "oklch(84% 0.0228 136.62)",
-          "oklch(95% 0.0228 136.62)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
-      "moss-border": {
+      "dark-border": {
         "role": "neutral",
-        "displayName": "Moss Border",
+        "displayName": "Dark Border",
         "tonalRamp": [
-          "oklch(15% 0.0211 142.37)",
-          "oklch(26% 0.0211 142.37)",
-          "oklch(38% 0.0211 142.37)",
-          "oklch(49% 0.0211 142.37)",
-          "oklch(61% 0.0211 142.37)",
-          "oklch(72% 0.0211 142.37)",
-          "oklch(84% 0.0211 142.37)",
-          "oklch(95% 0.0211 142.37)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
-      "lime-accent": {
+      "dark-accent": {
         "role": "primary",
-        "displayName": "Lime Accent",
+        "displayName": "Dark Accent",
         "tonalRamp": [
-          "oklch(15% 0.1143 135.03)",
-          "oklch(26% 0.1143 135.03)",
-          "oklch(38% 0.1143 135.03)",
-          "oklch(49% 0.1143 135.03)",
-          "oklch(61% 0.1143 135.03)",
-          "oklch(72% 0.1143 135.03)",
-          "oklch(84% 0.1143 135.03)",
-          "oklch(95% 0.1143 135.03)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
-      "lime-ink": {
+      "dark-accent-ink": {
         "role": "primary",
-        "displayName": "Lime Ink",
+        "displayName": "Dark Accent Ink",
         "tonalRamp": [
-          "oklch(15% 0.0396 137.80)",
-          "oklch(26% 0.0396 137.80)",
-          "oklch(38% 0.0396 137.80)",
-          "oklch(49% 0.0396 137.80)",
-          "oklch(61% 0.0396 137.80)",
-          "oklch(72% 0.0396 137.80)",
-          "oklch(84% 0.0396 137.80)",
-          "oklch(95% 0.0396 137.80)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
-      "warm-state": {
-        "role": "secondary",
-        "displayName": "Warm State",
+      "dark-state": {
+        "role": "neutral",
+        "displayName": "Dark State",
         "tonalRamp": [
-          "oklch(15% 0.0579 86.04)",
-          "oklch(26% 0.0579 86.04)",
-          "oklch(38% 0.0579 86.04)",
-          "oklch(49% 0.0579 86.04)",
-          "oklch(61% 0.0579 86.04)",
-          "oklch(72% 0.0579 86.04)",
-          "oklch(84% 0.0579 86.04)",
-          "oklch(95% 0.0579 86.04)"
-        ]
-      },
-      "blue-state": {
-        "role": "secondary",
-        "displayName": "Blue State",
-        "tonalRamp": [
-          "oklch(15% 0.0408 248.32)",
-          "oklch(26% 0.0408 248.32)",
-          "oklch(38% 0.0408 248.32)",
-          "oklch(49% 0.0408 248.32)",
-          "oklch(61% 0.0408 248.32)",
-          "oklch(72% 0.0408 248.32)",
-          "oklch(84% 0.0408 248.32)",
-          "oklch(95% 0.0408 248.32)"
-        ]
-      },
-      "clay-poster": {
-        "role": "secondary",
-        "displayName": "Clay Poster",
-        "tonalRamp": [
-          "oklch(15% 0.0670 61.53)",
-          "oklch(26% 0.0670 61.53)",
-          "oklch(38% 0.0670 61.53)",
-          "oklch(49% 0.0670 61.53)",
-          "oklch(61% 0.0670 61.53)",
-          "oklch(72% 0.0670 61.53)",
-          "oklch(84% 0.0670 61.53)",
-          "oklch(95% 0.0670 61.53)"
-        ]
-      },
-      "clay-ink": {
-        "role": "secondary",
-        "displayName": "Clay Ink",
-        "tonalRamp": [
-          "oklch(15% 0.0130 51.59)",
-          "oklch(26% 0.0130 51.59)",
-          "oklch(38% 0.0130 51.59)",
-          "oklch(49% 0.0130 51.59)",
-          "oklch(61% 0.0130 51.59)",
-          "oklch(72% 0.0130 51.59)",
-          "oklch(84% 0.0130 51.59)",
-          "oklch(95% 0.0130 51.59)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
       "light-ground": {
         "role": "neutral",
         "displayName": "Light Ground",
         "tonalRamp": [
-          "oklch(15% 0.0080 114.22)",
-          "oklch(26% 0.0080 114.22)",
-          "oklch(38% 0.0080 114.22)",
-          "oklch(49% 0.0080 114.22)",
-          "oklch(61% 0.0080 114.22)",
-          "oklch(72% 0.0080 114.22)",
-          "oklch(84% 0.0080 114.22)",
-          "oklch(95% 0.0080 114.22)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
       "light-surface": {
         "role": "neutral",
         "displayName": "Light Surface",
         "tonalRamp": [
-          "oklch(15% 0.0067 97.35)",
-          "oklch(26% 0.0067 97.35)",
-          "oklch(38% 0.0067 97.35)",
-          "oklch(49% 0.0067 97.35)",
-          "oklch(61% 0.0067 97.35)",
-          "oklch(72% 0.0067 97.35)",
-          "oklch(84% 0.0067 97.35)",
-          "oklch(95% 0.0067 97.35)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
       "light-raised": {
         "role": "neutral",
         "displayName": "Light Raised",
         "tonalRamp": [
-          "oklch(15% 0.0143 128.63)",
-          "oklch(26% 0.0143 128.63)",
-          "oklch(38% 0.0143 128.63)",
-          "oklch(49% 0.0143 128.63)",
-          "oklch(61% 0.0143 128.63)",
-          "oklch(72% 0.0143 128.63)",
-          "oklch(84% 0.0143 128.63)",
-          "oklch(95% 0.0143 128.63)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
       "light-text": {
         "role": "neutral",
         "displayName": "Light Text",
         "tonalRamp": [
-          "oklch(15% 0.0269 142.64)",
-          "oklch(26% 0.0269 142.64)",
-          "oklch(38% 0.0269 142.64)",
-          "oklch(49% 0.0269 142.64)",
-          "oklch(61% 0.0269 142.64)",
-          "oklch(72% 0.0269 142.64)",
-          "oklch(84% 0.0269 142.64)",
-          "oklch(95% 0.0269 142.64)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
       "light-muted": {
         "role": "neutral",
         "displayName": "Light Muted",
         "tonalRamp": [
-          "oklch(15% 0.0345 137.48)",
-          "oklch(26% 0.0345 137.48)",
-          "oklch(38% 0.0345 137.48)",
-          "oklch(49% 0.0345 137.48)",
-          "oklch(61% 0.0345 137.48)",
-          "oklch(72% 0.0345 137.48)",
-          "oklch(84% 0.0345 137.48)",
-          "oklch(95% 0.0345 137.48)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
       "light-border": {
         "role": "neutral",
         "displayName": "Light Border",
         "tonalRamp": [
-          "oklch(15% 0.0220 130.04)",
-          "oklch(26% 0.0220 130.04)",
-          "oklch(38% 0.0220 130.04)",
-          "oklch(49% 0.0220 130.04)",
-          "oklch(61% 0.0220 130.04)",
-          "oklch(72% 0.0220 130.04)",
-          "oklch(84% 0.0220 130.04)",
-          "oklch(95% 0.0220 130.04)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
       "light-accent": {
         "role": "primary",
         "displayName": "Light Accent",
         "tonalRamp": [
-          "oklch(15% 0.1163 139.45)",
-          "oklch(26% 0.1163 139.45)",
-          "oklch(38% 0.1163 139.45)",
-          "oklch(49% 0.1163 139.45)",
-          "oklch(61% 0.1163 139.45)",
-          "oklch(72% 0.1163 139.45)",
-          "oklch(84% 0.1163 139.45)",
-          "oklch(95% 0.1163 139.45)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
       "light-accent-ink": {
         "role": "primary",
         "displayName": "Light Accent Ink",
         "tonalRamp": [
-          "oklch(15% 0.0000 89.88)",
-          "oklch(26% 0.0000 89.88)",
-          "oklch(38% 0.0000 89.88)",
-          "oklch(49% 0.0000 89.88)",
-          "oklch(61% 0.0000 89.88)",
-          "oklch(72% 0.0000 89.88)",
-          "oklch(84% 0.0000 89.88)",
-          "oklch(95% 0.0000 89.88)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
-      "light-warm": {
-        "role": "secondary",
-        "displayName": "Light Warm",
+      "light-state": {
+        "role": "neutral",
+        "displayName": "Light State",
         "tonalRamp": [
-          "oklch(15% 0.0776 81.37)",
-          "oklch(26% 0.0776 81.37)",
-          "oklch(38% 0.0776 81.37)",
-          "oklch(49% 0.0776 81.37)",
-          "oklch(61% 0.0776 81.37)",
-          "oklch(72% 0.0776 81.37)",
-          "oklch(84% 0.0776 81.37)",
-          "oklch(95% 0.0776 81.37)"
-        ]
-      },
-      "light-blue": {
-        "role": "secondary",
-        "displayName": "Light Blue",
-        "tonalRamp": [
-          "oklch(15% 0.0804 247.25)",
-          "oklch(26% 0.0804 247.25)",
-          "oklch(38% 0.0804 247.25)",
-          "oklch(49% 0.0804 247.25)",
-          "oklch(61% 0.0804 247.25)",
-          "oklch(72% 0.0804 247.25)",
-          "oklch(84% 0.0804 247.25)",
-          "oklch(95% 0.0804 247.25)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
         ]
       }
     },
@@ -321,6 +265,30 @@
       "project-title": {
         "displayName": "Project Title",
         "purpose": "Public project names in Martian Mono."
+      },
+      "project-text-title": {
+        "displayName": "Project Text Title",
+        "purpose": "The project text title role in the current interface."
+      },
+      "project-text-tagline": {
+        "displayName": "Project Text Tagline",
+        "purpose": "The project text tagline role in the current interface."
+      },
+      "project-detail-title": {
+        "displayName": "Project Detail Title",
+        "purpose": "The project detail title role in the current interface."
+      },
+      "project-detail-tagline": {
+        "displayName": "Project Detail Tagline",
+        "purpose": "The project detail tagline role in the current interface."
+      },
+      "project-detail-body": {
+        "displayName": "Project Detail Body",
+        "purpose": "The project detail body role in the current interface."
+      },
+      "settings-title": {
+        "displayName": "Settings Title",
+        "purpose": "The settings title role in the current interface."
       },
       "body": {
         "displayName": "Body",
@@ -398,18 +366,6 @@
         "displayName": "Maker Handle",
         "purpose": "The maker handle role in the current interface."
       },
-      "project-tab": {
-        "displayName": "Project Tab",
-        "purpose": "The project tab role in the current interface."
-      },
-      "project-purpose": {
-        "displayName": "Project Purpose",
-        "purpose": "The project purpose role in the current interface."
-      },
-      "project-description": {
-        "displayName": "Project Description",
-        "purpose": "The project description role in the current interface."
-      },
       "discovery-title": {
         "displayName": "Discovery Title",
         "purpose": "The discovery title role in the current interface."
@@ -442,7 +398,7 @@
     "breakpoints": [
       {
         "name": "studio-mobile-max",
-        "value": "650px"
+        "value": "760px"
       },
       {
         "name": "workbench-mobile-max",
@@ -477,8 +433,20 @@
         "value": "700px"
       },
       {
-        "name": "browser-compact-max",
+        "name": "studio-compact-max",
         "value": "900px"
+      },
+      {
+        "name": "public-header-wrap-max",
+        "value": "760px"
+      },
+      {
+        "name": "workbench-header-wrap-max",
+        "value": "400px"
+      },
+      {
+        "name": "settings-stacked-max",
+        "value": "760px"
       }
     ]
   },
@@ -489,15 +457,15 @@
       "refersTo": "button-primary",
       "description": "Filled action for saving a local project or refreshing data.",
       "html": "<button class=\"ds-primary\">Save project</button>",
-      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;border:1px solid var(--sw-border,#30392f);border-radius:6px;padding:9px 13px;font:500 .75rem/1.5 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);cursor:pointer;transition:background 160ms ease,border-color 160ms ease;background:var(--sw-accent,#b9eb9e);color:var(--sw-accent-ink,#172512);border-color:var(--sw-accent,#b9eb9e)}.ds-primary:hover{background:color-mix(in srgb,var(--sw-accent,#b9eb9e) 85%,var(--sw-bg,#101310))}.ds-primary:disabled{opacity:.6;cursor:wait}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}} .ds-primary{font-optical-sizing:auto;letter-spacing:.005em}"
+      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;border:1px solid var(--sw-border,#333333);border-radius:6px;padding:9px 13px;font:500 .75rem/1.5 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);cursor:pointer;transition:background 160ms ease,border-color 160ms ease;background:var(--sw-accent,#ffffff);color:var(--sw-accent-ink,#000000);border-color:var(--sw-accent,#ffffff)}.ds-primary:hover{background:color-mix(in srgb,var(--sw-accent,#ffffff) 85%,var(--sw-bg,#000000))}.ds-primary:disabled{opacity:.6;cursor:wait}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#ffffff);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}} .ds-primary{font-optical-sizing:auto;letter-spacing:.005em}"
     },
     {
       "name": "Workbench search",
       "kind": "input",
       "refersTo": "search-field",
       "description": "Search field with a focus outline around its whole group.",
-      "html": "<label class=\"ds-search\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\"/><path d=\"m16 16 4 4\"/></svg><input type=\"search\" aria-label=\"Search projects\" placeholder=\"Find a project or technology…\"></label>",
-      "css": ".ds-search{display:flex;align-items:center;gap:10px;border:1px solid var(--sw-border,#30392f);background:var(--sw-surface,#171c17);border-radius:6px;padding:0 13px;color:var(--sw-muted,#a3ad9f)}.ds-search input{width:100%;min-width:0;min-height:44px;background:none;border:0;color:var(--sw-text,#eef1e9);font:1rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);caret-color:var(--sw-accent,#b9eb9e)}.ds-search input::placeholder{color:var(--sw-muted,#a3ad9f);opacity:1}.ds-search:focus-within{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:2px}.ds-search input:focus{outline:none}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}} .ds-search{font-optical-sizing:auto;letter-spacing:.005em}"
+      "html": "<label class=\"ds-search\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\"/><path d=\"m16 16 4 4\"/></svg><input type=\"search\" aria-label=\"Search projects\" placeholder=\"Find a project or technology\u2026\"></label>",
+      "css": ".ds-search{display:flex;align-items:center;gap:10px;border:1px solid var(--sw-border,#333333);background:var(--sw-surface,#0d0d0d);border-radius:6px;padding:0 13px;color:var(--sw-muted,#a3a3a3)}.ds-search input{width:100%;min-width:0;min-height:44px;background:none;border:0;color:var(--sw-text,#ffffff);font:1rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);caret-color:var(--sw-accent,#ffffff)}.ds-search input::placeholder{color:var(--sw-muted,#a3a3a3);opacity:1}.ds-search:focus-within{outline:2px solid var(--sw-accent,#ffffff);outline-offset:2px}.ds-search input:focus{outline:none}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}} .ds-search{font-optical-sizing:auto;letter-spacing:.005em}"
     },
     {
       "name": "Skill filter chip",
@@ -505,15 +473,15 @@
       "refersTo": "filter-chip",
       "description": "Workbench skill filter; the selected state remains visible.",
       "html": "<button class=\"ds-chip\" aria-pressed=\"true\">All skills</button>",
-      "css": ".ds-chip{padding:9px 13px;min-height:42px;border:1px solid var(--sw-border,#30392f);border-radius:6px;color:var(--sw-muted,#a3ad9f);background:transparent;font:.75rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);cursor:pointer}.ds-chip[aria-pressed=true]{color:var(--sw-accent,#b9eb9e);background:var(--sw-raised,#1e251e);border-color:var(--sw-accent,#b9eb9e)}.ds-chip:hover{color:var(--sw-text,#eef1e9);background:var(--sw-surface,#171c17)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}} .ds-chip{font-optical-sizing:auto;letter-spacing:.005em}"
+      "css": ".ds-chip{padding:9px 13px;min-height:42px;border:1px solid var(--sw-border,#333333);border-radius:6px;color:var(--sw-muted,#a3a3a3);background:transparent;font:.75rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);cursor:pointer}.ds-chip[aria-pressed=true]{color:var(--sw-accent,#ffffff);background:var(--sw-raised,#1c1c1c);border-color:var(--sw-accent,#ffffff)}.ds-chip:hover{color:var(--sw-text,#ffffff);background:var(--sw-surface,#0d0d0d)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#ffffff);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}} .ds-chip{font-optical-sizing:auto;letter-spacing:.005em}"
     },
     {
       "name": "Workbench feature copy",
       "kind": "card",
       "refersTo": "workbench-feature",
       "description": "The contained copy area of a workbench feature; screenshots remain source assets.",
-      "html": "<article class=\"ds-card\"><h3>Homeport</h3><p>A home for coding work that keeps going when you close your laptop.</p><a href=\"https://github.com/mager/homeport\">View source ↗</a></article>",
-      "css": ".ds-card{overflow:hidden;border:1px solid var(--sw-border,#30392f);border-radius:var(--sw-radius,4px);background:var(--sw-surface,#171c17);color:var(--sw-text,#eef1e9);padding:20px;font-family:var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif)}.ds-card h3{margin:8px 0 0;font-size:1.5625rem;font-weight:500;line-height:1.22;letter-spacing:-.03em}.ds-card p{margin:10px 0 0;color:var(--sw-muted,#a3ad9f);font-size:.9375rem;line-height:1.7}.ds-card a{display:inline-flex;align-items:center;min-height:36px;margin-top:14px;color:var(--sw-text,#eef1e9);font-size:.75rem;text-decoration:none}.ds-card a:hover{color:var(--sw-accent,#b9eb9e)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}} .ds-card{font-optical-sizing:auto;letter-spacing:.005em}"
+      "html": "<article class=\"ds-card\"><h3>Homeport</h3><p>A home for coding work that keeps going when you close your laptop.</p><a href=\"https://github.com/mager/homeport\">View source \u2197</a></article>",
+      "css": ".ds-card{overflow:hidden;border:1px solid var(--sw-border,#333333);border-radius:var(--sw-radius,4px);background:var(--sw-surface,#0d0d0d);color:var(--sw-text,#ffffff);padding:20px;font-family:var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif)}.ds-card h3{margin:8px 0 0;font-size:1.5625rem;font-weight:500;line-height:1.22;letter-spacing:-.03em}.ds-card p{margin:10px 0 0;color:var(--sw-muted,#a3a3a3);font-size:.9375rem;line-height:1.7}.ds-card a{display:inline-flex;align-items:center;min-height:36px;margin-top:14px;color:var(--sw-text,#ffffff);font-size:.75rem;text-decoration:none}.ds-card a:hover{color:var(--sw-accent,#ffffff)}.ds-primary:focus-visible,.ds-secondary:focus-visible,.ds-save:focus-visible,.ds-chip:focus-visible,.ds-nav a:focus-visible,.ds-card a:focus-visible,.ds-story summary:focus-visible{outline:2px solid var(--sw-accent,#ffffff);outline-offset:4px}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}} .ds-card{font-optical-sizing:auto;letter-spacing:.005em}"
     },
     {
       "name": "Entry text field",
@@ -521,7 +489,7 @@
       "refersTo": "entry-field",
       "description": "A clearly labeled handle field for public GitHub import.",
       "html": "<label class=\"ds-entry-label\">Your GitHub handle<input class=\"ds-entry-input\" type=\"text\" placeholder=\"@mager\" autocomplete=\"off\" autocapitalize=\"none\" spellcheck=\"false\" maxlength=\"40\" required></label>",
-      "css": ".ds-entry-label{display:block;color:var(--sw-text,#eef1e9);font:.9375rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);font-optical-sizing:auto;letter-spacing:.005em}.ds-entry-input{display:block;margin-top:10px;min-width:0;width:100%;box-sizing:border-box;border:1px solid var(--sw-border,#30392f);border-radius:6px;padding:13px 15px;background:var(--sw-surface,#171c17);color:var(--sw-text,#eef1e9);font:1rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);font-optical-sizing:auto;caret-color:var(--sw-accent,#b9eb9e)}.ds-entry-input::placeholder{color:var(--sw-muted,#a3ad9f);opacity:1}.ds-entry-input:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}"
+      "css": ".ds-entry-label{display:block;color:var(--sw-text,#ffffff);font:.9375rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);font-optical-sizing:auto;letter-spacing:.005em}.ds-entry-input{display:block;margin-top:10px;min-width:0;width:100%;box-sizing:border-box;border:1px solid var(--sw-border,#333333);border-radius:6px;padding:13px 15px;background:var(--sw-surface,#0d0d0d);color:var(--sw-text,#ffffff);font:1rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);font-optical-sizing:auto;caret-color:var(--sw-accent,#ffffff)}.ds-entry-input::placeholder{color:var(--sw-muted,#a3a3a3);opacity:1}.ds-entry-input:focus-visible{outline:2px solid var(--sw-accent,#ffffff);outline-offset:4px}"
     },
     {
       "name": "Story field",
@@ -529,7 +497,7 @@
       "refersTo": "story-field",
       "description": "Local story input with a clear label and 48px minimum height.",
       "html": "<label class=\"ds-story-label\">Project name<input class=\"ds-story-field\" type=\"text\" maxlength=\"60\" required autocomplete=\"off\"></label>",
-      "css": ".ds-story-label{display:flex;flex-direction:column;gap:9px;font:.9375rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);color:var(--sw-text,#eef1e9)}.ds-story-field{box-sizing:border-box;background:var(--sw-surface,#171c17);color:var(--sw-text,#eef1e9);border:1px solid var(--sw-border,#30392f);border-radius:6px;padding:12px 14px;min-height:48px;min-width:0;width:100%;font:1rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);font-optical-sizing:auto;caret-color:var(--sw-accent,#b9eb9e)}.ds-story-field:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}"
+      "css": ".ds-story-label{display:flex;flex-direction:column;gap:9px;font:.9375rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);color:var(--sw-text,#ffffff)}.ds-story-field{box-sizing:border-box;background:var(--sw-surface,#0d0d0d);color:var(--sw-text,#ffffff);border:1px solid var(--sw-border,#333333);border-radius:6px;padding:12px 14px;min-height:48px;min-width:0;width:100%;font:1rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);font-optical-sizing:auto;caret-color:var(--sw-accent,#ffffff)}.ds-story-field:focus-visible{outline:2px solid var(--sw-accent,#ffffff);outline-offset:4px}"
     },
     {
       "name": "Featured project control",
@@ -537,63 +505,92 @@
       "refersTo": "feature-selected",
       "description": "Pressed state for a project included in the private profile draft.",
       "html": "<button class=\"ds-feature\" aria-pressed=\"true\" aria-label=\"Unfeature Homeport\">Featured</button>",
-      "css": ".ds-feature{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:9px 13px;border:1px solid var(--sw-border,#30392f);border-radius:6px;background:transparent;color:var(--sw-text,#eef1e9);font:500 .75rem/1.5 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);cursor:pointer;transition:background 160ms ease,border-color 160ms ease}.ds-feature:hover{background:var(--sw-raised,#1e251e);border-color:var(--sw-muted,#a3ad9f)}.ds-feature[aria-pressed=true]{background:var(--sw-raised,#1e251e);color:var(--sw-accent,#b9eb9e);border-color:var(--sw-accent,#b9eb9e)}.ds-feature:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-feature{transition:none}}"
+      "css": ".ds-feature{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:9px 13px;border:1px solid var(--sw-border,#333333);border-radius:6px;background:transparent;color:var(--sw-text,#ffffff);font:500 .75rem/1.5 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);cursor:pointer;transition:background 160ms ease,border-color 160ms ease}.ds-feature:hover{background:var(--sw-raised,#1c1c1c);border-color:var(--sw-muted,#a3a3a3)}.ds-feature[aria-pressed=true]{background:var(--sw-raised,#1c1c1c);color:var(--sw-accent,#ffffff);border-color:var(--sw-accent,#ffffff)}.ds-feature:focus-visible{outline:2px solid var(--sw-accent,#ffffff);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-feature{transition:none}}"
     },
     {
       "name": "Public header navigation",
       "kind": "nav",
       "refersTo": "public-navigation",
-      "description": "Compact navigation in the sticky public header.",
-      "html": "<nav class=\"ds-public-nav\" aria-label=\"Explore Sidework\"><a href=\"/\">Explore</a><a href=\"/mager/\" aria-current=\"page\">@mager</a><a href=\"/workbench/\">Workbench</a></nav>",
-      "css": ".ds-public-nav{display:flex;gap:8px;background:var(--sw-bg,#101310)}.ds-public-nav a{display:inline-flex;align-items:center;min-height:40px;padding:8px 12px;border-radius:4px;color:var(--sw-muted,#a3ad9f);font:.8125rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);text-decoration:none;white-space:nowrap}.ds-public-nav a[aria-current],.ds-public-nav a:hover{background:var(--sw-raised,#1e251e);color:var(--sw-text,#eef1e9)}.ds-public-nav a:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:4px}@media(max-width:650px){.ds-public-nav a{min-height:44px;padding:8px;font-size:.75rem}}"
+      "description": "Shared project navigation with a Settings link. With invite access, Friends replaces @mager.",
+      "html": "<nav class=\"ds-public-nav\" aria-label=\"Explore Sidework\"><a href=\"/\">Explore</a><a href=\"/mager/\" aria-current=\"page\">@mager</a><a href=\"/workbench/\">Workbench</a><a href=\"/settings/\">Settings</a></nav>",
+      "css": ".ds-public-nav{display:flex;gap:8px;background:var(--sw-bg,#000000)}.ds-public-nav a{display:inline-flex;align-items:center;min-height:44px;padding:8px 12px;border-radius:4px;color:var(--sw-muted,#a3a3a3);font:.8125rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);text-decoration:none;white-space:nowrap}.ds-public-nav a[aria-current],.ds-public-nav a:hover{background:var(--sw-raised,#1c1c1c);color:var(--sw-text,#ffffff)}.ds-public-nav a:focus-visible{outline:2px solid var(--sw-accent,#ffffff);outline-offset:4px}@media(max-width:760px){.ds-public-nav a{min-height:44px;padding:8px;font-size:.75rem}}"
     },
     {
-      "name": "Project switcher",
-      "kind": "nav",
-      "refersTo": "project-switcher",
-      "description": "Real anchors become keyboard tabs when the page script runs.",
-      "html": "<nav class=\"ds-tabs\" aria-label=\"Choose a project\"><a href=\"#project-homeport\"><strong>Homeport</strong></a><a href=\"#project-moodsh\"><strong>Mood Shell</strong></a></nav>",
-      "css": ".ds-tabs{display:flex;overflow-x:auto;scrollbar-width:thin;border-bottom:1px solid var(--sw-border,#30392f);background:var(--sw-surface,#171c17)}.ds-tabs a{display:flex;flex-direction:column;justify-content:center;flex:1 0 auto;padding:14px 20px;min-height:64px;border-right:1px solid var(--sw-border,#30392f);color:var(--sw-muted,#a3ad9f);position:relative;text-decoration:none}.ds-tabs strong{font:500 .8125rem/1.6 var(--sw-mono,'Martian Mono', monospace)}.ds-tabs small{font:.75rem/1.6 var(--sw-font,'Bricolage Grotesque', 'Segoe UI', sans-serif);margin-top:2px}.ds-tabs a:hover{color:var(--sw-text,#eef1e9);background:var(--sw-raised,#1e251e)}.ds-tabs a[aria-selected=true]{color:var(--sw-accent,#b9eb9e);background:var(--sw-bg,#101310)}.ds-tabs a[aria-selected=true]::after{content:'';position:absolute;bottom:0;left:20px;right:20px;height:2px;background:var(--sw-accent,#b9eb9e)}.ds-tabs a:focus-visible{outline:2px solid var(--sw-accent,#b9eb9e);outline-offset:-4px}"
+      "name": "Project index link",
+      "kind": "custom",
+      "refersTo": "project-index-link",
+      "description": "A borderless text-only project link. prxps has no source screenshot.",
+      "html": "<a class=\"ds-project-link\" href=\"/projects/prxps/\"><h2>prxps</h2><p>Make the call. Keep the receipt.</p><span>View project</span></a>",
+      "css": ".ds-project-link{display:block;color:var(--sw-text,#ffffff);text-decoration:none;padding-bottom:32px}.ds-project-link h2{font:500 clamp(2rem,5vw,4rem)/1.4 var(--sw-mono,'Martian Mono',monospace);letter-spacing:-.025em;margin:20px 0 0}.ds-project-link p{font:400 clamp(1.5rem,3vw,2.25rem)/1.3 var(--sw-font,'Bricolage Grotesque','Segoe UI',sans-serif);max-width:20ch;margin:8px 0 0}.ds-project-link span{display:block;font:.8125rem/1.6 var(--sw-font,'Bricolage Grotesque','Segoe UI',sans-serif);color:var(--sw-muted,#a3a3a3);margin-top:8px}.ds-project-link:hover h2{text-decoration:underline;text-underline-offset:6px}.ds-project-link:focus-visible{outline:2px solid var(--sw-accent,#ffffff);outline-offset:4px}"
+    },
+    {
+      "name": "Theme control",
+      "kind": "custom",
+      "description": "The System, Light, and Dark selector appears only in Settings \u2192 Appearance.",
+      "html": "<label class=\"ds-theme\"><span>Theme</span><select aria-label=\"Color theme\"><option>System</option><option>Light</option><option>Dark</option></select></label>",
+      "css": ".ds-theme{display:inline-flex;align-items:center;gap:8px;color:var(--sw-muted,#a3a3a3);font:.9375rem/1.6 var(--sw-font,\"Bricolage Grotesque\",\"Segoe UI\",sans-serif);white-space:nowrap}.ds-theme > span{display:none}.ds-theme select{min-width:160px;min-height:44px;padding:8px 24px 8px 10px;border:0;border-radius:6px;background:var(--sw-surface,#0d0d0d);color:var(--sw-text,#ffffff);cursor:pointer;font:inherit}.ds-theme select:hover{border-color:var(--sw-muted,#a3a3a3)}.ds-theme select:focus-visible{outline:2px solid var(--sw-accent,#ffffff);outline-offset:4px}.ds-theme option{background:var(--sw-surface,#0d0d0d);color:var(--sw-text,#ffffff)}",
+      "refersTo": "settings-theme"
+    },
+    {
+      "name": "Friends profile row",
+      "kind": "custom",
+      "description": "The real followed profile with a local Unfollow action; the same row supports discovery.",
+      "html": "<article class=\"ds-friend\"><a class=\"ds-friend-person\" href=\"/mager/\"><strong>@mager</strong><span>Personal software from Chicago.</span></a><div class=\"ds-friend-actions\"><a href=\"/mager/\">View work</a><button type=\"button\">Unfollow @mager</button></div></article>",
+      "css": ".ds-friend{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 0;border-block:1px solid var(--sw-border,#333333);color:var(--sw-text,#ffffff);font-family:var(--sw-font,\"Bricolage Grotesque\",\"Segoe UI\",sans-serif)}.ds-friend-person{color:inherit;text-decoration:none;min-width:0}.ds-friend-person strong{display:block;font:500 1rem/1.6 var(--sw-mono,\"Martian Mono\",monospace)}.ds-friend-person span{display:block;margin-top:4px;color:var(--sw-muted,#a3a3a3);font-size:.875rem}.ds-friend-actions{display:flex;flex-wrap:wrap;gap:8px}.ds-friend-actions a,.ds-friend-actions button{display:inline-flex;align-items:center;min-height:42px;padding:9px 13px;border:1px solid var(--sw-border,#333333);border-radius:6px;background:transparent;color:inherit;font:500 .75rem/1.5 var(--sw-font,\"Bricolage Grotesque\",\"Segoe UI\",sans-serif);text-decoration:none;cursor:pointer}.ds-friend-actions a:hover,.ds-friend-actions button:hover{background:var(--sw-raised,#1c1c1c);border-color:var(--sw-muted,#a3a3a3)}.ds-friend a:focus-visible,.ds-friend button:focus-visible{outline:2px solid var(--sw-accent,#ffffff);outline-offset:4px}@media(max-width:760px){.ds-friend{align-items:start;flex-direction:column;gap:20px}}"
     }
   ],
   "narrative": {
-    "northStar": "A software browser",
-    "overview": "Sidework presents personal software as a compact browser. A maker row and the latest actual contribution lead into a horizontal project switcher. One selected project pairs a screenshot with its purpose, stack, notes, source, and app link. Six compact contribution rows complete the public record.\n\nPublic browsing and the separate workbench both use Operate mode: choose, inspect, and act. The workbench retains its editor, private showcase, import, and agent review flows. Moss surfaces, lime actions, Bricolage Grotesque reading text, Martian Mono technical content, and an Anybody wordmark connect the two interfaces. The exact /mager/ profile is public; discovery and management need an invite. Agent access uses a separate scoped token.",
+    "northStar": "The work in view",
+    "overview": "Sidework gives personal software room to be seen. Black, white, and neutral gray keep the interface quiet. Open space separates project content without card borders or panel frames. Real screenshots keep their original colors and remain straight.\n\nBricolage Grotesque carries reading text, Martian Mono identifies projects and source records, and Anybody marks the brand. Project pages use large type and full-width images. Management pages use clear labels and compact controls. The same fonts and palette connect both uses.",
     "keyCharacteristics": [
-      "A compact maker row keeps @handle identity in view.",
-      "One selected project shows its screenshot, purpose, and source together.",
+      "A minimal black and white interface keeps the work in view.",
+      "Light, Dark, and System modes share the same layout and type.",
+      "Open space separates project content without frames.",
+      "Real screenshots keep their original colors and natural ratio on detail pages.",
       "Real contribution evidence replaces decorative activity.",
-      "Keyboard tabs, direct links, history, and no-JavaScript content all work.",
+      "Normal project links work without JavaScript.",
       "Local drafts, saves, follows, and public records remain distinct."
     ],
     "rules": [
       {
-        "name": "Source Color",
-        "body": "Keep real software screenshots in their original colors. Do not tint them to match the interface.",
+        "name": "The Neutral Interface Rule",
+        "body": "Use only black, white, and neutral gray for interface surfaces, controls, focus, and status. Preserve explicit status labels.",
         "section": "colors"
       },
       {
-        "name": "Type Roles",
+        "name": "The Source Color Rule",
+        "body": "Keep real software screenshots in their original colors. Do not tint or desaturate them to match the interface.",
+        "section": "colors"
+      },
+      {
+        "name": "The Type Roles Rule",
         "body": "Use Anybody for the wordmark, Bricolage Grotesque for headings and reading, and Martian Mono for code, source metadata, and public project names.",
         "section": "typography"
       },
       {
-        "name": "Still Software",
-        "body": "Keep software previews straight and still. Use borders and surface tones for separation; reserve shadows for floating controls and feedback.",
+        "name": "The Open Content Rule",
+        "body": "Keep project content free of card borders and panel frames. Use space and type to separate it.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Still Software Rule",
+        "body": "Keep software previews straight and still. Reserve shadows for floating controls and feedback.",
         "section": "elevation"
       }
     ],
     "dos": [
       "Do use @handles for people and preserve repository owner/name identifiers.",
-      "Do keep the screenshot, purpose, stack, and source together in the selected project.",
-      "Do retain real anchors, keyboard tabs, history, and the full no-JavaScript project list.",
-      "Do keep the public software browser distinct from the private workbench.",
+      "Do keep the screenshot, purpose, stack, and source together on each project page.",
+      "Do use normal project links that work without JavaScript.",
+      "Do keep the public profile snapshot distinct from the private workbench.",
       "Do keep keyboard focus visible and support reduced motion.",
+      "Do support Light, Dark, and System while keeping source screenshots in their original colors.",
       "Do state that reviewed drafts save in this browser and do not publish."
     ],
     "donts": [
+      "Don't add colored interface accents or remove color from source screenshots.",
       "Don't use Anybody for content headings.",
-      "Don't restore the public manifest, long project feed, floating dock, or marketing close.",
+      "Don't restore project tabs, framed project panels, the public manifest, floating dock, or marketing close.",
       "Don't add tilted screenshots, perspective drift, or a simulated terminal.",
       "Don't invent source records, people, activity counts, or learning outcomes.",
       "Don't claim that an agent can read local drafts or publish a profile."

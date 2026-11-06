@@ -24,9 +24,9 @@ const navigation = [
 ];
 ---
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
-    <BaseHead title="Sidework · @mager’s developer workbench" description="A prototype for sharing personal projects, tracking open source contributions, and finding useful work." image="/images/mager.jpg" defaultTheme="dark" />
+    <BaseHead title="Your workbench · Sidework" description="A prototype for sharing personal projects, tracking open source contributions, and finding useful work." image="/images/mager.jpg" />
     <meta name="robots" content="noindex, nofollow" />
   </head>
   <body class="publication sidework">
@@ -41,15 +41,15 @@ const navigation = [
           <span>Four projects. One week.</span>
           <a href="#discover" data-view="discover">Find your next contribution <Icon name="arrow" size={16} /></a>
         </div>
-        <a class="sw-profile-mini" href="https://github.com/mager"><img src="/images/mager.jpg" width="34" height="34" alt="" /><span><strong>@mager</strong><small>Chicago</small></span><Icon name="external" size={14} /></a>
+        <a class="sw-profile-mini" href="https://github.com/mager"><img src="/images/mager.jpg" width="34" height="34" alt="" /><span><strong>@mager</strong><small>Public example</small></span><Icon name="external" size={14} /></a>
       </aside>
 
       <main id="main-content" class="sw-main">
         <header class="sw-page-heading">
-          <div><h1>@mager’s workbench<span>.</span></h1><p>Personal software. Shared progress. Your next contribution.</p></div>
+          <div><h1>Your workbench<span>.</span></h1><p>Personal software. Shared progress. Your next contribution.</p></div>
           <a class="sw-button" href="/onboarding/">Import from GitHub <Icon name="plus" size={15}/></a><button class="sw-button sw-primary" id="add-project" type="button"><Icon name="plus" size={17} />Add a project</button>
         </header>
-        <div class="sw-source-line"><span class="sw-source-dot" aria-hidden="true"></span><span>GitHub snapshot · <time datetime="2026-11-04">Nov 4, 2026</time></span><a href="#connections" id="manage-github">Manage GitHub</a></div>
+        <div class="sw-source-line"><span class="sw-source-dot" aria-hidden="true"></span><span>@mager’s public snapshot · <time datetime="2026-11-04">Nov 4, 2026</time></span><a href="#connections" id="manage-github">View source data</a></div>
         <p class="sw-notice" id="feedback" role="status" aria-live="polite" hidden></p>
         <noscript><p class="sw-notice">All sections are shown below. Enable JavaScript to filter work, save a plan, or add a project.</p></noscript>
 
@@ -57,33 +57,24 @@ const navigation = [
         <AgentConnections />
 
         <section class="sw-panel" id="overview" aria-labelledby="overview-title">
-          <div class="sw-section-heading"><h2 id="overview-title">Built here. Shared everywhere.</h2><a href="#projects" data-view="projects">All projects <Icon name="arrow" size={16} /></a></div>
-          <div class="sw-overview-grid">
-            <article class="sw-feature">
-              <a class="sw-feature-image" href="https://homeport-gamma.vercel.app/"><img src="https://sdld3v8bpzf3snqo.public.blob.vercel-storage.com/blog/2026-10-04-homeport/terminal-workspace.jpg" alt="Homeport’s browser workspace with coding conversations and a project sidebar" width="1536" height="1024" fetchpriority="high" /></a>
-              <div class="sw-feature-copy"><h3>Homeport</h3><p>A home for coding work that keeps going when you close your laptop.</p><div class="sw-feature-bottom"><span>Python / Pydantic / SQLite</span><a href="https://github.com/mager/homeport" aria-label="View Homeport source"><Icon name="external" size={18} /></a></div></div>
-            </article>
-            <div class="sw-mini-projects">
-              {projects.filter(p => p.id !== 'homeport').map(p => <a href={p.url} class={`sw-mini-project sw-${p.id}`}><span class="sw-project-monogram" aria-hidden="true">{p.name.slice(0,1)}</span><div><h3>{p.name}</h3><p>{p.kind}</p><small>{p.stack}</small></div><Icon name="external" size={15} /></a>)}
-              <a href="#projects" data-view="projects" class="sw-project-invite">The small tools count, too.<span>Give your next idea a home. <Icon name="arrow" size={15} /></span></a>
-            </div>
-          </div>
-          <div class="sw-section-heading sw-space-above"><h2>Contributions with a story</h2><a href="#contributions" data-view="contributions">View history <Icon name="arrow" size={16} /></a></div>
-          <div class="sw-recent-list" id="recent-list">{records.slice(0, 4).map(item => <article class="sw-contribution"><span class={`sw-status sw-status-${item.status}`}>{item.status}</span><div><a href={item.url}><h3>{item.title}</h3></a><p>{item.repository} <span>#{item.number}</span></p></div><a class="sw-evidence" href={item.url} aria-label={`View pull request ${item.number}`}><Icon name="external" size={16} /></a></article>)}</div>
-          <a href="#discover" data-view="discover" class="sw-discover-strip"><Icon name="compass" size={28} /><div><h3>Put what you know to work.</h3><p>Four opportunities, selected for your browser, tooling, and documentation experience.</p></div><Icon name="arrow" /></a>
+          <div class="sw-section-heading"><h2 id="overview-title">Make room for your work.</h2></div>
+          <p id="workspace-summary">Your workspace is empty. Bring a project from GitHub or add one yourself.</p>
+          <div class="sw-start-actions"><a class="sw-button sw-primary" href="/onboarding/">Import from GitHub <Icon name="arrow" size={16}/></a><a class="sw-button" href="#projects" data-view="projects">My projects</a><a class="sw-button" href="/friends/">Find friends</a></div>
+          <div class="sw-section-heading sw-space-above"><h2>From @mager’s public record</h2><a href="/mager/">View profile <Icon name="external" size={16}/></a></div>
+          <div class="sw-recent-list" id="recent-list"></div>
         </section>
 
         <section class="sw-panel" id="projects" aria-labelledby="projects-title">
-          <div class="sw-section-heading"><div><h2 id="projects-title">My projects</h2><p>Edit the story. Choose what belongs in your profile draft.</p></div><span id="project-count" class="sw-count">{projects.length} projects</span></div>
+          <div class="sw-section-heading"><div><h2 id="projects-title">My projects</h2><p>Edit the story. Choose what belongs in your profile draft.</p></div><span id="project-count" class="sw-count">0 projects</span></div>
           <label class="sw-search"><Icon name="search" size={18} /><span class="sw-sr-only">Search projects</span><input id="project-search" type="search" placeholder="Find a project or technology…" /></label>
-          <div id="project-list" class="sw-project-list">{projects.map(p => <article class="sw-project-row"><span class={`sw-project-monogram sw-${p.id}`} aria-hidden="true">{p.name[0]}</span><div><h3><a href={p.url}>{p.name}</a></h3><p>{p.description}</p><small>{p.stack}</small></div><a class="sw-button" href={p.url}>Open project <Icon name="external" size={15} /></a></article>)}</div>
-          <p id="project-empty" class="sw-empty" hidden>No projects match. Try a name or technology from your list.</p>
+          <div id="project-list" class="sw-project-list"></div>
+          <p id="project-empty" class="sw-empty">No projects yet. Import from GitHub or add your first project.</p>
         </section>
 
         <section class="sw-panel sw-showcase" id="showcase" aria-labelledby="showcase-title">
-          <div class="sw-section-heading"><div><h2 id="showcase-title">Make it yours.</h2><p>Choose up to six projects. Put the work you love first.</p></div><a href="/mager/">View public profile <Icon name="external" size={16}/></a></div>
-          <div class="sw-showcase-toolbar"><p><strong id="featured-count">4 selected</strong><span>Private profile draft · Saved in this browser</span></p><button type="button" id="export-showcase" class="sw-button"><Icon name="download" size={16}/>Export draft</button></div>
-          <p class="sw-showcase-boundary">This preview does not change your public profile. Export keeps a copy of your selected projects and stories.</p>
+          <div class="sw-section-heading"><div><h2 id="showcase-title">Make it yours.</h2><p>Choose up to six projects. Put the work you love first.</p></div><a href="/mager/">View @mager’s public profile <Icon name="external" size={16}/></a></div>
+          <div class="sw-showcase-toolbar"><p><strong id="featured-count">0 selected</strong><span>Private profile draft · Saved in this browser</span></p><button type="button" id="export-showcase" class="sw-button"><Icon name="download" size={16}/>Export draft</button></div>
+          <p class="sw-showcase-boundary">This private draft does not change the public @mager profile. Export keeps a copy of your selected projects and stories.</p>
           <details class="sw-draft-transfer"><summary>Review a draft file</summary><p>Open a draft from your agent or a previous export. You will review it before saving.</p><label for="profile-draft-file">Sidework draft · JSON, up to 64 KB</label><input id="profile-draft-file" type="file" accept="application/json,.json"/><p id="draft-file-status" role="status" hidden></p></details>
           <div id="showcase-projects"></div><div class="sw-empty" id="showcase-empty" hidden><h3>Your best work goes here.</h3><p>Open My projects and choose “Feature” on the projects you want to show.</p><a href="#projects" data-view="projects" class="sw-button sw-primary">Choose projects</a></div>
         </section>
@@ -96,7 +87,7 @@ const navigation = [
         </section>
 
         <section class="sw-panel" id="contributions" aria-labelledby="contributions-title">
-          <div class="sw-section-heading"><div><h2 id="contributions-title">Contribution history</h2><p>The work behind the pull request. Each entry links to its source.</p></div><button type="button" class="sw-button" id="export-work"><Icon name="download" size={16} />Export work</button></div>
+          <div class="sw-section-heading"><div><h2 id="contributions-title">@mager’s contribution history</h2><p>The work behind the pull request. Each entry links to its source.</p></div><button type="button" class="sw-button" id="export-work"><Icon name="download" size={16} />Export work</button></div>
           <div class="sw-filter-row"><label class="sw-search"><Icon name="search" size={18} /><span class="sw-sr-only">Search contributions</span><input id="contribution-search" type="search" placeholder="Search changes or repositories…" /></label><label class="sw-select-label"><span class="sw-sr-only">Contribution status</span><select id="contribution-status"><option value="all">All states</option><option value="merged">Merged</option><option value="open">Open</option><option value="draft">Draft</option><option value="closed">Closed</option></select></label></div>
           <p class="sw-data-note" id="contribution-note">Six recent records checked Nov 4, 2026. Older records retain their Oct 12 snapshot. This is a selection, not a complete GitHub history.</p>
           <div id="contribution-list">{records.map(item => <article class="sw-contribution"><span class={`sw-status sw-status-${item.status}`}>{item.status}</span><div><a href={item.url}><h3>{item.title}</h3></a><p>{item.repository} <span>#{item.number}</span></p><small>State checked {item.checkedAt}</small></div><a class="sw-evidence" href={item.url} aria-label={`View pull request ${item.number}`}><Icon name="external" size={16} /></a></article>)}</div>
@@ -125,10 +116,10 @@ const navigation = [
           <div class="sw-connection-roadmap"><h3>What comes next</h3><p>A GitHub App can keep this record current, let you choose repositories, and support more developers. Profiles, follows, and shared project updates need accounts and a server; they are not connected in this prototype.</p></div>
         </section>
       </main>
-      <aside class="sw-context" aria-label="Your profile and weekly plan">
-        <div class="sw-profile"><img src="/images/mager.jpg" alt="@mager’s illustrated portrait" width="64" height="64" /><h2>@mager</h2><p>Building personal software.<br/>Contributing along the way.</p><a href="https://github.com/mager">@mager <Icon name="external" size={14}/></a><div class="sw-profile-tags"><span>Developer tools</span><span>Open source</span><span>Chicago</span></div></div>
-        <div class="sw-week-card"><div class="sw-section-heading"><h2>This week</h2><span>4 projects</span></div><p id="week-hint">Start with one useful fix.</p><div class="sw-week-slots" id="week-slots">{[1,2,3,4].map(n => <a href="#discover" data-view="discover"><span class="sw-slot-number">{n}</span><span>Choose a project</span><Icon name="plus" size={15}/></a>)}</div><a href="#plan" data-view="plan" class="sw-week-link">Open your plan <Icon name="arrow" size={16}/></a></div>
-        <div class="sw-local-note"><p>A working prototype, built around real work.</p><span>Project edits and saved plans stay in this browser.</span><button type="button" id="copy-profile">Copy profile link <Icon name="external" size={13}/></button></div>
+      <aside class="sw-context" aria-label="Public example and your weekly plan">
+        <div class="sw-profile"><img src="/images/mager.jpg" alt="@mager’s illustrated portrait" width="64" height="64" /><h2>@mager</h2><p>Public example profile.</p><p>Building personal software.<br/>Contributing along the way.</p><a href="https://github.com/mager">@mager <Icon name="external" size={14}/></a><div class="sw-profile-tags"><span>Developer tools</span><span>Open source</span><span>Chicago</span></div></div>
+        <div class="sw-week-card"><div class="sw-section-heading"><h2>This week</h2><span>4 plan slots</span></div><p id="week-hint">Start with one useful fix.</p><div class="sw-week-slots" id="week-slots">{[1,2,3,4].map(n => <a href="#discover" data-view="discover"><span class="sw-slot-number">{n}</span><span>Choose a project</span><Icon name="plus" size={15}/></a>)}</div><a href="#plan" data-view="plan" class="sw-week-link">Open your plan <Icon name="arrow" size={16}/></a></div>
+        <div class="sw-local-note"><p>A working prototype, built around real work.</p><span>Project edits and saved plans stay in this browser.</span><button type="button" id="copy-profile">Copy @mager’s profile link <Icon name="external" size={13}/></button></div>
       </aside>
     </div>
     <Footer homepage />

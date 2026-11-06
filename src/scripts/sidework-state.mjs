@@ -1,3 +1,4 @@
+import { cleanMetadata } from './project-metadata.mjs';
 export const STORAGE_KEY = 'sidework-workbench-v1';
 export const PLAN_STATES = ['planned', 'started', 'submitted'];
 export function safeUrl(value) {
@@ -10,10 +11,10 @@ export function safeUrl(value) {
 export function cleanProject(value) {
   if (!value || typeof value !== 'object' || !safeUrl(value.url) || typeof value.name !== 'string' || !value.name.trim()) return null;
   const text = (field, max) => typeof value[field] === 'string' ? value[field].slice(0, max).trim() : '';
-  return { id: text('id', 100), name: text('name', 60), description: text('description', 280), stack: text('stack', 80), url: safeUrl(value.url), source: safeUrl(value.source), tagline: text('tagline', 120), whyBuilt: text('whyBuilt', 1200), learned: text('learned', 1200), image: safeUrl(value.image).startsWith('https://') ? safeUrl(value.image) : '', imageAlt: text('imageAlt', 180), stage: ['exploring','building','shipped','paused'].includes(value.stage) ? value.stage : '', local: value.local === true };
+  return { ...cleanMetadata(value), id: text('id', 100), name: text('name', 60), description: text('description', 280), stack: text('stack', 80), url: safeUrl(value.url), source: safeUrl(value.source), tagline: text('tagline', 120), whyBuilt: text('whyBuilt', 1200), learned: text('learned', 1200), image: safeUrl(value.image).startsWith('https://') ? safeUrl(value.image) : '', imageAlt: text('imageAlt', 180), stage: ['exploring','building','shipped','paused'].includes(value.stage) ? value.stage : '', local: value.local === true };
 }
 export function readState(raw, opportunityIds) {
-  const empty = { projects: [], plan: {}, weekStartedAt: null, showcase: null };
+  const empty = { projects: [], plan: {}, weekStartedAt: null, showcase: null, includeExamples: false };
   if (!raw) return empty;
   try {
     const value = JSON.parse(raw);
@@ -25,7 +26,7 @@ export function readState(raw, opportunityIds) {
     }
     const weekStartedAt = typeof value.weekStartedAt === 'string' && Number.isFinite(Date.parse(value.weekStartedAt)) ? value.weekStartedAt : null;
     const showcase = Array.isArray(value.showcase) ? [...new Set(value.showcase.filter(id => typeof id === 'string' && id.length > 0 && id.length <= 100))].slice(0, 6) : null;
-    return { projects, plan, weekStartedAt, showcase };
+    return { projects, plan, weekStartedAt, showcase, includeExamples: value.includeExamples !== false };
   } catch { return empty; }
 }
 export function mergeProjects(seed, added) {

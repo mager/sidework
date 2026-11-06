@@ -1,0 +1,13 @@
+---
+import StudioLayout from '../components/StudioLayout.astro';
+import ThemeControl from '../components/ThemeControl.astro';
+import '../styles/settings.css';
+---
+<StudioLayout title="Settings · Sidework" active="settings">
+ <div class="settings-main"><h1>Settings</h1><p class="settings-intro">Your preferences, in this browser.</p>
+ <section class="settings-section" aria-labelledby="appearance-title"><div><h2 id="appearance-title">Appearance</h2><p>Choose light, dark, or follow your system.</p></div><ThemeControl /><noscript><p>Enable JavaScript to change your theme.</p></noscript></section>
+ <section class="settings-section" aria-labelledby="workspace-title"><div><h2 id="workspace-title">Workspace</h2><p>Clear your local drafts, weekly plan, saves, and follows. Keep your invite access and theme.</p><p>A restore copy stays in this browser. Each reset replaces that copy. Restoring it replaces the current workspace.</p></div><div class="settings-actions"><button type="button" class="sw-button" id="reset-workspace">Reset my workspace</button><button type="button" class="sw-button" id="restore-workspace" hidden>Restore previous workspace</button></div><p id="settings-status" role="status" hidden></p><noscript><p>Enable JavaScript to reset or restore your workspace.</p></noscript></section>
+ <section class="settings-section" aria-labelledby="access-title"><div><h2 id="access-title">Invite access</h2><p>You have access through an invite. Your local work stays in this browser when you lock Sidework.</p></div><form action="/api/signout" method="POST"><button class="sw-button" type="submit">Lock Sidework</button></form></section>
+ </div>
+ <script>import '../scripts/settings';</script>
+</StudioLayout>

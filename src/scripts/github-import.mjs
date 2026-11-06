@@ -29,7 +29,7 @@ export async function fetchRepositories(handle, { fetcher = fetch, signal, onPro
 export const projectKey = project => (project.source || project.url).replace(/\/$/,'').toLowerCase();
 export function importSelection(raw, selected, seed, opportunityIds) {
   const state = readState(raw, opportunityIds);
-  const existing = new Set([...seed,...state.projects].map(projectKey));
+  const existing = new Set([...(state.includeExamples ? seed : []),...state.projects].map(projectKey));
   const additions = selected.map(cleanProject).filter(project => project && !existing.has(projectKey(project)));
   const projects = mergeProjects(state.projects, additions);
   if (projects.length > 5000) throw new Error('This browser can hold up to 5,000 project drafts. Select fewer repositories.');

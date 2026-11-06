@@ -72,3 +72,8 @@ Run `npm test` and `npm run build`. Protocol tests use the official MCP client a
 For localhost, use a generic MCP configuration and a token issued at the same origin. The distributed plugin points to production.
 
 Implementation references: [MCP TypeScript SDK](https://ts.sdk.modelcontextprotocol.io/server), [Claude plugin manifest](https://code.claude.com/docs/en/plugins-reference), and [Claude marketplace format](https://code.claude.com/docs/en/plugin-marketplaces).
+
+
+### Project metadata
+
+`prepare_profile_draft` accepts optional `category`, `softwareType`, `audience` (180 characters), and `features` (up to five strings, 160 characters each). Its input schema lists the supported category and software type IDs. Use repository evidence and the author's input. Leave unknown fields blank; a language does not establish a project's purpose. These fields survive review and JSON export. `list_projects` searches them and accepts an optional `category` filter. Older version 1 draft files remain valid.

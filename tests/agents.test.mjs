@@ -50,6 +50,14 @@ test('official MCP client initializes, reads tools/resources/prompts, and prepar
     const history=await client.callTool({name:'list_contributions',arguments:{status:'draft'}});assert.equal(history.structuredContent.contributions[0].status,'draft');
     const repos=await client.callTool({name:'list_github_repositories',arguments:{handle:'@mager'}});assert.equal(repos.structuredContent.repositories.length,1);assert.equal(repos.structuredContent.nextPage,null);
     const draft=await client.callTool({name:'prepare_profile_draft',arguments:{projects:[project]}});assert.equal(draft.structuredContent.saved,false);assert.equal(draft.structuredContent.published,false);assert.ok(draft.structuredContent.reviewUrl.startsWith(origin+'/workbench/#review='));
+    const described={...project,category:'developer-tools',softwareType:'cli',audience:'Shell users',features:['Preview colors']};
+    const metadataDraft=await client.callTool({name:'prepare_profile_draft',arguments:{projects:[described]}});
+    assert.deepEqual(metadataDraft.structuredContent.draft.projects[0].features,['Preview colors']);
+    assert.equal(metadataDraft.structuredContent.draft.projects[0].category,'developer-tools');
+    const invalidMetadata=await client.callTool({name:'prepare_profile_draft',arguments:{projects:[{...described,category:'Rust'}]}});
+    assert.equal(invalidMetadata.isError,true);
+    const filtered=await client.callTool({name:'list_projects',arguments:{category:'games'}});
+    assert.equal(filtered.structuredContent.projects.length,0);
     const malicious=await client.callTool({name:'prepare_profile_draft',arguments:{projects:[{...project,url:'javascript:alert(1)'}]}});assert.equal(malicious.isError,true);
     const resources=await client.listResources();assert.equal(resources.resources[0].uri,'sidework://profiles/mager');
     const resource=await client.readResource({uri:'sidework://profiles/mager'});assert.equal(JSON.parse(resource.contents[0].text).handle,'@mager');

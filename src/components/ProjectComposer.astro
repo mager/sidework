@@ -6,8 +6,14 @@ import Icon from './SideworkIcon.astro';
   <div class="sw-composer-layout">
     <form id="project-form" class="sw-story-form">
       <label for="draft-name">Project name<input id="draft-name" name="name" required maxlength="60" autocomplete="off"/></label>
-      <label for="draft-tagline">The short version <span>One sentence that makes someone want to try it.</span><input id="draft-tagline" name="tagline" maxlength="120" placeholder="What does your software make possible?"/></label>
-      <label for="draft-description">What does it do?<textarea id="draft-description" name="description" maxlength="280" rows="3" required></textarea></label>
+      <label for="draft-tagline">The short version <span>Name the main task someone can do with it.</span><input id="draft-tagline" name="tagline" maxlength="120" placeholder="Customize and share your shell prompt."/></label>
+      <label for="draft-description">What does it do? <span>Explain the problem it solves and how it works.</span><textarea id="draft-description" name="description" maxlength="280" rows="3" required></textarea></label>
+      <div class="sw-form-grid">
+        <label for="draft-category">Category<select id="draft-category" name="category"><option value="">Not set yet</option></select></label>
+        <label for="draft-software-type">Software type<select id="draft-software-type" name="softwareType"><option value="">Not set yet</option></select></label>
+      </div>
+      <label for="draft-audience">Who is it for? <span>Optional. Describe the person or task it helps.</span><input id="draft-audience" name="audience" maxlength="180" placeholder="People who use Zsh, Bash, or PowerShell."/></label>
+      <label for="draft-features">What can someone do with it? <span>Optional. Up to five features, one per line. 160 characters per feature.</span><textarea id="draft-features" name="features" rows="4" maxlength="804" placeholder="Preview prompt colors before applying them.&#10;Export a theme as a Markdown file."></textarea></label>
       <label for="draft-url">Project or demo URL<input id="draft-url" name="url" type="url" required maxlength="2048" placeholder="https://example.com"/></label>
       <div class="sw-form-grid"><label for="draft-stage">Where is it now?<select id="draft-stage" name="stage"><option value="">Choose a stage</option><option value="exploring">Exploring</option><option value="building">Building</option><option value="shipped">Shipped</option><option value="paused">Paused</option></select></label><label for="draft-stack">Built with<input id="draft-stack" name="stack" maxlength="80" placeholder="TypeScript · Astro"/></label></div>
       <details class="sw-story-details"><summary>Screenshot & source <Icon name="plus" size={16}/></summary><label for="draft-image">Screenshot URL <span>Use a public HTTPS image link.</span><input id="draft-image" name="image" type="url" maxlength="2048" placeholder="https://…/screenshot.jpg"/></label><label for="draft-image-alt">Describe the screenshot<input id="draft-image-alt" name="imageAlt" maxlength="180" placeholder="What can someone see in this image?"/></label><label for="draft-source">Source code URL<input id="draft-source" name="source" type="url" maxlength="2048" placeholder="https://github.com/you/project"/></label></details>

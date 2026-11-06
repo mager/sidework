@@ -5,7 +5,8 @@ import '../styles/sidework.css';
 import '../styles/entry.css';
 import { COOKIE_NAME, SESSION_SECONDS, configuration, checkCode, createSession, validSession, safeNext } from '../lib/invite.mjs';
 const config = configuration();
-const destination = safeNext(Astro.url.searchParams.get('next'));
+const next = safeNext(Astro.url.searchParams.get('next') || '/friends/');
+const destination = next === '/' ? '/friends/' : next;
 let error = '';
 if (Astro.request.method === 'POST') {
   if (Astro.request.headers.get('origin') !== Astro.url.origin) {

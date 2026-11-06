@@ -15,18 +15,23 @@ npm run dev
 ```
 
 - `/invite/`: server-checked invitation for discovery and management tools.
+- `/friends/`: invite-only local follows and first-project entry.
+- `/settings/`: invite-only Appearance, workspace reset and restore, and invite locking.
+- `/projects/homeport/`, `/projects/moodsh/`, `/projects/perch/`, `/projects/prxps/`: invite-only project detail pages.
 - `/onboarding/`: search and bulk import of all public repositories owned by a GitHub handle.
 - `/mager/`: public profile, available without an invite, personal projects, and six recent pull requests.
 - `/`: people-first discovery with real software previews and a local saved collection.
 - `/workbench/`: project story editor, private profile draft, searchable contribution history, discovery, and a four-project weekly plan.
-- `npm test`: state, URL safety, contribution normalization, saved collection, and follow checks.
+- `npm test`: state, URL safety, contribution normalization, saved collection, follows, theme, and workspace reset checks.
 - `npm run build`: Vercel server output in `.vercel/output/`.
 
 ## What works
 
-The public interface is a compact software browser. A maker row and recent contribution lead into a project switcher. Choose a project to see its app preview, purpose, stack, and source links in one place. The switcher supports direct links, browser history, arrow keys, Home, and End. Without JavaScript, all four project records remain visible. Saved projects return to the current public route. Contributions appear directly below the selected project; the separate workbench retains editing and planning tools.
+The profile and discovery index show four projects in two columns on desktop and one column on mobile. Normal links open separate, full-width project pages with no content borders or panel frames. Detail pages show an original-color screenshot at its natural ratio, purpose, source metadata, app and save actions, and More by @mager links. prxps uses text because no source screenshot is available. Project navigation works without JavaScript. Saved links open the matching detail page. The exact /mager/ profile stays public; project detail pages require invite access. Contributions follow the project index. The separate workbench retains editing and planning tools.
 
 - Public project showcase with demo, source, and build-log links.
+- Friends with empty and followed-profile views for the real @mager profile.
+- Empty new workspaces and a local reset with a restore copy.
 - Contribution search and status filters, with source links and dated evidence.
 - Skill filters for four curated contribution opportunities.
 - Saved opportunities and planned / in progress / submitted states.
@@ -35,11 +40,13 @@ The public interface is a compact software browser. A maker row and recent contr
 - An authenticated MCP endpoint and Claude Code plugin for public GitHub discovery and agent-prepared profile drafts, with direct review links.
 - Public GitHub refresh for @mager’s repositories and recent pull requests, with loading, timeout, and rate-limit recovery.
 - Markdown export of the public work record.
-- Responsive layouts, keyboard navigation, and light/dark themes.
+- Responsive layouts, keyboard navigation, and Light, Dark, and System themes.
+
+The interface uses black, white, and neutral gray to keep attention on the work. Project screenshots retain their original colors. System is the default theme. The theme selector appears only in Settings → Appearance. Headers and the import page link to Settings. A saved choice applies before paint; System follows changes to the device theme. Theme changes also update other open tabs. Without JavaScript, CSS follows the device theme.
 
 ## Prototype boundaries
 
-An invitation unlocks the site for seven days. It is shared access, not a user account. There is no multi-user backend, automatic synchronization, or connected social graph. Saves and follows in the public studio are browser-local preferences. Local drafts and plans use `localStorage` and are available to anyone using the same browser profile. They are not posted to GitHub or included in the public profile. Refreshed GitHub results last for the current visit; saved plans and local drafts survive reloads when browser storage is available.
+An invitation unlocks the site for seven days. It is shared access, not a user account. There is no multi-user backend, automatic synchronization, or connected social graph. Saves and follows are browser-local preferences. Friends uses the same follow preference as the public profile. Local drafts and plans use `localStorage` and are available to anyone using the same browser profile. They are not posted to GitHub or included in the public profile. Refreshed GitHub results last for the current visit; saved plans and local drafts survive reloads when browser storage is available.
 
 The profile is a committed snapshot. Updating a local draft does not publish it. To update the profile, edit `src/data/projects.ts` or the contribution snapshot and rebuild. Source links provide the current GitHub state. All routes use `noindex` while this remains a prototype.
 
@@ -55,7 +62,7 @@ The weekly goal counts distinct saved projects marked submitted by the user. It 
 
 ## Typography
 
-Anybody gives the wordmark its narrow, rounded shape. Bricolage Grotesque supports headings, descriptions, navigation, and controls. Automatic optical sizing, .005em body tracking, and 1.6 line height keep small text clear. Martian Mono marks project names, @handles, repository identifiers, project tabs, and agent commands. Compact headings and source labels keep the focus on the software; descriptions retain the reading face. Text sizes use rem units.
+Anybody gives the wordmark its narrow, rounded shape. Bricolage Grotesque supports headings, descriptions, navigation, and controls. Automatic optical sizing, .005em body tracking, and 1.6 line height keep small text clear. Martian Mono marks project names, @handles, repository identifiers, and agent commands. Compact headings and source labels keep the focus on the software; descriptions retain the reading face. Text sizes use rem units.
 
 The three active Latin WOFF2 subsets are self-hosted. They are self-hosted with `font-display: swap`; the interface and display fonts are preloaded. No external font request is needed. Other writing systems use the fallback stack. Sources and SIL Open Font Licenses are in `public/fonts/`.
 
@@ -64,16 +71,24 @@ The three active Latin WOFF2 subsets are self-hosted. They are self-hosted with 
 1. Add a GitHub App with explicit repository selection and server-side synchronization.
 2. Add accounts, profile ownership, and an explicit publish workflow.
 3. Extend authored stories to contributions, with source evidence and clear credit.
-4. Add follows, project updates, and opportunity recommendations based on stated learning goals.
+4. Connect follows between accounts, project updates, and opportunity recommendations based on stated learning goals.
 5. Add other source providers behind the same contribution model.
 
 Keep project ownership separate from upstream contribution credit. Keep activity separate from learning and impact. Never rank people by raw commit counts.
 
 ## Project stories and profile drafts
 
-Open My projects, then Edit story. Changes to a curated project create a local copy; they do not change the committed public profile. The editor previews safe text, HTTPS screenshots, and project links. It warns before discarding unsaved changes and retains the form when browser storage rejects a save.
+A fresh workbench starts without projects or featured selections. Import repositories or create a story, then open My projects → Edit story. Older version 1 workspaces without an `includeExamples` field keep the seeded examples. Changes to a curated project create a local copy; they do not change the committed public profile. The editor previews safe text, HTTPS screenshots, and project links. It warns before discarding unsaved changes and retains the form when browser storage rejects a save.
 
 Feature up to six projects, then open Profile draft to change their order. Export draft downloads selected stories as `sidework-profile-draft.json`, marked `private-draft`. Review a draft file restores a backup or opens an agent-prepared file after review. Agents can also return a direct review link. Saving a reviewed draft updates matching local stories and replaces featured order; unrelated projects and weekly plans remain. Public publishing is not connected. Local drafts remain tied to this browser and origin.
+
+## Friends and starting fresh
+
+After a direct invite visit, or an invite request for `/`, access opens Friends. Other explicit return paths are preserved. Friends lists local follows and offers the sole public profile, @mager. Follow and Unfollow do not send requests or create a shared social record.
+
+Open Settings → Workspace → Reset my workspace to return to an empty workspace. The reset clears local drafts, featured order, the weekly plan, saves, and follows. It keeps invite access and the theme choice. Before changing those values, it stores one restore copy in `localStorage` under `sidework-reset-backup-v1`. Restore previous workspace recovers that copy. Each later reset replaces it; clearing browser storage removes it. The copy stays in the same browser and origin. A successful reset or restore opens Friends.
+
+The public @mager profile and its dated evidence remain unchanged. Your workbench labels that public evidence separately from local work. A fresh workspace can import a repository even when it is part of the public snapshot.
 
 ## Agent connections
 

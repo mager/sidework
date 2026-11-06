@@ -1,6 +1,7 @@
 import { cleanProject } from './sidework-state.mjs';
 import { saveProjectDraft } from './project-drafts.mjs';
 
+import { validateMetadata } from './project-metadata.mjs';
 export const MAX_DRAFT_BYTES = 65536;
 export function parseProfileDraft(value) {
   if (!value || value.format !== 'sidework-profile-draft' || value.version !== 1 || value.visibility !== 'private-draft') throw new Error('Choose a Sidework profile draft, version 1.');
@@ -8,6 +9,8 @@ export function parseProfileDraft(value) {
   if (!Array.isArray(value.projects) || value.projects.length < 1 || value.projects.length > 6) throw new Error('A profile draft must contain one to six projects.');
   const ids = new Set(), sources = new Set();
   const projects = value.projects.map(item => {
+    if (!item || typeof item !== 'object') throw new Error('Each project must be an object.');
+    validateMetadata(item);
     const project = cleanProject(item);
     if (!project || !project.id || !project.description) throw new Error('Each project needs an ID, name, description, and valid project URL.');
     if ((item.source && !project.source) || (item.image && !project.image)) throw new Error('Use HTTP(S) source links and HTTPS screenshots without embedded credentials.');

@@ -5,7 +5,9 @@ import { projectPreview } from './project-preview';
 import { MAX_DRAFT_BYTES, parseProfileDraft, mergeProfileDraft, decodeReviewLink } from './draft-transfer.mjs';
 import { setupAgentConnections } from './agent-connections';
 
-type Project = { id: string; name: string; description: string; stack: string; url: string; source?: string; local?: boolean; tagline?: string; whyBuilt?: string; learned?: string; image?: string; imageAlt?: string; stage?: string; };
+import { PROJECT_CATEGORIES, SOFTWARE_TYPES, projectMatches } from './project-metadata.mjs';
+
+type Project = { id: string; name: string; description: string; stack: string; url: string; source?: string; local?: boolean; tagline?: string; whyBuilt?: string; learned?: string; image?: string; imageAlt?: string; stage?: string; category?: string; softwareType?: string; audience?: string; features?: string[]; };
 type Contribution = { id: string; title: string; repository: string; number: number; url: string; status: string; date: string; checkedAt: string; };
 type Opportunity = { id: string; name: string; title: string; next: string; url: string; skill: string; };
 const seed = JSON.parse(document.getElementById('sidework-seed')!.textContent!) as { projects: Project[]; contributions: Contribution[]; opportunities: Opportunity[] };
@@ -39,12 +41,13 @@ const save = () => {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, ...state })); return true; }
   catch { storageAvailable = false; notify('Browser storage is unavailable. Your changes work for this visit but will not survive a reload.', true); return false; }
 };
-const defaultShowcase = ['homeport','moodsh','perch','prxps'];
+const catalog = state.includeExamples ? seed.projects : [];
+const defaultShowcase = state.includeExamples ? ['homeport','moodsh','perch','prxps'] : [];
 let editorActive = false;
 let editingId = '';
 let editorBaseline = '';
 let pendingProfileDraft: ReturnType<typeof parseProfileDraft> | null = null;
-const allProjects = () => mergeProjects(seed.projects, [...state.projects, ...importedProjects]) as Project[];
+const allProjects = () => mergeProjects(catalog, [...state.projects, ...(state.includeExamples ? importedProjects : [])]) as Project[];
 const views = ['overview', 'projects', 'showcase', 'editor', 'review', 'agents', 'contributions', 'discover', 'plan', 'connections'];
 function showView(id: string, focus = false) {
   let view = views.includes(id) ? id : 'overview';
@@ -82,10 +85,13 @@ function renderProjects() {
   const query = $('#project-search') as HTMLInputElement;
   const all = allProjects();
   const featured = showcaseProjects(state,all,defaultShowcase).map((item: Project) => item.id);
-  const filtered = all.filter(project => `${project.name} ${project.description} ${project.stack}`.toLowerCase().includes(query.value.trim().toLowerCase()));
+  const filtered = all.filter(project => projectMatches(project, query.value));
   const list = $('#project-list'); list.replaceChildren();
   $('#project-count').textContent = `${filtered.length} of ${all.length} projects`;
   $('#project-empty').hidden = filtered.length !== 0;
+  $('#project-empty').textContent = all.length ? 'No projects match. Try another search.' : 'No projects yet. Import from GitHub or add your first project.';
+  const summary = document.getElementById('workspace-summary');
+  if (summary) summary.textContent = all.length ? `${all.length} ${all.length === 1 ? 'project' : 'projects'} in this browser. Open My projects to edit and feature your work.` : 'Your workspace is empty. Bring a project from GitHub or add one yourself.';
   for (const project of filtered) {
     const row = make('article', 'sw-project-row');
     const monogram = make('span', 'sw-project-monogram', project.name.slice(0, 1));
@@ -202,7 +208,14 @@ $('#plan-list').addEventListener('change', event => {
 });
 
 const form = $('#project-form') as HTMLFormElement;
-const draftValues = () => Object.fromEntries(new FormData(form).entries());
+for (const [name, options] of [['category', PROJECT_CATEGORIES], ['softwareType', SOFTWARE_TYPES]] as const) {
+  const select = form.elements.namedItem(name) as HTMLSelectElement;
+  for (const [value, label] of Object.entries(options)) select.add(new Option(label, value));
+}
+const draftValues = () => {
+  const values = Object.fromEntries(new FormData(form).entries());
+  return {...values, features: String(values.features || '').split(/\r?\n/).map(line => line.trim()).filter(Boolean)};
+};
 function editorDirty() { return editorActive && JSON.stringify(draftValues()) !== editorBaseline; }
 function updateEditorPreview() {
   const values = draftValues();
@@ -217,7 +230,7 @@ function updateEditorPreview() {
 function openEditor(project?: Project) {
   if (editorDirty() && !window.confirm('Discard the unsaved changes to this project?')) return;
   form.reset();
-  for (const control of form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('input,textarea,select')) control.value=String((project as any)?.[control.name] || '');
+  for (const control of form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('input,textarea,select')) control.value=control.name === 'features' ? (project?.features || []).join('\n') : String((project as any)?.[control.name] || '');
   editingId = project?.id || `local-${crypto.randomUUID()}`;
   editorActive = true; editorBaseline = JSON.stringify(draftValues());
   $('#editor-title').textContent = project ? `The story behind ${project.name}.` : 'Tell the story.';
@@ -242,7 +255,7 @@ form.addEventListener('submit', event => {
   if ((values.source && !safeUrl(values.source)) || !safeUrl(values.url)) {fail('Use a complete HTTP or HTTPS link without a username or password.');return;}
   if (values.image && !safeUrl(values.image).startsWith('https://')) {fail('Use a public HTTPS image link for the screenshot.');return;}
   try {
-    const next=saveProjectDraft(state,{...values,id:editingId},seed.projects);
+    const next=saveProjectDraft(state,{...values,id:editingId},catalog);
     if(!persistDraftState(next)){fail('Your draft could not be saved. Your changes are still here; try again after you allow browser storage or free some space.');return;}
     editorBaseline=JSON.stringify(draftValues()); editorActive=false;
     renderProjects(); history.pushState(null,'','#projects');showView('projects',true);
@@ -301,7 +314,7 @@ $('#export-showcase').addEventListener('click',()=>{
 function openDraftReview(value: unknown) {
   const draft = parseProfileDraft(value);
   // Validate the entire merge before offering a save; leave current state intact.
-  mergeProfileDraft(state, draft, seed.projects);
+  mergeProfileDraft(state, draft, catalog);
   pendingProfileDraft = draft;
   $('#feedback').hidden=true;
   const list = $('#draft-review-projects');list.replaceChildren();
@@ -336,7 +349,7 @@ $('#cancel-draft-review')?.addEventListener('click',()=>{pendingProfileDraft=nul
 $('#save-reviewed-draft')?.addEventListener('click',()=>{
   if(!pendingProfileDraft)return;
   try {
-    const next=mergeProfileDraft(state,pendingProfileDraft,seed.projects);
+    const next=mergeProfileDraft(state,pendingProfileDraft,catalog);
     if(!persistDraftState(next))throw new Error('Could not save this browser’s draft. The review is still here. Allow browser storage or free some space, then try again.');
     pendingProfileDraft=null;$('#draft-review-projects').replaceChildren();renderProjects();history.replaceState(null,'','#showcase');showView('showcase',true);notify('Reviewed projects saved in this browser. Your public profile is unchanged.');
   }catch(error){$('#draft-review-error').textContent=error instanceof Error ? error.message : 'Could not save this draft.';$('#draft-review-error').hidden=false;}

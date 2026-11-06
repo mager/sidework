@@ -9,7 +9,7 @@ let controller:AbortController | null = null;
 const status = (message:string) => { $('import-status').textContent = message; };
 function loadExisting() {
   const state = readState(localStorage.getItem(STORAGE_KEY), seed.opportunityIds);
-  existing = new Set([...seed.projects,...state.projects].map(projectKey));
+  existing = new Set([...(state.includeExamples ? seed.projects : []),...state.projects].map(projectKey));
 }
 function matching() {
   const term = input('repo-search').value.trim().toLowerCase();

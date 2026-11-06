@@ -5,12 +5,13 @@ import { stripTypeScriptTypes } from 'node:module';
 import { JSDOM } from 'jsdom';
 import * as state from '../src/scripts/sidework-state.mjs';
 import * as drafts from '../src/scripts/project-drafts.mjs';
+import * as metadata from '../src/scripts/project-metadata.mjs';
 import * as transfer from '../src/scripts/draft-transfer.mjs';
 const read = file => readFileSync(new URL(file,import.meta.url),'utf8');
 const script = stripTypeScriptTypes(read('../src/scripts/sidework.ts')).replace(/^import .*;$/gm,'');
 const preview = stripTypeScriptTypes(read('../src/scripts/project-preview.ts')).replace(/^import .*;$/gm,'').replace('export function','function');
 const composer = read('../src/components/ProjectComposer.astro').replace(/^---[\s\S]*?---/,'').replace(/<Icon\b[^>]*\/>/g,'');
-function editor() {
+function editor(fresh = false) {
   const seed={projects:[{id:'homeport',name:'Homeport',description:'A workspace.',url:'https://homeport.example'}],contributions:[],opportunities:[]};
   const ids=['feedback','project-list','project-count','project-empty','contribution-list','contribution-empty','more-contributions','recent-list','saved-count','submitted-count','week-hint','plan-empty','plan-list','week-slots','featured-count','showcase-empty','showcase-projects','export-showcase','copy-profile','export-work','refresh-github'];
   const panels=['projects','showcase','overview','contributions','discover','plan','connections'].map(id=>`<section class="sw-panel" id="${id}"><h2>${id}</h2></section>`).join('');
@@ -19,7 +20,9 @@ function editor() {
   for(const id of ['project-list','project-count','project-empty'])dom.window.document.querySelector('#projects').append(dom.window.document.getElementById(id));
   for(const id of ['showcase-projects','showcase-empty','featured-count','export-showcase'])dom.window.document.querySelector('#showcase').append(dom.window.document.getElementById(id));
   dom.window.confirm=()=>false;
-  dom.window.dependencies={...state,...drafts,...transfer,setupAgentConnections:()=>{}};
+  dom.window.Error=Error; // Imported dependencies throw in the Node realm.
+  if (!fresh) dom.window.localStorage.setItem(state.STORAGE_KEY, JSON.stringify({version:1}));
+  dom.window.dependencies={...state,...drafts,...transfer,...metadata,setupAgentConnections:()=>{}};
   dom.window.eval(`const {${Object.keys(dom.window.dependencies).join(',')}}=window.dependencies;${preview}\n${script}`);
   return dom;
 }
@@ -38,7 +41,7 @@ test('a storage failure keeps the editor open with the unsaved story intact',()=
   doc.querySelector('[data-edit-project]').click();fill(dom,'whyBuilt','Do not lose this.');
   Object.defineProperty(dom.window.Storage.prototype,'setItem',{value(){throw new Error('Storage full');}});
   submit(dom);
-  assert.equal(doc.querySelector('#editor').hidden,false);assert.equal(doc.querySelector('[name=whyBuilt]').value,'Do not lose this.');assert.equal(doc.querySelector('#draft-error').hidden,false);assert.equal(dom.window.localStorage.getItem(state.STORAGE_KEY),null);dom.window.close();
+  assert.equal(doc.querySelector('#editor').hidden,false);assert.equal(doc.querySelector('[name=whyBuilt]').value,'Do not lose this.');assert.equal(doc.querySelector('#draft-error').hidden,false);assert.equal(dom.window.localStorage.getItem(state.STORAGE_KEY),JSON.stringify({version:1}));dom.window.close();
 });
 test('cancel preserves unsaved edits when discard is rejected; preview text is not executable HTML',()=>{
   const dom=editor(),doc=dom.window.document;
@@ -76,4 +79,35 @@ test('moving to either end retains focus on the moved project in the profile dra
   }
   doc.querySelector('#showcase [data-feature-project]').click();
   assert.equal(doc.activeElement.closest('.sw-panel').id,'showcase');assert.ok(doc.activeElement.dataset.editProject);dom.window.close();
+});
+
+test('a new workspace starts empty and saves only the project the user adds',()=>{
+ const dom=editor(true),doc=dom.window.document;
+ assert.equal(doc.querySelectorAll('.sw-project-row').length,0);
+ assert.equal(doc.querySelector('#featured-count').textContent,'0 of 6 selected');
+ doc.querySelector('#add-project').click();fill(dom,'name','My first project');fill(dom,'url','https://example.com/first');submit(dom);
+ const saved=JSON.parse(dom.window.localStorage.getItem(state.STORAGE_KEY));
+ assert.equal(saved.includeExamples,false);assert.equal(saved.projects.length,1);
+ assert.equal(doc.querySelectorAll('.sw-project-row').length,1);dom.window.close();
+});
+
+
+test('project metadata saves, previews, reopens, and rejects excessive features without losing edits',()=>{
+  const dom=editor(),doc=dom.window.document;
+  doc.querySelector('[data-edit-project]').click();
+  fill(dom,'category','developer-tools');fill(dom,'softwareType','cli');fill(dom,'audience','Shell users');fill(dom,'features','Preview colors\nExport a theme');
+  assert.match(doc.querySelector('#project-preview').textContent,/Developer tools.*Command-line tool/s);
+  assert.match(doc.querySelector('#project-preview').textContent,/Shell users/);
+  assert.equal(doc.querySelectorAll('.sw-story-features li').length,2);
+  submit(dom);
+  const saved=JSON.parse(dom.window.localStorage.getItem(state.STORAGE_KEY));
+  assert.deepEqual(saved.projects[0].features,['Preview colors','Export a theme']);
+  doc.querySelector('[data-edit-project]').click();
+  assert.equal(doc.querySelector('[name=features]').value,'Preview colors\nExport a theme');
+  assert.equal(doc.querySelector('[name=category]').value,'developer-tools');
+  fill(dom,'features','One\nTwo\nThree\nFour\nFive\nSix');submit(dom);
+  assert.equal(doc.querySelector('#editor').hidden,false);
+  assert.match(doc.querySelector('#draft-error').textContent,/five features/);
+  assert.equal(JSON.parse(dom.window.localStorage.getItem(state.STORAGE_KEY)).projects[0].features.length,2);
+  dom.window.close();
 });

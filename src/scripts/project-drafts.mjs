@@ -1,4 +1,5 @@
 import { cleanProject, mergeProjects } from './sidework-state.mjs';
+import { validateMetadata } from './project-metadata.mjs';
 export const MAX_FEATURED = 6;
 export const STAGES = { exploring:'Exploring', building:'Building', shipped:'Shipped', paused:'Paused' };
 export function showcaseProjects(state, projects, defaults) {
@@ -6,6 +7,7 @@ export function showcaseProjects(state, projects, defaults) {
   return order.map(id => projects.find(project => project.id === id)).filter(Boolean).slice(0, MAX_FEATURED);
 }
 export function saveProjectDraft(state, values, seed = []) {
+  validateMetadata(values);
   const project = cleanProject({ ...values, local:true });
   if (!project || !project.id) throw new Error('Add a project name and a valid project URL.');
   const key = value => (value.source || value.url).replace(/\/$/,'').toLowerCase();

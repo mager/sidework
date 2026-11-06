@@ -1,25 +1,19 @@
 ---
-import BaseHead from './BaseHead.astro';
+import { PROJECT_CATEGORIES, SOFTWARE_TYPES, projectMatches } from '../scripts/project-metadata.mjs';
+import '../styles/project-metadata.css';
+import StudioLayout from './StudioLayout.astro';
 import Icon from './SideworkIcon.astro';
 import {projects} from '../data/projects';
 import contributions from '../data/sidework-contributions.json';
-import '../styles/sidework.css';
-import '../styles/studio.css';
 const {profile = false} = Astro.props;
 const ordered = ['homeport','moodsh','perch','prxps'].map(id => projects.find(p => p.id === id)!);
 const latest = contributions[0];
+const requestedCategory = Astro.url.searchParams.get('category') || '';
+const category = Object.hasOwn(PROJECT_CATEGORIES, requestedCategory) ? requestedCategory : '';
+const visibleProjects = ordered.filter(project => projectMatches(project, '', category));
+const availableCategories = Object.entries(PROJECT_CATEGORIES).filter(([id]) => ordered.some(project => project.category === id));
 ---
-<!doctype html>
-<html lang="en" data-theme="dark">
-<head><BaseHead title={profile ? '@mager · Sidework' : 'Explore · Sidework'} description="Explore personal software, its builders, and their open source contributions."/><meta name="robots" content="noindex, nofollow"/></head>
-<body class="studio" data-profile={profile}>
-<a class="skip-link" href="#studio-main">Skip to projects</a>
-<header class="studio-header">
- <a href="/" class="studio-wordmark" aria-label="Sidework home"><Icon name="branch" size={23}/>sidework<span>.</span></a>
- <nav aria-label="Explore Sidework"><a href="/" aria-current={!profile ? 'page' : undefined}>Explore</a><a href="/mager/" aria-current={profile ? 'page' : undefined}>@mager</a><button type="button" popovertarget="saved-projects"><Icon name="bookmark" size={16}/>Saved <span id="saved-count">0</span></button><a href="/workbench/"><Icon name="code" size={17}/>Workbench</a></nav>
- <a href="/onboarding/" class="sw-button studio-import"><Icon name="plus" size={16}/>Import projects</a>
-</header>
-<main id="studio-main" class="studio-main">
+<StudioLayout title={profile ? '@mager · Sidework' : 'Explore · Sidework'} active={profile ? 'profile' : 'explore'}>
  {!profile && <div class="studio-discovery"><h1>Explore builders</h1><span>First on Sidework</span><a href="/workbench/#agents">Connect your agent <Icon name="arrow" size={15}/></a></div>}
  <section class="studio-maker" aria-label="@mager’s profile">
   <a href={profile ? 'https://github.com/mager' : '/mager/'} class="studio-avatar"><img src="/images/mager.jpg" alt="@mager’s illustrated portrait" width="56" height="56"/></a>
@@ -27,23 +21,17 @@ const latest = contributions[0];
   <div class="studio-maker-actions"><a href="https://github.com/mager"><Icon name="code" size={17}/>GitHub</a><button id="follow-maker" type="button" aria-pressed="false" class="sw-button">Follow</button></div>
  </section>
  <div class="studio-recent"><span class={`sw-status sw-status-${latest.status}`}>{latest.status}</span><a href={latest.url}>{latest.title}<Icon name="external" size={13}/></a><a class="studio-recent-all" href="#contributions">All contributions <Icon name="arrow" size={14}/></a></div>
- <section class="studio-project-browser" aria-label="Projects by @mager" data-project-browser>
-  <nav class="studio-project-tabs" aria-label="Choose a project">{ordered.map(project=><a id={`tab-${project.id}`} href={`#project-${project.id}`} data-project-tab={project.id}><Icon name="code" size={16}/><span><strong>{project.name}</strong><small>{project.kind}</small></span></a>)}</nav>
-  {ordered.map(project=><article id={`project-${project.id}`} class="studio-project" data-project-panel={project.id}>
-   <header class="studio-project-heading"><div><h2>{project.name}</h2><a class="studio-byline" href="/mager/">Built by @mager</a></div><div class="studio-project-actions"><button class="sw-button studio-save" data-save-project={project.id} type="button" aria-pressed="false" aria-label={`Save ${project.name}`}><Icon name="bookmark" size={16}/><span>Save</span></button><a class="sw-button sw-primary" href={project.url}>Open app <Icon name="external" size={15}/></a></div></header>
-   <div class="studio-project-workspace">
-    <a href={project.url} class={`studio-project-visual ${project.image ? '' : 'studio-project-placeholder'}`} aria-label={`Open ${project.name}`}>
-     {project.image ? <img src={project.image} alt={project.imageAlt} width="1536" height="1024" loading={project.id==='homeport' ? 'eager' : 'lazy'}/> : <><Icon name="code" size={38}/><strong>prxps</strong><span>Free sports picks · Public record</span></>}
-    </a>
-    <div class="studio-project-info"><h3>{project.tagline}</h3><p>{project.description}</p><dl><div><dt>Built with</dt><dd>{project.stack}</dd></div><div><dt>Project notes</dt><dd>{project.note}</dd></div></dl><nav aria-label={`${project.name} links`}>{project.source && <a href={project.source}><Icon name="code" size={16}/>{new URL(project.source).pathname.slice(1)}<Icon name="external" size={13}/></a>}<a href={`https://mager.co${project.story}`}>Read the build log <Icon name="arrow" size={15}/></a></nav></div>
-   </div>
+ <nav class="project-categories" aria-label="Project categories"><a href={Astro.url.pathname} aria-current={!category ? 'page' : undefined}>All projects</a>{availableCategories.map(([id, label]) => <a href={`${Astro.url.pathname}?category=${id}`} aria-current={category === id ? 'page' : undefined}>{label}</a>)}</nav>
+ <p class="project-result-count" role="status">{visibleProjects.length} of {ordered.length} projects</p>
+ <section class="studio-project-index" aria-label="Projects by @mager">
+  {visibleProjects.map(project => <article id={`project-${project.id}`} class={`studio-project-preview ${project.image ? '' : 'studio-project-text'}`}>
+   <a href={`/projects/${project.id}/`} class="studio-preview-link">
+    {project.image && <img src={project.image} alt={project.imageAlt} width="1536" height="1024" loading={project.id === 'homeport' ? 'eager' : 'lazy'}/>}
+    <div class="studio-preview-heading"><h2>{project.name}</h2><Icon name="arrow" size={24}/></div>
+    <p>{project.tagline}</p><span>{[PROJECT_CATEGORIES[project.category], SOFTWARE_TYPES[project.softwareType]].filter(Boolean).join(' · ') || project.kind}</span>
+   </a>
   </article>)}
  </section>
+ {visibleProjects.length === 0 && <p>No projects in this category yet. <a href={Astro.url.pathname}>See all projects</a>.</p>}
  <section class="studio-contributions" id="contributions" aria-labelledby="upstream-title"><header><h2 id="upstream-title">Contributions</h2><span>Selected pull requests · Checked Nov 4, 2026</span><a href="/workbench/#contributions">Open workbench <Icon name="arrow" size={14}/></a></header><div>{contributions.map(item=><article class="studio-contribution"><Icon name="branch" size={17}/><div><a href={item.url}>{item.title}<Icon name="external" size={13}/></a><p>{item.repository} · #{item.number}</p></div><span class={`sw-status sw-status-${item.status}`}>{item.status}</span></article>)}</div><p class="studio-local-note">Saves and follows stay in this browser. Shared updates are not connected yet.</p></section>
-</main>
-<footer class="studio-footer"><a href="https://github.com/mager/sidework">Built with Astra <Icon name="code" size={15}/></a><span>Sidework, by <a href="/mager/">@mager</a></span><button type="button" id="studio-theme">Light / dark</button></footer>
-<aside id="saved-projects" popover class="studio-saved"><header><h2>Saved projects</h2><button type="button" popovertarget="saved-projects" popovertargetaction="hide" aria-label="Close saved projects">×</button></header><p>Kept in this browser.</p><div id="saved-project-list"><p>Save a project and come back to it here.</p></div></aside>
-<p role="status" aria-live="polite" class="studio-toast" id="studio-feedback" hidden></p>
-<script id="studio-project-data" type="application/json" set:html={JSON.stringify(ordered.map(({id,name,tagline})=>({id,name,tagline}))).replace(/</g,'\\u003c')}/>
-<script src="../scripts/studio.ts"></script>
-</body></html>
+</StudioLayout>

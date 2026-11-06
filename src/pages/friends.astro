@@ -1,0 +1,34 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Icon from '../components/SideworkIcon.astro';
+import '../styles/sidework.css';
+import '../styles/friends.css';
+---
+<!doctype html>
+<html lang="en">
+<head><BaseHead title="Friends · Sidework" description="Keep up with the builders whose work you follow."/><meta name="robots" content="noindex,nofollow"/></head>
+<body class="friends-page">
+<a class="skip-link" href="#main">Skip to friends</a>
+<header class="friends-header">
+ <a class="friends-brand" href="/" aria-label="Sidework home"><Icon name="branch" size={23}/>sidework.</a>
+ <nav aria-label="Site navigation"><a href="/">Explore</a><a href="/friends/" aria-current="page">Friends</a><a href="/workbench/">Workbench</a></nav>
+ <a class="friends-settings" href="/settings/">Settings</a>
+</header>
+<main class="friends-main" id="main">
+ <section class="friends-welcome" aria-labelledby="welcome-title">
+  <div><h1 id="welcome-title">You’re in. Make yourself at home.</h1><p>Bring something you’ve built. Find people whose work you like.</p></div>
+  <a class="sw-button sw-primary" href="/onboarding/">Add your first project <Icon name="arrow" size={16}/></a>
+ </section>
+ <section class="friends-list" aria-labelledby="friends-title">
+  <header><h2 id="friends-title">Friends</h2><p>Builders you follow. Saved in this browser.</p></header>
+  <div class="friends-empty" id="friends-empty"><Icon name="profile" size={28}/><h3>Your circle starts here.</h3><p>Follow a builder to keep their profile close.</p><a href="/">Explore the work <Icon name="arrow" size={16}/></a></div>
+  <article class="friend-row" id="friend-mager" hidden><a class="friend-person" href="/mager/"><img src="/images/mager.jpg" alt="" width="52" height="52"/><span><strong>@mager</strong><span>Personal software from Chicago.</span></span></a><div class="friend-actions"><a class="sw-button" href="/mager/">View work <Icon name="arrow" size={16}/></a><button class="sw-button" type="button" id="unfollow-mager">Unfollow @mager</button></div></article>
+ </section>
+ <section class="friends-discover" aria-labelledby="discover-title" id="discover-builder"><header><h2 id="discover-title">Start with a builder</h2><p>The first public profile on Sidework.</p></header><article class="friend-row"><a class="friend-person" href="/mager/"><img src="/images/mager.jpg" alt="" width="52" height="52"/><span><strong>@mager</strong><span>Homeport, Mood Shell, Perch, and prxps.</span></span></a><div class="friend-actions"><a href="/mager/" class="sw-button">View work <Icon name="arrow" size={16}/></a><button class="sw-button" type="button" id="follow-mager" aria-pressed="false">Follow @mager</button></div></article></section>
+ <p class="friends-status" id="friends-status" role="status" hidden></p>
+ <noscript><p class="friends-status">Enable JavaScript to view and change your local follows.</p></noscript>
+
+</main>
+<footer class="friends-footer"><a href="https://github.com/mager/sidework">Built with Astra</a><form method="POST" action="/api/signout"><button type="submit" class="sw-button">Lock Sidework</button></form></footer>
+<script>import '../scripts/friends';</script>
+</body></html>

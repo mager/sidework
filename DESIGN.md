@@ -1,29 +1,25 @@
 ---
 name: Sidework
-description: A compact browser for personal software and source evidence.
+description: Personal software shown on open pages with clear source evidence.
 colors:
-  moss-ground: "#101310"
-  moss-surface: "#171c17"
-  moss-raised: "#1e251e"
-  chalk-text: "#eef1e9"
-  sage-muted: "#a3ad9f"
-  moss-border: "#30392f"
-  lime-accent: "#b9eb9e"
-  lime-ink: "#172512"
-  warm-state: "#e9d6ad"
-  blue-state: "#b4cbe2"
-  clay-poster: "#edc3a0"
-  clay-ink: "#29221e"
-  light-ground: "#f5f6f0"
-  light-surface: "#fffef9"
-  light-raised: "#e8ede3"
-  light-text: "#1c271b"
-  light-muted: "#53614e"
-  light-border: "#d2dacb"
-  light-accent: "#326823"
+  dark-ground: "#000000"
+  dark-surface: "#0d0d0d"
+  dark-raised: "#1c1c1c"
+  dark-text: "#ffffff"
+  dark-muted: "#a3a3a3"
+  dark-border: "#333333"
+  dark-accent: "#ffffff"
+  dark-accent-ink: "#000000"
+  dark-state: "#d4d4d4"
+  light-ground: "#ffffff"
+  light-surface: "#fafafa"
+  light-raised: "#f0f0f0"
+  light-text: "#000000"
+  light-muted: "#606060"
+  light-border: "#d4d4d4"
+  light-accent: "#000000"
   light-accent-ink: "#fff"
-  light-warm: "#745925"
-  light-blue: "#315d84"
+  light-state: "#404040"
 typography:
   wordmark:
     fontFamily: "'Anybody', 'Arial Narrow', sans-serif"
@@ -33,10 +29,43 @@ typography:
     letterSpacing: -.04em
   project-title:
     fontFamily: "'Martian Mono', monospace"
-    fontSize: 1.5rem
+    fontSize: clamp(1.25rem, 2vw, 1.75rem)
     fontWeight: 500
     lineHeight: 1.4
     letterSpacing: -.025em
+  project-text-title:
+    fontFamily: "'Martian Mono', monospace"
+    fontSize: clamp(2rem, 5vw, 4rem)
+    fontWeight: 500
+    lineHeight: 1.4
+    letterSpacing: -.025em
+  project-text-tagline:
+    fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
+    fontSize: clamp(1.5rem, 3vw, 2.25rem)
+    fontWeight: 400
+    lineHeight: 1.3
+  project-detail-title:
+    fontFamily: "'Martian Mono', monospace"
+    fontSize: clamp(2rem, 5vw, 4.5rem)
+    fontWeight: 500
+    lineHeight: 1.2
+    letterSpacing: -.035em
+  project-detail-tagline:
+    fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
+    fontSize: clamp(1.125rem, 2vw, 1.75rem)
+    fontWeight: 400
+    lineHeight: 1.5
+  project-detail-body:
+    fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
+    fontSize: clamp(1.125rem, 2vw, 1.5rem)
+    fontWeight: 400
+    lineHeight: 1.65
+  settings-title:
+    fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
+    fontSize: clamp(2rem, 4vw, 3rem)
+    fontWeight: 550
+    lineHeight: 1.2
+    letterSpacing: -.035em
   body:
     fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
     fontSize: 1rem
@@ -142,21 +171,6 @@ typography:
     fontWeight: 500
     lineHeight: 1.5
     letterSpacing: -.025em
-  project-tab:
-    fontFamily: "'Martian Mono', monospace"
-    fontSize: .8125rem
-    fontWeight: 500
-    lineHeight: 1.6
-  project-purpose:
-    fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
-    fontSize: 1.125rem
-    fontWeight: 550
-    lineHeight: 1.4
-  project-description:
-    fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
-    fontSize: .875rem
-    fontWeight: 400
-    lineHeight: 1.7
   discovery-title:
     fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
     fontSize: 1.25rem
@@ -174,117 +188,127 @@ spacing:
   control-gap: 12px
   row-gap: 18px
   panel-inset: 24px
-  browser-inset: 24px
-  browser-pane-gap: 28px
+  project-column-gap: 36px
+  project-row-gap: 56px
+  project-mobile-gap: 40px
 components:
   button-primary:
-    backgroundColor: "{colors.lime-accent}"
-    textColor: "{colors.lime-ink}"
+    backgroundColor: "{colors.dark-accent}"
+    textColor: "{colors.dark-accent-ink}"
     rounded: "{rounded.control}"
     padding: 9px 13px
   button-secondary:
     backgroundColor: transparent
-    textColor: "{colors.chalk-text}"
+    textColor: "{colors.dark-text}"
     rounded: "{rounded.control}"
     padding: 9px 13px
   save-button:
     backgroundColor: transparent
-    textColor: "{colors.chalk-text}"
+    textColor: "{colors.dark-text}"
     rounded: "{rounded.control}"
     padding: 9px 13px
   search-field:
-    backgroundColor: "{colors.moss-surface}"
-    textColor: "{colors.chalk-text}"
+    backgroundColor: "{colors.dark-surface}"
+    textColor: "{colors.dark-text}"
     rounded: "{rounded.control}"
     padding: 0 13px
   filter-chip:
     backgroundColor: transparent
-    textColor: "{colors.sage-muted}"
+    textColor: "{colors.dark-muted}"
     rounded: "{rounded.control}"
     padding: 9px 13px
   status-merged:
-    textColor: "{colors.lime-accent}"
+    textColor: "{colors.dark-accent}"
     rounded: "{rounded.status}"
     padding: 2px 7px
   workbench-feature:
-    backgroundColor: "{colors.moss-surface}"
-    textColor: "{colors.chalk-text}"
+    backgroundColor: "{colors.dark-surface}"
+    textColor: "{colors.dark-text}"
     rounded: "{rounded.panel}"
   saved-collection:
-    backgroundColor: "{colors.moss-surface}"
-    textColor: "{colors.chalk-text}"
+    backgroundColor: "{colors.dark-surface}"
+    textColor: "{colors.dark-text}"
     rounded: "{rounded.popover}"
     padding: 24px
   entry-field:
-    backgroundColor: "{colors.moss-surface}"
-    textColor: "{colors.chalk-text}"
+    backgroundColor: "{colors.dark-surface}"
+    textColor: "{colors.dark-text}"
     rounded: "{rounded.control}"
     padding: 13px 15px
     typography: "{typography.body}"
   repository-row:
-    textColor: "{colors.chalk-text}"
+    textColor: "{colors.dark-text}"
     padding: 20px 0
   story-field:
-    backgroundColor: "{colors.moss-surface}"
-    textColor: "{colors.chalk-text}"
+    backgroundColor: "{colors.dark-surface}"
+    textColor: "{colors.dark-text}"
     rounded: "{rounded.control}"
     padding: 12px 14px
     typography: "{typography.body}"
   feature-selected:
-    backgroundColor: "{colors.moss-raised}"
-    textColor: "{colors.lime-accent}"
+    backgroundColor: "{colors.dark-raised}"
+    textColor: "{colors.dark-accent}"
     rounded: "{rounded.control}"
     padding: 9px 13px
   public-navigation:
-    backgroundColor: "{colors.moss-ground}"
-    textColor: "{colors.sage-muted}"
+    backgroundColor: "{colors.dark-ground}"
+    textColor: "{colors.dark-muted}"
     padding: 12px 28px
-  project-switcher:
-    backgroundColor: "{colors.moss-surface}"
-    textColor: "{colors.sage-muted}"
-    typography: "{typography.project-tab}"
-  project-browser:
-    textColor: "{colors.chalk-text}"
+  project-index-link:
+    textColor: "{colors.dark-text}"
+    typography: "{typography.project-title}"
+  studio-button:
+    backgroundColor: "{colors.dark-surface}"
+    textColor: "{colors.dark-text}"
     rounded: "{rounded.control}"
-    padding: 24px
+    padding: 9px 13px
+  settings-theme:
+    backgroundColor: "{colors.dark-surface}"
+    textColor: "{colors.dark-text}"
+    rounded: "{rounded.control}"
+    padding: 8px 24px 8px 10px
 ---
 
 # Design System: Sidework
 
 ## Overview
 
-**Creative North Star: "A software browser"**
+**Creative North Star: "The work in view"**
 
-Sidework presents personal software as a compact browser. A maker row and the latest actual contribution lead into a horizontal project switcher. One selected project pairs a screenshot with its purpose, stack, notes, source, and app link. Six compact contribution rows complete the public record.
+Sidework gives personal software room to be seen. Black, white, and neutral gray keep the interface quiet. Open space separates project content without card borders or panel frames. Real screenshots keep their original colors and remain straight.
 
-Public browsing and the separate workbench both use Operate mode: choose, inspect, and act. The workbench retains its editor, private showcase, import, and agent review flows. Moss surfaces, lime actions, Bricolage Grotesque reading text, Martian Mono technical content, and an Anybody wordmark connect the two interfaces. The exact /mager/ profile is public; discovery and management need an invite. Agent access uses a separate scoped token.
+Bricolage Grotesque carries reading text, Martian Mono identifies projects and source records, and Anybody marks the brand. Project pages use large type and full-width images. Management pages use clear labels and compact controls. The same fonts and palette connect both uses.
 
 **Key Characteristics:**
-- A compact maker row keeps @handle identity in view.
-- One selected project shows its screenshot, purpose, and source together.
+- A minimal black and white interface keeps the work in view.
+- Light, Dark, and System modes share the same layout and type.
+- Open space separates project content without frames.
+- Real screenshots keep their original colors and natural ratio on detail pages.
 - Real contribution evidence replaces decorative activity.
-- Keyboard tabs, direct links, history, and no-JavaScript content all work.
+- Normal project links work without JavaScript.
 - Local drafts, saves, follows, and public records remain distinct.
 
-This records the approved November 4, 2026 software-browser correction. Source authority is the applied cascade in src/styles/sidework.css, studio.css, entry.css, composer.css, and agents.css, plus src/components/Studio.astro. The public implementation is src/components/Studio.astro, src/styles/studio.css, and src/scripts/studio.ts. PRODUCT.md and docs/sidework-surface.md record product scope and review. Fonts come from src/styles/fonts.css; images from docs/assets.json. This is a refinement of the existing world.
+This records the approved November 5, 2026 project-page and Settings update. It supersedes the compact software browser and project tabs. Source authority is the applied CSS in src/styles/sidework.css, studio.css, settings.css, friends.css, entry.css, composer.css, and agents.css. The project surfaces use Studio.astro, StudioLayout.astro, and src/pages/projects/[slug].astro. PRODUCT.md and docs/sidework-surface.md record product scope and review. Fonts come from src/styles/fonts.css; images from docs/assets.json.
 
 ## Colors
 
-The palette stays moss, lime, and pale text. Frontmatter values are normative. Dark is the default; an explicit light choice is stored under sidework-theme and applied before paint.
+The interface uses black, white, and neutral gray in both themes. Frontmatter values are normative. Color from real project screenshots remains visible.
 
 ### Primary
 
-Lime accent marks identity links, actions, focus, selected states, and saved states. Lime ink supplies text on filled accent controls.
-
-### Secondary
-
-Blue state identifies open contributions. Warm state identifies closed contributions and errors. Clay remains only in local story placeholders; the public prxps placeholder uses the shared surface, text, and lime colors.
+The action color is white in Dark mode and black in Light mode. It marks actions, focus, selected states, and saved states. Filled controls use the opposite text color.
 
 ### Neutral
 
-Ground, surface, and raised moss tones separate content. Chalk is primary text; sage is secondary text and code. Moss borders define fields, file headers, screenshots, and evidence rows. Light tokens replace their dark counterparts without changing roles. Screenshots retain their source colors in both themes.
+Ground, surface, and raised tones separate content. Primary text has the strongest contrast; muted text supports descriptions and source metadata. Borders define workbench fields, file headers, and Friends rows. Project content and screenshots have no border or panel frame. Local story placeholders use the shared raised surface and primary text. The state tokens supply neutral text for open and closed contributions and errors; explicit labels preserve their meaning. The existing CSS names for these state roles do not imply colored accents.
 
-**The Source Color Rule.** Keep real software screenshots in their original colors. Do not tint them to match the interface.
+**The Neutral Interface Rule.** Use only black, white, and neutral gray for interface surfaces, controls, focus, and status. Preserve explicit status labels.
+
+**The Source Color Rule.** Keep real software screenshots in their original colors. Do not tint or desaturate them to match the interface.
+
+### Theme behavior
+
+System is the default. Light and Dark are explicit overrides. The saved choice uses sidework-theme and is applied before paint. System follows operating-system changes while the page is open. Changes in another tab update the current tab. If storage is unavailable, selection still works for the current page. Without JavaScript, CSS follows the system preference and hides the inactive selector.
 
 ## Typography
 
@@ -296,10 +320,11 @@ All use self-hosted Latin WOFF2 subsets and font-display swap. Anybody and Brico
 
 ### Hierarchy
 
-- **Wordmark:** Anybody for brand use only. Public navigation uses 1.5rem, reduced to 1.375rem at 650px; entry pages retain 1.75rem and the workbench retains 1.5625rem.
-- **Maker handle and project title:** compact Martian Mono identity at 1.5rem. Both reduce to 1.25rem on mobile; their line heights differ as recorded in the tokens.
-- **Project tab:** mono name with a smaller Bricolage kind label. Mobile names use .75rem and kind labels .6875rem.
-- **Project purpose and description:** Bricolage at 1.125rem and .875rem. Description line height is 1.7 with a maximum measure of 65ch.
+- **Wordmark:** Anybody for brand use only. Project navigation uses 1.5rem, reduced to 1.375rem at 760px; entry pages retain 1.75rem and the workbench retains 1.5625rem.
+- **Maker handle:** Martian Mono identity at 1.5rem, reduced to 1.25rem at 760px.
+- **Project title:** Martian Mono names scale from 1.25rem to 1.75rem in the index. The text-only prxps name scales to 4rem; its tagline scales to 2.25rem with a 20ch measure.
+- **Project detail:** the mono title scales to 4.5rem. The Bricolage tagline scales to 1.75rem, and the description to 1.5rem with a 65ch measure. These larger roles are intentional.
+- **Settings title:** Bricolage scales from 2rem to 3rem. Section headings use 1.25rem, and section descriptions and the theme selector use .9375rem.
 - **Body and story caption:** workbench reading and local story purpose remain unchanged. Local story notes use body size with line height 1.8 and 65ch measure; taglines use 1.25rem and 45ch.
 - **Code body and label:** commands, repository paths, stacks, counts, and evidence. Contribution repository lines use .6875rem, reduced to .625rem on mobile. Agent prompts retain their mono prompt role.
 - **Workbench, entry, composer, and story titles:** existing compact Bricolage roles for each management task. Form text remains 1rem. The composer heading is 1.875rem at 700px and below.
@@ -308,47 +333,65 @@ All use self-hosted Latin WOFF2 subsets and font-display swap. Anybody and Brico
 
 ## Layout
 
-The public header is sticky at the top with a ground fill, bottom border, and 12px by 28px padding. Main content and footer use a 1320px maximum width and 36px side padding. A 56px portrait, identity, and GitHub/Follow actions form the maker row. The latest real contribution appears directly below it; the linked title truncates on one line when needed.
+The project header is sticky with a ground fill and 12px by 28px padding. It has no bottom border. Settings sits on the right. Main content and footer use the full width with clamp(16px, 3vw, 64px) side padding. A 56px portrait, identity, and GitHub/Follow actions form the maker row. The latest real contribution appears below it.
 
-The project browser is one bordered 6px container. Its horizontal switcher scrolls inside that container. Tabs are at least 64px high, with 14px by 20px padding. Each project has 24px padding. The selected workspace uses minmax(0, 1fr) and minmax(260px, .46fr) columns with a 28px gap. Images fit without cropping in a clamp(260px, 27vw, 380px) height. The details pane keeps purpose, description, stack, notes, repository, and build log together.
+The project index has two equal columns, with 36px between columns and 56px between rows. Each preview is an ordinary link. Images use a 1.5 aspect ratio and object-fit contain, with no outline or rounded frame. Project headings sit 20px below the image. The text-only prxps entry aligns to the bottom of its grid cell.
 
-At 900px, main padding reduces to 24px, project padding to 20px, and the pane gap to 20px; the details column becomes minmax(220px, .65fr). The header Import projects action hides. At 650px, the header wraps into a wordmark and full-width navigation row, main padding becomes 16px, the portrait becomes 44px, and maker actions take their own row. Tabs have a 142px minimum width and remain horizontally scrollable. The selected workspace stacks image above details; images use a 1.5 aspect ratio with a 260px cap, and the prxps placeholder is 220px high. Project and contribution anchors account for the taller sticky header.
+Detail pages place the project title and tagline beside Save and Open app, then show the real screenshot across the content width at its natural ratio. A caption follows. Description and source metadata use a 2fr/1fr grid with a 240px minimum metadata column and 10vw gap. This section has 64px top and 80px bottom margins. More by @mager links follow.
 
-Contributions begin 32px below the browser, or 24px on mobile. Six rows use 14px vertical padding, a title/repository group, and explicit status. The footer follows content in normal flow; no bottom dock or reserved dock gap remains.
+At 900px the header uses 20px side padding and hides Import projects. At 760px the header wraps into a wordmark and Settings row above full-width navigation. The portrait becomes 44px and maker actions take their own row. The project index becomes one column with 40px gaps. Detail headings stack above actions, and the story becomes one column with a 36px gap and 40px/48px vertical margins. The screenshot retains its natural ratio.
 
-The workbench has a 1536px maximum width, a 204px rail, flexible main area, and 262px context panel. At 1180px side areas reduce to 180px and 225px. At 960px the context panel disappears and the rail becomes 175px. At 700px the shell becomes one flow with wrapping navigation. Main side padding is 32px, 42px from 1440px, 24px at intermediate widths, and 18px on mobile.
+Contributions begin 72px below the index, or 48px at 760px. Six unboxed rows use 14px vertical padding and explicit status. The footer follows content in normal flow.
+
+Settings content is at most 960px wide, with 48px top and 64px bottom padding. Appearance, Workspace, and Invite access use unboxed sections with 56px top margins. Each section has a flexible description column and an action column, with 20px vertical and 48px horizontal gaps. At 760px, sections stack, their top margins reduce to 40px, and page top padding becomes 28px.
+
+The workbench has a 1536px maximum width, a 204px rail, flexible main area, and 262px context panel. At 1180px side areas reduce to 180px and 225px. At 960px the context panel disappears and the rail becomes 175px. At 700px the shell becomes one flow with wrapping navigation. Main side padding is 32px, 42px from 1440px, 24px at intermediate widths, and 18px on mobile. At 400px, the shared workbench header navigation wraps so that its links and Settings link fit.
 
 Editor, showcase, Agents, and Review hide the context panel. The editor splits form and preview equally above 960px, with a clamp(28px, 4vw, 64px) gap, reduced to 28px at 1180px. Its preview sticks 24px below the top, with internal scrolling capped at calc(100dvh - 48px). At 960px it follows the form without a height cap. Paired form fields stack at 1180px. Private showcase entries alternate 90% and 80% widths, become full width at 960px, and reduce vertical margins on mobile.
 
 Entry content is at most 700px for invites and 920px for import, with 24px side margins; forms are at most 450px and 580px. At 650px import actions and footers wrap, and the import form button uses full width. Its bottom action bar remains sticky. Agents content is at most 960px wide. Commands and manual-copy text wrap or scroll inside their own surfaces.
 
+Friends uses a 1040px maximum content width with 24px side margins. The welcome row pairs a compact heading with the first-project action. Profile rows align identity and actions horizontally. At 760px and below, navigation takes a separate row, the welcome and profile rows stack, and side margins reduce to 16px.
+
 ## Elevation & Depth
 
-Public software and portraits are straight, with no perspective, screenshot shadow, or decorative depth motion. Borders and surface tones separate the browser, tabs, images, and source information. Shadows remain only on the saved-project popover and status toast.
+Project screenshots and portraits are straight, with no perspective, screenshot shadow, or decorative depth motion. Open space separates project content. Shadows remain on the saved-project popover and status toast. Workbench controls retain their existing border and surface treatments.
 
-**The Still Software Rule.** Keep software previews straight and still. Use borders and surface tones for separation; reserve shadows for floating controls and feedback.
+**The Open Content Rule.** Keep project content free of card borders and panel frames. Use space and type to separate it.
 
-Tab selection changes the visible panel without an animation. Native cross-document view transitions remain, with named maker portrait and handle elements. Shared 160ms workbench button feedback remains. Reduced motion removes animations, transitions, and smooth scrolling. Management disclosures and local preview behavior are unchanged.
+**The Still Software Rule.** Keep software previews straight and still. Reserve shadows for floating controls and feedback.
+
+Native cross-document view transitions remain, with named maker portrait and handle elements. Shared 160ms workbench button feedback remains. Reduced motion removes animations, transitions, and smooth scrolling. Management disclosures and local preview behavior are unchanged.
 
 ## Shapes
 
-Use compact rectangles. The shared workbench panel radius is 4px. The public browser, portrait, saved popover, and toast use 6px corners; its images and header navigation items use 4px. Public Save and Follow use the shared 6px workbench controls. Entry and story fields retain 6px corners; local story media retain 8px corners and a 16:10 frame.
+Use compact rectangular controls. The shared workbench panel radius is 4px. The portrait, saved popover, toast, and buttons use 6px corners. Project screenshots have square corners and no frame. Header navigation uses 4px corners. Entry and story fields retain 6px corners; local story media retain 8px corners and a 16:10 frame.
 
 ## Components
 
 ### Buttons and fields
 
-Workbench buttons retain a 42px minimum height, 6px radius, and 9px by 13px padding. Primary actions use lime fill; secondary actions use a transparent fill and border. Hover raises the surface. Disabled actions use 0.6 opacity; disabled reorder controls use a default cursor. Public Save and Follow reuse the 42px minimum-height workbench button and explicit pressed states.
+Workbench buttons retain a 42px minimum height, 6px radius, and 9px by 13px padding. Primary actions use the high-contrast action fill; secondary actions use a transparent fill and border. Hover raises the surface. Disabled actions use 0.6 opacity; disabled reorder controls use a default cursor. Project-page Save and Follow use 44px minimum-height controls without borders and explicit pressed states. Secondary controls use the shared surface fill.
 
-Story fields and token fields use 48px minimum height and 12px by 14px padding. Entry fields use 13px by 15px padding. Textareas resize vertically. Focus uses a 2px accent outline offset 4px; the search group uses a 2px offset. Native required, URL, and length constraints remain. Error text uses the warm color.
+Story fields and token fields use 48px minimum height and 12px by 14px padding. Entry fields use 13px by 15px padding. Textareas resize vertically. Focus uses a 2px accent outline offset 4px; the search group uses a 2px offset. Native required, URL, and length constraints remain. Errors use neutral state text and an explicit message.
 
-### Public navigation and project browser
+### Settings and theme control
 
-The sticky header contains Explore, @mager, Saved with a count, and Workbench. Current and hover states use the raised surface. Links are at least 40px high on desktop and 44px on mobile. Import projects is a separate desktop action. The public profile and discovery share the browser; discovery adds a compact Explore builders heading and agent connection link.
+Settings is the only location for the theme control. Appearance has a labeled native select with System, Light, and Dark. It uses a 44px minimum height, 160px minimum width, 6px corners, a surface fill, and no border. Focus uses the shared visible outline. The control appears after its script connects. Other headers and the import page link to Settings; the invite footer has no theme control.
 
-The project switcher starts as real anchor links. JavaScript adds tablist, tab, and tabpanel semantics, selected state, and a roving tab stop. Arrow keys wrap through projects; Home and End select the first and last; Space activates a tab. Clicks update history and keyboard movement replaces the current hash. Direct project hashes, back/forward, and saved-project links select the correct panel. Saved links keep the current route. Selected tabs use accent text, ground fill, and a 2px accent underline; focus stays visible inside the tab border.
+Workspace places Reset my workspace and Restore previous workspace beside the explanation. Restore appears when a backup exists. Status messages span the section. Invite access contains Lock Sidework. These are unboxed sections, not cards.
 
-With JavaScript, one panel is visible. Without it, all four projects and six contribution rows remain available in the server-rendered page and the anchors still work. Each project has a mono name, maker byline, Save, and Open app. The screenshot fits without cropping and links to the app. The details pane exposes source and build-log links directly. There is no public README disclosure, manifest, long image sequence, or floating dock. The prxps placeholder uses its real name and purpose; no screenshot or activity is invented.
+### Project navigation and content
+
+The shared sticky header contains Explore, @mager, Saved with a count, Workbench, and Settings. With invite access, Friends replaces the @mager navigation item. Current and hover navigation states use the raised surface. Links are at least 44px high. Import projects is a separate desktop action.
+
+The index uses normal links to /projects/homeport/, /projects/moodsh/, /projects/perch/, and /projects/prxps/. There are no tabs or selected-project panels. Server rendering supplies the index and each detail page, so project links work without JavaScript. Saved links open the matching detail page. Unknown project slugs return 404 after the access gate.
+
+Each detail page has a mono name, Bricolage tagline and description, maker link, Save, Open app, build-log link, and source metadata. More by @mager links to the other three projects. Screenshots use the full content width and natural ratio. prxps has text only; do not invent a screenshot or a simulated app view.
+
+### Friends rows
+
+Friends reuses the shared monochrome controls and links to Settings. Border-separated rows place a 52px portrait beside a Martian Mono @handle and Bricolage description. View work and Follow or Unfollow use the existing button styles. The empty view uses the same border treatment, a compact icon, a short heading, and an Explore link. Status messages use a bordered text block and the shared neutral colors. Workspace reset and restore live in Settings.
 
 ### Saved collection and feedback
 
@@ -374,15 +417,17 @@ The portrait is the existing @hopperdraws illustration. Screenshot origins are i
 
 ### Do:
 - **Do** use @handles for people and preserve repository owner/name identifiers.
-- **Do** keep the screenshot, purpose, stack, and source together in the selected project.
-- **Do** retain real anchors, keyboard tabs, history, and the full no-JavaScript project list.
-- **Do** keep the public software browser distinct from the private workbench.
+- **Do** keep the screenshot, purpose, stack, and source together on each project page.
+- **Do** use normal project links that work without JavaScript.
+- **Do** keep the public profile snapshot distinct from the private workbench.
 - **Do** keep keyboard focus visible and support reduced motion.
+- **Do** support Light, Dark, and System while keeping source screenshots in their original colors.
 - **Do** state that reviewed drafts save in this browser and do not publish.
 
 ### Don't:
+- **Don't** add colored interface accents or remove color from source screenshots.
 - **Don't** use Anybody for content headings.
-- **Don't** restore the public manifest, long project feed, floating dock, or marketing close.
+- **Don't** restore project tabs, framed project panels, the public manifest, floating dock, or marketing close.
 - **Don't** add tilted screenshots, perspective drift, or a simulated terminal.
 - **Don't** invent source records, people, activity counts, or learning outcomes.
 - **Don't** claim that an agent can read local drafts or publish a profile.
