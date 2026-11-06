@@ -8,7 +8,6 @@ import contributions from '../data/sidework-contributions.json';
 import ContributionStories from './ContributionStories.astro';
 const {profile = false} = Astro.props;
 const ordered = ['cantalo','homeport','moodsh','perch','prxps'].map(id => projects.find(p => p.id === id)!);
-const latest = contributions[0];
 const requestedCategory = Astro.url.searchParams.get('category') || '';
 const category = Object.hasOwn(PROJECT_CATEGORIES, requestedCategory) ? requestedCategory : '';
 const visibleProjects = ordered.filter(project => projectMatches(project, '', category));
@@ -18,12 +17,11 @@ const availableCategories = Object.entries(PROJECT_CATEGORIES).filter(([id]) => 
  {!profile && <div class="studio-discovery"><h1>Explore builders</h1><span>First on Sidework</span><a href="/contributions/">Community contributions <Icon name="arrow" size={15}/></a></div>}
  <section class="studio-maker" aria-label="@mager’s profile">
   <a href={profile ? 'https://github.com/mager' : '/mager/'} class="studio-avatar"><img src="/images/mager.jpg" alt="@mager’s illustrated portrait" width="56" height="56"/></a>
-  <div class="studio-identity">{profile ? <h1><a href="https://github.com/mager">@mager</a></h1> : <h2><a href="/mager/">@mager</a></h2>}<p>Personal software from Chicago. Small tools. Long rabbit holes.</p></div>
-  <div class="studio-maker-actions"><a href="https://github.com/mager"><Icon name="code" size={17}/>GitHub</a><button id="follow-maker" type="button" aria-pressed="false" class="sw-button">Follow</button></div>
+  <div class="studio-identity">{profile ? <h1><a href="https://github.com/mager">@mager</a></h1> : <h2><a href="/mager/">@mager</a></h2>}<p>Personal software from Chicago.<span class="studio-bio-extra"> Small tools. Long rabbit holes.</span></p></div>
+  <div class="studio-maker-actions"><a href="https://github.com/mager" aria-label="@mager on GitHub"><Icon name="code" size={17}/><span>GitHub</span></a><button id="follow-maker" type="button" aria-pressed="false" class="sw-button">Follow</button></div>
  </section>
- <div class="studio-recent"><span class={`sw-status sw-status-${latest.status}`}>{latest.status}</span><a href={latest.url}>{latest.title}<Icon name="external" size={13}/></a><a class="studio-recent-all" href="#contributions">All contributions <Icon name="arrow" size={14}/></a></div>
  <nav class="project-categories" aria-label="Project categories"><a href={Astro.url.pathname} aria-current={!category ? 'page' : undefined}>All projects</a>{availableCategories.map(([id, label]) => <a href={`${Astro.url.pathname}?category=${id}`} aria-current={category === id ? 'page' : undefined}>{label}</a>)}</nav>
- <p class="project-result-count" role="status">{visibleProjects.length} of {ordered.length} projects</p>
+ <p class:list={['project-result-count', { 'sw-sr-only': !category }]} role="status">{visibleProjects.length} of {ordered.length} projects</p>
  <section class="studio-project-index" aria-label="Projects by @mager">
   {visibleProjects.map((project, index) => <article id={`project-${project.id}`} class={`studio-project-preview ${project.image ? '' : 'studio-project-text'}`}>
    <a href={`/projects/${project.id}/`} class="studio-preview-link">
