@@ -1,0 +1,15 @@
+---
+import BaseHead from './BaseHead.astro';
+import Icon from './SideworkIcon.astro';
+import { adminConfiguration } from '../lib/admin.mjs';
+import '../styles/sidework.css';
+import '../styles/admin.css';
+const {title='Signups',signedIn=false}=Astro.props;
+const config=adminConfiguration();
+---
+<!doctype html><html lang="en"><head><BaseHead title={`${title} · Sidework admin`} description="Owner-only Sidework signup management."/><meta name="robots" content="noindex,nofollow"/></head>
+<body class="admin-page"><a class="skip-link" href="#admin-main">Skip to content</a>
+<header class="admin-header"><a class="admin-brand" href="/" aria-label="Sidework admin"><Icon name="branch" size={23}/>sidework<span>.</span><small>admin</small></a><nav aria-label="Admin navigation"><a href={config.mainOrigin}>Open Sidework <Icon name="external" size={15}/></a>{signedIn && <><span class="admin-owner">@{Astro.locals.account?.login}</span><form method="POST" action="/auth/admin/signout/"><button type="submit">Sign out</button></form></>}</nav></header>
+<main id="admin-main"><slot/></main>
+<footer class="admin-footer">Built with Astra<span>Owner access only</span></footer>
+</body></html>

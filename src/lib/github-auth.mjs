@@ -39,10 +39,10 @@ export function readAccountSession(value, config, now = Date.now()) {
   const claims = unseal(value, config, 'account', ACCOUNT_SECONDS, now);
   return claims && /^\d+$/.test(claims.sub) ? claims : null;
 }
-export function beginGithubLogin(config, updates = false, now = Date.now()) {
+export function beginGithubLogin(config, updates = false, now = Date.now(), admin = undefined) {
   if (!config.ready) throw new Error('GitHub sign-in unavailable');
   const state = randomBytes(32).toString('base64url'), verifier = randomBytes(32).toString('base64url');
-  const cookie = seal({ state, verifier, updates:updates === true }, config, 'oauth', OAUTH_SECONDS, now);
+  const cookie = seal({ state, verifier, updates:updates === true, ...(admin ? {admin} : {}) }, config, 'oauth', OAUTH_SECONDS, now);
   const url = new URL('https://github.com/login/oauth/authorize');
   url.search = new URLSearchParams({ client_id:config.clientId, redirect_uri:`${config.origin}/auth/github/callback/`, scope:'user:email', state, code_challenge:createHash('sha256').update(verifier).digest('base64url'), code_challenge_method:'S256' }).toString();
   return { url:url.href, cookie };

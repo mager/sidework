@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
 import { authConfiguration, readOauthState, githubIdentity, createAccountSession, ACCOUNT_COOKIE, ACCOUNT_SECONDS, OAUTH_COOKIE } from '../../../lib/github-auth.mjs';
 import { accountStore } from '../../../lib/accounts.mjs';
+import { adminConfiguration, issueAdminTicket, isAdminOwner } from '../../../lib/admin.mjs';
+import { accountDatabase } from '../../../lib/firestore.mjs';
 export const GET: APIRoute = async ({url, cookies, redirect}) => {
   const config = authConfiguration();
   const flow = readOauthState(cookies.get(OAUTH_COOKIE)?.value, url.searchParams.get('state'), config);
@@ -14,6 +16,12 @@ export const GET: APIRoute = async ({url, cookies, redirect}) => {
     const identity = await githubIdentity(code, flow.verifier, config);
     const account = await accountStore(config).save(identity, flow.updates);
     cookies.set(ACCOUNT_COOKIE, createAccountSession(account.github_id, config), {httpOnly:true, secure:url.protocol === 'https:', sameSite:'lax', path:'/', maxAge:ACCOUNT_SECONDS});
+    if (flow.admin) {
+      const admin = adminConfiguration();
+      if (!isAdminOwner(account,admin)) return new Response('Owner access required.',{status:403});
+      const code = await issueAdminTicket(account,flow.admin,admin,accountDatabase(config));
+      return redirect(`${admin.origin}/auth/admin/callback/?${new URLSearchParams({code,state:flow.admin.state})}`,303);
+    }
     return redirect(account.status === 'approved' ? '/friends/' : '/waiting/',303);
   } catch (error) {
     return redirect(`/signup/?error=${error instanceof Error && error.message === 'verified-email-required' ? 'email' : 'retry'}`,303);

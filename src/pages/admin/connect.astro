@@ -1,0 +1,18 @@
+---
+import AdminLayout from '../../components/AdminLayout.astro';
+import { adminConfiguration, validAdminChallenge, isAdminOwner, issueAdminTicket } from '../../lib/admin.mjs';
+import { authConfiguration } from '../../lib/github-auth.mjs';
+import { accountDatabase } from '../../lib/firestore.mjs';
+const config=adminConfiguration();
+const flow={state:Astro.url.searchParams.get('state'),challenge:Astro.url.searchParams.get('challenge')};
+Astro.response.headers.set('Referrer-Policy','no-referrer');
+if(!config.origin || !validAdminChallenge(flow)) return new Response('Invalid admin sign-in. Start again from the admin site.',{status:400});
+if(Astro.locals.account) {
+ if(!isAdminOwner(Astro.locals.account,config)) return new Response('Owner access required.',{status:403});
+ try {
+  const code=await issueAdminTicket(Astro.locals.account,flow,config,accountDatabase(authConfiguration()));
+  return Astro.redirect(`${config.origin}/auth/admin/callback/?${new URLSearchParams({code,state:flow.state!})}`,303);
+ } catch { return new Response('Admin sign-in is unavailable. Please try again.',{status:503}); }
+}
+---
+<AdminLayout title="Verify owner"><section class="admin-login"><h1>Sign in to admin.</h1><p>Use the GitHub account that owns Sidework.</p><form method="POST" action="/auth/github/"><input type="hidden" name="admin_state" value={flow.state}/><input type="hidden" name="admin_challenge" value={flow.challenge}/><button class="sw-button sw-primary" type="submit">Continue with GitHub</button></form><p class="admin-note">You will return to the admin site after sign-in.</p></section></AdminLayout>

@@ -46,18 +46,18 @@ typography:
     lineHeight: 1.3
   project-detail-title:
     fontFamily: "'Martian Mono', monospace"
-    fontSize: clamp(2rem, 5vw, 4.5rem)
+    fontSize: clamp(1.5rem, 2.5vw, 2rem)
     fontWeight: 500
-    lineHeight: 1.2
-    letterSpacing: -.035em
+    lineHeight: 1.3
+    letterSpacing: -.025em
   project-detail-tagline:
     fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
-    fontSize: clamp(1.125rem, 2vw, 1.75rem)
+    fontSize: 1.125rem
     fontWeight: 400
     lineHeight: 1.5
   project-detail-body:
     fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
-    fontSize: clamp(1.125rem, 2vw, 1.5rem)
+    fontSize: 1rem
     fontWeight: 400
     lineHeight: 1.65
   settings-title:
@@ -189,6 +189,7 @@ spacing:
   row-gap: 18px
   panel-inset: 24px
   project-column-gap: 36px
+  project-detail-content-gap: 48px
   project-row-gap: 56px
   project-mobile-gap: 40px
 components:
@@ -277,7 +278,7 @@ components:
 
 Sidework gives personal software room to be seen. Black, white, and neutral gray keep the interface quiet. Open space separates project content without card borders or panel frames. Real screenshots keep their original colors and remain straight.
 
-Bricolage Grotesque carries reading text, Martian Mono identifies projects and source records, and Anybody marks the brand. Project pages use large type and images sized to their source quality. Management pages use clear labels and compact controls. The same fonts and palette connect both uses.
+Bricolage Grotesque carries reading text, Martian Mono identifies projects and source records, and Anybody marks the brand. Project pages use compact type and images sized to their source quality. Management pages use clear labels and compact controls. The same fonts and palette connect both uses.
 
 **Key Characteristics:**
 - A minimal black and white interface keeps the work in view.
@@ -288,7 +289,7 @@ Bricolage Grotesque carries reading text, Martian Mono identifies projects and s
 - Normal project links work without JavaScript.
 - Local drafts, saves, follows, and public records remain distinct.
 
-This records the approved work-list direction and the November 5, 2026 project, contribution, and Settings updates. It supersedes the compact software browser and project tabs. Source authority is the applied CSS in src/styles/sidework.css, studio.css, settings.css, friends.css, entry.css, composer.css, agents.css, contribution-stories.css, and account.css. The project surfaces use Studio.astro, StudioLayout.astro, and src/pages/projects/[slug].astro. PRODUCT.md and docs/sidework-surface.md record product scope and review. Fonts come from src/styles/fonts.css; images from docs/assets.json.
+This records the approved work-list direction, the November 5, 2026 project, contribution, and Settings updates, and the November 7 admin and project-detail extension. It supersedes the compact software browser and project tabs. Source authority is the applied CSS in src/styles/sidework.css, studio.css, settings.css, friends.css, entry.css, composer.css, agents.css, contribution-stories.css, account.css, and admin.css. The project surfaces use Studio.astro, StudioLayout.astro, and src/pages/projects/[slug].astro. PRODUCT.md and docs/sidework-surface.md record product scope and review. Fonts come from src/styles/fonts.css; images from docs/assets.json.
 
 ## Colors
 
@@ -323,7 +324,7 @@ All use self-hosted Latin WOFF2 subsets and font-display swap. Anybody and Brico
 - **Wordmark:** Anybody for brand use only. Project navigation uses 1.5rem, reduced to 1.375rem at 760px; entry pages retain 1.75rem and the workbench retains 1.5625rem.
 - **Maker handle:** Martian Mono identity at 1.5rem, reduced to 1.25rem at 760px.
 - **Work-list title:** project and contribution names use Martian Mono at 1.125rem, reduced to 1rem at 760px. The separate contribution index retains its 1.25rem–1.75rem mono title scale.
-- **Project detail:** the mono title scales to 4.5rem. The Bricolage tagline scales to 1.75rem, and the description to 1.5rem with a 65ch measure. These larger roles are intentional.
+- **Project detail:** the mono title scales from 1.5rem to 2rem. The Bricolage tagline uses 1.125rem, reduced to 1rem at 760px and below. The description uses 1rem with a 65ch measure and 1.65 line height.
 - **Settings and contribution page title:** Bricolage scales from 2rem to 3rem. Contribution detail names use the same size range in Martian Mono. Section headings use 1.25rem, and section descriptions and the theme selector use .9375rem.
 - **Body and story caption:** workbench reading and local story purpose remain unchanged. Local story notes use body size with line height 1.8 and 65ch measure; taglines use 1.25rem and 45ch.
 - **Code body and label:** commands, repository paths, stacks, counts, and evidence. Contribution repository lines use .6875rem, reduced to .625rem on mobile. Agent prompts retain their mono prompt role.
@@ -337,13 +338,13 @@ The project header is sticky with a ground fill and 12px vertical padding. It ha
 
 The profile and Explore alternate five personal projects with six authored external contribution stories, starting with Cántalo and Uber Direct SDK. Both use the same row layout in two equal columns with a 64px column gap. Each row is an ordinary link, at least 120px high, with 24px vertical padding and a 20px internal gap. The 96 × 64px media space sits beside the title, short description, and type/source label. Contributions use the verified GitHub owner avatar at 56px square, reduced to 44px on mobile, in its original colors. Descriptions show at most two lines. Project thumbnails use object-fit contain with no frame and keep their source colors. Full screenshots appear only on detail pages.
 
-Detail pages place the project title and tagline beside Save and Open app, then show the real screenshot across the content width at its natural ratio. A caption follows. Description and source metadata use a 2fr/1fr grid with a 240px minimum metadata column and 10vw gap. This section has 64px top and 80px bottom margins. More by @mager links follow.
+Detail pages place the compact project title and tagline beside Save and Open app. The screenshot and story sit side by side with a 48px gap. The image keeps its natural ratio, source display-width limit, and 60svh height cap. The story column is at least 320px wide; the content width is capped at the image limit plus 40rem and the gap. Description and source metadata stack within that column. Metadata uses two columns, with audience and technology tags spanning both. At 1000px and below, the image sits above a two-column story with a 32px gap; its metadata uses one column. The content has 48px bottom spacing before More by @mager links. Captions show authored context only, such as the Perch demo label; they do not repeat the image alt text. A View image link opens the full-size source.
 
-At 900px the header gap reduces to 16px and hides Import projects; the shared side gutter stays in effect. At 760px and below, the header uses 8px top padding and no row gap. Its wordmark and account-avatar row sits above full-width navigation, for a measured height of 96px. The 44px portrait, @handle, GitHub icon link, and Follow action share one row. The shorter bio, “Personal software from Chicago.”, sits below it. Project categories use one horizontal scroll row with links at least 44px high. The work count is available to screen readers. The work list becomes one column, with 20px vertical row padding and 12px internal gaps. Thumbnails and icons use a 64 × 48px space. Detail headings stack above actions, and the story becomes one column with a 36px gap and 40px/48px vertical margins. The screenshot retains its natural ratio.
+At 900px the header gap reduces to 16px and hides Import projects; the shared side gutter stays in effect. At 760px and below, the header uses 8px top padding and no row gap. Its wordmark and account-avatar row sits above full-width navigation, for a measured height of 96px. The 44px portrait, @handle, GitHub icon link, and Follow action share one row. The shorter bio, “Personal software from Chicago.”, sits below it. Project categories use one horizontal scroll row with links at least 44px high. The work count is available to screen readers. The work list becomes one column, with 20px vertical row padding and 12px internal gaps. Thumbnails and icons use a 64 × 48px space. Detail headings stack above actions, and the story becomes one column with a 24px gap. Metadata returns to two columns within that story. The heading has 20px bottom spacing and the content has 32px bottom spacing. The screenshot retains its natural ratio and size limits.
 
 All work, Projects, Contributions, and category filters use server-rendered GET links. Existing category-only URLs select Projects. The contribution feed excludes repositories owned by the story author. Add a contribution opens the private editor; GitHub history opens the workbench. The footer follows content in normal flow. Separate contribution pages and evidence rules are in `.impeccable/surfaces/contributions.md`.
 
-Settings content is at most 960px wide, with 48px top and 64px bottom padding. Appearance, Workspace, Email updates, and Preview access use unboxed sections with 56px top margins. Each section has a flexible description column and an action column, with 20px vertical and 48px horizontal gaps. At 760px, sections stack, their top margins reduce to 40px, and page top padding becomes 28px.
+Settings content is at most 960px wide, with 48px top and 64px bottom padding. Appearance, Workspace, Email updates, Preview access, and the owner-only Admin link use unboxed sections with 56px top margins. Each section has a flexible description column and an action column, with 20px vertical and 48px horizontal gaps. At 760px, sections stack, their top margins reduce to 40px, and page top padding becomes 28px.
 
 The workbench has a 1536px maximum width, a 204px rail, flexible main area, and 262px context panel. At 1180px side areas reduce to 180px and 225px. At 960px the context panel disappears and the rail becomes 175px. At 700px the shell becomes one flow with wrapping navigation. Main side padding is 32px, 42px from 1440px, 24px at intermediate widths, and 18px on mobile. At 400px, the shared workbench header navigation wraps so that its links and Settings link fit.
 
@@ -352,6 +353,14 @@ Editor, showcase, Agents, and Review hide the context panel. The editor splits f
 GitHub signup and waiting pages use a centered 560px content column with 24px side margins, open space, and no card frame. The main heading uses Bricolage Grotesque; the waiting account uses a Martian Mono @handle. At 650px and below, the signup action fills the form width. Import content remains at most 920px wide, with 24px side margins and a 580px form. At 650px import actions and footers wrap, and the import form button uses full width. Its bottom action bar remains sticky. Agents content is at most 960px wide. Commands and manual-copy text wrap or scroll inside their own surfaces.
 
 Friends uses a 1040px maximum content width with 24px side margins. The welcome row pairs a compact heading with the first-project action. Profile rows align identity and actions horizontally. At 760px and below, navigation takes a separate row, the welcome and profile rows stack, and side margins reduce to 16px.
+
+### Owner admin
+
+The admin site is a separate Vercel project from the same repository. It extends the shared monochrome palette, fonts, buttons, and Built with Astra footer. Its header shows the Sidework wordmark with an admin label, Open Sidework, and signed-in owner controls. The main view shows signup counts, search, status and consent filters, and a read-only account table. Dates use America/Chicago. Status and consent use explicit text. No approval, deletion, or email action appears.
+
+The page gutter is clamp(16px, 4vw, 64px). Main content has 32px top and 48px bottom padding. The heading uses Bricolage at 2rem–3rem; @handles use Martian Mono. Fields and actions are at least 44px high. At 800px and below, the header wraps, search takes a full row, and each table row becomes a two-column field grid with the identity across both columns. Each field displays its label. At 450px and below, header navigation takes a full row. Login uses an open column at most 560px wide. Loading failures and empty search results have explicit messages.
+
+Settings shows Open admin only for the configured owner. The separate admin session and a current database owner check protect account data on every private request. The main `/admin/connect/` route only handles sign-in transfer; it does not show account records. See [admin setup](docs/admin.md) for the one-time PKCE handoff, deployment configuration, and route limits.
 
 ## Elevation & Depth
 
@@ -383,7 +392,7 @@ Signup uses one GitHub action and an optional, unchecked email consent checkbox.
 
 Settings is the only location for the theme control. Appearance has a labeled native select with System, Light, and Dark. It uses a 44px minimum height, 160px minimum width, 6px corners, a surface fill, and no border. Focus uses the shared visible outline. The control appears after its script connects. Other headers and the import page link to Settings; the account footer has no theme control.
 
-Workspace places Reset my workspace and Restore previous workspace beside the explanation. Restore appears when a backup exists. Status messages span the section. Signed-in accounts have an Email updates form. Preview access names the signed-in @handle, or the legacy session, and contains Sign out. These are unboxed sections, not cards.
+Workspace places Reset my workspace and Restore previous workspace beside the explanation. Restore appears when a backup exists. Status messages span the section. Signed-in accounts have an Email updates form. Preview access names the signed-in @handle, or the legacy session, and contains Sign out. These are unboxed sections, not cards. The configured owner also has an Admin section with Open admin, which opens the separate owner site.
 
 ### Project navigation and content
 
@@ -391,7 +400,7 @@ The shared sticky header contains Explore, @mager, Saved with a count, Workbench
 
 The index uses normal links to /projects/cantalo/, /projects/homeport/, /projects/moodsh/, /projects/perch/, and /projects/prxps/. There are no tabs or selected-project panels. Server rendering supplies the index and each detail page, so project links work without JavaScript. Saved links open the matching detail page. Unknown project slugs return 404 after the access gate.
 
-Each detail page has a mono name, Bricolage tagline and description, maker link, Save, Open app, story link, and source metadata. More by @mager links to the other projects. Screenshots keep their natural ratio and shared left edge. Each uses its real pixel dimensions and a display-width limit below the source width; the image height is at most 60svh. Do not stretch screenshots to fill a wide monitor. Images link to the full-size source. Perch uses a sharp 2× capture of its built-in demo, clearly labeled as sample data, without browser chrome. prxps uses the authorized real capture in `public/images/prxps-games.jpg`; its provenance is in `docs/assets.json`. Do not simulate app views.
+Each detail page has a compact mono name, Bricolage tagline and description, maker link, Save, Open app, story link, and source metadata. Technology tags are a text list, not links or filter controls. More by @mager links to the other projects. Screenshots keep their natural ratio and shared left edge. Each uses its real pixel dimensions and a display-width limit below the source width; the image height is at most 60svh. Do not stretch screenshots to fill a wide monitor. Images link to the full-size source. Perch uses a sharp 2× capture of its built-in demo, clearly labeled as sample data, without browser chrome. prxps uses the authorized real capture in `public/images/prxps-games.jpg`; its provenance is in `docs/assets.json`. Do not simulate app views.
 
 ### Contribution stories
 

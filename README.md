@@ -19,7 +19,8 @@ Use [the setup guide](docs/github-auth.md) for GitHub sign-in and Firestore. Loc
 - `/waiting/`: signed-in waitlist status and email preference.
 - `/invite/`: old links redirect to signup; codes no longer create sessions.
 - `/friends/`: access-controlled local follows and first-project entry.
-- `/settings/`: access-controlled Appearance, workspace reset and restore, and sign-out.
+- `/settings/`: access-controlled Appearance, workspace reset and restore, sign-out, and an owner-only Open admin link.
+- `/admin/connect/`: main-site sign-in transfer to the separate admin site; it does not expose account records.
 - `/projects/cantalo/`, `/projects/homeport/`, `/projects/moodsh/`, `/projects/perch/`, `/projects/prxps/`: access-controlled project detail pages.
 - `/contributions/`, `/contributions/[slug]/`, `/contributions/drafts/`: access-controlled stories, source evidence, and private draft editor.
 - `/onboarding/`: search and bulk import of all public repositories owned by a GitHub handle.
@@ -33,7 +34,7 @@ Use [the setup guide](docs/github-auth.md) for GitHub sign-in and Firestore. Loc
 
 The profile and Explore alternate five personal projects with six authored external contribution stories, starting with Cántalo and Uber Direct SDK. Both use the same compact row layout: two columns on desktop and one on mobile. Small project thumbnails keep their original colors; full screenshots appear only on detail pages. All work, Projects, and Contributions are normal links that work without JavaScript. Categories appear only under Projects; existing category URLs still work. The contribution list excludes repositories owned by the story author. Each contribution row shows its verified GitHub owner avatar and a direct repository link; its title opens the Sidework story.
 
-Normal links open separate detail pages with no content borders or panel frames. Project pages show the screenshot at its natural ratio, purpose, source metadata, app and save actions, and More by @mager links. prxps uses a real test-account screenshot captured with owner permission. Saved links open the matching detail page. The exact /mager/ profile stays public; detail pages require approved account or valid legacy session access. Raw PR history stays in the workbench, with selected evidence on contribution detail pages. Add a contribution opens the existing private editor; it does not publish.
+Normal links open separate detail pages with no content borders or panel frames. Project pages use compact headings and place the screenshot beside the story on desktop. At 1000px and below, the image sits above the story; at 760px and below, the story uses one column. Screenshots keep their natural ratio and source size limits. Pages show purpose, source metadata, text-only technology tags, app and save actions, and More by @mager links. prxps uses a real test-account screenshot captured with owner permission. Saved links open the matching detail page. The exact /mager/ profile stays public; detail pages require approved account or valid legacy session access. Raw PR history stays in the workbench, with selected evidence on contribution detail pages. Add a contribution opens the existing private editor; it does not publish.
 
 - Public project showcase with demo, source, and build-log links.
 - Friends with empty and followed-profile views for the real @mager profile.
@@ -50,6 +51,12 @@ Normal links open separate detail pages with no content borders or panel frames.
 - Responsive layouts, keyboard navigation, and Light, Dark, and System themes.
 
 The interface uses black, white, and neutral gray to keep attention on the work. Project screenshots retain their original colors. System is the default theme. The theme selector appears only in Settings → Appearance. Home and Friends use the same header, including Saved and Import projects. Signed-in headers show the GitHub avatar at the far right; it links to Settings and has an accessible @handle label. Waiting accounts return to preview preferences, and legacy sessions use a profile icon. A saved choice applies before paint; System follows changes to the device theme. Theme changes also update other open tabs. Without JavaScript, CSS follows the device theme.
+
+## Owner admin
+
+The separate [admin site](https://sidework-admin-mager1s-projects.vercel.app) shows signup records from Firestore. Open Settings → Admin → Open admin as the configured owner. Search by @handle or email, filter access status and email consent, and inspect signup and last sign-in dates. The dashboard is read-only: it cannot approve accounts, delete records, or send email.
+
+The admin uses a separate session and checks the approved owner account by GitHub numeric ID on every private request. Sign-in uses the main site and a one-time PKCE handoff. Both Vercel projects use this repository on `main`; deploy both when their shared sign-in flow changes. See [admin setup](docs/admin.md) for route limits, keyless database access, and checks.
 
 ## Prototype boundaries
 
@@ -119,7 +126,7 @@ Code is MIT licensed. The portrait, screenshot, personal project descriptions, a
 
 Live site: https://sidework-ten.vercel.app. The requested `sidework.vercel.app` alias was already in use.
 
-Astro renders all pages on the server with the Vercel adapter. Public application routes are `/signup/`, the exact `/auth/github/` start and `/auth/github/callback/` routes, the exact `/mager/` profile, `/invite/` (redirect only), and `/api/signout`. Waiting accounts may use `/waiting/` and `/api/account/updates`. Other website routes require an approved account session or a valid legacy invite cookie. `/api/mcp` requires its own scoped bearer token. Account tokens recheck approval in the database on each request.
+Astro renders all pages on the server with the Vercel adapter. On the main site, public application routes are `/admin/connect/` (sign-in transfer only), `/signup/`, the exact `/auth/github/` start and `/auth/github/callback/` routes, the exact `/mager/` profile, `/invite/` (redirect only), and `/api/signout`. Waiting accounts may use `/waiting/` and `/api/account/updates`. Other website routes require an approved account session or a valid legacy invite cookie. `/api/mcp` requires its own scoped bearer token. Account tokens recheck approval in the database on each request.
 
 Responses use `private, no-store`. Protected account routes fail closed when the database is unavailable; the public profile stays available. Static assets and committed showcase data remain public. See [GitHub sign-in setup](docs/github-auth.md) for environment variables, keyless database access, access limits, and recorded checks.
 

@@ -1,0 +1,33 @@
+---
+import AdminLayout from '../../components/AdminLayout.astro';
+import Icon from '../../components/SideworkIcon.astro';
+import { adminConfiguration, isAdminOwner, listAdminAccounts, filterAccounts } from '../../lib/admin.mjs';
+import { authConfiguration, readForm } from '../../lib/github-auth.mjs';
+import { accountDatabase } from '../../lib/firestore.mjs';
+const config=adminConfiguration();
+if(process.env.SIDEWORK_SITE!=='admin' || !isAdminOwner(Astro.locals.account,config)) return new Response('Owner access required.',{status:403});
+let params=Astro.url.searchParams;
+if(Astro.request.method==='POST') {
+ if(Astro.request.headers.get('origin')!==Astro.url.origin) return new Response('Invalid origin',{status:403});
+ try { params=await readForm(Astro.request); } catch { return new Response('Invalid filters',{status:400}); }
+}
+let accounts:any[]=[],truncated=false,failed=false;
+try { ({accounts,truncated}=await listAdminAccounts(accountDatabase(authConfiguration()),Astro.locals.account,config)); } catch { failed=true;Astro.response.status=503; }
+const q=(params.get('q') || '').slice(0,254);
+const status=['waiting','approved'].includes(params.get('status') || '') ? params.get('status')! : '';
+const updates=['yes','no'].includes(params.get('updates') || '') ? params.get('updates')! : '';
+const filtered=filterAccounts(accounts,{q,status,updates});
+const date=(value:unknown)=>{const d=new Date(String(value));return Number.isNaN(d.getTime()) ? '—' : new Intl.DateTimeFormat('en-US',{dateStyle:'medium',timeZone:'America/Chicago'}).format(d);};
+const waiting=accounts.filter(a=>a.status==='waiting').length;
+const optedIn=accounts.filter(a=>a.email_updates===true).length;
+---
+<AdminLayout signedIn><div class="admin-heading"><div><h1>Signups</h1><p>Everyone who joined the preview.</p></div><a class="admin-refresh" href={Astro.url.pathname+Astro.url.search}>Refresh <Icon name="refresh" size={16}/></a></div>
+{failed ? <section class="admin-empty" role="alert"><h2>Signups could not load.</h2><p>No account data has changed.</p><a class="sw-button" href="/">Try again</a></section> : <>
+<p class="admin-summary"><span><strong>{accounts.length}</strong> {truncated ? 'recent signups' : 'signups'}</span><span><strong>{waiting}</strong> waiting</span><span><strong>{optedIn}</strong> want email updates</span></p>
+<form class="admin-filters" method="POST" action="/"><label class="admin-search">Search<input type="search" name="q" value={q} placeholder="@handle or email" maxlength="254"/></label><label>Status<select name="status"><option value="" selected={!status}>All statuses</option><option value="waiting" selected={status==='waiting'}>Waiting</option><option value="approved" selected={status==='approved'}>Approved</option></select></label><label>Email updates<select name="updates"><option value="" selected={!updates}>All preferences</option><option value="yes" selected={updates==='yes'}>Opted in</option><option value="no" selected={updates==='no'}>Not opted in</option></select></label><button class="sw-button" type="submit">Filter</button>{(q||status||updates) && <a class="admin-clear" href="/">Clear</a>}</form>
+{truncated && <p class="admin-note">Showing the latest 1,000 signups. Search and totals cover these records.</p>}
+<p class="admin-result-count" role="status">{filtered.length} {filtered.length===1 ? 'account' : 'accounts'}{q||status||updates ? ' match' : ''}</p>
+{filtered.length ? <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th scope="col">Account</th><th scope="col">Status</th><th scope="col">Email updates</th><th scope="col">Joined</th><th scope="col">Last sign-in</th></tr></thead><tbody>{filtered.map(account=><tr><td><a class="admin-person" href={`https://github.com/${encodeURIComponent(account.login)}`}><img src={`https://avatars.githubusercontent.com/u/${account.github_id}?s=72`} alt="" width="36" height="36" loading="lazy"/><span><strong>@{account.login}</strong><span>{account.email}</span></span></a></td><td data-label="Status"><span class="admin-status">{account.status==='approved'?'Approved':account.status==='waiting'?'Waiting':account.status}</span></td><td data-label="Email updates">{account.email_updates===true ? 'Opted in' : 'Not opted in'}</td><td data-label="Joined">{date(account.created_at)}</td><td data-label="Last sign-in">{date(account.last_login_at)}</td></tr>)}</tbody></table></div> : <section class="admin-empty"><h2>{accounts.length ? 'No matching accounts.' : 'No signups yet.'}</h2><p>{accounts.length ? 'Change the search or filters to see more.' : 'New GitHub signups will appear here.'}</p></section>}
+<p class="admin-note admin-boundary">Approvals are paused while account-specific tools are completed. Email updates are not sent yet.</p>
+</>}
+</AdminLayout>

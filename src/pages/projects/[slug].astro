@@ -9,11 +9,23 @@ if (!project) Astro.response.status = 404;
 const metadata = cleanMetadata(project);
 ---
 <StudioLayout title={project ? `${project.name} · Sidework` : 'Project not found · Sidework'} description={project?.tagline}>
- {project ? <article class="project-detail">
+ {project ? <article class="project-detail" style={`--project-media-width:min(${project.imageDisplayWidth}px,calc(60svh * ${project.imageWidth / project.imageHeight}))`}>
   <a class="project-back" href="/mager/">All work by @mager <Icon name="arrow" size={16}/></a>
   <header class="project-detail-heading"><div><h1>{project.name}</h1><p>{project.tagline}</p></div><div class="studio-project-actions"><button class="sw-button studio-save" data-save-project={project.id} type="button" aria-pressed="false" aria-label={`Save ${project.name}`}><Icon name="bookmark" size={16}/><span>Save</span></button><a class="sw-button sw-primary" href={project.url}>Open app <Icon name="external" size={16}/></a></div></header>
-  {project.image && <figure class="project-detail-image" style={`--image-width:${project.imageDisplayWidth}px;--image-ratio:${project.imageWidth / project.imageHeight}`}><a class="project-image-link" href={project.image} target="_blank" rel="noopener" aria-label={`View ${project.name} image at full size`}><img src={project.image} alt={project.imageAlt} width={project.imageWidth} height={project.imageHeight} decoding="async"/></a><figcaption><span>{project.imageCaption || project.imageAlt}</span><a href={project.image} target="_blank" rel="noopener">View image <Icon name="external" size={14}/></a></figcaption></figure>}
-  <div class="project-detail-story"><div><a class="project-author" href="/mager/">Built by @mager</a><p>{project.description}</p>{metadata.features.length > 0 && <section class="project-capabilities"><h2>What you can do</h2><ul>{metadata.features.map(feature => <li>{feature}</li>)}</ul></section>}<a class="project-build-log" href={project.story.startsWith('/') ? `https://mager.co${project.story}` : project.story}>Read the story <Icon name="arrow" size={18}/></a></div><dl>{metadata.category && <div><dt>Category</dt><dd>{PROJECT_CATEGORIES[metadata.category]}</dd></div>}{metadata.softwareType && <div><dt>Software type</dt><dd>{SOFTWARE_TYPES[metadata.softwareType]}</dd></div>}{metadata.audience && <div><dt>Who it helps</dt><dd>{metadata.audience}</dd></div>}<div><dt>Built with</dt><dd>{project.stack}</dd></div><div><dt>Project notes</dt><dd>{project.note}</dd></div>{project.source && <div><dt>Source</dt><dd><a href={project.source}>{new URL(project.source).pathname.slice(1)} <Icon name="external" size={14}/></a></dd></div>}</dl></div>
+  <div class="project-detail-content">
+   {project.image && <figure class="project-detail-image"><a class="project-image-link" href={project.image} target="_blank" rel="noopener" aria-label={`View ${project.name} image at full size`}><img src={project.image} alt={project.imageAlt} width={project.imageWidth} height={project.imageHeight} decoding="async"/></a><figcaption>{project.imageCaption && <span>{project.imageCaption}</span>}<a href={project.image} target="_blank" rel="noopener">View image <Icon name="external" size={14}/></a></figcaption></figure>}
+   <div class="project-detail-story">
+    <div class="project-detail-description"><a class="project-author" href="/mager/">Built by @mager</a><p>{project.description}</p>{metadata.features.length > 0 && <section class="project-capabilities"><h2>What you can do</h2><ul>{metadata.features.map(feature => <li>{feature}</li>)}</ul></section>}<a class="project-build-log" href={project.story.startsWith('/') ? `https://mager.co${project.story}` : project.story}>Read the story <Icon name="arrow" size={18}/></a></div>
+    <dl>
+     {metadata.category && <div><dt>Category</dt><dd>{PROJECT_CATEGORIES[metadata.category]}</dd></div>}
+     {metadata.softwareType && <div><dt>Software type</dt><dd>{SOFTWARE_TYPES[metadata.softwareType]}</dd></div>}
+     {metadata.audience && <div class="project-detail-meta-wide"><dt>Who it helps</dt><dd>{metadata.audience}</dd></div>}
+     <div class="project-detail-meta-wide"><dt>Built with</dt><dd><ul class="project-stack" role="list">{project.stack.split(' · ').map(technology => <li>{technology}</li>)}</ul></dd></div>
+     <div><dt>Project notes</dt><dd>{project.note}</dd></div>
+     {project.source && <div><dt>Source</dt><dd><a href={project.source}>{new URL(project.source).pathname.slice(1)} <Icon name="external" size={14}/></a></dd></div>}
+    </dl>
+   </div>
+  </div>
   <nav class="project-other" aria-label="More projects"><h2>More by @mager</h2>{projects.filter(item => item.id !== project.id).map(item => <a href={`/projects/${item.id}/`}>{item.name}<Icon name="arrow" size={18}/></a>)}</nav>
  </article> : <section class="project-detail"><h1>Project not found</h1><p>This project is not in the Sidework collection.</p><a class="project-back" href="/">Explore projects <Icon name="arrow" size={16}/></a></section>}
 </StudioLayout>

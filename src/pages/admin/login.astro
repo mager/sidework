@@ -1,0 +1,7 @@
+---
+import AdminLayout from '../../components/AdminLayout.astro';
+import Icon from '../../components/SideworkIcon.astro';
+if(process.env.SIDEWORK_SITE!=='admin') return new Response('Not found',{status:404});
+const error=Astro.url.searchParams.get('error');
+---
+<AdminLayout title="Sign in"><section class="admin-login"><h1>Your preview,<br/>at a glance.</h1><p>Track Sidework signups and email preferences.</p>{error && <p role="alert" class="admin-error">{error==='expired' ? 'This sign-in expired. Please try again.' : 'Sign-in is unavailable. Please try again.'}</p>}<form method="POST" action="/auth/admin/start/"><button class="sw-button sw-primary" type="submit"><Icon name="code" size={18}/>Sign in with GitHub</button></form><p class="admin-note">Only the Sidework owner can enter.</p></section></AdminLayout>

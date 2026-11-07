@@ -2,10 +2,20 @@ import { defineMiddleware } from 'astro:middleware';
 import { COOKIE_NAME, configuration, validSession, requiresInvite } from './lib/invite.mjs';
 import { ACCOUNT_COOKIE, authConfiguration, readAccountSession, accountAccess } from './lib/github-auth.mjs';
 import { accountStore } from './lib/accounts.mjs';
+import { adminRequest } from './lib/admin-middleware';
 export const onRequest = defineMiddleware(async (context, next) => {
+  if (process.env.SIDEWORK_SITE === 'admin') {
+    const response = await adminRequest(context, next);
+    response.headers.set('Cache-Control', 'private, no-store');
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    response.headers.set('Referrer-Policy', context.url.pathname.startsWith('/auth/admin/callback') ? 'no-referrer' : 'same-origin');
+    response.headers.set('X-Content-Type-Options', 'nosniff');
+    response.headers.set('X-Frame-Options', 'DENY');
+    return response;
+  }
   const path = context.url.pathname.replace(/\/+$/, '') || '/';
   const agentEndpoint = path === '/api/mcp';
-  const publicRoute = !requiresInvite(path);
+  const publicRoute = !requiresInvite(path) || path === '/admin/connect';
   const waitingRoute = ['/waiting', '/api/account/updates', '/api/signout'].includes(path);
   let response: Response | undefined;
   if (!agentEndpoint && path !== '/api/signout') {
@@ -27,7 +37,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   response ||= await next();
   response.headers.set('Cache-Control', 'private, no-store');
   response.headers.set('X-Robots-Tag', 'noindex, nofollow');
-  response.headers.set('Referrer-Policy', 'same-origin');
+  response.headers.set('Referrer-Policy', path === '/auth/github/callback' ? 'no-referrer' : 'same-origin');
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('X-Frame-Options', 'DENY');
   return response;
