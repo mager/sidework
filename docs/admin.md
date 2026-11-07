@@ -3,7 +3,7 @@
 The owner dashboard is a second Vercel project from this repository. It tracks GitHub signups, not invite codes. Open it from Settings → Admin on the main site.
 
 - Main: https://sidework-ten.vercel.app
-- Admin: https://sidework-admin-mager1s-projects.vercel.app
+- Admin: https://sidework-admin.vercel.app
 - Vercel project: `sidework-admin` (`prj_tLbIAtf6rOVghAeHzOP93eplP83H`)
 
 ## What it does
@@ -30,7 +30,7 @@ Main production needs `SIDEWORK_ADMIN_ORIGIN` in addition to its existing config
 
 - `SIDEWORK_SITE=admin`
 - `SIDEWORK_ORIGIN=https://sidework-ten.vercel.app`
-- `SIDEWORK_ADMIN_ORIGIN=https://sidework-admin-mager1s-projects.vercel.app`
+- `SIDEWORK_ADMIN_ORIGIN=https://sidework-admin.vercel.app`
 - A separate random `SIDEWORK_ADMIN_SESSION_SECRET` of at least 32 characters
 - `SIDEWORK_OWNER_GITHUB_ID=17733`
 - The existing GCP project, number, service account, and pool variables
@@ -38,7 +38,7 @@ Main production needs `SIDEWORK_ADMIN_ORIGIN` in addition to its existing config
 
 The admin does not receive the GitHub client secret, main-site session secret, or invite hashes. Its Vercel OIDC provider checks the exact team and admin project IDs. The existing service account has an additional Workload Identity binding for the admin production subject only. Preview deployments cannot authenticate on a different origin. No service-account key exists.
 
-The requested short `sidework-admin.vercel.app` alias was already assigned to another project; the team-qualified alias is used instead.
+Vercel assigned `sidework-admin.vercel.app` when the first production deployment completed. It is the configured canonical admin origin; other deployment origins fail closed.
 
 ## Local check
 

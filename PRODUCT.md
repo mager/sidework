@@ -20,7 +20,7 @@ The deployed preview is https://sidework-ten.vercel.app. The originally requeste
 
 ## Owner admin
 
-The separate [admin site](https://sidework-admin-mager1s-projects.vercel.app) gives the configured owner a read-only view of signup records. Settings has an owner-only Open admin link. The dashboard shows @handles, email addresses, access status, update consent, signup dates, and last sign-in dates. Search and status/consent filters work on the latest 1,000 records; a notice appears if more records are available. Dates use America/Chicago. Search uses POST so email queries stay out of URLs.
+The separate [admin site](https://sidework-admin.vercel.app) gives the configured owner a read-only view of signup records. Settings has an owner-only Open admin link. The dashboard shows @handles, email addresses, access status, update consent, signup dates, and last sign-in dates. Search and status/consent filters work on the latest 1,000 records; a notice appears if more records are available. Dates use America/Chicago. Search uses POST so email queries stay out of URLs.
 
 The site does not approve accounts, delete records, change consent, or send email. It checks the current approved owner account by GitHub numeric ID on every private request. Its separate session comes from a one-time PKCE handoff through the main `/admin/connect/` route. Main-site account cookies, legacy invite cookies, and agent tokens do not grant admin access. Both Vercel projects deploy from this repository on `main`. See [admin setup](docs/admin.md).
 

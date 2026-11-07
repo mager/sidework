@@ -54,7 +54,7 @@ The interface uses black, white, and neutral gray to keep attention on the work.
 
 ## Owner admin
 
-The separate [admin site](https://sidework-admin-mager1s-projects.vercel.app) shows signup records from Firestore. Open Settings → Admin → Open admin as the configured owner. Search by @handle or email, filter access status and email consent, and inspect signup and last sign-in dates. The dashboard is read-only: it cannot approve accounts, delete records, or send email.
+The separate [admin site](https://sidework-admin.vercel.app) shows signup records from Firestore. Open Settings → Admin → Open admin as the configured owner. Search by @handle or email, filter access status and email consent, and inspect signup and last sign-in dates. The dashboard is read-only: it cannot approve accounts, delete records, or send email.
 
 The admin uses a separate session and checks the approved owner account by GitHub numeric ID on every private request. Sign-in uses the main site and a one-time PKCE handoff. Both Vercel projects use this repository on `main`; deploy both when their shared sign-in flow changes. See [admin setup](docs/admin.md) for route limits, keyless database access, and checks.
 
