@@ -48,7 +48,7 @@ Export draft downloads a private JSON copy of only the selected projects and sto
 
 ## Contribution stories
 
-Six authored @mager stories from the software page explain upstream work. The public `/mager/` profile and Explore alternate them with five personal projects in one list, starting with Cántalo and Uber Direct SDK. Projects and contributions use the same row layout and visual weight. Stories about repositories owned by their author are excluded from the contribution list. Raw PR history is available in the workbench, not on the profile. The separate contribution index, detail pages, and draft editor require approved account or valid legacy session access. Detail pages show selected PR or commit evidence with source links, check dates, and explicit PR states. This selection does not claim a complete history or prove every statement in the authored story.
+Six authored @mager stories from the software page explain upstream work. The public `/mager/` profile and Explore alternate them with six personal projects in one list, starting with Nextmove and Uber Direct SDK. Projects and contributions use the same row layout and visual weight. Stories about repositories owned by their author are excluded from the contribution list. Raw PR history is available in the workbench, not on the profile. The separate contribution index, detail pages, and draft editor require approved account or valid legacy session access. Detail pages show selected PR or commit evidence with source links, check dates, and explicit PR states. This selection does not claim a complete history or prove every statement in the authored story.
 
 People can create and edit up to 20 private contribution drafts in their approved account, or in this browser for a legacy session. Each has a project name, @handle, upstream repository, story, and a GitHub PR, issue, or commit URL for that repository. The editor validates the URL format and repository match; it does not verify the handle or source claims. A live preview shows the draft. Project imports, draft review, and workbench saves preserve contribution drafts. Full account backups include them. Settings reset and restore affect browser copies only. Add a contribution opens this private editor. Contribution publishing and agent preparation are not connected.
 
@@ -66,7 +66,7 @@ The review shows which projects will be added or replace private stories. Nothin
 
 ## Evidence on hand
 
-Five personal projects, including Cántalo from its live site and repository and four projects from magerblog, six authored contribution stories checked November 5, 2026, six recent PR states checked November 4, 2026, selected older PR evidence from October 12, and four dated contribution opportunities.
+Six personal projects, including Nextmove and Cántalo from their live sites and repositories and four projects from magerblog, six authored contribution stories checked November 5, 2026, six recent PR states checked November 4, 2026, selected older PR evidence from October 12, and four dated contribution opportunities.
 
 ## Product principles
 
@@ -97,6 +97,10 @@ Each project can have one category, one software type, a short intended audience
 
 The shared vocabulary lives in `src/scripts/project-metadata.mjs`. Missing metadata is allowed, including in older version 1 drafts. GitHub imports provide repository facts and leave classification, audience, and features blank for author review. Imports preserve existing authored metadata. The editor, preview, JSON backups, draft review, and MCP use the same fields and limits. Agents can prepare them from evidence but cannot publish. The Projects view has category links that work without JavaScript; project pages show the audience and features. Add categories only when real projects need them; nested categories, rankings, and automatic classification are outside this first version.
 
-## Latest project: Cántalo
+## Project: Cántalo
 
-Cántalo is first in the public project gallery. It pairs Spotify listening with original Spanish practice phrases and a personal dictionary. Its real MATADORA screenshot retains the bright source colors. The project detail links to the requested song, project story, and private `mager/cantalo` repository. Adding it to the public snapshot does not change private drafts or their selected order.
+Cántalo appears in the public project gallery. It pairs Spotify listening with original Spanish practice phrases and a personal dictionary. Its real MATADORA screenshot retains the bright source colors. The project detail links to the requested song, project story, and private `mager/cantalo` repository. Adding it to the public snapshot does not change private drafts or their selected order.
+
+## Latest project: Nextmove
+
+Nextmove is first in the public project gallery. It helps beginners practice chess with computer opponents, guided lessons, and positions saved from their mistakes. The live site is `blunder-school.vercel.app`; the repository is `mager/blunder-club`. Its real guest-game screenshot keeps the original colors. Details were checked November 8, 2026. This snapshot addition does not change private account drafts or their selected order.

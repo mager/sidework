@@ -64,5 +64,11 @@
     "asset": "https://avatars.githubusercontent.com/u/93415?v=4&s=112",
     "origin": "https://api.github.com/repos/simplegeo/python-simplegeo",
     "usage": "GitHub repository owner avatar for simplegeo; verified November 6, 2026. Referenced remotely in original colors for contribution attribution."
+  },
+  {
+    "asset": "public/images/nextmove-chess.png",
+    "origin": "https://blunder-school.vercel.app",
+    "creator": "@mager",
+    "usage": "Actual Nextmove guest game captured November 8, 2026 at 1280 × 800 CSS pixels and 2× pixel density (2560 × 1600 PNG). Shows the French Defense and a move hint from Rook. Original colors; no browser chrome or account details."
   }
 ]

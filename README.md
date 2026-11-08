@@ -21,7 +21,7 @@ Use [the setup guide](docs/github-auth.md) for GitHub sign-in and Firestore. Loc
 - `/friends/`: access-controlled local follows and first-project entry.
 - `/settings/`: access-controlled Appearance, workspace reset and restore, sign-out, and an owner-only Open admin link.
 - `/admin/connect/`: main-site sign-in transfer to the separate admin site; it does not expose account records.
-- `/projects/cantalo/`, `/projects/homeport/`, `/projects/moodsh/`, `/projects/perch/`, `/projects/prxps/`: access-controlled project detail pages.
+- `/projects/nextmove/`, `/projects/cantalo/`, `/projects/homeport/`, `/projects/moodsh/`, `/projects/perch/`, `/projects/prxps/`: access-controlled project detail pages.
 - `/contributions/`, `/contributions/[slug]/`, `/contributions/drafts/`: access-controlled stories, source evidence, and private draft editor.
 - `/onboarding/`: search and bulk import of all public repositories owned by a GitHub handle.
 - `/mager/`: public profile with one list of personal projects and external contribution stories; available without an invite.
@@ -32,7 +32,7 @@ Use [the setup guide](docs/github-auth.md) for GitHub sign-in and Firestore. Loc
 
 ## What works
 
-The profile and Explore alternate five personal projects with six authored external contribution stories, starting with Cántalo and Uber Direct SDK. Both use the same compact row layout: two columns on desktop and one on mobile. Small project thumbnails keep their original colors; full screenshots appear only on detail pages. All work, Projects, and Contributions are normal links that work without JavaScript. Categories appear only under Projects; existing category URLs still work. The contribution list excludes repositories owned by the story author. Each contribution row shows its verified GitHub owner avatar and a direct repository link; its title opens the Sidework story.
+The profile and Explore alternate six personal projects with six authored external contribution stories, starting with Nextmove and Uber Direct SDK. Both use the same compact row layout: two columns on desktop and one on mobile. Small project thumbnails keep their original colors; full screenshots appear only on detail pages. All work, Projects, and Contributions are normal links that work without JavaScript. Categories appear only under Projects; existing category URLs still work. The contribution list excludes repositories owned by the story author. Each contribution row shows its verified GitHub owner avatar and a direct repository link; its title opens the Sidework story.
 
 Normal links open separate detail pages with no content borders or panel frames. Project pages use compact headings and place the screenshot beside the story on desktop. At 1000px and below, the image sits above the story; at 760px and below, the story uses one column. Screenshots keep their natural ratio and source size limits. Pages show purpose, source metadata, text-only technology tags, app and save actions, and More by @mager links. prxps uses a real test-account screenshot captured with owner permission. Saved links open the matching detail page. The exact /mager/ profile stays public; detail pages require approved account or valid legacy session access. Raw PR history stays in the workbench, with selected evidence on contribution detail pages. Add a contribution opens the existing private editor; it does not publish.
 
@@ -73,6 +73,7 @@ The weekly goal counts distinct saved projects marked submitted by the user. It 
 - Six recent PR states were fetched from GitHub on November 4, 2026. The snapshot preserves merged, draft, open, and closed as separate states.
 - Older contribution evidence comes from @mager’s October 12, 2026 [public contribution record](https://mager.co/software/contributions.json). The workbench displays a selection; it does not claim a full GitHub history or complete activity totals.
 - Six contribution stories come from @mager’s software page, checked November 5, 2026. Their selected evidence retains its own check dates and states; it is not a complete activity record.
+- Nextmove’s description and features were checked against its live site and the `mager/blunder-club` README on November 8, 2026. Its sharp 2× guest-game capture is stored at `public/images/nextmove-chess.png`.
 - Cántalo’s description and features were checked against its live MATADORA page and `mager/cantalo` README on November 5, 2026. Its repository is private; no source code is included in Sidework.
 - Other project descriptions and links come from [@mager’s software directory](https://mager.co/software/).
 - The illustrated @mager portrait is an existing asset from magerblog, by [@hopperdraws](https://x.com/hopperdraws). It is included for this profile; it is not a reusable product logo.

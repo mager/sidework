@@ -1,5 +1,18 @@
 export const projects = [
   {
+    id: 'nextmove', name: 'Nextmove', kind: 'Learn chess by playing', stack: 'Svelte · TypeScript · Stockfish · Firebase',
+    image: '/images/nextmove-chess.png', imageAlt: 'Nextmove’s blue and white chessboard with a suggested move and the Rook guide.',
+    imageWidth: 2560, imageHeight: 1600, imageDisplayWidth: 1280,
+    tagline: 'Learn chess one move at a time.',
+    category: 'learning', softwareType: 'web-app',
+    audience: 'Chess beginners who learn by playing.',
+    features: ['Play against three computer difficulty levels.', 'Practice openings and tactics with guided lessons.', 'Revisit mistakes and try another move.'],
+    description: 'Play a move, see its consequence, and try again. Nextmove pairs a chessboard with short guidance, practice lessons, and saved positions to revisit.',
+    note: 'Prototype · Guest play available',
+    url: 'https://blunder-school.vercel.app', source: 'https://github.com/mager/blunder-club',
+    story: 'https://github.com/mager/blunder-club#readme',
+  },
+  {
     id: 'cantalo', name: 'Cántalo', kind: 'Spanish through music', stack: 'JavaScript · Node.js · Firestore',
     image: '/images/cantalo-matadora.jpg', imageAlt: 'Cántalo’s bright blue and yellow MATADORA page with its Spotify player.',
     imageWidth: 1280, imageHeight: 720, imageDisplayWidth: 960,

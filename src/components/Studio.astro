@@ -7,7 +7,7 @@ import Icon from './SideworkIcon.astro';
 import {projects} from '../data/projects';
 import stories from '../data/contribution-stories.json';
 const {profile = false} = Astro.props;
-const ordered = ['cantalo','homeport','moodsh','perch','prxps'].map(id => projects.find(p => p.id === id)!);
+const ordered = ['nextmove','cantalo','homeport','moodsh','perch','prxps'].map(id => projects.find(p => p.id === id)!);
 const { kind, category, entries } = workFeed(ordered, stories, {
  kind: Astro.url.searchParams.get('kind') || '', category: Astro.url.searchParams.get('category') || '',
 });
