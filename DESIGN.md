@@ -287,9 +287,9 @@ Bricolage Grotesque carries reading text, Martian Mono identifies projects and s
 - Real screenshots keep their original colors and natural ratio on detail pages.
 - Real contribution evidence replaces decorative activity.
 - Normal project links work without JavaScript.
-- Local drafts, saves, follows, and public records remain distinct.
+- Private account drafts, browser data, and public records remain distinct.
 
-This records the approved work-list direction, the November 5, 2026 project, contribution, and Settings updates, and the November 7 admin and project-detail extension. It supersedes the compact software browser and project tabs. Source authority is the applied CSS in src/styles/sidework.css, studio.css, settings.css, friends.css, entry.css, composer.css, agents.css, contribution-stories.css, account.css, and admin.css. The project surfaces use Studio.astro, StudioLayout.astro, and src/pages/projects/[slug].astro. PRODUCT.md and docs/sidework-surface.md record product scope and review. Fonts come from src/styles/fonts.css; images from docs/assets.json.
+This records the approved work-list direction, the November 5, 2026 project, contribution, and Settings updates, the November 7 admin and project-detail extension, and the November 8 private account draft controls. It supersedes the compact software browser and project tabs. Source authority is the applied CSS in src/styles/sidework.css, studio.css, settings.css, friends.css, entry.css, composer.css, agents.css, contribution-stories.css, account.css, admin.css, and draft-storage.css. The project surfaces use Studio.astro, StudioLayout.astro, and src/pages/projects/[slug].astro. PRODUCT.md and docs/sidework-surface.md record product scope and review. Fonts come from src/styles/fonts.css; images from docs/assets.json.
 
 ## Colors
 
@@ -392,7 +392,7 @@ Signup uses one GitHub action and an optional, unchecked email consent checkbox.
 
 Settings is the only location for the theme control. Appearance has a labeled native select with System, Light, and Dark. It uses a 44px minimum height, 160px minimum width, 6px corners, a surface fill, and no border. Focus uses the shared visible outline. The control appears after its script connects. Other headers and the import page link to Settings; the account footer has no theme control.
 
-Workspace places Reset my workspace and Restore previous workspace beside the explanation. Restore appears when a backup exists. Status messages span the section. Signed-in accounts have an Email updates form. Preview access names the signed-in @handle, or the legacy session, and contains Sign out. These are unboxed sections, not cards. The configured owner also has an Admin section with Open admin, which opens the separate owner site.
+Workspace places Reset my workspace and Restore previous workspace beside the explanation. Copy states that these actions affect browser data only and do not delete account drafts. Restore appears when a backup exists. Status messages span the section. Signed-in accounts have an Email updates form. Preview access names the signed-in @handle, or the legacy session, and contains Sign out. These are unboxed sections, not cards. The configured owner also has an Admin section with Open admin, which opens the separate owner site.
 
 ### Project navigation and content
 
@@ -418,15 +418,17 @@ Saved opens a native popover near the header, at 76px from the top and 28px from
 
 ### Workbench stories and review
 
-Forms edit name, purpose, tagline, stage, stack, screenshot and alt text, source, motivation, and learning. Text updates the live preview; screenshot updates wait for a committed field change. HTTPS images fit without cropping and show a failure message if needed. Save failures keep unsaved text and previous stored state. Seed edits are local overrides; the public snapshot stays unchanged.
+Forms edit name, purpose, tagline, stage, stack, screenshot and alt text, source, motivation, and learning. Text updates the live preview; screenshot updates wait for a committed field change. HTTPS images fit without cropping and show a failure message if needed. Save failures keep unsaved text and previous stored state. Seed edits are private copies; the public snapshot stays unchanged. Approved accounts load server drafts before editing. Legacy sessions retain browser storage. Save and conflict messages keep the form available and offer a recovery download.
 
 Up to six projects form a private ordered draft. Feature has a pressed state; named earlier/later buttons retain focus after rerender and disable at their limits. Account exports contain selected stories in order, the current @handle, and numeric GitHub ID. Review names the account and rejects another account’s draft before offering a save. Legacy version 1 and account version 2 backups restore after explicit review and Save these projects. Agent links use the same review path. Matching stories and order are updated together; other projects and plans remain. There is no public publishing action.
 
+The shared storage status names private account storage or this browser. The compact Backups disclosure offers all loaded account drafts as a download, explicit browser-draft review, and full account backup restore. Review lists projects and contributions. Browser import gives saved account fields and order priority and keeps browser originals. Full restore states that it replaces all private drafts and order, shows current counts, and asks the user to download a copy first. It requires the same numeric account ID and an explicit Restore this backup action. A same-page save invalidates an open import or restore review. Loading and saving disable the active editor. Failed saves retain changes; conflicts do not merge silently.
+
 ### Agents and import
 
-The Agents prompt is mono text on a bordered surface, with 18px by 20px padding and a 68ch maximum measure. Three steps cover a scoped token, client setup, and draft review. Copy failure exposes the exact requested text in a labeled readonly field, focuses and selects it; Hide clears it. Tokens stay in page memory. Review links carry compressed fragments, not a server inbox. Agents read evidence and prepare drafts; they cannot save browser state or publish.
+The Agents prompt is mono text on a bordered surface, with 18px by 20px padding and a 68ch maximum measure. Three steps cover a scoped token, client setup, and draft review. Copy failure exposes the exact requested text in a labeled readonly field, focuses and selects it; Hide clears it. Tokens stay in page memory. Review links carry compressed fragments, not a server inbox. Agents read evidence and prepare drafts; they cannot read private server drafts, write drafts, or publish.
 
-GitHub import supports public owned repositories, search, fork/archive filters, bulk selection, and rows revealed 100 at a time. It preserves stories and draft order. Selection and local-save limits remain explicit. Review and import status messages cover loading, empty results, invalid data, and storage errors. docs/agents.md defines the integration limits.
+GitHub import supports public owned repositories, search, fork/archive filters, bulk selection, and rows revealed 100 at a time. It preserves stories and draft order. Selection and storage limits remain explicit. Approved accounts save imports on the server; legacy sessions save in this browser. Review and import status messages cover loading, empty results, invalid data, and storage errors. docs/agents.md defines the integration limits.
 
 ### Provenance and footer
 
@@ -441,7 +443,7 @@ The portrait is the existing @hopperdraws illustration. Screenshot origins are i
 - **Do** keep the public profile snapshot distinct from the private workbench.
 - **Do** keep keyboard focus visible and support reduced motion.
 - **Do** support Light, Dark, and System while keeping source screenshots in their original colors.
-- **Do** state that reviewed drafts save in this browser and do not publish.
+- **Do** state that reviewed drafts save to the approved account, or in this browser for legacy sessions, and do not publish.
 
 ### Don't:
 - **Don't** add colored interface accents or remove color from source screenshots.
@@ -449,4 +451,4 @@ The portrait is the existing @hopperdraws illustration. Screenshot origins are i
 - **Don't** restore project tabs, framed project panels, the public manifest, floating dock, or marketing close.
 - **Don't** add tilted screenshots, perspective drift, or a simulated terminal.
 - **Don't** invent source records, people, activity counts, or learning outcomes.
-- **Don't** claim that an agent can read local drafts or publish a profile.
+- **Don't** claim that an agent can read private drafts, write drafts, or publish a profile.

@@ -1,0 +1,6 @@
+{
+  "indexes": [],
+  "fieldOverrides": [
+    { "collectionGroup": "sidework_drafts", "fieldPath": "drafts", "indexes": [] }
+  ]
+}

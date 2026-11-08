@@ -39,11 +39,11 @@ Normal links open separate detail pages with no content borders or panel frames.
 - Public project showcase with demo, source, and build-log links.
 - Friends with empty and followed-profile views for the real @mager profile.
 - Empty new workspaces and a local reset with a restore copy.
-- Six authored contribution stories with selected PR and commit evidence, plus a private local draft editor.
+- Six authored contribution stories with selected PR and commit evidence, plus a private account draft editor.
 - Contribution search and status filters, with source links and dated evidence.
 - Skill filters for four curated contribution opportunities.
 - Saved opportunities and planned / in progress / submitted states.
-- Local project stories with a tagline, description, stage, screenshot, source links, and optional notes about purpose and learning.
+- Private project stories with a tagline, description, stage, screenshot, source links, and optional notes about purpose and learning.
 - Live project preview, up to six featured projects, accessible ordering controls, and JSON export of the selected profile draft.
 - An authenticated MCP endpoint and Claude Code plugin for public GitHub discovery and agent-prepared profile drafts, with direct review links.
 - Public GitHub refresh for @mager’s repositories and recent pull requests, with loading, timeout, and rate-limit recovery.
@@ -62,9 +62,9 @@ The admin uses a separate session and checks the approved owner account by GitHu
 
 GitHub signup records the verified numeric ID, login, verified email, waiting status, and optional update consent in Firestore. Only the configured owner starts approved. Other accounts wait for access. Email delivery is not connected. GitHub OAuth and Firestore are live. Local and production checks covered owner access, waiting access, consent changes, sign-out, and repeat sign-in. A production HTTP callback check covered cancellation with valid OAuth state.
 
-Private exports, draft review, and MCP templates now use the signed-in account’s numeric GitHub ID and current @handle. Keep other accounts waiting until the release checks in [the MVP plan](docs/mvp.md) pass. There is no public multi-profile publishing, automatic draft synchronization, or connected social graph. Saves, follows, local drafts, and plans use browser `localStorage` with a GitHub numeric ID suffix for signed-in accounts. Legacy browser data is retained and is not automatically migrated. The theme is shared within the browser. Anyone with access to the browser profile can inspect its local data. Local drafts and plans are not posted to GitHub or included in the public profile. Refreshed GitHub results last for the current visit; saved plans and local drafts survive reloads when browser storage is available.
+Private exports, draft review, and MCP templates now use the signed-in account’s numeric GitHub ID and current @handle. Keep other accounts waiting until the release checks in [the MVP plan](docs/mvp.md) pass. Approved accounts save project stories, featured order, and contribution drafts on the server. Another browser loads those private drafts after sign-in. There is no public multi-profile publishing or shared social graph. Saves, follows, and plans remain in browser `localStorage`, with a GitHub numeric ID suffix for signed-in accounts. Existing browser drafts remain intact until an explicit browser reset; import to the account requires review and a save. Legacy sessions keep browser-local drafts, with no automatic migration of legacy keys. Theme stays browser-global. Anyone with access to the browser profile can inspect its local data. Drafts and plans are not posted to GitHub or included in the public profile. See [private account drafts](docs/account-drafts.md) for storage, conflicts, import, and recovery.
 
-The profile is a committed snapshot. Updating a local draft does not publish it. To update the profile, edit `src/data/projects.ts`, `src/data/contribution-stories.json`, or the contribution snapshot and rebuild. Source links provide the current GitHub state. All routes use `noindex` while this remains a prototype.
+The profile is a committed snapshot. Saving a private draft does not publish it. To update the profile, edit `src/data/projects.ts`, `src/data/contribution-stories.json`, or the contribution snapshot and rebuild. Source links provide the current GitHub state. All routes use `noindex` while this remains a prototype.
 
 The weekly goal counts distinct saved projects marked submitted by the user. It does not infer a merge or verify a submission. Opportunity availability is a dated observation; check the issue and related PRs before starting. Shiki’s example already has related work and needs coordination.
 
@@ -86,10 +86,9 @@ The three active Latin WOFF2 subsets are self-hosted. They are self-hosted with 
 
 ## Next build
 
-1. Save private drafts on the server, scoped to the verified account ID.
-2. Add profile ownership, preview, publish, edit, and unpublish for projects and contributions.
-3. Complete access, recovery, and deletion checks before opening the preview.
-4. Add shared follows, saves, and source refresh for V1.
+1. Add profile ownership, preview, publish, edit, and unpublish for projects and contributions.
+2. Complete access, recovery, and deletion checks before opening the preview.
+3. Add shared follows, saves, and source refresh for V1.
 
 See [the MVP and V1 release plan](docs/mvp.md) for acceptance checks and current limits.
 
@@ -97,27 +96,29 @@ Keep project ownership separate from upstream contribution credit. Keep activity
 
 ## Project stories and profile drafts
 
-A fresh workbench starts without projects or featured selections. Import repositories or create a story, then open My projects → Edit story. Older version 1 workspaces without an `includeExamples` field keep the seeded examples. Changes to a curated project create a local copy; they do not change the committed public profile. The editor previews safe text, HTTPS screenshots, and project links. It warns before discarding unsaved changes and retains the form when browser storage rejects a save.
+A fresh workbench starts without projects or featured selections. Import repositories or create a story, then open My projects → Edit story. Older browser version 1 workspaces without an `includeExamples` field keep the seeded examples. Account workspaces start empty. Explicit browser import includes selected examples as private copies; it does not change the committed public profile. The editor previews safe text, HTTPS screenshots, and project links. It warns before discarding unsaved changes and retains the form when a save fails.
 
-Feature up to six projects, then open Profile draft to change their order. Export draft downloads selected stories as `sidework-profile-draft.json`, marked `private-draft`. This export includes projects only; it does not include contribution drafts. Review a draft file restores a backup or opens an agent-prepared file after review. Agents can also return a direct review link. Saving a reviewed draft updates matching local stories and replaces featured order; unrelated projects and weekly plans remain. Public publishing is not connected. Local drafts remain tied to this browser and origin.
+Feature up to six projects, then open Profile draft to change their order. Export draft downloads selected stories as `sidework-profile-draft.json`, marked `private-draft`. This export includes projects only; it does not include contribution drafts. Review a draft file restores a backup or opens an agent-prepared file after review. Agents can also return a direct review link. Saving a reviewed profile draft updates matching private stories and replaces featured order; unrelated projects, contribution drafts, and weekly plans remain. Approved accounts save to the server; legacy sessions save in this browser. Public publishing is not connected.
+
+Backups offers a separate download of all loaded account projects, contribution drafts, and featured order. It also offers explicit review of browser drafts and full account backup restore. Full restore replaces all private drafts and order after review; download the current account drafts first. The backup must have the same numeric account ID. Failed saves retain changes and offer a recovery download.
 
 ## Contribution stories and drafts
 
 `/contributions/` shows six authored @mager stories from the software page. Each detail page separates the story from selected PR or commit evidence, with source links and check dates. PR states remain explicit; commits do not receive a merge state. These routes require approved account or valid legacy session access. The exact public `/mager/` profile and Explore place the same external stories beside personal projects in one work list.
 
-`/contributions/drafts/` previews and saves up to 20 private stories in this browser. Each needs a project name, @handle, upstream repository, description, and HTTPS GitHub PR, issue, or commit URL from that repository. URL validation does not verify identity, authorship, or current source state. Contribution drafts use `contributionDrafts` in `sidework-workbench-v1` (with `:github:<numeric-id>` for accounts); project imports, draft review, and workbench saves preserve them. Reset and restore include them. Contribution publishing, export, and agent draft preparation are not connected.
+`/contributions/drafts/` previews and saves up to 20 private stories to an approved account, or in this browser for a legacy session. Each needs a project name, @handle, upstream repository, description, and HTTPS GitHub PR, issue, or commit URL from that repository. URL validation does not verify identity, authorship, or current source state. Account contribution drafts use the server `contributionDrafts` field; project imports, profile draft review, and workbench saves preserve them. Full account backups include them. Existing browser copies remain in `sidework-workbench-v1` (with `:github:<numeric-id>` for accounts). Settings reset and restore affect those browser copies only. Contribution publishing and agent draft preparation are not connected.
 
 ## Friends and starting fresh
 
 After GitHub sign-in, approved accounts open Friends and waiting accounts open the pending page. Friends lists local follows and offers the sole public profile, @mager. Follow and Unfollow do not send requests or create a shared social record.
 
-Open Settings → Workspace → Reset my workspace to return to an empty workspace. The reset clears local project and contribution drafts, featured order, the weekly plan, saves, and follows. It keeps access and the theme choice. Before changing those values, it stores one restore copy in `localStorage` under `sidework-reset-backup-v1` (with `:github:<numeric-id>` for accounts). Restore previous workspace recovers that copy. Each later reset replaces it; clearing browser storage removes it. The copy stays in the same browser and origin. A successful reset or restore opens Friends.
+Open Settings → Workspace → Reset my workspace to clear browser data. The reset clears browser project and contribution drafts, browser featured order, the weekly plan, saves, and follows. It does not delete server account drafts or change their featured order. It keeps access and the theme choice. Before changing those values, it stores one restore copy in `localStorage` under `sidework-reset-backup-v1` (with `:github:<numeric-id>` for accounts). Restore previous workspace recovers that copy. Each later reset replaces it; clearing browser storage removes it. The copy stays in the same browser and origin. A successful reset or restore opens Friends.
 
-The public @mager profile and its dated evidence remain unchanged. Your workbench labels that public evidence separately from local work. A fresh workspace can import a repository even when it is part of the public snapshot.
+The public @mager profile and its dated evidence remain unchanged. Your workbench labels that public evidence separately from private work. A fresh workspace can import a repository even when it is part of the public snapshot.
 
 ## Agent connections
 
-Open Workbench → Agents to create a scoped token and connect Claude Code or another MCP client. Six tools read committed records, find public GitHub repositories, and prepare drafts for review. They cannot publish or read browser storage. The plugin lives in `plugins/sidework`; `.claude-plugin/marketplace.json` makes it installable from `mager/sidework`. See [the agent guide](docs/agents.md) for setup and limits.
+Open Workbench → Agents to create a scoped token and connect Claude Code or another MCP client. Six tools read committed records, find public GitHub repositories, and prepare drafts for review. They cannot publish, read browser storage, or read or write private server drafts. The plugin lives in `plugins/sidework`; `.claude-plugin/marketplace.json` makes it installable from `mager/sidework`. See [the agent guide](docs/agents.md) for setup and limits.
 
 ## License
 
@@ -127,10 +128,10 @@ Code is MIT licensed. The portrait, screenshot, personal project descriptions, a
 
 Live site: https://sidework-ten.vercel.app. The requested `sidework.vercel.app` alias was already in use.
 
-Astro renders all pages on the server with the Vercel adapter. On the main site, public application routes are `/admin/connect/` (sign-in transfer only), `/signup/`, the exact `/auth/github/` start and `/auth/github/callback/` routes, the exact `/mager/` profile, `/invite/` (redirect only), and `/api/signout`. Waiting accounts may use `/waiting/` and `/api/account/updates`. Other website routes require an approved account session or a valid legacy invite cookie. `/api/mcp` requires its own scoped bearer token. Account tokens recheck approval in the database on each request.
+Astro renders all pages on the server with the Vercel adapter. On the main site, public application routes are `/admin/connect/` (sign-in transfer only), `/signup/`, the exact `/auth/github/` start and `/auth/github/callback/` routes, the exact `/mager/` profile, `/invite/` (redirect only), and `/api/signout`. Waiting accounts may use `/waiting/` and `/api/account/updates`. Other website routes require an approved account session or a valid legacy invite cookie. `/api/account/drafts` requires an approved account session and a matching expected-account header; legacy cookies do not grant draft API access. `/api/mcp` requires its own scoped bearer token. Account tokens recheck approval in the database on each request.
 
 Responses use `private, no-store`. Protected account routes fail closed when the database is unavailable; the public profile stays available. Static assets and committed showcase data remain public. See [GitHub sign-in setup](docs/github-auth.md) for environment variables, keyless database access, access limits, and recorded checks.
 
 Old invite codes are no longer accepted. Existing invite cookies and version 1 agent tokens remain valid until expiry or removal of their invitation hash. Keep `SIDEWORK_INVITE_HASHES` and the existing `SIDEWORK_SESSION_SECRET` to preserve those sessions. Rotating the session secret ends all signed sessions and tokens. Sign out clears this browser’s account, OAuth, and legacy invite cookies; local work remains.
 
-Public repository import requests GitHub directly from the browser. It reads pages of 100 until complete; a failed page does not return partial success. Forks and archived repositories are included and can be filtered. Search, bulk selection, duplicate checks, cancellation, API errors, and storage errors are handled. Imported drafts persist in the current browser, up to 5,000 projects, and do not publish to a profile or claim verified ownership. Organization-owned repositories are not part of a user’s owned-repository list; enter the organization handle to find its public repositories.
+Public repository import requests GitHub directly from the browser. It reads pages of 100 until complete; a failed page does not return partial success. Forks and archived repositories are included and can be filtered. Search, bulk selection, duplicate checks, cancellation, API errors, and storage errors are handled. Imported drafts save to the approved account, or in the current browser for a legacy session. Account drafts allow up to 5,000 projects within the 700,000-byte limit. Import does not publish a profile or verify ownership. Organization-owned repositories are not part of a user’s owned-repository list; enter the organization handle to find its public repositories.

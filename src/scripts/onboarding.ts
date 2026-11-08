@@ -1,14 +1,18 @@
+import { openDraftWorkspace } from './draft-storage';
 import { STORAGE_KEY, readState } from './sidework-state.mjs';
 import { fetchRepositories, githubHandle, importSelection, projectKey } from './github-import.mjs';
+async function startImport() {
 const $ = (id:string) => document.getElementById(id)!;
 const input = (id:string) => $(id) as HTMLInputElement;
 const button = (id:string) => $(id) as HTMLButtonElement;
 const seed = JSON.parse($('import-seed').textContent!);
+const workspace=await openDraftWorkspace($('main'),seed.projects,()=>{loadExisting();render();});
+if(!workspace)return;
 let repos:any[] = [], selected = new Set<string>(), existing = new Set<string>(), visible = 100;
 let controller:AbortController | null = null;
 const status = (message:string) => { $('import-status').textContent = message; };
 function loadExisting() {
-  const state = readState(localStorage.getItem(STORAGE_KEY), seed.opportunityIds);
+  const state = readState(JSON.stringify(workspace!.read()), seed.opportunityIds);
   existing = new Set([...(state.includeExamples ? seed.projects : []),...state.projects].map(projectKey));
 }
 function matching() {
@@ -58,14 +62,19 @@ for (const id of ['repo-search','include-forks','include-archived']) $(id).addEv
 $('select-matching').addEventListener('click',()=>{for(const repo of matching()){const key=projectKey(repo.project);if(!existing.has(key))selected.add(key);}render();});
 $('clear-selection').addEventListener('click',()=>{selected.clear();render();});
 $('show-more').addEventListener('click',()=>{visible+=100;render();});
-$('import-selected').addEventListener('click',()=>{
+$('import-selected').addEventListener('click',async()=>{
   try {
     const chosen=repos.filter(repo=>selected.has(projectKey(repo.project))).map(repo=>repo.project);
-    const result=importSelection(localStorage.getItem(STORAGE_KEY),chosen,seed.projects,seed.opportunityIds);
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(result.value));
+    const result=importSelection(JSON.stringify(workspace.read()),chosen,seed.projects,seed.opportunityIds);
+    button('import-selected').disabled=true;
+    await workspace.save(result.value,{projectsOnly:true});
     selected.clear(); loadExisting(); render();
-    $('import-result-text').textContent=`${result.count} ${result.count===1?'project imported':'projects imported'}. Your drafts are saved in this browser.`;
+    $('import-result-text').textContent=`${result.count} ${result.count===1?'project imported':'projects imported'}. Your drafts are saved ${workspace.account?'to your account':'in this browser'}.`;
     $('import-result').hidden=false;
     $('import-result').scrollIntoView({block:'nearest'});
   }catch(error:any){status(error?.name==='QuotaExceededError'?'This browser is out of storage. Remove old drafts or select fewer projects. Your existing drafts are unchanged.':error?.name==='SecurityError'?'Browser storage is blocked. Allow storage and try again.':error.message || 'Could not save. Please try again.');}
+  finally{updateSelection();}
 });
+
+}
+void startImport();

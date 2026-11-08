@@ -1,0 +1,20 @@
+---
+import '../styles/draft-storage.css';
+import { projects } from '../data/projects';
+const seed = JSON.stringify(projects.map(project=>({...project,image:project.image?.startsWith('/') ? new URL(project.image,'https://sidework-ten.vercel.app').href : project.image}))).replace(/</g, '\\u003c');
+---
+{Astro.locals.account && <section class="draft-storage" id="draft-storage" aria-label="Account drafts">
+ <script type="application/json" id="draft-storage-seed" set:html={seed}/>
+ <p id="draft-storage-status" role="status">Loading account drafts…</p>
+ <button type="button" class="sw-button" id="draft-storage-retry" hidden>Try again</button>
+ <button type="button" class="sw-button" id="draft-storage-recovery" hidden>Download last save attempt</button>
+ <details id="draft-storage-tools" hidden><summary>Backups</summary><div class="draft-storage-actions">
+  <button type="button" class="sw-button" id="draft-storage-export">Download account drafts</button>
+  <button type="button" class="sw-button" id="draft-storage-import">Review browser drafts</button>
+  <label class="draft-storage-file">Review a backup<input type="file" id="draft-storage-file" accept=".json,application/json"/></label>
+ </div><p>Backups contain private project and contribution drafts. Browser drafts stay here until you import them.</p></details>
+ <section class="draft-storage-review" id="draft-storage-review" aria-labelledby="draft-storage-review-title" hidden>
+  <h2 id="draft-storage-review-title">Review draft import</h2><p id="draft-storage-review-note"></p><ul id="draft-storage-review-list"></ul>
+  <div class="draft-storage-actions"><button type="button" class="sw-button sw-primary" id="draft-storage-confirm">Save to my account</button><button type="button" class="sw-button" id="draft-storage-cancel">Cancel</button></div>
+ </section>
+</section>}

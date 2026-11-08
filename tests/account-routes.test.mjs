@@ -25,9 +25,14 @@ test('waiting accounts cannot enter private routes even with a legacy cookie; ac
     const response=await run(path);assert.equal(response.status,303,path);assert.equal(response.headers.get('location'),'/waiting/');
   }
   for(const path of ['/waiting/','/mager/','/api/account/updates']) assert.equal((await run(path)).status,200,path);
+  const waitingDrafts=await run('/api/account/drafts');assert.equal(waitingDrafts.status,403);assert.match(waitingDrafts.headers.get('content-type'),/application\/json/);assert.equal(waitingDrafts.headers.has('location'),false);
+  const anonymousDrafts=await run('/api/account/drafts',{});assert.equal(anonymousDrafts.status,401);assert.match((await anonymousDrafts.json()).error,/Sign in/);
+  const legacyDrafts=await run('/api/account/drafts',{[legacy.COOKIE_NAME]:values[legacy.COOKIE_NAME]});assert.equal(legacyDrafts.status,401);
   record={...record,status:'approved'};assert.equal((await run('/friends/')).status,200);
+  assert.equal((await run('/api/account/drafts')).status,200);
   record=null;assert.equal((await run('/friends/')).headers.get('location'),'/signup/');
   fail=true;assert.equal((await run('/friends/')).status,503);assert.equal((await run('/api/signout')).status,200);
+  const unavailableDrafts=await run('/api/account/drafts');assert.equal(unavailableDrafts.status,503);assert.match(unavailableDrafts.headers.get('content-type'),/application\/json/);
   assert.equal((await run('/mager/')).status,200);
   assert.equal((await run('/api/mcp',{})).status,200); // MCP has separate bearer authorization.
   assert.equal((await run('/friends/',{})).headers.get('location'),'/signup/');

@@ -5,6 +5,7 @@ import { MAX_FEATURED, STAGES, showcaseProjects, saveProjectDraft, toggleFeature
 import { projectPreview } from './project-preview';
 import { MAX_DRAFT_BYTES, parseProfileDraft, mergeProfileDraft, decodeReviewLink } from './draft-transfer.mjs';
 import { browserDraftIdentity } from './draft-identity.mjs';
+import { openDraftWorkspace } from './draft-storage';
 import { setupAgentConnections } from './agent-connections';
 
 import { PROJECT_CATEGORIES, SOFTWARE_TYPES, projectMatches } from './project-metadata.mjs';
@@ -12,6 +13,7 @@ import { PROJECT_CATEGORIES, SOFTWARE_TYPES, projectMatches } from './project-me
 type Project = { id: string; name: string; description: string; stack: string; url: string; source?: string; local?: boolean; tagline?: string; whyBuilt?: string; learned?: string; image?: string; imageAlt?: string; stage?: string; category?: string; softwareType?: string; audience?: string; features?: string[]; };
 type Contribution = { id: string; title: string; repository: string; number: number; url: string; status: string; date: string; checkedAt: string; };
 type Opportunity = { id: string; name: string; title: string; next: string; url: string; skill: string; };
+async function startWorkbench() {
 const seed = JSON.parse(document.getElementById('sidework-seed')!.textContent!) as { projects: Project[]; contributions: Contribution[]; opportunities: Opportunity[] };
 const root = document.getElementById('sidework')!;
 const draftIdentity = browserDraftIdentity();
@@ -33,15 +35,18 @@ const notify = (text: string, error = false) => {
   notice.hidden = false;
   notice.toggleAttribute('data-error', error);
 };
+const workspace = await openDraftWorkspace(root,seed.projects,()=>{state=readState(JSON.stringify(workspace!.read()),seed.opportunities.map(item=>item.id));editorActive=false;pendingProfileDraft=null;renderProjects();history.replaceState(null,'','#projects');showView('projects',true);},()=>!editorDirty()||confirm('Discard the unsaved changes in this editor?'));
+if(!workspace)return;
+const savedWhere=workspace.account?'to your account':'in this browser';
 let storageAvailable = true;
 let raw: string | null = null;
-try { raw = localStorage.getItem(STORAGE_KEY); } catch { storageAvailable = false; }
+try { raw = JSON.stringify(workspace.read()); } catch { storageAvailable = false; }
 let state = readState(raw, seed.opportunities.map(item => item.id));
 let items = seed.contributions;
 let importedProjects: Project[] = [];
 let contributionLimit = 12;
 const save = () => {
-  try { const next = withLatestContributionDrafts(localStorage.getItem(STORAGE_KEY), state); localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, ...next })); state = next; return true; }
+  try { const current=localStorage.getItem(STORAGE_KEY); const base=workspace.account?(current?JSON.parse(current):{version:1,projects:[],showcase:[],includeExamples:false}):withLatestContributionDrafts(current,state); localStorage.setItem(STORAGE_KEY,JSON.stringify({...base,version:1,plan:state.plan,weekStartedAt:state.weekStartedAt}));return true; }
   catch { storageAvailable = false; notify('Browser storage is unavailable. Your changes work for this visit but will not survive a reload.', true); return false; }
 };
 const catalog = state.includeExamples ? seed.projects : [];
@@ -94,7 +99,7 @@ function renderProjects() {
   $('#project-empty').hidden = filtered.length !== 0;
   $('#project-empty').textContent = all.length ? 'No projects match. Try another search.' : 'No projects yet. Import from GitHub or add your first project.';
   const summary = document.getElementById('workspace-summary');
-  if (summary) summary.textContent = all.length ? `${all.length} ${all.length === 1 ? 'project' : 'projects'} in this browser. Open My projects to edit and feature your work.` : 'Your workspace is empty. Bring a project from GitHub or add one yourself.';
+  if (summary) summary.textContent = all.length ? `${all.length} ${all.length === 1 ? 'project' : 'projects'} ${workspace.account?'in your account':'in this browser'}. Open My projects to edit and feature your work.` : 'Your workspace is empty. Bring a project from GitHub or add one yourself.';
   for (const project of filtered) {
     const row = make('article', 'sw-project-row');
     const monogram = make('span', 'sw-project-monogram', project.name.slice(0, 1));
@@ -107,21 +112,21 @@ function renderProjects() {
     actions.append(edit,feature,link('Open project', project.url, 'sw-button'));
     if (project.source && project.source !== project.url) actions.append(link('View source', project.source, 'sw-button'));
     if (project.local) {
-      const remove = make('button', 'sw-button', seed.projects.some(item => item.id === project.id) ? 'Discard local changes' : 'Remove local project') as HTMLButtonElement;
+      const remove = make('button', 'sw-button', workspace.account ? 'Remove project' : seed.projects.some(item => item.id === project.id) ? 'Discard local changes' : 'Remove local project') as HTMLButtonElement;
       remove.type = 'button'; remove.dataset.removeProject = project.id; actions.append(remove);
-      copy.append(make('small', '', 'Local draft · Not on your public profile'));
+      copy.append(make('small', '', 'Private draft · Not published'));
     }
     row.append(monogram, copy, actions); list.append(row);
   }
   renderShowcase();
 }
 $('#project-search').addEventListener('input', renderProjects);
-$('#project-list').addEventListener('click', event => {
+$('#project-list').addEventListener('click', async event => {
   const button = (event.target as Element).closest<HTMLButtonElement>('[data-remove-project]');
   if (!button) return;
-  state.projects = state.projects.filter((p: Project) => p.id !== button.dataset.removeProject);
-  const persisted = save(); renderProjects();
-  if (persisted) notify('Local project removed. The public profile is unchanged.');
+  const next={...state,projects:state.projects.filter((p:Project)=>p.id!==button.dataset.removeProject),showcase:state.showcase?.filter((id:string)=>id!==button.dataset.removeProject)??null};
+  const persisted=await persistDraftState(next);renderProjects();
+  if (persisted) notify('Private project removed. The public profile is unchanged.');
 });
 function contributionRow(item: Contribution, compact = false) {
   const row = make('article', 'sw-contribution');
@@ -242,16 +247,16 @@ function openEditor(project?: Project) {
   history.pushState(null,'','#editor'); showView('editor',true);
   form.querySelector<HTMLInputElement>('[name=name]')!.focus({preventScroll:true});
 }
-function persistDraftState(next: typeof state) {
-  try { const updated=withLatestContributionDrafts(localStorage.getItem(STORAGE_KEY),next);localStorage.setItem(STORAGE_KEY,JSON.stringify({version:1,...updated}));state=updated;return true; }
-  catch { notify('Could not save to this browser. Your last saved draft is unchanged. Allow browser storage or free some space, then try again.',true);return false; }
+async function persistDraftState(next: typeof state) {
+  try { const updated=await workspace!.save(next,{projectsOnly:true});state=readState(JSON.stringify(updated),seed.opportunities.map(item=>item.id));return true; }
+  catch(error) { notify(error instanceof Error?error.message:'Could not save. Your changes are still here.',true);return false; }
 }
 $('#add-project').addEventListener('click',()=>openEditor());
 $('#cancel-project').addEventListener('click',()=>{ showView('projects',true); if(!editorActive) history.pushState(null,'','#projects'); });
 form.addEventListener('input',event=>{ $('#draft-error').hidden=true; if((event.target as HTMLInputElement).name !== 'image')updateEditorPreview(); });
 form.addEventListener('change',updateEditorPreview);
 window.addEventListener('beforeunload',event=>{ if(editorDirty()){event.preventDefault();event.returnValue='';} });
-form.addEventListener('submit', event => {
+form.addEventListener('submit', async event => {
   event.preventDefault();
   const values=draftValues();
   const fail=(text:string)=>{ $('#draft-error').textContent=text;$('#draft-error').hidden=false;$('#draft-error').scrollIntoView({block:'nearest'}); };
@@ -259,13 +264,13 @@ form.addEventListener('submit', event => {
   if (values.image && !safeUrl(values.image).startsWith('https://')) {fail('Use a public HTTPS image link for the screenshot.');return;}
   try {
     const next=saveProjectDraft(state,{...values,id:editingId},catalog);
-    if(!persistDraftState(next)){fail('Your draft could not be saved. Your changes are still here; try again after you allow browser storage or free some space.');return;}
+    if(!await persistDraftState(next)){fail($('#feedback').textContent || 'Your draft could not be saved. Your changes are still here.');return;}
     editorBaseline=JSON.stringify(draftValues()); editorActive=false;
     renderProjects(); history.pushState(null,'','#projects');showView('projects',true);
-    notify('Project story saved in this browser. Your public profile is unchanged.');
+    notify(`Project story saved ${savedWhere}. Your public profile is unchanged.`);
   }catch(error){fail(error instanceof Error ? error.message : 'Could not save this draft. Try again.');}
 });
-document.addEventListener('click',event=>{
+document.addEventListener('click',async event=>{
   const button=(event.target as Element).closest<HTMLButtonElement>('[data-edit-project],[data-feature-project],[data-move-project]');
   if(!button)return;
   const id=button.dataset.editProject || button.dataset.featureProject || button.dataset.moveProject!;
@@ -277,7 +282,7 @@ document.addEventListener('click',event=>{
       if(!seed.projects.some(item=>item.id===id) && !state.projects.some((item:Project)=>item.id===id)) next=saveProjectDraft(next,project,seed.projects);
       next=toggleFeatured(next,id,allProjects(),defaultShowcase);
     } else next=moveFeatured(next,id,Number(button.dataset.direction),allProjects(),defaultShowcase);
-    if(!persistDraftState(next))return;
+    if(!await persistDraftState(next))return;
     const action=button.dataset.featureProject ? 'featureProject' : 'moveProject', direction=button.dataset.direction;
     renderProjects();
     const activePanel=document.getElementById(root.dataset.view || 'projects')!;
@@ -286,7 +291,7 @@ document.addEventListener('click',event=>{
     const focusTarget=replacement || fallback;
     if(focusTarget?.tagName==='H2')focusTarget.setAttribute('tabindex','-1');
     focusTarget?.focus({preventScroll:true});
-    notify('Profile draft saved in this browser. Your public profile is unchanged.');
+    notify(`Profile draft saved ${savedWhere}. Your public profile is unchanged.`);
   }catch(error){notify(error instanceof Error ? error.message : 'Could not update the profile draft.',true);}
 });
 function renderShowcase() {
@@ -349,12 +354,12 @@ $('#profile-draft-file')?.addEventListener('change', async event => {
   finally{input.value='';}
 });
 $('#cancel-draft-review')?.addEventListener('click',()=>{pendingProfileDraft=null;$('#draft-review-projects').replaceChildren();history.replaceState(null,'','#showcase');showView('showcase',true);});
-$('#save-reviewed-draft')?.addEventListener('click',()=>{
+$('#save-reviewed-draft')?.addEventListener('click',async()=>{
   if(!pendingProfileDraft)return;
   try {
     const next=mergeProfileDraft(state,pendingProfileDraft,catalog,draftIdentity);
-    if(!persistDraftState(next))throw new Error('Could not save this browser’s draft. The review is still here. Allow browser storage or free some space, then try again.');
-    pendingProfileDraft=null;$('#draft-review-projects').replaceChildren();renderProjects();history.replaceState(null,'','#showcase');showView('showcase',true);notify('Reviewed projects saved in this browser. Your public profile is unchanged.');
+    if(!await persistDraftState(next))throw new Error($('#feedback').textContent || 'Could not save. The review is still here.');
+    pendingProfileDraft=null;$('#draft-review-projects').replaceChildren();renderProjects();history.replaceState(null,'','#showcase');showView('showcase',true);notify(`Reviewed projects saved ${savedWhere}. Your public profile is unchanged.`);
   }catch(error){$('#draft-review-error').textContent=error instanceof Error ? error.message : 'Could not save this draft.';$('#draft-review-error').hidden=false;}
 });
 setupAgentConnections();
@@ -406,3 +411,6 @@ const incomingReview=location.hash.startsWith('#review=') ? location.hash.slice(
 showView(incomingReview ? 'showcase' : location.hash.slice(1)); renderProjects(); renderContributions(); renderPlan();
 if(incomingReview)loadReviewLink(incomingReview);
 if (!storageAvailable) notify('Browser storage is unavailable. You can explore, but edits and plans will only last for this visit.', true);
+
+}
+void startWorkbench();

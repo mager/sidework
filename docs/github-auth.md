@@ -11,7 +11,7 @@ GitHub OAuth app `3998242` is registered under @mager. Its secret is configured 
 
 Firebase/GCP project `sidework-9da9c` uses the `(default)` Firestore database in `us-east4`, Standard edition, with the free tier and billing disabled. The server uses Vercel OIDC Workload Identity through pool `sidework-vercel` and provider `vercel`. Trust is limited to the Sidework project and team by immutable IDs, with production and development environments allowed. Preview is not allowed. The service account `sidework-accounts@sidework-9da9c.iam.gserviceaccount.com` has `roles/datastore.user`. No GCP service account keys are used. Provider and service account policy readback confirmed the project/team conditions and only the Sidework production/development principals.
 
-`firestore.rules` denies all browser reads and writes. These rules were deployed with the Firebase CLI. Server access uses IAM. There is no SQL schema migration; the account transaction creates documents as needed. The earlier free Neon database is empty and unused by the new code. It is disconnected from Sidework, and its Vercel variables were removed. It has not been deleted.
+`firestore.rules` denies all browser reads and writes. These rules were deployed with the Firebase CLI. Server access uses IAM. There is no SQL schema migration; transactions create documents as needed. Private account drafts use `sidework_drafts/<numeric-id>`. The `drafts` field has an applied Firestore index exemption, tracked in `firestore.indexes.json`; nested private draft data does not need indexes. The earlier free Neon database is empty and unused by the new code. It is disconnected from Sidework, and its Vercel variables were removed. It has not been deleted.
 
 ## Environment and local use
 
@@ -48,7 +48,7 @@ OAuth state and PKCE use a signed, HTTP-only, same-site cookie that expires afte
 
 The Firestore `sidework_accounts` collection uses the numeric GitHub ID as each document ID. It stores ID, login, email, `waiting` or `approved` status, email update consent, and creation, login, and consent-change dates. A new record for the configured owner starts approved. Other new records start waiting. A Firestore transaction creates the record or refreshes identity and login time without replacing status or consent. Consent can be changed on the waiting page or in Settings. It does not send email.
 
-**Do not approve other accounts yet.** Private exports, draft review, and MCP templates now use the verified account ID and current handle. This is one release prerequisite; [the MVP checklist](mvp.md) still requires shared storage, publishing, and a tested access workflow. Waitlist signup can collect records; public multi-profile publishing is not connected.
+**Do not approve other accounts yet.** Private exports, draft review, and MCP templates now use the verified account ID and current handle. This is one release prerequisite; [the MVP checklist](mvp.md) still requires publishing, a tested access workflow, and release operations. Private account draft storage is implemented; it does not open access. Waitlist signup can collect records; public multi-profile publishing is not connected.
 
 | Route | Access |
 | --- | --- |
@@ -57,6 +57,7 @@ The Firestore `sidework_accounts` collection uses the numeric GitHub ID as each 
 | `/invite/` | Public redirect to signup; invite codes no longer create sessions. |
 | `/api/signout` | Public POST with an origin check; clears account, OAuth, and legacy invite cookies. |
 | `/waiting/`, `/api/account/updates` | Signed-in waiting accounts may view status and save consent. |
+| `/api/account/drafts` | Approved account session and matching `X-Sidework-Account` header; GET or same-origin JSON PUT. Legacy cookies and agent tokens do not grant access. |
 | Other application routes | Approved account session or valid legacy invite cookie. |
 | `/api/mcp` | Separate scoped bearer token; browser cookies do not authorize MCP. |
 
@@ -66,9 +67,9 @@ Existing legacy cookies and version 1 agent tokens remain valid until expiry or 
 
 ## Local work and checks
 
-Account workspaces use `:github:<numeric-id>` storage suffixes for drafts, plans, saves, follows, and reset backups. Legacy data remains in its original keys; no automatic migration occurs. The theme stays browser-global. Sign-out retains local data. Browser storage is not server storage or a privacy boundary against someone with access to the browser profile.
+Account browser data uses `:github:<numeric-id>` storage suffixes for retained browser drafts, plans, saves, follows, and reset backups. Current project stories, featured order, and contribution drafts save through `/api/account/drafts` to server-only Firestore. The server derives the document ID from the approved session and rechecks approval in each transaction. Writes compare revisions and reject conflicts. Existing browser drafts require explicit review and import; Settings reset does not delete account drafts. Legacy data remains in its original keys; no automatic migration occurs. See [private account drafts](account-drafts.md) for request limits, backup restore, and recovery. The theme stays browser-global. Sign-out retains local data. Browser storage is not server storage or a privacy boundary against someone with access to the browser profile.
 
-The local validation record has 75 passing tests and a production build. Real GitHub sign-in verified owner @mager (ID 17733). With that account temporarily set to waiting, Workbench and Settings redirected to the waiting page. Unchecked consent was saved, sign-out worked, and repeat OAuth preserved waiting status. Owner approval was restored and Friends was verified.
+The November 6 account-foundation validation record had 75 passing tests and a production build. Real GitHub sign-in verified owner @mager (ID 17733). With that account temporarily set to waiting, Workbench and Settings redirected to the waiting page. Unchecked consent was saved, sign-out worked, and repeat OAuth preserved waiting status. Owner approval was restored and Friends was verified.
 
 Ready signup and waiting pages were captured at 390 × 844 and 1280 × 900. Files are `.impeccable/review/github-signup-ready-{mobile,desktop}.jpg` and `.impeccable/review/github-waiting-{mobile,desktop}.jpg`.
 

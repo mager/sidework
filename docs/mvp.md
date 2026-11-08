@@ -10,15 +10,16 @@ A builder can sign in with GitHub, add a personal project or an upstream contrib
 
 - GitHub sign-in, verified numeric account IDs, waiting status, and stored email consent.
 - Owner-only, read-only signup dashboard with search and accessible status/consent filters.
-- Account-scoped browser drafts, project import, project stories, and contribution stories.
+- Server-saved private account projects, featured order, and contribution drafts, with account isolation, revision conflicts, explicit browser import, and full backup restore. Legacy sessions remain browser-local. See [private account drafts](account-drafts.md).
 - Account-bound project export, draft review, and MCP preparation. Review rejects other account IDs and handles account renames. The public catalog remains the @mager example.
 - Compact work lists, separate detail pages, original-color imagery, and theme controls.
+
+Priority 1, private account draft storage, is implemented. The checks below remain before MVP access can open. This does not complete MVP or V1.
 
 ### Required before opening access
 
 | Priority | Missing capability | Release check |
 | --- | --- | --- |
-| 1 | Server-saved private drafts | Two test accounts cannot read or change each other’s projects or contributions. Work survives a second browser, failed writes, and concurrent edits. Existing browser drafts import only after an explicit review. |
 | 2 | Profile preview and publishing | A builder can preview, publish, edit, and unpublish their own profile. Drafts remain private. Both projects and external contributions appear, with source links and explicit evidence states. Public URLs work while signed out. Handle changes cannot transfer ownership. |
 | 3 | First-use path | A new approved account starts with its own identity and empty workspace. It can add a project and a contribution without using @mager’s data. Saving, failure, and recovery states are tested on mobile and desktop. |
 | 4 | Controlled access and recovery | A separate, reviewed change adds approval/revocation with an audit record. Revoked access stops tools and agent tokens. Users can export all their work and request account deletion. Test restore before enabling deletion. |
@@ -41,3 +42,5 @@ Defer rankings, streaks, chat, and complex recommendations. Measure whether buil
 ## November 8 checks
 
 The account foundation has automated tests for export/review round trips, foreign-account rejection without saved-state changes, handle changes, legacy compatibility, current MCP identity, and approval revocation. Browser checks cover filter selection, empty results, clear, keyboard focus, responsive layouts, the account import default, and project review. These checks do not replace the missing multi-user publishing tests above.
+
+Private draft tests cover separate accounts, current approval, stale and simultaneous revisions, request limits, invalid records, old tabs after an account change, two independent clients, recovery files, explicit browser import, retained browser originals, legacy storage, and same-page review changes. A real browser check read and wrote an empty account workspace through the server and downloaded its backup; it did not change authored content. Desktop/mobile review and deployment checks are recorded separately when complete.

@@ -1,4 +1,5 @@
 ---
+import DraftStorage from '../components/DraftStorage.astro';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -32,7 +33,7 @@ const navigation = [
   <body class="publication sidework">
     <a class="skip-link" href="#main-content">Skip to workbench</a>
     <Header homepage themeToggle />
-    <div class="sw-shell" id="sidework">
+    <DraftStorage /><div class="sw-shell" id="sidework" inert={!!Astro.locals.account}>
       <aside class="sw-rail" aria-label="Sidework navigation">
         <a href="/" class="sw-brand"><span class="sw-brand-mark" aria-hidden="true"><Icon name="branch" /></span>sidework<span class="sw-preview">preview</span></a>
         <nav aria-label="Workbench views">{navigation.map(item => <a href={`#${item.id}`} data-view={item.id} aria-current={item.id === 'overview' ? 'page' : undefined}><Icon name={item.icon} /><span>{item.label}</span>{item.id === 'plan' && <span class="sw-nav-count" id="saved-count">0</span>}</a>)}</nav>
@@ -73,7 +74,7 @@ const navigation = [
 
         <section class="sw-panel sw-showcase" id="showcase" aria-labelledby="showcase-title">
           <div class="sw-section-heading"><div><h2 id="showcase-title">Make it yours.</h2><p>Choose up to six projects. Put the work you love first.</p></div><a href="/mager/">View @mager’s public profile <Icon name="external" size={16}/></a></div>
-          <div class="sw-showcase-toolbar"><p><strong id="featured-count">0 selected</strong><span>Private profile draft · Saved in this browser</span></p><button type="button" id="export-showcase" class="sw-button"><Icon name="download" size={16}/>Export draft</button></div>
+          <div class="sw-showcase-toolbar"><p><strong id="featured-count">0 selected</strong><span>Private profile draft · {Astro.locals.account ? 'Saved to your account' : 'Saved in this browser'}</span></p><button type="button" id="export-showcase" class="sw-button"><Icon name="download" size={16}/>Export draft</button></div>
           <p class="sw-showcase-boundary">This private draft does not change the public @mager profile. Export keeps a copy of your selected projects and stories.</p>
           <details class="sw-draft-transfer"><summary>Review a draft file</summary><p>Open a draft from your agent or a previous export. You will review it before saving.</p><label for="profile-draft-file">Sidework draft · JSON, up to 64 KB</label><input id="profile-draft-file" type="file" accept="application/json,.json"/><p id="draft-file-status" role="status" hidden></p></details>
           <div id="showcase-projects"></div><div class="sw-empty" id="showcase-empty" hidden><h3>Your best work goes here.</h3><p>Open My projects and choose “Feature” on the projects you want to show.</p><a href="#projects" data-view="projects" class="sw-button sw-primary">Choose projects</a></div>
@@ -119,7 +120,7 @@ const navigation = [
       <aside class="sw-context" aria-label="Public example and your weekly plan">
         <div class="sw-profile"><img src="/images/mager.jpg" alt="@mager’s illustrated portrait" width="64" height="64" /><h2>@mager</h2><p>Public example profile.</p><p>Building personal software.<br/>Contributing along the way.</p><a href="https://github.com/mager">@mager <Icon name="external" size={14}/></a><div class="sw-profile-tags"><span>Developer tools</span><span>Open source</span><span>Chicago</span></div></div>
         <div class="sw-week-card"><div class="sw-section-heading"><h2>This week</h2><span>4 plan slots</span></div><p id="week-hint">Start with one useful fix.</p><div class="sw-week-slots" id="week-slots">{[1,2,3,4].map(n => <a href="#discover" data-view="discover"><span class="sw-slot-number">{n}</span><span>Choose a project</span><Icon name="plus" size={15}/></a>)}</div><a href="#plan" data-view="plan" class="sw-week-link">Open your plan <Icon name="arrow" size={16}/></a></div>
-        <div class="sw-local-note"><p>A working prototype, built around real work.</p><span>Project edits and saved plans stay in this browser.</span><button type="button" id="copy-profile">Copy @mager’s profile link <Icon name="external" size={13}/></button></div>
+        <div class="sw-local-note"><p>A working prototype, built around real work.</p><span>{Astro.locals.account ? 'Drafts save to your account. Weekly plans stay in this browser.' : 'Project edits and saved plans stay in this browser.'}</span><button type="button" id="copy-profile">Copy @mager’s profile link <Icon name="external" size={13}/></button></div>
       </aside>
     </div>
     <Footer homepage />

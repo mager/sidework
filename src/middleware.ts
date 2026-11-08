@@ -15,6 +15,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   }
   const path = context.url.pathname.replace(/\/+$/, '') || '/';
   const agentEndpoint = path === '/api/mcp';
+  const draftEndpoint = path === '/api/account/drafts';
   const publicRoute = !requiresInvite(path) || path === '/admin/connect';
   const waitingRoute = ['/waiting', '/api/account/updates', '/api/signout'].includes(path);
   let response: Response | undefined;
@@ -26,10 +27,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
       try { context.locals.account = await accountStore(config).find(claims.sub); }
       catch {
         // The public snapshot must not depend on account storage availability.
-        if (path !== '/mager') response = new Response('Account access is temporarily unavailable. Please try again.', {status:503});
+        if (path !== '/mager') response = draftEndpoint ? Response.json({error:'Account access is temporarily unavailable. Please try again.'},{status:503}) : new Response('Account access is temporarily unavailable. Please try again.', {status:503});
       }
     }
     context.locals.hasAccess = accountAccess(context.locals.account, !claims && validSession(context.cookies.get(COOKIE_NAME)?.value, configuration()));
+    if (!response && draftEndpoint && context.locals.account?.status !== 'approved') response = Response.json({error:context.locals.account ? 'This account is not approved for draft tools.' : 'Sign in again to use account drafts.'},{status:context.locals.account ? 403 : 401});
     if (!response && !publicRoute && !context.locals.hasAccess && !(waitingRoute && context.locals.account)) {
       response = new Response(null, {status:303, headers:{Location:context.locals.account ? '/waiting/' : '/signup/'}});
     }
