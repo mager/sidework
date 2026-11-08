@@ -2,10 +2,11 @@ import { cleanProject } from './sidework-state.mjs';
 import { saveProjectDraft } from './project-drafts.mjs';
 
 import { validateMetadata } from './project-metadata.mjs';
+import { reviewDraftOwner } from './draft-identity.mjs';
 export const MAX_DRAFT_BYTES = 65536;
-export function parseProfileDraft(value) {
-  if (!value || value.format !== 'sidework-profile-draft' || value.version !== 1 || value.visibility !== 'private-draft') throw new Error('Choose a Sidework profile draft, version 1.');
-  if (value.handle !== '@mager' && value.handle !== 'mager') throw new Error('This prototype only supports @mager. Account ownership is not connected yet.');
+export function parseProfileDraft(value, identity = null) {
+  if (!value || value.format !== 'sidework-profile-draft' || value.visibility !== 'private-draft') throw new Error('Choose a Sidework profile draft, version 1 or 2.');
+  const owner = reviewDraftOwner(value, identity);
   if (!Array.isArray(value.projects) || value.projects.length < 1 || value.projects.length > 6) throw new Error('A profile draft must contain one to six projects.');
   const ids = new Set(), sources = new Set();
   const projects = value.projects.map(item => {
@@ -19,11 +20,11 @@ export function parseProfileDraft(value) {
     ids.add(project.id); sources.add(source);
     return { ...project, local: true };
   });
-  return { format: 'sidework-profile-draft', version: 1, visibility: 'private-draft', handle: '@mager', projects };
+  return { format: 'sidework-profile-draft', ...owner, visibility: 'private-draft', projects };
 }
 
-export function mergeProfileDraft(state, draft, seed) {
-  const checked = parseProfileDraft(draft);
+export function mergeProfileDraft(state, draft, seed, identity = null) {
+  const checked = parseProfileDraft(draft, identity);
   let next = state;
   const order = [];
   for (const project of checked.projects) {
@@ -37,7 +38,7 @@ export function mergeProfileDraft(state, draft, seed) {
   return { ...next, showcase: order };
 }
 
-export async function decodeReviewLink(encoded) {
+export async function decodeReviewLink(encoded, identity = null) {
   if (!/^[A-Za-z0-9_-]+$/.test(encoded) || encoded.length > 16000) throw new Error('This review link is invalid or too long. Use the draft file instead.');
   const binary = atob(encoded.replace(/-/g, '+').replace(/_/g, '/'));
   const bytes = Uint8Array.from(binary, character => character.charCodeAt(0));
@@ -53,5 +54,5 @@ export async function decodeReviewLink(encoded) {
   } finally { await reader.cancel(); }
   const joined = new Uint8Array(total); let offset = 0;
   for (const chunk of chunks) { joined.set(chunk, offset); offset += chunk.length; }
-  return parseProfileDraft(JSON.parse(new TextDecoder().decode(joined)));
+  return parseProfileDraft(JSON.parse(new TextDecoder().decode(joined)), identity);
 }

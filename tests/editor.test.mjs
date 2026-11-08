@@ -7,6 +7,7 @@ import * as state from '../src/scripts/sidework-state.mjs';
 import { withLatestContributionDrafts } from '../src/scripts/contribution-drafts.mjs';
 import * as drafts from '../src/scripts/project-drafts.mjs';
 import * as metadata from '../src/scripts/project-metadata.mjs';
+import { browserDraftIdentity } from '../src/scripts/draft-identity.mjs';
 import * as transfer from '../src/scripts/draft-transfer.mjs';
 const read = file => readFileSync(new URL(file,import.meta.url),'utf8');
 const script = stripTypeScriptTypes(read('../src/scripts/sidework.ts')).replace(/^import .*;$/gm,'');
@@ -23,7 +24,7 @@ function editor(fresh = false) {
   dom.window.confirm=()=>false;
   dom.window.Error=Error; // Imported dependencies throw in the Node realm.
   if (!fresh) dom.window.localStorage.setItem(state.STORAGE_KEY, JSON.stringify({version:1}));
-  dom.window.dependencies={...state,...drafts,...transfer,...metadata,withLatestContributionDrafts,setupAgentConnections:()=>{}};
+  dom.window.dependencies={...state,...drafts,...transfer,...metadata,withLatestContributionDrafts,browserDraftIdentity:()=>browserDraftIdentity(dom.window.document),setupAgentConnections:()=>{}};
   dom.window.eval(`const {${Object.keys(dom.window.dependencies).join(',')}}=window.dependencies;${preview}\n${script}`);
   return dom;
 }

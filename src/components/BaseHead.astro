@@ -7,6 +7,7 @@ const {title, description, image = '/images/mager.jpg'} = Astro.props;
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 {Astro.locals.account && <meta name="sidework-account" content={Astro.locals.account.github_id}/>}
+{Astro.locals.account && <meta name="sidework-handle" content={`@${Astro.locals.account.login}`}/>}
 <title>{title}</title>
 <meta name="description" content={description} />
 <meta property="og:title" content={title} />

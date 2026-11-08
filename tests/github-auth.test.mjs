@@ -51,7 +51,7 @@ test('form bodies enforce the limit even without a content-length header', async
   await assert.rejects(readForm(request('x'.repeat(2049))),/too large/);
 });
 test('account agent tokens require approval on issue and on every request', async () => {
-  const time=Date.now(), session={sub:'17733',exp:Math.floor(time/1000)+3600}, account={github_id:'17733',status:'approved'};
+  const time=Date.now(), session={sub:'17733',exp:Math.floor(time/1000)+3600}, account={github_id:'17733',login:'mager',status:'approved'};
   const agentConfig={secret:config.secret,ready:false,hashes:[],findAccount:async()=>account};
   const {token}=issueAccountAgentToken(session,account,agentConfig,config.origin,time);
   const request=new Request(config.origin+'/api/mcp',{method:'POST',headers:{authorization:`Bearer ${token}`}});

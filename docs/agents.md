@@ -42,7 +42,7 @@ Clients may use a different configuration wrapper. Use their Streamable HTTP and
 
 | Tool | Use |
 | --- | --- |
-| `get_profile` | Read the committed @mager profile snapshot. |
+| `get_profile` | Read the public @mager example and the connection’s private `draftTarget`. |
 | `list_projects` | Search published projects by name, purpose, or stack. |
 | `list_contributions` | Search dated evidence by text and explicit PR state, with pagination. |
 | `discover_opportunities` | Find curated contribution ideas. Verify current availability at the source. |
@@ -53,7 +53,7 @@ The `sidework://profiles/mager` resource supplies the profile. The `setup_profil
 
 ## Review and storage
 
-The profile resource, private exports, draft review, and MCP templates still support **@mager** only. Do not approve other accounts until those flows support their identity. Waitlist signup does not grant MCP access. Agents cannot read browser-local drafts. Export a draft to provide your latest edits. Private repositories, server-saved drafts, and public multi-profile publishing are not connected. See [GitHub account setup](github-auth.md) for configuration status.
+The profile resource is the public **@mager** example. `get_profile.draftTarget` gives the private draft owner for this connection. Account drafts use version 2 with `githubId` and the current `handle`, resolved from the approved account on each request. Caller input cannot select a different draft owner. Review checks the numeric ID and accepts handle changes. Legacy invite connections still prepare version 1 @mager drafts; only legacy workspaces and GitHub ID 17733 can review those backups. These fields do not prove project authorship. Other accounts remain waiting until the [MVP release checks](mvp.md) pass. Waitlist signup does not grant MCP access. Agents cannot read browser-local drafts. Export a draft to provide your latest edits. Private repositories, server-saved drafts, and public multi-profile publishing are not connected. See [GitHub account setup](github-auth.md) for configuration status.
 
 Saving a reviewed draft updates matching project IDs or source URLs and sets the featured order. Other projects and the weekly plan remain. An invalid draft or failed storage write leaves the saved state unchanged.
 
@@ -76,4 +76,4 @@ Implementation references: [MCP TypeScript SDK](https://ts.sdk.modelcontextproto
 
 ### Project metadata
 
-`prepare_profile_draft` accepts optional `category`, `softwareType`, `audience` (180 characters), and `features` (up to five strings, 160 characters each). Its input schema lists the supported category and software type IDs. Use repository evidence and the author's input. Leave unknown fields blank; a language does not establish a project's purpose. These fields survive review and JSON export. `list_projects` searches them and accepts an optional `category` filter. Older version 1 draft files remain valid.
+`prepare_profile_draft` accepts optional `category`, `softwareType`, `audience` (180 characters), and `features` (up to five strings, 160 characters each). Its input schema lists the supported category and software type IDs. Use repository evidence and the author's input. Leave unknown fields blank; a language does not establish a project's purpose. These fields survive review and JSON export. `list_projects` searches them and accepts an optional `category` filter. Older version 1 draft files remain valid for their original owner or legacy workspace.

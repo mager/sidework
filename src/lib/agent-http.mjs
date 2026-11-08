@@ -1,8 +1,8 @@
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
-import { authorizeAgentRequest } from './agent-auth.mjs';
+import { resolveAgentRequest } from './agent-auth.mjs';
 
 export async function handleAgentRequest(request, config, makeServer) {
-  const denied = await authorizeAgentRequest(request, config);
+  const { denied, identity } = await resolveAgentRequest(request, config);
   if (denied) return Response.json({ error: denied.error }, { status: denied.status, headers: denied.status === 401 ? { 'WWW-Authenticate': 'Bearer realm="sidework"' } : {} });
   if (request.method !== 'POST') return new Response(null, { status: 405, headers: { Allow: 'POST' } });
   if (!request.headers.get('content-type')?.toLowerCase().startsWith('application/json')) return Response.json({ error: 'Send application/json.' }, { status: 415 });
@@ -19,7 +19,7 @@ export async function handleAgentRequest(request, config, makeServer) {
   let parsedBody;
   try { parsedBody = JSON.parse(Buffer.concat(chunks).toString('utf8')); }
   catch { return Response.json({ jsonrpc: '2.0', id: null, error: { code: -32700, message: 'Parse error' } }, { status: 400 }); }
-  const server = makeServer();
+  const server = makeServer(identity);
   const transport = new WebStandardStreamableHTTPServerTransport({ sessionIdGenerator: undefined, enableJsonResponse: true });
   try {
     await server.connect(transport);

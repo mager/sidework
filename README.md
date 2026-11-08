@@ -54,7 +54,7 @@ The interface uses black, white, and neutral gray to keep attention on the work.
 
 ## Owner admin
 
-The separate [admin site](https://sidework-admin.vercel.app) shows signup records from Firestore. Open Settings → Admin → Open admin as the configured owner. Search by @handle or email, filter access status and email consent, and inspect signup and last sign-in dates. The dashboard is read-only: it cannot approve accounts, delete records, or send email.
+The separate [admin site](https://sidework-admin.vercel.app) shows signup records from Firestore. Open Settings → Admin → Open admin as the configured owner. Search by @handle or email, use visible choices for access status and email consent, and inspect signup and last sign-in dates. The dashboard is read-only: it cannot approve accounts, delete records, or send email.
 
 The admin uses a separate session and checks the approved owner account by GitHub numeric ID on every private request. Sign-in uses the main site and a one-time PKCE handoff. Both Vercel projects use this repository on `main`; deploy both when their shared sign-in flow changes. See [admin setup](docs/admin.md) for route limits, keyless database access, and checks.
 
@@ -62,7 +62,7 @@ The admin uses a separate session and checks the approved owner account by GitHu
 
 GitHub signup records the verified numeric ID, login, verified email, waiting status, and optional update consent in Firestore. Only the configured owner starts approved. Other accounts wait for access. Email delivery is not connected. GitHub OAuth and Firestore are live. Local and production checks covered owner access, waiting access, consent changes, sign-out, and repeat sign-in. A production HTTP callback check covered cancellation with valid OAuth state.
 
-Private exports, draft review, and MCP templates still use @mager. Do not approve other accounts until those flows support their identity. There is no public multi-profile publishing, automatic draft synchronization, or connected social graph. Saves, follows, local drafts, and plans use browser `localStorage` with a GitHub numeric ID suffix for signed-in accounts. Legacy browser data is retained and is not automatically migrated. The theme is shared within the browser. Anyone with access to the browser profile can inspect its local data. Local drafts and plans are not posted to GitHub or included in the public profile. Refreshed GitHub results last for the current visit; saved plans and local drafts survive reloads when browser storage is available.
+Private exports, draft review, and MCP templates now use the signed-in account’s numeric GitHub ID and current @handle. Keep other accounts waiting until the release checks in [the MVP plan](docs/mvp.md) pass. There is no public multi-profile publishing, automatic draft synchronization, or connected social graph. Saves, follows, local drafts, and plans use browser `localStorage` with a GitHub numeric ID suffix for signed-in accounts. Legacy browser data is retained and is not automatically migrated. The theme is shared within the browser. Anyone with access to the browser profile can inspect its local data. Local drafts and plans are not posted to GitHub or included in the public profile. Refreshed GitHub results last for the current visit; saved plans and local drafts survive reloads when browser storage is available.
 
 The profile is a committed snapshot. Updating a local draft does not publish it. To update the profile, edit `src/data/projects.ts`, `src/data/contribution-stories.json`, or the contribution snapshot and rebuild. Source links provide the current GitHub state. All routes use `noindex` while this remains a prototype.
 
@@ -86,11 +86,12 @@ The three active Latin WOFF2 subsets are self-hosted. They are self-hosted with 
 
 ## Next build
 
-1. Add account-specific exports, draft review, and MCP templates before approving other accounts.
-2. Add profile ownership and an explicit publish workflow.
-3. Add a GitHub App with explicit repository selection and server-side synchronization.
-4. Connect follows between accounts, project updates, and opportunity recommendations based on stated learning goals.
-5. Add other source providers behind the same contribution model.
+1. Save private drafts on the server, scoped to the verified account ID.
+2. Add profile ownership, preview, publish, edit, and unpublish for projects and contributions.
+3. Complete access, recovery, and deletion checks before opening the preview.
+4. Add shared follows, saves, and source refresh for V1.
+
+See [the MVP and V1 release plan](docs/mvp.md) for acceptance checks and current limits.
 
 Keep project ownership separate from upstream contribution credit. Keep activity separate from learning and impact. Never rank people by raw commit counts.
 

@@ -1,5 +1,6 @@
 import { createHmac, timingSafeEqual, randomUUID } from 'node:crypto';
 import { validSession } from './invite.mjs';
+import { draftIdentity } from '../scripts/draft-identity.mjs';
 
 export const AGENT_SECONDS = 60 * 60 * 24;
 export const AGENT_SCOPES = ['catalog:read', 'github:public', 'draft:prepare'];
@@ -42,17 +43,25 @@ export function issueAccountAgentToken(session, account, config, origin, now = D
   return { token:`sw_agent.${body}.${sign(body, config)}`, expiresAt:new Date(exp * 1000).toISOString(), scopes:AGENT_SCOPES };
 }
 
-export async function authorizeAgentRequest(request, config) {
+export async function resolveAgentRequest(request, config) {
+  const deny = (status, error) => ({ denied: { status, error } });
   const origin = new URL(request.url).origin;
   const sentOrigin = request.headers.get('origin');
-  if (sentOrigin && sentOrigin !== origin) return { status: 403, error: 'This origin is not allowed.' };
+  if (sentOrigin && sentOrigin !== origin) return deny(403, 'This origin is not allowed.');
   const header = request.headers.get('authorization') || '';
   const claims = header.startsWith('Bearer ') && verifyAgentToken(header.slice(7), config, origin);
-  if (!claims) return { status: 401, error: 'Create a new agent token in Sidework → Agents. Tokens last up to 24 hours.' };
+  if (!claims) return deny(401, 'Create a new agent token in Sidework → Agents. Tokens last up to 24 hours.');
   if (claims.v === 2) {
     try {
-      if (!config.findAccount || (await config.findAccount(claims.sub))?.status !== 'approved') return {status:401,error:'Preview access is required.'};
-    } catch { return {status:503,error:'Account access is temporarily unavailable.'}; }
+      const account = await config.findAccount?.(claims.sub);
+      if (account?.status !== 'approved' || account.github_id !== claims.sub) return deny(401, 'Preview access is required.');
+      if (typeof account.login !== 'string') return deny(503, 'Account identity is temporarily unavailable.');
+      return { identity: draftIdentity({ githubId: account.github_id, handle: `@${account.login}` }) };
+    } catch { return deny(503, 'Account access is temporarily unavailable.'); }
   }
-  return null;
+  return { identity: null };
+}
+
+export async function authorizeAgentRequest(request, config) {
+  return (await resolveAgentRequest(request, config)).denied || null;
 }

@@ -48,7 +48,7 @@ OAuth state and PKCE use a signed, HTTP-only, same-site cookie that expires afte
 
 The Firestore `sidework_accounts` collection uses the numeric GitHub ID as each document ID. It stores ID, login, email, `waiting` or `approved` status, email update consent, and creation, login, and consent-change dates. A new record for the configured owner starts approved. Other new records start waiting. A Firestore transaction creates the record or refreshes identity and login time without replacing status or consent. Consent can be changed on the waiting page or in Settings. It does not send email.
 
-**Do not approve other accounts yet.** Private exports, draft review, and MCP templates still use @mager. These flows must support the correct identity before other accounts receive tool access. Waitlist signup can collect records; public multi-profile publishing is not connected.
+**Do not approve other accounts yet.** Private exports, draft review, and MCP templates now use the verified account ID and current handle. This is one release prerequisite; [the MVP checklist](mvp.md) still requires shared storage, publishing, and a tested access workflow. Waitlist signup can collect records; public multi-profile publishing is not connected.
 
 | Route | Access |
 | --- | --- |

@@ -4,6 +4,7 @@ import { withLatestContributionDrafts } from './contribution-drafts.mjs';
 import { MAX_FEATURED, STAGES, showcaseProjects, saveProjectDraft, toggleFeatured, moveFeatured, exportShowcase } from './project-drafts.mjs';
 import { projectPreview } from './project-preview';
 import { MAX_DRAFT_BYTES, parseProfileDraft, mergeProfileDraft, decodeReviewLink } from './draft-transfer.mjs';
+import { browserDraftIdentity } from './draft-identity.mjs';
 import { setupAgentConnections } from './agent-connections';
 
 import { PROJECT_CATEGORIES, SOFTWARE_TYPES, projectMatches } from './project-metadata.mjs';
@@ -13,6 +14,7 @@ type Contribution = { id: string; title: string; repository: string; number: num
 type Opportunity = { id: string; name: string; title: string; next: string; url: string; skill: string; };
 const seed = JSON.parse(document.getElementById('sidework-seed')!.textContent!) as { projects: Project[]; contributions: Contribution[]; opportunities: Opportunity[] };
 const root = document.getElementById('sidework')!;
+const draftIdentity = browserDraftIdentity();
 const $ = <T extends HTMLElement = HTMLElement>(selector: string) => document.querySelector<T>(selector)!;
 const make = (tag: string, className = '', text = '') => {
   const node = document.createElement(tag);
@@ -306,16 +308,16 @@ function renderShowcase() {
   });
 }
 $('#export-showcase').addEventListener('click',()=>{
-  const draft=exportShowcase(state,allProjects(),defaultShowcase);
+  const draft=exportShowcase(state,allProjects(),defaultShowcase,draftIdentity);
   const url=URL.createObjectURL(new Blob([JSON.stringify(draft,null,2)+'\n'],{type:'application/json'}));
   const anchor=document.createElement('a');anchor.href=url;anchor.download='sidework-profile-draft.json';anchor.click();
   setTimeout(()=>URL.revokeObjectURL(url),1000);notify('Profile draft exported. This file is a private backup; it has not been published.');
 });
 
 function openDraftReview(value: unknown) {
-  const draft = parseProfileDraft(value);
+  const draft = parseProfileDraft(value,draftIdentity);
   // Validate the entire merge before offering a save; leave current state intact.
-  mergeProfileDraft(state, draft, catalog);
+  mergeProfileDraft(state, draft, catalog,draftIdentity);
   pendingProfileDraft = draft;
   $('#feedback').hidden=true;
   const list = $('#draft-review-projects');list.replaceChildren();
@@ -325,7 +327,7 @@ function openDraftReview(value: unknown) {
     const existing=allProjects().some(item=>item.id===project.id || key(item)===key(project));
     section.append(make('p','sw-review-change',`${index+1} / ${draft.projects.length} · ${existing ? 'Replaces the local story' : 'Adds a local project'}`),projectPreview(project));list.append(section);
   });
-  $('#review-count').textContent=`${draft.projects.length} ${draft.projects.length===1 ? 'project' : 'projects'} · Not saved yet`;
+  $('#review-count').textContent=`${draft.handle} · ${draft.projects.length} ${draft.projects.length===1 ? 'project' : 'projects'} · Not saved yet`;
   $('#draft-review-error').hidden=true;
   history.replaceState(null,'','#review');showView('review',true);
 }
@@ -333,8 +335,8 @@ function openDraftReview(value: unknown) {
 async function loadReviewLink(encoded:string) {
   // Remove draft contents from the address bar before parsing. Never send them in a request.
   history.replaceState(null,'','#showcase');
-  try { openDraftReview(await decodeReviewLink(encoded)); }
-  catch { notify('This review link could not be opened. Ask your agent for a new link or a Sidework draft file.',true);showView('showcase',true); }
+  try { openDraftReview(await decodeReviewLink(encoded,draftIdentity)); }
+  catch(error) { notify(error instanceof Error ? error.message : 'This review link could not be opened. Ask for a new link or draft file.',true);showView('showcase',true); }
 }
 
 $('#profile-draft-file')?.addEventListener('change', async event => {
@@ -350,7 +352,7 @@ $('#cancel-draft-review')?.addEventListener('click',()=>{pendingProfileDraft=nul
 $('#save-reviewed-draft')?.addEventListener('click',()=>{
   if(!pendingProfileDraft)return;
   try {
-    const next=mergeProfileDraft(state,pendingProfileDraft,catalog);
+    const next=mergeProfileDraft(state,pendingProfileDraft,catalog,draftIdentity);
     if(!persistDraftState(next))throw new Error('Could not save this browser’s draft. The review is still here. Allow browser storage or free some space, then try again.');
     pendingProfileDraft=null;$('#draft-review-projects').replaceChildren();renderProjects();history.replaceState(null,'','#showcase');showView('showcase',true);notify('Reviewed projects saved in this browser. Your public profile is unchanged.');
   }catch(error){$('#draft-review-error').textContent=error instanceof Error ? error.message : 'Could not save this draft.';$('#draft-review-error').hidden=false;}

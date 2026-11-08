@@ -1,5 +1,6 @@
 import { cleanProject, mergeProjects } from './sidework-state.mjs';
 import { validateMetadata } from './project-metadata.mjs';
+import { draftOwnerFields } from './draft-identity.mjs';
 export const MAX_FEATURED = 6;
 export const STAGES = { exploring:'Exploring', building:'Building', shipped:'Shipped', paused:'Paused' };
 export function showcaseProjects(state, projects, defaults) {
@@ -32,6 +33,6 @@ export function moveFeatured(state, projectId, direction, projects, defaults) {
   [order[index],order[next]]=[order[next],order[index]];
   return {...state,showcase:order};
 }
-export function exportShowcase(state, projects, defaults) {
-  return { format:'sidework-profile-draft', version:1, visibility:'private-draft', handle:'@mager', projects:showcaseProjects(state,projects,defaults).map(cleanProject) };
+export function exportShowcase(state, projects, defaults, identity = null) {
+  return { format:'sidework-profile-draft', ...draftOwnerFields(identity), visibility:'private-draft', projects:showcaseProjects(state,projects,defaults).map(cleanProject) };
 }

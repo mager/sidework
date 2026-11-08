@@ -14,7 +14,7 @@ Set up a profile from public GitHub projects and return a direct review link.
 4. Run `/sidework:setup-profile @mager`, or ask Claude to set up your Sidework profile. `/sidework:find-contribution accessibility` finds a contribution idea.
 5. Open the returned review link and choose **Save these projects** after checking the draft.
 
-The prototype supports one profile, @mager. Agents can read committed records, read public GitHub repositories, and prepare drafts. They cannot read browser-local state, publish, access private repositories, or verify ownership. Review links contain the draft; share them only with its author. Local saves stay in that browser. Accounts and public publishing are future work.
+The public catalog is the @mager example. Private drafts target the authenticated account; `get_profile.draftTarget` names that owner. Legacy invite connections still target @mager. Agents can read committed records, read public GitHub repositories, and prepare drafts. They cannot read browser-local state, publish, access private repositories, or verify ownership. Review links contain the draft; share them only with its author. Local saves stay in that browser. New accounts wait for approval. Public publishing is not connected.
 
 The plugin uses the official MCP SDK through Sidework's Streamable HTTP endpoint. It has no shell hooks or background jobs. For any other MCP client, use **Copy MCP config** from the Agents screen.
 

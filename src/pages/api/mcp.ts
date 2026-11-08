@@ -9,4 +9,4 @@ import { authConfiguration } from '../../lib/github-auth.mjs';
 
 export const ALL: APIRoute = ({ request, url }) => handleAgentRequest(request, {
   ...configuration(), findAccount: (id:string) => accountStore(authConfiguration()).find(id),
-}, () => createAgentServer({ projects, contributions, opportunities, origin: url.origin }));
+}, (identity) => createAgentServer({ projects, contributions, opportunities, origin: url.origin, identity }));
