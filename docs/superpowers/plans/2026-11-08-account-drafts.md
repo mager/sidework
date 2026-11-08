@@ -29,7 +29,7 @@
 - [x] Test two independent clients, conflicts, write failures, private recovery files, imports, legacy behavior, and same-page review changes with automated checks.
 - [x] Complete mobile and desktop browser review without publishing or changing account approval.
 - [x] Update product and operating documents.
-- [ ] Run final tests and build, obtain independent code review, push main, and verify both deployments.
+- [x] Run final tests and build, obtain independent code review, push main, and verify both deployments.
 
 ## Release checks
 
@@ -42,3 +42,4 @@ Two test identities cannot read or overwrite each other. A second client reads s
 - Mobile (390 px) and desktop (1440 px) browser checks passed in light and dark themes.
 - The live Firestore connection loaded and saved an empty private workspace through the local app. A second editor loaded the same account state.
 - The Firestore draft-field index exemption is active.
+- Release `ab7638f` passed GitHub CI and reached Ready on both Vercel production sites. The main-site editor loaded private account data. Signed-out draft API requests returned 401; the admin deployment returned 404 for that API and redirected signed-out dashboard requests to admin login.
