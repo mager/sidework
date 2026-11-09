@@ -16,12 +16,19 @@ try { ({accounts,truncated}=await listAdminAccounts(accountDatabase(authConfigur
 const q=(params.get('q') || '').slice(0,254);
 const status=['waiting','approved'].includes(params.get('status') || '') ? params.get('status')! : '';
 const updates=['yes','no'].includes(params.get('updates') || '') ? params.get('updates')! : '';
-const filtered=filterAccounts(accounts,{q,status,updates});
+const filtered=filterAccounts(accounts,{q,status,updates}).sort((a,b)=>{
+ if(a.status==='waiting' && b.status!=='waiting')return -1;
+ if(b.status==='waiting' && a.status!=='waiting')return 1;
+ return a.status==='waiting' ? String(a.created_at).localeCompare(String(b.created_at)) : String(b.created_at).localeCompare(String(a.created_at));
+});
+const accessMessages:Record<string,string>={updated:'Access updated. No new sign-in is needed.',conflict:'This account changed. Review its current status before trying again.',unavailable:'The change could not be confirmed. Refresh to check the account before trying again.'};
+const accessMessage=accessMessages[Astro.url.searchParams.get('access') || ''];
 const date=(value:unknown)=>{const d=new Date(String(value));return Number.isNaN(d.getTime()) ? '—' : new Intl.DateTimeFormat('en-US',{dateStyle:'medium',timeZone:'America/Chicago'}).format(d);};
 const waiting=accounts.filter(a=>a.status==='waiting').length;
 const optedIn=accounts.filter(a=>a.email_updates===true).length;
 ---
-<AdminLayout signedIn><div class="admin-heading"><div><h1>Signups</h1><p>Everyone who joined the preview.</p></div><a class="admin-refresh" href={Astro.url.pathname+Astro.url.search}>Refresh <Icon name="refresh" size={16}/></a></div>
+<AdminLayout signedIn><div class="admin-heading"><div><h1>Signups</h1><p>Review the waiting list and let people in.</p></div><a class="admin-refresh" href={Astro.url.pathname+Astro.url.search}>Refresh <Icon name="refresh" size={16}/></a></div>
+{accessMessage && <p class="admin-access-message" role="status">{accessMessage}</p>}
 {failed ? <section class="admin-empty" role="alert"><h2>Signups could not load.</h2><p>No account data has changed.</p><a class="sw-button" href="/">Try again</a></section> : <>
 <p class="admin-summary"><span><strong>{accounts.length}</strong> {truncated ? 'recent signups' : 'signups'}</span><span><strong>{waiting}</strong> waiting</span><span><strong>{optedIn}</strong> want email updates</span></p>
 <form class="admin-filters" method="POST" action="/">
@@ -36,7 +43,9 @@ const optedIn=accounts.filter(a=>a.email_updates===true).length;
 </form>
 {truncated && <p class="admin-note">Showing the latest 1,000 signups. Search and totals cover these records.</p>}
 <p class="admin-result-count" role="status">{filtered.length} {filtered.length===1 ? 'account' : 'accounts'}{q||status||updates ? ' match' : ''}</p>
-{filtered.length ? <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th scope="col">Account</th><th scope="col">Status</th><th scope="col">Email updates</th><th scope="col">Joined</th><th scope="col">Last sign-in</th></tr></thead><tbody>{filtered.map(account=><tr><td><a class="admin-person" href={`https://github.com/${encodeURIComponent(account.login)}`}><img src={`https://avatars.githubusercontent.com/u/${account.github_id}?s=72`} alt="" width="36" height="36" loading="lazy"/><span><strong>@{account.login}</strong><span>{account.email}</span></span></a></td><td data-label="Status"><span class="admin-status">{account.status==='approved'?'Approved':account.status==='waiting'?'Waiting':account.status}</span></td><td data-label="Email updates">{account.email_updates===true ? 'Opted in' : 'Not opted in'}</td><td data-label="Joined">{date(account.created_at)}</td><td data-label="Last sign-in">{date(account.last_login_at)}</td></tr>)}</tbody></table></div> : <section class="admin-empty"><h2>{accounts.length ? 'No matching accounts.' : 'No signups yet.'}</h2><p>{accounts.length ? 'Change the search or filters to see more.' : 'New GitHub signups will appear here.'}</p></section>}
-<p class="admin-note admin-boundary">Approvals are paused until the preview is ready for more users. Email updates are not sent yet.</p>
+{filtered.length ? <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th scope="col">Account</th><th scope="col">Status</th><th scope="col">Email updates</th><th scope="col">Joined</th><th scope="col">Last sign-in</th><th scope="col">Access</th></tr></thead><tbody>{filtered.map(account=><tr><td><a class="admin-person" href={`https://github.com/${encodeURIComponent(account.login)}`}><img src={`https://avatars.githubusercontent.com/u/${account.github_id}?s=72`} alt="" width="36" height="36" loading="lazy"/><span><strong>@{account.login}</strong><span>{account.email}</span></span></a></td><td data-label="Status"><span class="admin-status">{account.status==='approved'?'Approved':account.status==='waiting'?'Waiting':account.status}</span></td><td data-label="Email updates">{account.email_updates===true ? 'Opted in' : 'Not opted in'}</td><td data-label="Joined">{date(account.created_at)}</td><td data-label="Last sign-in">{date(account.last_login_at)}</td><td data-label="Access">
+ {account.github_id===config.ownerId ? <span class="admin-note">Owner</span> : account.status==='waiting' ? <form method="POST" action="/admin/access/" class="admin-access-form"><input type="hidden" name="github_id" value={account.github_id}/><input type="hidden" name="expected_status" value="waiting"/><input type="hidden" name="status" value="approved"/><button class="sw-button sw-primary" type="submit" aria-label={`Grant access to @${account.login}`}>Grant access</button></form> : account.status==='approved' ? <details class="admin-return"><summary>Manage access</summary><p>Return @{account.login} to the waiting list? Their private drafts stay saved.</p><form method="POST" action="/admin/access/" class="admin-access-form"><input type="hidden" name="github_id" value={account.github_id}/><input type="hidden" name="expected_status" value="approved"/><input type="hidden" name="status" value="waiting"/><button class="sw-button" type="submit" aria-label={`Return @${account.login} to waiting`}>Return to waiting</button></form></details> : <span class="admin-note">Unavailable</span>}
+ </td></tr>)}</tbody></table></div> : <section class="admin-empty"><h2>{accounts.length ? 'No matching accounts.' : 'No signups yet.'}</h2><p>{accounts.length ? 'Change the search or filters to see more.' : 'New GitHub signups will appear here.'}</p></section>}
+<p class="admin-note admin-boundary">Access changes are recorded. Approval opens private tools; profile publishing and email delivery are not connected.</p>
 </>}
 </AdminLayout>

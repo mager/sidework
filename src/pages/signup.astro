@@ -1,6 +1,7 @@
 ---
 import AccountLayout from '../components/AccountLayout.astro';
 import Icon from '../components/SideworkIcon.astro';
+import { projects } from '../data/projects';
 import { authConfiguration } from '../lib/github-auth.mjs';
 if (Astro.locals.account) return Astro.redirect(Astro.locals.hasAccess ? '/friends/' : '/waiting/',303);
 const config = authConfiguration();
@@ -14,14 +15,20 @@ const errors:Record<string,string> = {
 };
 const error = errors[Astro.url.searchParams.get('error') || ''] || '';
 ---
-<AccountLayout title="Join the preview">
- <h1>Your work<br/>belongs here.</h1>
- <p class="account-intro">Personal projects. Open source contributions.<br/>Join the Sidework preview waitlist.</p>
- <form action="/auth/github/" method="POST" class="account-form">
-  <label class="account-check"><input type="checkbox" name="updates"/>Email me Sidework updates.</label>
-  <button class="sw-button sw-primary" type="submit" disabled={!ready}><Icon name="code" size={20}/>Continue with GitHub</button>
-  <p class="account-note">Uses your GitHub profile and verified email. New accounts wait for preview access.</p>
- </form>
- {(error || !ready) && <p class="entry-error" role="status">{error || errors.unavailable}</p>}
- <p class="account-note">Already signed up? Use the same GitHub account.</p>
+<AccountLayout title="Join Sidework" showcase>
+ <section class="signup-copy">
+  <h1>Show what<br/>you build.</h1>
+  <p class="account-intro">A home for personal projects and open source contributions.</p>
+  <form action="/auth/github/" method="POST" class="account-form">
+   <button class="sw-button sw-primary" type="submit" disabled={!ready}><Icon name="code" size={20}/>Join with GitHub</button>
+   <p class="account-note">Join the waitlist. @mager grants access personally.</p>
+   <label class="account-check"><input type="checkbox" name="updates"/>Email me Sidework updates.</label>
+  </form>
+  {(error || !ready) && <p class="entry-error" role="status">{error || errors.unavailable}</p>}
+  <p class="account-note">Already joined? The same button signs you in.<br/>We keep you signed in on this browser.</p>
+ </section>
+ <aside class="signup-work" aria-label="Work on Sidework">
+  {projects.slice(0,3).map(project=><a class="signup-project" href="/mager/"><img src={project.image} alt="" width="112" height="76"/><span><strong>{project.name}</strong><span>{project.tagline}</span></span><Icon name="arrow" size={16}/></a>)}
+  <a class="signup-explore" href="/mager/">Explore work by @mager <Icon name="arrow" size={16}/></a>
+ </aside>
 </AccountLayout>

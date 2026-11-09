@@ -44,11 +44,11 @@ npm run dev -- --host 127.0.0.1 --port 4345
 
 GitHub sign-in requests `user:email`, reads the GitHub numeric ID and login, and requires a verified email. It chooses the primary verified email when available. The provider token is used during sign-in only; it is not stored or returned to the browser.
 
-OAuth state and PKCE use a signed, HTTP-only, same-site cookie that expires after 10 minutes. The account cookie is signed, bound to the site origin, HTTP-only, and valid for seven days. Cookies use Secure on HTTPS. Form submissions check the request origin.
+OAuth state and PKCE use a signed, HTTP-only, same-site cookie that expires after 10 minutes. The account cookie is signed, bound to the site origin, HTTP-only, and valid for 30 days. After 15 days, a request renews a valid cookie when the server verifies the current account in Firestore. An expired cookie requires sign-in. Cookies use Secure on HTTPS. Form submissions check the request origin.
 
 The Firestore `sidework_accounts` collection uses the numeric GitHub ID as each document ID. It stores ID, login, email, `waiting` or `approved` status, email update consent, and creation, login, and consent-change dates. A new record for the configured owner starts approved. Other new records start waiting. A Firestore transaction creates the record or refreshes identity and login time without replacing status or consent. Consent can be changed on the waiting page or in Settings. It does not send email.
 
-**Do not approve other accounts yet.** Private exports, draft review, and MCP templates now use the verified account ID and current handle. This is one release prerequisite; [the MVP checklist](mvp.md) still requires publishing, a tested access workflow, and release operations. Private account draft storage is implemented; it does not open access. Waitlist signup can collect records; public multi-profile publishing is not connected.
+The configured owner grants access from the separate admin dashboard. Approval grants private tools. Private exports, draft review, and MCP templates use the verified account ID and current @handle. A signed-in visitor can use Check access to open the Workbench after approval without signing in again. Public multi-profile publishing is a separate release requirement. [Admin setup](admin.md) and [MVP checklist](mvp.md).
 
 | Route | Access |
 | --- | --- |
@@ -56,7 +56,7 @@ The Firestore `sidework_accounts` collection uses the numeric GitHub ID as each 
 | Exact `/mager/` | Public committed profile; remains available during account database failure. |
 | `/invite/` | Public redirect to signup; invite codes no longer create sessions. |
 | `/api/signout` | Public POST with an origin check; clears account, OAuth, and legacy invite cookies. |
-| `/waiting/`, `/api/account/updates` | Signed-in waiting accounts may view status and save consent. |
+| `/waiting/`, `/api/account/updates` | Signed-in waiting accounts may check status and save consent. The waiting page redirects approved accounts to the Workbench. |
 | `/api/account/drafts` | Approved account session and matching `X-Sidework-Account` header; GET or same-origin JSON PUT. Legacy cookies and agent tokens do not grant access. |
 | Other application routes | Approved account session or valid legacy invite cookie. |
 | `/api/mcp` | Separate scoped bearer token; browser cookies do not authorize MCP. |
@@ -81,4 +81,4 @@ Real production GitHub sign-in returned the owner to Friends and verified server
 
 HTTP checks returned 200 for anonymous signup and the public profile, 303 to signup for anonymous Friends and the old invite route, and 403 for a cross-origin OAuth start. A cancellation callback with valid server-issued state and its cookie redirected to `/signup/?error=cancelled` without an account cookie. This was an HTTP callback check, not a full GitHub UI cancellation test.
 
-Run `npm test` and `npm run build` for behavioral changes. Do not treat successful signup as approval to admit other accounts.
+Run `npm test` and `npm run build` for behavioral changes. Use test records to verify manual access changes.

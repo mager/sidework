@@ -2,7 +2,7 @@ import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypt
 
 export const ACCOUNT_COOKIE = 'sidework-account';
 export const OAUTH_COOKIE = 'sidework-oauth';
-export const ACCOUNT_SECONDS = 60 * 60 * 24 * 7;
+export const ACCOUNT_SECONDS = 60 * 60 * 24 * 30;
 export const OAUTH_SECONDS = 600;
 export function authConfiguration(env = process.env) {
   let origin = '';

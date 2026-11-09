@@ -1,7 +1,7 @@
 import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
 export const ADMIN_COOKIE = 'sidework-admin';
 export const ADMIN_FLOW_COOKIE = 'sidework-admin-flow';
-export const ADMIN_SECONDS = 3600;
+export const ADMIN_SECONDS = 8 * 3600;
 const hash = value => createHash('sha256').update(value).digest('base64url');
 const random = () => randomBytes(32).toString('base64url');
 const validToken = value => typeof value === 'string' && /^[A-Za-z0-9_-]{43}$/.test(value);

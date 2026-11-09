@@ -73,3 +73,29 @@ test('GitHub accounts use separate browser workspace keys without overwriting th
   assert.notEqual(storageKey(base,'123'),storageKey(base,'456'));
   assert.equal(storageKey(base,'@name'),base);
 });
+
+test('return visits renew valid account sessions only after a current account check',async()=>{
+ const day=86400000;
+ const token=auth.createAccountSession('123',config,Date.now()-16*day);
+ let record={github_id:'123',status:'waiting'},fail=false;
+ const middleware=load('../src/middleware.ts','onRequest',{defineMiddleware:fn=>fn,...legacy,...auth,configuration:()=>oldConfig,authConfiguration:()=>config,accountStore:()=>({find:async()=>{if(fail)throw Error('offline');return record;}})});
+ const run=async(value=token)=>{const ctx=context('/waiting/',{[auth.ACCOUNT_COOKIE]:value});await middleware(ctx,async()=>new Response('page'));return ctx;};
+ let ctx=await run();let renewed=ctx.written.get(auth.ACCOUNT_COOKIE);assert.ok(renewed);assert.equal(renewed.options.maxAge,30*86400);assert.equal(renewed.options.httpOnly,true);assert.equal(renewed.options.sameSite,'lax');assert.equal(auth.readAccountSession(renewed.value,config).sub,'123');
+ assert.equal((await run(auth.createAccountSession('123',config))).written.size,0);
+ record=null;assert.equal((await run()).written.size,0);
+ fail=true;assert.equal((await run()).written.size,0);
+ assert.equal((await run(auth.createAccountSession('123',config,Date.now()-31*day))).written.size,0);
+});
+
+test('the same account session follows approval, waiting, and approval again without OAuth',async()=>{
+ const values={[auth.ACCOUNT_COOKIE]:auth.createAccountSession('123',config)};
+ let record={github_id:'123',status:'waiting'};
+ const middleware=load('../src/middleware.ts','onRequest',{defineMiddleware:fn=>fn,...legacy,...auth,configuration:()=>oldConfig,authConfiguration:()=>config,accountStore:()=>({find:async()=>record})});
+ const run=path=>middleware(context(path,values),async()=>new Response('private content'));
+ for(const status of ['approved','waiting','approved']) {
+  record={...record,status};
+  assert.equal((await run('/workbench/')).status,status==='approved'?200:303);
+  assert.equal((await run('/api/account/drafts')).status,status==='approved'?200:403);
+  assert.equal((await run('/waiting/')).status,200);
+ }
+});

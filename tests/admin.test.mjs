@@ -26,7 +26,7 @@ test('admin cookies have separate purposes, origins, signatures and short expira
  assert.equal(readAdminFlow(flow.cookie,'wrong',config,now),null);
  assert.equal(readAdminFlow(flow.cookie,flow.state,config,now+600000),null);
  assert.equal(readAdminSession(session,config,now).sub,owner.github_id);
- for(const [value,cfg,time] of [[flow.cookie,config,now],[session+'x',config,now],[session,{...config,origin:config.mainOrigin},now],[session,config,now+3600000]]) assert.equal(readAdminSession(value,cfg,time),null);
+ for(const [value,cfg,time] of [[flow.cookie,config,now],[session+'x',config,now],[session,{...config,origin:config.mainOrigin},now],[session,config,now+admin.ADMIN_SECONDS*1000]]) assert.equal(readAdminSession(value,cfg,time),null);
 });
 test('handoff codes are owner-only, browser-bound, single-use, and expire',async()=>{
  const db=database(),flow=beginAdminLogin(config,now);
@@ -94,4 +94,18 @@ test('admin middleware checks approval on every request and rejects other routes
  assert.equal((await run('/admin/',cookie,'https://preview.example')).status,503);
  for(const path of ['/friends/','/api/mcp','/auth/github/','/admin/connect/']) assert.equal((await run(path)).status,404);
  assert.equal(reads,5);
+});
+
+test('admin return visits renew an owner session and skip the login page without GitHub',async()=>{
+ const source=stripTypeScriptTypes(readFileSync(new URL('../src/lib/admin-middleware.ts',import.meta.url),'utf8')).replace(/^import .*;$/gm,'').replace('export async function adminRequest','return async function adminRequest');
+ let account=owner,fail=false;
+ const dependencies={...admin,adminConfiguration:()=>config,authConfiguration:()=>({}),accountStore:()=>({find:async()=>{if(fail)throw Error('offline');return account;}})};
+ const middleware=new Function(...Object.keys(dependencies),source)(...Object.values(dependencies));
+ const cookie=createAdminSession(owner,config,Date.now()-5*3600000);
+ const run=async(path='/admin/login/',value=cookie)=>{const writes=[];const response=await middleware({url:new URL(path,config.origin),locals:{},cookies:{get:()=>({value}),set:(...args)=>writes.push(args)},redirect:(location,status)=>new Response(null,{status,headers:{Location:location}})},async()=>new Response('page'));return {response,writes};};
+ let result=await run();assert.equal(result.response.headers.get('location'),'/');assert.equal(result.writes.length,1);assert.equal(result.writes[0][2].maxAge,8*3600);
+ result=await run('/admin/access/');assert.equal(result.response.status,200);
+ account={...owner,status:'waiting'};result=await run();assert.equal(result.response.status,403);assert.equal(result.writes.length,0);
+ fail=true;result=await run();assert.equal(result.response.status,503);assert.equal(result.writes.length,0);
+ result=await run('/admin/login/',createAdminSession(owner,config,Date.now()-9*3600000));assert.equal(result.response.status,200);assert.equal(result.writes.length,0);
 });

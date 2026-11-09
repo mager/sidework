@@ -1,6 +1,6 @@
 # Sidework admin
 
-The owner dashboard is a second Vercel project from this repository. It tracks GitHub signups, not invite codes. Open it from Settings → Admin on the main site.
+The owner dashboard is a second Vercel project from this repository. It tracks GitHub signups and manages private tool access. Open it from Settings → Admin on the main site.
 
 - Main: https://sidework-ten.vercel.app
 - Admin: https://sidework-admin.vercel.app
@@ -10,13 +10,17 @@ The owner dashboard is a second Vercel project from this repository. It tracks G
 
 The dashboard shows @handles, GitHub links, email addresses, access status, email consent, signup dates, and last sign-in dates. Dates use America/Chicago. Search matches handles and email addresses; filters select status and consent. Search forms use POST so an email query does not enter the URL. Refresh and Clear return the full list.
 
-Records come from the server-only `sidework_accounts` collection, newest first. At most 1,000 records load. If there are more, a notice states that search and counts cover the latest 1,000. The table has real loading-failure and no-match states. Mobile account rows stack vertically, with identity above a two-column grid of labeled fields.
+Records come from the server-only `sidework_accounts` collection, with the newest 1,000 fetched. The table puts waiting accounts first, oldest signup first within that group. If there are more, a notice states that search and counts cover the latest 1,000. The table has real loading-failure and no-match states. Mobile account rows stack vertically, with identity above a two-column grid of labeled fields.
 
-This version does not approve accounts, generate invite codes, change consent, delete accounts, export emails, or send email. Only the configured owner is approved. Account-specific exports, review, and MCP templates must be completed before approvals open.
+## Manage access
+
+Select Grant access beside a waiting account. An approved account can use Check access on its waiting page to open the Workbench with its current session. To revoke access, open Manage access beside an approved account and select Return to waiting. The account keeps its private drafts. Current approval checks then block private tools and account agent tokens. The dashboard cannot change the owner’s access. Approval grants private tools only. Account deletion and email delivery are unavailable.
+
+Access changes use a same-origin POST to `/admin/access/` on the admin deployment. The handler accepts a bounded form with a numeric account ID, the expected status, and the new status. A Firestore transaction checks the owner’s current approval and verifies the target’s expected status. A stale form makes no change. The transaction saves the status and writes an audit record to the server-only `sidework_access_events` collection. The record includes the actor and target GitHub IDs, the previous and new statuses, and the change time.
 
 ## Authentication
 
-The admin deployment serves only `/`, `/admin/`, `/admin/login/`, and the exact `/auth/admin/start/`, `/auth/admin/callback/`, and `/auth/admin/signout/` endpoints. Every private request checks a separate one-hour HttpOnly, SameSite=Lax, origin-bound admin session, then reads the owner account and checks its current approval and immutable GitHub numeric ID. Missing configuration, wrong deployment origin, database errors, deleted accounts, non-owner accounts, and waiting accounts fail closed. Main-site account cookies, legacy invite cookies, and agent bearer tokens do not authorize admin access.
+The admin deployment serves only `/`, `/admin/`, `/admin/login/`, POST `/admin/access/`, and the exact `/auth/admin/start/`, `/auth/admin/callback/`, and `/auth/admin/signout/` endpoints. Every private request checks a separate eight-hour HttpOnly, SameSite=Lax, origin-bound admin session, then reads the owner account and checks its current approval and immutable GitHub numeric ID. A successful owner check renews a valid session after four hours. An owner with a valid session who visits `/admin/login/` goes to the dashboard. Missing configuration, wrong deployment origin, database errors, deleted accounts, non-owner accounts, and waiting accounts fail closed. Main-site account cookies, legacy invite cookies, and agent bearer tokens do not authorize admin access.
 
 The login form creates a signed ten-minute flow cookie and a PKCE verifier. It opens `/admin/connect/` on the main site. That route has no account data; it checks the signed-in GitHub owner or offers the existing GitHub OAuth flow. The main site issues a 60-second handoff code, stores only its hash with the owner ID, audience, state, and PKCE challenge in `sidework_admin_handoffs`, and redirects to the fixed admin callback. The admin consumes the code in a Firestore transaction before creating a session. Incorrect browser proofs cannot consume it. Used codes are deleted; abandoned codes expire but can remain as inert records.
 
@@ -44,4 +48,4 @@ Vercel assigned `sidework-admin.vercel.app` when the first production deployment
 
 Run the main app at 127.0.0.1:4345 and an isolated source copy at 127.0.0.1:4346. Use a second source directory because Astro's dev-server manager allows one server per project root. Both use the same database and a fresh local Vercel OIDC token. The local admin can use the main development provider; set local origins to those two ports and keep all environment files ignored. No authentication bypass is supported.
 
-Run `npm test` and `npm run build`. Check owner login, logout, expired callback, status/consent/search filters, empty results, desktop and mobile. Check anonymous admin redirects and non-owner rejection without changing real users' account status.
+Run `npm test` and `npm run build`. Check owner login, logout, expired callback, status/consent/search filters, empty results, desktop and mobile. Check anonymous admin redirects and non-owner rejection. Use test records to check grant, return to waiting, stale changes, owner protection, and audit records. Leave real account statuses unchanged.

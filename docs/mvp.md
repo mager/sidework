@@ -1,6 +1,6 @@
 # MVP and V1 release plan
 
-Reviewed November 8, 2026 against the current code. This is a release plan, not a claim that the features below are live.
+Reviewed November 9, 2026 against the current code. This is a release plan, not a claim that the features below are live.
 
 ## MVP: publish your work
 
@@ -9,23 +9,23 @@ A builder can sign in with GitHub, add a personal project or an upstream contrib
 ### Ready now
 
 - GitHub sign-in, verified numeric account IDs, waiting status, and stored email consent.
-- Owner-only, read-only signup dashboard with search and accessible status/consent filters.
+- Owner-only signup dashboard with search, accessible status and consent filters, manual access changes, and Firestore audit records.
 - Server-saved private account projects, featured order, and contribution drafts, with account isolation, revision conflicts, explicit browser import, and full backup restore. Legacy sessions remain browser-local. See [private account drafts](account-drafts.md).
 - Account-bound project export, draft review, and MCP preparation. Review rejects other account IDs and handles account renames. The public catalog remains the @mager example.
 - Compact work lists, separate detail pages, original-color imagery, and theme controls.
 
-Priority 1, private account draft storage, is implemented. The checks below remain before MVP access can open. This does not complete MVP or V1.
+Priority 1, private account draft storage, is implemented. The checks below remain before the public MVP release. The owner can grant private preview access manually. This does not complete MVP or V1.
 
-### Required before opening access
+### Required before the public MVP release
 
 | Priority | Missing capability | Release check |
 | --- | --- | --- |
 | 2 | Profile preview and publishing | A builder can preview, publish, edit, and unpublish their own profile. Drafts remain private. Both projects and external contributions appear, with source links and explicit evidence states. Public URLs work while signed out. Handle changes cannot transfer ownership. |
 | 3 | First-use path | A new approved account starts with its own identity and empty workspace. It can add a project and a contribution without using @mager’s data. Saving, failure, and recovery states are tested on mobile and desktop. |
-| 4 | Controlled access and recovery | A separate, reviewed change adds approval/revocation with an audit record. Revoked access stops tools and agent tokens. Users can export all their work and request account deletion. Test restore before enabling deletion. |
+| 4 | Controlled access and recovery | Verify that returning an account to waiting blocks private tools and account agent tokens while retaining drafts. Users can export all their work and request account deletion. Test restore before enabling deletion. |
 | 5 | Release operations | Document data use and retention. Add error reporting without tokens or private draft text, health checks, database backup/restore checks, and tested rollback. Verify OAuth failure and expired-session recovery. |
 
-Keep the admin read-only and other accounts waiting during this work. This change does not approve anyone, publish a profile, or send email. Consent is recorded, but email delivery is not connected. Before promising updates, add delivery, unsubscribe, and consent checks.
+New accounts start waiting. The configured owner controls admission to the private preview. Use test records to verify access changes. Email consent is recorded. Email delivery, unsubscribe, and consent checks remain release work.
 
 ## V1: a reason to return
 

@@ -1,6 +1,6 @@
 # Private account drafts
 
-Approved accounts save project stories, featured order, and contribution drafts on the server. A second browser loads the saved work after sign-in. Saving does not publish a profile or change the committed public @mager snapshot. Other accounts remain waiting. Admin remains owner-only and read-only.
+Approved accounts save project stories, featured order, and contribution drafts on the server. A second browser loads the saved work after sign-in. Saving does not publish a profile or change the committed public @mager snapshot. Accounts start waiting until the configured owner grants access. Returning an account to waiting preserves its saved drafts and blocks private tool access.
 
 ## What saves where
 
@@ -61,6 +61,6 @@ Settings **Reset my workspace** and **Restore previous workspace** change browse
 
 Firestore uses the existing Vercel OIDC Workload Identity connection. No service account key is needed. `firestore.rules` continues to deny all browser reads and writes. Server access uses IAM. `firestore.indexes.json` records the applied exemption from indexing the `sidework_drafts` collection's `drafts` field.
 
-MCP tools still read committed records and public repositories or prepare drafts. They cannot read private server drafts, write them, or publish. Review links and files require an explicit browser save. This feature adds no approval, account deletion, public publishing, or email action.
+MCP tools still read committed records and public repositories or prepare drafts. They cannot read private server drafts, write them, or publish. Review links and files require an explicit browser save. The separate owner dashboard manages access. Account deletion, public publishing, and email delivery are unavailable.
 
 Automated checks cover account isolation, approval changes, request validation, concurrent saves, old-tab account changes, two independent clients, explicit import, recovery, and retained legacy storage. Run `npm test` and `npm run build` for changes. Check mobile and desktop. Keep production deployment checks separate from local test results.

@@ -15,8 +15,8 @@ npm run dev -- --host 127.0.0.1 --port 4345
 
 Use [the setup guide](docs/github-auth.md) for GitHub sign-in and Firestore. Local access uses a short-lived Vercel OIDC token. Missing configuration leaves the public profile available and shows signup as unavailable.
 
-- `/signup/`: GitHub sign-in and optional email update consent.
-- `/waiting/`: signed-in waitlist status and email preference.
+- `/signup/`: GitHub sign-in, waitlist signup, and a preview of @mager’s projects.
+- `/waiting/`: signed-in waitlist status, Check access, and optional email preferences.
 - `/invite/`: old links redirect to signup; codes no longer create sessions.
 - `/friends/`: access-controlled local follows and first-project entry.
 - `/settings/`: access-controlled Appearance, workspace reset and restore, sign-out, and an owner-only Open admin link.
@@ -54,15 +54,15 @@ The interface uses black, white, and neutral gray to keep attention on the work.
 
 ## Owner admin
 
-The separate [admin site](https://sidework-admin.vercel.app) shows signup records from Firestore. Open Settings → Admin → Open admin as the configured owner. Search by @handle or email, use visible choices for access status and email consent, and inspect signup and last sign-in dates. The dashboard is read-only: it cannot approve accounts, delete records, or send email.
+The separate [admin site](https://sidework-admin.vercel.app) shows signup records from Firestore. Open Settings → Admin → Open admin as the configured owner. Search by @handle or email, use visible choices for access status and email consent, and inspect signup and last sign-in dates. Use Grant access for a waiting account or Manage access to return an approved account to waiting. Each change records an audit event. Account deletion and email delivery are unavailable.
 
-The admin uses a separate session and checks the approved owner account by GitHub numeric ID on every private request. Sign-in uses the main site and a one-time PKCE handoff. Both Vercel projects use this repository on `main`; deploy both when their shared sign-in flow changes. See [admin setup](docs/admin.md) for route limits, keyless database access, and checks.
+The admin uses a separate eight-hour session and checks the approved owner account by GitHub numeric ID on every private request. A successful owner check renews a valid session after four hours. Sign-in uses the main site and a one-time PKCE handoff. Both Vercel projects use this repository on `main`; deploy both when their shared sign-in flow changes. See [admin setup](docs/admin.md) for route limits, keyless database access, and checks.
 
 ## Prototype boundaries
 
-GitHub signup records the verified numeric ID, login, verified email, waiting status, and optional update consent in Firestore. Only the configured owner starts approved. Other accounts wait for access. Email delivery is not connected. GitHub OAuth and Firestore are live. Local and production checks covered owner access, waiting access, consent changes, sign-out, and repeat sign-in. A production HTTP callback check covered cancellation with valid OAuth state.
+GitHub signup records the verified numeric ID, login, verified email, waiting status, and optional update consent in Firestore. Only the configured owner starts approved. Other accounts wait for the owner to grant access. Check access opens the Workbench after approval. The account session lasts 30 days and renews after 15 days when the server verifies the current account. Email delivery is not connected. GitHub OAuth and Firestore are live. Local and production checks covered owner access, waiting access, consent changes, sign-out, and repeat sign-in. A production HTTP callback check covered cancellation with valid OAuth state.
 
-Private exports, draft review, and MCP templates now use the signed-in account’s numeric GitHub ID and current @handle. Keep other accounts waiting until the release checks in [the MVP plan](docs/mvp.md) pass. Approved accounts save project stories, featured order, and contribution drafts on the server. Another browser loads those private drafts after sign-in. There is no public multi-profile publishing or shared social graph. Saves, follows, and plans remain in browser `localStorage`, with a GitHub numeric ID suffix for signed-in accounts. Existing browser drafts remain intact until an explicit browser reset; import to the account requires review and a save. Legacy sessions keep browser-local drafts, with no automatic migration of legacy keys. Theme stays browser-global. Anyone with access to the browser profile can inspect its local data. Drafts and plans are not posted to GitHub or included in the public profile. See [private account drafts](docs/account-drafts.md) for storage, conflicts, import, and recovery.
+Private exports, draft review, and MCP templates now use the signed-in account’s numeric GitHub ID and current @handle. Manual approval grants private tools. The [MVP plan](docs/mvp.md) tracks the remaining work for a public release. Approved accounts save project stories, featured order, and contribution drafts on the server. Another browser loads those private drafts after sign-in. There is no public multi-profile publishing or shared social graph. Saves, follows, and plans remain in browser `localStorage`, with a GitHub numeric ID suffix for signed-in accounts. Existing browser drafts remain intact until an explicit browser reset; import to the account requires review and a save. Legacy sessions keep browser-local drafts, with no automatic migration of legacy keys. Theme stays browser-global. Anyone with access to the browser profile can inspect its local data. Drafts and plans are not posted to GitHub or included in the public profile. See [private account drafts](docs/account-drafts.md) for storage, conflicts, import, and recovery.
 
 The profile is a committed snapshot. Saving a private draft does not publish it. To update the profile, edit `src/data/projects.ts`, `src/data/contribution-stories.json`, or the contribution snapshot and rebuild. Source links provide the current GitHub state. All routes use `noindex` while this remains a prototype.
 
