@@ -1,17 +1,24 @@
 # GitHub sign-in and waitlist
 
-GitHub OAuth and Firestore are live at [Sidework](https://sidework-ten.vercel.app). Production sign-in, account storage, waiting access, consent changes, and sign-out were checked. No email delivery is connected.
+GitHub OAuth and Firestore are live at [Sidework](https://sidework.dev). Production sign-in, account storage, waiting access, consent changes, and sign-out were checked. No email delivery is connected.
 
 ## Current setup
 
-GitHub OAuth app `3998242` is registered under @mager. Its secret is configured locally and in Vercel production. The homepage is `https://sidework-ten.vercel.app`. Registered callbacks are:
+GitHub OAuth app `3998242` is registered under @mager. Its secret is configured locally and in Vercel production. The homepage is `https://sidework.dev`. Registered callbacks are:
 
-- Production: `https://sidework-ten.vercel.app/auth/github/callback/`
+- Production: `https://sidework.dev/auth/github/callback/`
+- Previous production (retained for rollback): `https://sidework-ten.vercel.app/auth/github/callback/`
 - Local: `http://127.0.0.1:4345/auth/github/callback/`
 
 Firebase/GCP project `sidework-9da9c` uses the `(default)` Firestore database in `us-east4`, Standard edition, with the free tier and billing disabled. The server uses Vercel OIDC Workload Identity through pool `sidework-vercel` and provider `vercel`. Trust is limited to the Sidework project and team by immutable IDs, with production and development environments allowed. Preview is not allowed. The service account `sidework-accounts@sidework-9da9c.iam.gserviceaccount.com` has `roles/datastore.user`. No GCP service account keys are used. Provider and service account policy readback confirmed the project/team conditions and only the Sidework production/development principals.
 
 `firestore.rules` denies all browser reads and writes. These rules were deployed with the Firebase CLI. Server access uses IAM. There is no SQL schema migration; transactions create documents as needed. Private account drafts use `sidework_drafts/<numeric-id>`. The `drafts` field has an applied Firestore index exemption, tracked in `firestore.indexes.json`; nested private draft data does not need indexes. The earlier free Neon database is empty and unused by the new code. It is disconnected from Sidework, and its Vercel variables were removed. It has not been deleted.
+
+## Custom domain
+
+The canonical main origin is `https://sidework.dev`. Namecheap DNS uses A records for `@` and `www` to `76.76.21.21`, as supplied by the Vercel CLI. Vercel redirects `www.sidework.dev` and the previous `sidework-ten.vercel.app` hostname to the root domain. The admin stays at `https://sidework-admin.vercel.app`; both projects use the new main `SIDEWORK_ORIGIN` and must be deployed after an origin change. Keep the previous OAuth callback registered for rollback. No OAuth secret or GCP identity change is needed.
+
+A new hostname requires one GitHub sign-in. Account records and private server drafts retain their GitHub numeric ID keys. Browser-local saves, follows, plans, theme, and legacy drafts remain on their original origin; they do not move automatically. Existing agent tokens are bound to the previous origin. Create a new token at the new domain and update the MCP endpoint. To recover browser-only data from the old hostname, the owner can temporarily remove its Vercel redirect and use the existing backup controls before restoring the redirect. Do not clear browser storage.
 
 ## Environment and local use
 
@@ -21,7 +28,7 @@ Use the values in `.env.example`. Keep secrets and tokens in server environment 
 | --- | --- |
 | `GITHUB_CLIENT_ID` | OAuth app client ID. |
 | `GITHUB_CLIENT_SECRET` | OAuth app secret; server only. |
-| `SIDEWORK_ORIGIN` | `https://sidework-ten.vercel.app` in production; `http://127.0.0.1:4345` locally. |
+| `SIDEWORK_ORIGIN` | `https://sidework.dev` in production; `http://127.0.0.1:4345` locally. |
 | `SIDEWORK_OWNER_GITHUB_ID` | `17733`, the verified numeric ID for @mager. |
 | `SIDEWORK_SESSION_SECRET` | Retain the existing secret, at least 32 characters. Rotation invalidates all signed sessions and tokens. |
 | `SIDEWORK_INVITE_HASHES` | Retain existing hashes while legacy sessions and version 1 agent tokens must remain valid. |

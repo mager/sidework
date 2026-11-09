@@ -127,7 +127,7 @@ Code is MIT licensed. The portrait, screenshot, personal project descriptions, a
 
 ## Account access and deployment
 
-Live site: https://sidework-ten.vercel.app. The requested `sidework.vercel.app` alias was already in use.
+Live site: https://sidework.dev. The previous `sidework-ten.vercel.app` address redirects to the custom domain.
 
 Astro renders all pages on the server with the Vercel adapter. On the main site, public application routes are `/admin/connect/` (sign-in transfer only), `/signup/`, the exact `/auth/github/` start and `/auth/github/callback/` routes, the exact `/mager/` profile, `/invite/` (redirect only), and `/api/signout`. Waiting accounts may use `/waiting/` and `/api/account/updates`. Other website routes require an approved account session or a valid legacy invite cookie. `/api/account/drafts` requires an approved account session and a matching expected-account header; legacy cookies do not grant draft API access. `/api/mcp` requires its own scoped bearer token. Account tokens recheck approval in the database on each request.
 

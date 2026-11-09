@@ -6,7 +6,7 @@ The agent reads public repositories, helps you choose up to six projects, and pr
 
 ## Connect Claude Code
 
-1. Open [Workbench → Agents](https://sidework-ten.vercel.app/workbench/#agents) with an approved account or a valid legacy session.
+1. Open [Workbench → Agents](https://sidework.dev/workbench/#agents) with an approved account or a valid legacy session.
 2. Select **Create agent token**, then **Copy token**.
 3. Run these commands inside Claude Code:
 
@@ -22,14 +22,14 @@ The plugin has no shell hooks, background jobs, local filesystem server, or GitH
 
 ## Other MCP clients
 
-The endpoint is **https://sidework-ten.vercel.app/api/mcp**. It uses Streamable HTTP, JSON responses, and a Bearer token. Use **Copy MCP config** in Sidework for a complete configuration with your current token. Treat that configuration as a credential. The token stays in page memory, not localStorage.
+The endpoint is **https://sidework.dev/api/mcp**. It uses Streamable HTTP, JSON responses, and a Bearer token. Use **Copy MCP config** in Sidework for a complete configuration with your current token. Treat that configuration as a credential. The token stays in page memory, not localStorage.
 
 ```json
 {
   "mcpServers": {
     "sidework": {
       "type": "http",
-      "url": "https://sidework-ten.vercel.app/api/mcp",
+      "url": "https://sidework.dev/api/mcp",
       "headers": { "Authorization": "Bearer YOUR_SIDEWORK_AGENT_TOKEN" }
     }
   }

@@ -16,7 +16,7 @@ The exact `/mager/` profile route stays public. `/signup/` starts GitHub OAuth w
 
 The prototype has one source-backed public maker profile, @mager. Approved accounts save private project stories, featured order, and contribution stories in server-only Firestore records keyed by verified GitHub numeric ID. Public GitHub data can be read without account permissions. Identity, access status, and consent remain in separate account records. A shared social service is not connected. GitHub OAuth and Firestore are live. Local and production checks covered owner access, waiting access, consent changes, sign-out, and repeat sign-in. A production HTTP callback check covered cancellation with valid OAuth state. Email delivery is not connected. Private exports, draft review, and MCP templates use the signed-in account’s numeric GitHub ID and current @handle. The owner can grant private tool access to waiting accounts. Public multi-profile publishing is not connected. Saves, follows, and plans use browser storage keys with GitHub numeric IDs. They are not shared between browsers. Private account drafts load after sign-in in another browser and do not publish. Existing browser drafts stay in their original keys and need explicit review before account import. Legacy sessions remain local; unscoped legacy keys are not imported into an account automatically. Theme stays browser-global. See [private account drafts](docs/account-drafts.md).
 
-The deployed preview is https://sidework-ten.vercel.app. The originally requested hostname was unavailable.
+The deployed preview is https://sidework.dev. The previous `sidework-ten.vercel.app` address redirects to the custom domain.
 
 ## Owner admin
 

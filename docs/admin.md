@@ -2,7 +2,7 @@
 
 The owner dashboard is a second Vercel project from this repository. It tracks GitHub signups and manages private tool access. Open it from Settings → Admin on the main site.
 
-- Main: https://sidework-ten.vercel.app
+- Main: https://sidework.dev
 - Admin: https://sidework-admin.vercel.app
 - Vercel project: `sidework-admin` (`prj_tLbIAtf6rOVghAeHzOP93eplP83H`)
 
@@ -33,7 +33,7 @@ Both Vercel projects connect to `mager/sidework` on `main`, with the Astro frame
 Main production needs `SIDEWORK_ADMIN_ORIGIN` in addition to its existing configuration. Admin production needs:
 
 - `SIDEWORK_SITE=admin`
-- `SIDEWORK_ORIGIN=https://sidework-ten.vercel.app`
+- `SIDEWORK_ORIGIN=https://sidework.dev`
 - `SIDEWORK_ADMIN_ORIGIN=https://sidework-admin.vercel.app`
 - A separate random `SIDEWORK_ADMIN_SESSION_SECRET` of at least 32 characters
 - `SIDEWORK_OWNER_GITHUB_ID=17733`

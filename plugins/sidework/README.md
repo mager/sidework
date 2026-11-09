@@ -2,7 +2,7 @@
 
 Set up a profile from public GitHub projects and return a direct review link.
 
-1. Open [Sidework → Agents](https://sidework-ten.vercel.app/workbench/#agents) with an approved account or a valid legacy session. Create an agent token.
+1. Open [Sidework → Agents](https://sidework.dev/workbench/#agents) with an approved account or a valid legacy session. Create an agent token.
 2. In Claude Code, run:
 
 ```text

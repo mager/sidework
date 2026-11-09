@@ -1,7 +1,7 @@
 ---
 import '../styles/draft-storage.css';
 import { projects } from '../data/projects';
-const seed = JSON.stringify(projects.map(project=>({...project,image:project.image?.startsWith('/') ? new URL(project.image,'https://sidework-ten.vercel.app').href : project.image}))).replace(/</g, '\\u003c');
+const seed = JSON.stringify(projects.map(project=>({...project,image:project.image?.startsWith('/') ? new URL(project.image,'https://sidework.dev').href : project.image}))).replace(/</g, '\\u003c');
 ---
 {Astro.locals.account && <section class="draft-storage" id="draft-storage" aria-label="Account drafts">
  <script type="application/json" id="draft-storage-seed" set:html={seed}/>
