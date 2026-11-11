@@ -16,6 +16,8 @@ A builder can sign in with GitHub, add a personal project or an upstream contrib
 
 Priority 1, private account draft storage, is implemented. The checks below remain before the public MVP release. The owner can grant private preview access manually. This does not complete MVP or V1.
 
+The November 11 [GitHub inventory and connected-profile design](superpowers/specs/2026-11-11-connected-github-design.md) maps @mager's existing stories and discovered public repositories to import, private review, and publishing. @mager selected review before new repositories appear publicly. The design is proposed, not implemented; its inventory is not a production import or a complete activity history.
+
 ### Required before the public MVP release
 
 | Priority | Missing capability | Release check |

@@ -1,0 +1,1096 @@
+{
+  "checkedAt": "2026-11-11",
+  "scope": "Discovery candidates, not published work. Search results are not a complete GitHub activity history.",
+  "queries": {
+    "repositories": "user:mager fork:false; page 1, per_page 100",
+    "pullRequests": "author:mager is:public -user:mager; updated descending; limit 100",
+    "issues": "author:mager is:issue is:public -user:mager; limit 30",
+    "commentedThreads": "commenter:mager is:public -user:mager; limit 30; exact comments not fetched"
+  },
+  "repositories": [
+    {
+      "githubRepositoryId": "48595398",
+      "repository": "mager/slack-genius",
+      "url": "https://github.com/mager/slack-genius",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1163462054",
+      "repository": "mager/brainpack",
+      "url": "https://github.com/mager/brainpack",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1158134941",
+      "repository": "mager/temporal",
+      "url": "https://github.com/mager/temporal",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1162232244",
+      "repository": "mager/loooom",
+      "url": "https://github.com/mager/loooom",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "5398293",
+      "repository": "mager/unspotify",
+      "url": "https://github.com/mager/unspotify",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1152782611",
+      "repository": "mager/frontend-design",
+      "url": "https://github.com/mager/frontend-design",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1281789777",
+      "repository": "mager/skill-evals",
+      "url": "https://github.com/mager/skill-evals",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "2130003",
+      "repository": "mager/sendwiki",
+      "url": "https://github.com/mager/sendwiki",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "326435722",
+      "repository": "mager/caffy-beans-example",
+      "url": "https://github.com/mager/caffy-beans-example",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "3823834",
+      "repository": "mager/lastfm-realtime-spotify-app",
+      "url": "https://github.com/mager/lastfm-realtime-spotify-app",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "23094514",
+      "repository": "mager/instaspot",
+      "url": "https://github.com/mager/instaspot",
+      "archived": true
+    },
+    {
+      "githubRepositoryId": "390580052",
+      "repository": "mager/top-shot-balls",
+      "url": "https://github.com/mager/top-shot-balls",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "99427262",
+      "repository": "mager/discogs_ex",
+      "url": "https://github.com/mager/discogs_ex",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1459703",
+      "repository": "mager/publictext.net",
+      "url": "https://github.com/mager/publictext.net",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "365607152",
+      "repository": "mager/mager.co",
+      "url": "https://github.com/mager/mager.co",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "412925803",
+      "repository": "mager/floor.report.old",
+      "url": "https://github.com/mager/floor.report.old",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "552101314",
+      "repository": "mager/fr2",
+      "url": "https://github.com/mager/fr2",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1272293268",
+      "repository": "mager/claude-voice",
+      "url": "https://github.com/mager/claude-voice",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "448577485",
+      "repository": "mager/magerdotco-old",
+      "url": "https://github.com/mager/magerdotco-old",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "421177346",
+      "repository": "mager/bouncer",
+      "url": "https://github.com/mager/bouncer",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "425535025",
+      "repository": "mager/sweeper",
+      "url": "https://github.com/mager/sweeper",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "537891433",
+      "repository": "mager/sensor",
+      "url": "https://github.com/mager/sensor",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "604161187",
+      "repository": "mager/quotient",
+      "url": "https://github.com/mager/quotient",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "600749",
+      "repository": "mager/andrewmager.com",
+      "url": "https://github.com/mager/andrewmager.com",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "604333824",
+      "repository": "mager/emoquote",
+      "url": "https://github.com/mager/emoquote",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "720758716",
+      "repository": "mager/tellus",
+      "url": "https://github.com/mager/tellus",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "3452552",
+      "repository": "mager/sxspotify",
+      "url": "https://github.com/mager/sxspotify",
+      "archived": true
+    },
+    {
+      "githubRepositoryId": "584524848",
+      "repository": "mager/penny-pincher",
+      "url": "https://github.com/mager/penny-pincher",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "442160514",
+      "repository": "mager/keiko",
+      "url": "https://github.com/mager/keiko",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "537945830",
+      "repository": "mager/sense",
+      "url": "https://github.com/mager/sense",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "324835853",
+      "repository": "mager/cafebean-api",
+      "url": "https://github.com/mager/cafebean-api",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "359165185",
+      "repository": "mager/theo-git",
+      "url": "https://github.com/mager/theo-git",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "335501841",
+      "repository": "mager/genspeier.com",
+      "url": "https://github.com/mager/genspeier.com",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "421242353",
+      "repository": "mager/bouncer-web",
+      "url": "https://github.com/mager/bouncer-web",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "573915834",
+      "repository": "mager/aoc",
+      "url": "https://github.com/mager/aoc",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "567536149",
+      "repository": "mager/go-reservoir",
+      "url": "https://github.com/mager/go-reservoir",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "451201889",
+      "repository": "mager/go-opensea",
+      "url": "https://github.com/mager/go-opensea",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1181677042",
+      "repository": "mager/claude-tui-demo",
+      "url": "https://github.com/mager/claude-tui-demo",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "326305230",
+      "repository": "mager/kristinemoore.info",
+      "url": "https://github.com/mager/kristinemoore.info",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "569917795",
+      "repository": "mager/magerdotco",
+      "url": "https://github.com/mager/magerdotco",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "915463900",
+      "repository": "mager/magerblog",
+      "url": "https://github.com/mager/magerblog",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "398834642",
+      "repository": "mager/muse-sick-test",
+      "url": "https://github.com/mager/muse-sick-test",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "507576687",
+      "repository": "mager/floor-report",
+      "url": "https://github.com/mager/floor-report",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "527029766",
+      "repository": "mager/floor-report-contracts",
+      "url": "https://github.com/mager/floor-report-contracts",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "582349877",
+      "repository": "mager/botfren",
+      "url": "https://github.com/mager/botfren",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "702639724",
+      "repository": "mager/geotory-web",
+      "url": "https://github.com/mager/geotory-web",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1164054606",
+      "repository": "mager/kana-ascii",
+      "url": "https://github.com/mager/kana-ascii",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1161310336",
+      "repository": "mager/loooom.xyz",
+      "url": "https://github.com/mager/loooom.xyz",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1268698337",
+      "repository": "mager/claude-workflow-example",
+      "url": "https://github.com/mager/claude-workflow-example",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1438859433",
+      "repository": "mager/blunder-club",
+      "url": "https://github.com/mager/blunder-club",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1187992344",
+      "repository": "mager/kotsu",
+      "url": "https://github.com/mager/kotsu",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "714754862",
+      "repository": "mager/example",
+      "url": "https://github.com/mager/example",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "78083594",
+      "repository": "mager/atom-bright-lights-syntax",
+      "url": "https://github.com/mager/atom-bright-lights-syntax",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1254472477",
+      "repository": "mager/plexus",
+      "url": "https://github.com/mager/plexus",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1404386270",
+      "repository": "mager/homeport",
+      "url": "https://github.com/mager/homeport",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1335987036",
+      "repository": "mager/hearth",
+      "url": "https://github.com/mager/hearth",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "815639887",
+      "repository": "mager/occipital",
+      "url": "https://github.com/mager/occipital",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "815561500",
+      "repository": "mager/beatbrain-web",
+      "url": "https://github.com/mager/beatbrain-web",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1451633327",
+      "repository": "mager/dreaming-brain",
+      "url": "https://github.com/mager/dreaming-brain",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1447634661",
+      "repository": "mager/jlinc-agent-trust-lab",
+      "url": "https://github.com/mager/jlinc-agent-trust-lab",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1181885848",
+      "repository": "mager/loooom-mcp",
+      "url": "https://github.com/mager/loooom-mcp",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1220973686",
+      "repository": "mager/zenith",
+      "url": "https://github.com/mager/zenith",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1413602087",
+      "repository": "mager/trl-issue-triage",
+      "url": "https://github.com/mager/trl-issue-triage",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1446196998",
+      "repository": "mager/sidework",
+      "url": "https://github.com/mager/sidework",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1231143133",
+      "repository": "mager/local-llm-quickstart",
+      "url": "https://github.com/mager/local-llm-quickstart",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1404334372",
+      "repository": "mager/perch",
+      "url": "https://github.com/mager/perch",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "79586856",
+      "repository": "mager/jordanbio.com",
+      "url": "https://github.com/mager/jordanbio.com",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "710955695",
+      "repository": "mager/bluedot",
+      "url": "https://github.com/mager/bluedot",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "704218550",
+      "repository": "mager/maps",
+      "url": "https://github.com/mager/maps",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "737397825",
+      "repository": "mager/ptolemy",
+      "url": "https://github.com/mager/ptolemy",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1283455489",
+      "repository": "mager/mager-bench",
+      "url": "https://github.com/mager/mager-bench",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1208143849",
+      "repository": "mager/beatbrain-v2",
+      "url": "https://github.com/mager/beatbrain-v2",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1275564413",
+      "repository": "mager/eve-demo",
+      "url": "https://github.com/mager/eve-demo",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "833655709",
+      "repository": "mager/uber-direct-webhook-example",
+      "url": "https://github.com/mager/uber-direct-webhook-example",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1182023969",
+      "repository": "mager/openclaw-tui",
+      "url": "https://github.com/mager/openclaw-tui",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1401814331",
+      "repository": "mager/moodsh",
+      "url": "https://github.com/mager/moodsh",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "828313579",
+      "repository": "mager/musicbrainz-go",
+      "url": "https://github.com/mager/musicbrainz-go",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1174432099",
+      "repository": "mager/acp",
+      "url": "https://github.com/mager/acp",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1231168965",
+      "repository": "mager/llocal",
+      "url": "https://github.com/mager/llocal",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "896979763",
+      "repository": "mager/melodex",
+      "url": "https://github.com/mager/melodex",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1233281592",
+      "repository": "mager/conseiller",
+      "url": "https://github.com/mager/conseiller",
+      "archived": false
+    },
+    {
+      "githubRepositoryId": "1448362827",
+      "repository": "mager/jlinc-buddy",
+      "url": "https://github.com/mager/jlinc-buddy",
+      "archived": false
+    }
+  ],
+  "activity": {
+    "prs": [
+      {
+        "url": "https://github.com/pbakaus/impeccable/pull/1213",
+        "title": "Strengthen bolder workflow scope checks"
+      },
+      {
+        "url": "https://github.com/pbakaus/impeccable/pull/1195",
+        "title": "Fix DESIGN.md sidecar freshness with content fingerprints"
+      },
+      {
+        "url": "https://github.com/pbakaus/impeccable/pull/1079",
+        "title": "Fix static HTML scans mixing inactive media styles"
+      },
+      {
+        "url": "https://github.com/pbakaus/impeccable/pull/1157",
+        "title": "Add Copy all findings to the extension popup"
+      },
+      {
+        "url": "https://github.com/mvanhorn/last30days-skill/pull/1352",
+        "title": "fix: honor cookie refusal across automatic credential sources"
+      },
+      {
+        "url": "https://github.com/mvanhorn/last30days-skill/pull/1353",
+        "title": "fix: keep response instructions out of research evidence"
+      },
+      {
+        "url": "https://github.com/pbakaus/impeccable/pull/1108",
+        "title": "Preserve Tune values when reopening the panel"
+      },
+      {
+        "url": "https://github.com/pbakaus/impeccable/pull/998",
+        "title": "Add advisory detection for hard offset shadows"
+      },
+      {
+        "url": "https://github.com/pbakaus/impeccable/pull/996",
+        "title": "Fix Firefox extension scanner startup"
+      },
+      {
+        "url": "https://github.com/block/buzz/pull/2875",
+        "title": "docs(buzz-acp): correct agent key generation instructions"
+      },
+      {
+        "url": "https://github.com/openclaw/openclaw/pull/46653",
+        "title": "feat: add `openclaw tunnel` command for managed SSH port-forwarding"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/pull/48",
+        "title": "Add sandbox environment support"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/pull/11",
+        "title": "Add back integration tests"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk-samples/pull/16",
+        "title": "Add contract type to Create Org"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/pull/44",
+        "title": "Org API: Add support for contract type"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/pull/43",
+        "title": "Update organizations YAML & add decentralized test"
+      },
+      {
+        "url": "https://github.com/Naturah/gigaforge-web/pull/1",
+        "title": "Start cart"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk-samples/pull/7",
+        "title": "Improve developer experience for vanilla JS examples Part 2"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk-samples/pull/6",
+        "title": "Improve developer experience for vanilla JS examples"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/pull/29",
+        "title": "Update README"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk-samples/pull/5",
+        "title": "Remove dist from examples"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/pull/25",
+        "title": "Improve exports and README"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/pull/24",
+        "title": "Fix package.json: Point to the compiled JavaScript file"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/pull/22",
+        "title": "Cleanup dist references"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/pull/21",
+        "title": "Fix build in package.json"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/pull/17",
+        "title": "Improve test commands, remove unused test"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/pull/12",
+        "title": "Consolidate getHeaders func, fix tests"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/pull/8",
+        "title": "Add Github actions for unit & integration tests"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/pull/3",
+        "title": "Add Gitignore"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/pull/6",
+        "title": "Add support for customerID when creating deliveriesClient"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/pull/7",
+        "title": "Add user agent"
+      },
+      {
+        "url": "https://github.com/stackpaperapp/oldweb/pull/1",
+        "title": "Add auth"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/pull/21",
+        "title": "Add more BQ fields: RoleAdded, ErrorMsg"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/pull/17",
+        "title": "Revert \"Disable BigQuery writes\""
+      },
+      {
+        "url": "https://github.com/premint/premintbot/pull/16",
+        "title": "Only grant role if user ID matches PREMINT Discord ID"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/pull/15",
+        "title": "Disable BigQuery writes"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/pull/14",
+        "title": "Log address in BQ, and don't lowercase it when calling PREMINT API"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/pull/11",
+        "title": "API Key & Role ID: Validate bad chars & better docs"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/pull/9",
+        "title": "Rename Go module to github.com/premint/premintbot"
+      },
+      {
+        "url": "https://github.com/nimajalali/go-force/pull/61",
+        "title": "Replace ApiName with APIName"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/pull/5",
+        "title": "Lowercase address (Fixes #4)"
+      },
+      {
+        "url": "https://github.com/nimajalali/go-force/pull/60",
+        "title": "Replace ApiName with APIName"
+      },
+      {
+        "url": "https://github.com/hayesgm/ravenex/pull/6",
+        "title": "Upgrade Elixir; use elixir_uuid instead of uuid"
+      },
+      {
+        "url": "https://github.com/startupdetroit/www/pull/9",
+        "title": "New hero"
+      },
+      {
+        "url": "https://github.com/startupdetroit/www/pull/5",
+        "title": "First 8 logos"
+      },
+      {
+        "url": "https://github.com/startupdetroit/www/pull/4",
+        "title": "Add first four logos"
+      },
+      {
+        "url": "https://github.com/startupdetroit/www/pull/3",
+        "title": "Skeleton"
+      },
+      {
+        "url": "https://github.com/startupdetroit/www/pull/2",
+        "title": "Reactify app"
+      },
+      {
+        "url": "https://github.com/postmates/ex-stats-tracker/pull/4",
+        "title": "Style tweaks"
+      },
+      {
+        "url": "https://github.com/postmates/consul_mut_ex/pull/7",
+        "title": "Update to use :consul@1.1.0"
+      },
+      {
+        "url": "https://github.com/undeadlabs/consul-ex/pull/12",
+        "title": "Add support for Session and KV.delete"
+      },
+      {
+        "url": "https://github.com/undeadlabs/consul-ex/pull/10",
+        "title": "Add ex_doc"
+      },
+      {
+        "url": "https://github.com/postmates/consul_mut_ex/pull/5",
+        "title": "Setup package for hex.pm"
+      },
+      {
+        "url": "https://github.com/postmates/consul_mut_ex/pull/4",
+        "title": "v1.0.0"
+      },
+      {
+        "url": "https://github.com/postmates/cernan/pull/186",
+        "title": "Update license"
+      },
+      {
+        "url": "https://github.com/postmates/consul_mut_ex/pull/1",
+        "title": "Consul as a backend"
+      },
+      {
+        "url": "https://github.com/beam-community/elixir-companies/pull/155",
+        "title": "Add Postmates"
+      },
+      {
+        "url": "https://github.com/sorin-ionescu/prezto/pull/1227",
+        "title": "Add git alias for `gcM` (GPG-sign the commit)"
+      },
+      {
+        "url": "https://github.com/far33d/py-postmates/pull/2",
+        "title": "Fix docs"
+      },
+      {
+        "url": "https://github.com/StephenGrider/ReduxSimpleStarter/pull/46",
+        "title": "Add a blank action types file"
+      },
+      {
+        "url": "https://github.com/facebookarchive/makeitopen/pull/11",
+        "title": "Minor typo"
+      },
+      {
+        "url": "https://github.com/far33d/py-postmates/pull/1",
+        "title": "Tweaked README to include more instructions and fixed a missing param"
+      },
+      {
+        "url": "https://github.com/keen/dashboards-dot-community/pull/2",
+        "title": "Fixed broken URL"
+      },
+      {
+        "url": "https://github.com/DanielOgorchock/ST_Anything/pull/2",
+        "title": "Adding more instructions to the installation step"
+      },
+      {
+        "url": "https://github.com/ptrwtts/kitchensink/pull/7",
+        "title": "Remove mention of preview client"
+      },
+      {
+        "url": "https://github.com/scotchi/wikipedia-beautifier/pull/5",
+        "title": "Make title bigger"
+      },
+      {
+        "url": "https://github.com/hakimel/reveal.js/pull/331",
+        "title": "Music apis"
+      },
+      {
+        "url": "https://github.com/simplegeo/simplegeo.js/pull/1",
+        "title": "Removed reverse geocoder endpoint (deprecated)"
+      },
+      {
+        "url": "https://github.com/simplegeo/python-simplegeo/pull/20",
+        "title": "Added contrib section with Google Translate call"
+      },
+      {
+        "url": "https://github.com/simplegeo/polymaps/pull/62",
+        "title": "Added example for SSL with Bing Maps"
+      },
+      {
+        "url": "https://github.com/jasonrothman/meditreats/pull/3",
+        "title": "font fix"
+      },
+      {
+        "url": "https://github.com/jasonrothman/meditreats/pull/4",
+        "title": "More tweaks"
+      },
+      {
+        "url": "https://github.com/hackdaymanifesto/site/pull/31",
+        "title": "Adding Andrew Mager, Hacker Advocate, Spotify"
+      },
+      {
+        "url": "https://github.com/plamere/SpotifyEchoNestPlaylistDemo/pull/1",
+        "title": "Removed sp.trackPlayer"
+      },
+      {
+        "url": "https://github.com/ptrwtts/kitchensink/pull/6",
+        "title": "Updated version number for Spotify Apps preview build"
+      },
+      {
+        "url": "https://github.com/jasonrothman/meditreats/pull/7",
+        "title": "Added category pages"
+      },
+      {
+        "url": "https://github.com/jasonrothman/meditreats/pull/6",
+        "title": "Add missing template for new category"
+      },
+      {
+        "url": "https://github.com/jasonrothman/meditreats/pull/5",
+        "title": "Now categories are a dropdown when creating a recipe"
+      },
+      {
+        "url": "https://github.com/jasonrothman/meditreats/pull/2",
+        "title": "Bigger title fonts"
+      },
+      {
+        "url": "https://github.com/jasonrothman/meditreats/pull/1",
+        "title": "Category"
+      },
+      {
+        "url": "https://github.com/simplegeo/iodocs/pull/1",
+        "title": "SimpleGeo style update"
+      },
+      {
+        "url": "https://github.com/simplegeo/python-simplegeo/pull/23",
+        "title": "Adding ability to use filter parameter in Context client."
+      },
+      {
+        "url": "https://github.com/simplegeo/python-simplegeo/pull/22",
+        "title": "Added support for the num parameter in the Places client, added new bounding box function in the Context client, added get_centroid to Context client"
+      },
+      {
+        "url": "https://github.com/simplegeo/django-simplegeo-demos/pull/7",
+        "title": "Adding Blackberry Checkin demo"
+      },
+      {
+        "url": "https://github.com/simplegeo/django-simplegeo-demos/pull/6",
+        "title": "Pending"
+      },
+      {
+        "url": "https://github.com/simplegeo/django-simplegeo-demos/pull/5",
+        "title": "Initial commit for SG Places/Google Maps demo"
+      },
+      {
+        "url": "https://github.com/simplegeo/django-simplegeo-demos/pull/4",
+        "title": "Pending"
+      },
+      {
+        "url": "https://github.com/simplegeo/python-simplegeo/pull/19",
+        "title": "Added translate_address_from_feature() function with Google Translate API"
+      },
+      {
+        "url": "https://github.com/simplegeo/python-simplegeo/pull/11",
+        "title": "Added support for zoom in get_feature()"
+      },
+      {
+        "url": "https://github.com/archfear/simplegeo-ruby/pull/2",
+        "title": "Updates"
+      }
+    ],
+    "issues": [
+      {
+        "url": "https://github.com/pbakaus/impeccable/issues/1193",
+        "title": "[Test Improvement] Strengthen scope-preservation checks in the bolder workflow test"
+      },
+      {
+        "url": "https://github.com/pbakaus/impeccable/issues/929",
+        "title": "[Feature] Should hard offset shadows get an advisory detector check?"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/issues/28",
+        "title": "Support Typescript"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/issues/26",
+        "title": "Samples are broken on latest build"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/issues/41",
+        "title": "Consolidate changelogs"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/issues/36",
+        "title": "Fix samples app"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/issues/18",
+        "title": "Remove dist folder from all examples"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/issues/13",
+        "title": "Remove extra LICENSE.md"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/issues/30",
+        "title": "Add keywords to package.json"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/issues/27",
+        "title": "Update README for samples app"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/issues/23",
+        "title": "Use semantic-release for releases"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/issues/5",
+        "title": "Support customerID in deliveriesClient"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/issues/16",
+        "title": "100% unit test coverage"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/issues/14",
+        "title": "Investigate dependabot alerts"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/issues/4",
+        "title": "Measure latency from Uber API and report back"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/issues/23",
+        "title": "Recurring deploys"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/issues/22",
+        "title": "Show warning when max roles reached"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/issues/13",
+        "title": "Don't convert address to lowercase when calling PREMINT API"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/issues/7",
+        "title": "Permission error when adding role"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/issues/6",
+        "title": "Add support for ENS names"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/issues/4",
+        "title": "Lowercase addresses being sent using /premint {ETH address}"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/issues/3",
+        "title": "Bot inviter should get Premintbot role"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/issues/2",
+        "title": "Command for adding admins: !premint-add-admin <User ID>"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/issues/1",
+        "title": "Duplicate roles created for Premintbot"
+      },
+      {
+        "url": "https://github.com/piratefsh/image-processing-101/issues/2",
+        "title": "Inline image display"
+      },
+      {
+        "url": "https://github.com/simplegeo/django-simplegeo-demos/issues/3",
+        "title": "Error: ASCII encoding"
+      }
+    ],
+    "comments": [
+      {
+        "url": "https://github.com/mvanhorn/last30days-skill/issues/1082",
+        "title": "Engine output embeds directives addressed to the consuming model, including one that overrides host tool contracts"
+      },
+      {
+        "url": "https://github.com/pbakaus/impeccable/issues/829",
+        "title": "[Feature] Copy all detected issues from the browser extension for an AI agent"
+      },
+      {
+        "url": "https://github.com/mvanhorn/last30days-skill/issues/663",
+        "title": "Security disclosure: ambient credential-file access, unproxied OAuth token intercept, and unrestricted"
+      },
+      {
+        "url": "https://github.com/pbakaus/impeccable/issues/846",
+        "title": "[Bug] Unchanged DESIGN.md sidecar reported stale after checkout/worktree creation (mtime-only comparison)"
+      },
+      {
+        "url": "https://github.com/pbakaus/impeccable/issues/1002",
+        "title": "Three small bugs: Windows launcher temp files, tune panel reset, scroll tracking loops"
+      },
+      {
+        "url": "https://github.com/pbakaus/impeccable/issues/929",
+        "title": "[Feature] Should hard offset shadows get an advisory detector check?"
+      },
+      {
+        "url": "https://github.com/openai/codex/issues/45752",
+        "title": "[macOS] Voice stopped working: 403 \"Voice session access denied\" on /v1/live"
+      },
+      {
+        "url": "https://github.com/pbakaus/impeccable/issues/875",
+        "title": "live-wrap: multi-line JSX elements unfindable; fallback discard-restore can delete the original element"
+      },
+      {
+        "url": "https://github.com/pbakaus/impeccable/issues/988",
+        "title": "[Bug] Static scan mixes values from mutually exclusive @media blocks, producing false low-contrast findings"
+      },
+      {
+        "url": "https://github.com/pbakaus/impeccable/issues/881",
+        "title": "[Bug] detect: analytic-gradient+alpha contrast composites over black, reporting 17.6:1 text as 1.2:1"
+      },
+      {
+        "url": "https://github.com/pbakaus/impeccable/issues/847",
+        "title": "[Bug] Firefox 1.4.0 release artifact cannot scan and release does not warn about it"
+      },
+      {
+        "url": "https://github.com/pbakaus/impeccable/issues/882",
+        "title": "[Bug] detect: text-occlusion counts closed <details> content as an occluder (23 false positives from one mobile nav)"
+      },
+      {
+        "url": "https://github.com/pbakaus/impeccable/issues/879",
+        "title": "[Bug] live: bar, pick and Detect outlines are unusable while a native modal <dialog> is open"
+      },
+      {
+        "url": "https://github.com/aws/aws-cli/issues/727",
+        "title": "Install aws-cli using Homebrew"
+      },
+      {
+        "url": "https://github.com/zed-industries/zed/issues/5347",
+        "title": "Add support for \"remote development\""
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/issues/26",
+        "title": "Samples are broken on latest build"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/issues/36",
+        "title": "Fix samples app"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/issues/5",
+        "title": "Support customerID in deliveriesClient"
+      },
+      {
+        "url": "https://github.com/uber/uber-direct-sdk/issues/16",
+        "title": "100% unit test coverage"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/issues/10",
+        "title": "Wick Bot user"
+      },
+      {
+        "url": "https://github.com/premint/premintbot/issues/7",
+        "title": "Permission error when adding role"
+      },
+      {
+        "url": "https://github.com/protocol/nft-website/issues/34",
+        "title": "[CONTENT] Example apps and code samples"
+      },
+      {
+        "url": "https://github.com/pypa/pipenv/issues/4029",
+        "title": "UnboundLocalError: local variable 'original_python' referenced before assignment"
+      },
+      {
+        "url": "https://github.com/celery/celery/issues/5369",
+        "title": "[2019-03-04 11:08:55,583: CRITICAL/MainProcess] Unrecoverable error: VersionMismatch(‘Redis transport requires redis-py versions 3.2.0 or later. You have 2.10.6’,)"
+      },
+      {
+        "url": "https://github.com/absinthe-graphql/absinthe_tutorial/issues/10",
+        "title": "Root Query Type Compilation error in lib/blog_web/schema.ex"
+      },
+      {
+        "url": "https://github.com/mdx-js/mdx/issues/130",
+        "title": "Question: how to add syntax highlighting?"
+      },
+      {
+        "url": "https://github.com/hashicorp/vagrant/issues/10234",
+        "title": "tee: /etc/exports: Operation not permitted on macOS 10.14 Mojave with nfs exports"
+      },
+      {
+        "url": "https://github.com/react/react-native/issues/9309",
+        "title": "Packager fails on macOS 10.12 Sierra"
+      },
+      {
+        "url": "https://github.com/wende/autocomplete-elixir/issues/12",
+        "title": "Failed to spawn command elixir.  Make sure elixir is installed and in your PATH"
+      },
+      {
+        "url": "https://github.com/elixir-lang/elixir/issues/6200",
+        "title": "Digest Update / boringssl compile error on MacOS 10.13 Beta 17A264c"
+      }
+    ]
+  }
+}
