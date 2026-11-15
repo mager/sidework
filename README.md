@@ -1,6 +1,6 @@
 # Sidework
 
-A home for personal software and open source contributions.
+The official personal software gallery of the internet.
 
 Sidework connects three parts of a developer’s work: the projects they build, the changes they make to shared tools, and the things they want to learn next. This first prototype uses @mager’s real projects and public contribution evidence.
 
@@ -81,7 +81,7 @@ The weekly goal counts distinct saved projects marked submitted by the user. It 
 
 ## Typography
 
-Anybody gives the wordmark its narrow, rounded shape. Bricolage Grotesque supports headings, descriptions, navigation, and controls. Automatic optical sizing, .005em body tracking, and 1.6 line height keep small text clear. Martian Mono marks project names, @handles, repository identifiers, and agent commands. Compact headings and source labels keep the focus on the software; descriptions retain the reading face. Text sizes use rem units.
+Anybody gives the wordmark its narrow, rounded shape. Bricolage Grotesque supports headings, descriptions, navigation, and controls. Automatic optical sizing, .005em body tracking, and 1.6 line height keep small text clear. Martian Mono marks project names, @handles, repository identifiers, and agent commands. Compact headings and source labels keep the focus on the software; descriptions retain the reading face. Text sizes use rem units. The signup page leads with a large gallery headline and short copy about personal software. Gallery descriptions use 1rem at all widths; larger maker handles and project names give the list a clearer reading order. Signup explains that new accounts wait for private tool access.
 
 The three active Latin WOFF2 subsets are self-hosted. They are self-hosted with `font-display: swap`; the interface and display fonts are preloaded. No external font request is needed. Other writing systems use the fallback stack. Sources and SIL Open Font Licenses are in `public/fonts/`.
 

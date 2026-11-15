@@ -7,9 +7,9 @@ import '../styles/entry.css';
 import '../styles/account.css';
 const {title, showcase = false} = Astro.props;
 ---
-<!doctype html><html lang="en"><head><BaseHead title={`${title} · Sidework`} description="Personal projects and open source contributions. Join the preview."/><meta name="robots" content="noindex,nofollow"/></head><body class="entry-page">
+<!doctype html><html lang="en"><head><BaseHead title={`${title} · Sidework`} description="The official personal software gallery of the internet. Browse the work. Meet the makers."/><meta name="robots" content="noindex,nofollow"/></head><body class="entry-page">
 <a class="skip-link" href="#main">Skip to content</a>
-<header class="entry-header"><a href="/mager/" class="entry-brand"><Icon name="branch" size={27}/>sidework.</a><a class="entry-header-context" href="/mager/">Explore the work <Icon name="arrow" size={16}/></a>{Astro.locals.account && <AccountLink/>}</header>
+<header class="entry-header"><a href="/mager/" class="entry-brand"><Icon name="branch" size={27}/>sidework.</a><a class="entry-header-context" href="/mager/">Browse the gallery <Icon name="arrow" size={16}/></a>{Astro.locals.account && <AccountLink/>}</header>
 <main id="main" class:list={["account-main", {"account-showcase":showcase}]}><slot /></main>
 <footer class="entry-footer"><span>Built with Astra</span><a href="https://github.com/mager/sidework">Source on GitHub <Icon name="external" size={14}/></a></footer>
 </body></html>

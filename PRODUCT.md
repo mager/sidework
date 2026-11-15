@@ -6,6 +6,8 @@ Developers who make personal software and contribute to other projects. They nee
 
 ## Positioning
 
+The official personal software gallery of the internet. This is the brand position; current access and publishing limits still apply.
+
 A gallery of personal software and external contributions: help visitors understand the work and inspect its source. Clear descriptions and useful classification come before social activity.
 
 A social space for builders, nerds, coders, and vibers to discover personal software and meet its makers. Project ownership and upstream contributions belong in one story but retain distinct attribution. GitHub supplies evidence; authored descriptions supply meaning.

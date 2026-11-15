@@ -14,7 +14,7 @@ const { kind, category, entries } = workFeed(ordered, stories, {
 const availableCategories = Object.entries(PROJECT_CATEGORIES).filter(([id]) => ordered.some(project => project.category === id));
 ---
 <StudioLayout title={profile ? '@mager · Sidework' : 'Explore · Sidework'} active={profile ? 'profile' : 'explore'}>
- {!profile && <div class="studio-discovery"><h1>Explore work</h1></div>}
+ {!profile && <div class="studio-discovery"><h1>Follow the rabbit holes.</h1><p>Personal software. Open source contributions. The people behind the work.</p></div>}
  <section class="studio-maker" aria-label="@mager’s profile">
   <a href={profile ? 'https://github.com/mager' : '/mager/'} class="studio-avatar"><img src="/images/mager.jpg" alt="@mager’s illustrated portrait" width="56" height="56"/></a>
   <div class="studio-identity">{profile ? <h1><a href="https://github.com/mager">@mager</a></h1> : <h2><a href="/mager/">@mager</a></h2>}<p>Personal software from Chicago.<span class="studio-bio-extra"> Small tools. Long rabbit holes.</span></p></div>

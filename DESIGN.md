@@ -167,15 +167,16 @@ typography:
     letterSpacing: -.04em
   maker-handle:
     fontFamily: "'Martian Mono', monospace"
-    fontSize: 1.5rem
+    fontSize: clamp(1.5rem, 1rem + 1.5vw, 2.25rem)
     fontWeight: 500
     lineHeight: 1.5
     letterSpacing: -.025em
   discovery-title:
     fontFamily: "'Bricolage Grotesque', 'Segoe UI', sans-serif"
-    fontSize: 1.25rem
+    fontSize: clamp(2.5rem, 1.5rem + 3vw, 4.5rem)
     fontWeight: 550
-    lineHeight: 1.22
+    lineHeight: 1.06
+    letterSpacing: -.04em
 rounded:
   status: 4px
   control: 6px
@@ -322,8 +323,8 @@ All use self-hosted Latin WOFF2 subsets and font-display swap. Anybody and Brico
 ### Hierarchy
 
 - **Wordmark:** Anybody for brand use only. Project navigation uses 1.5rem, reduced to 1.375rem at 760px; entry pages retain 1.75rem and the workbench retains 1.5625rem.
-- **Maker handle:** Martian Mono identity at 1.5rem, reduced to 1.25rem at 760px.
-- **Work-list title:** project and contribution names use Martian Mono at 1.125rem, reduced to 1rem at 760px. The separate contribution index retains its 1.25rem–1.75rem mono title scale.
+- **Maker handle:** Martian Mono identity scales from 1.5rem to 2.25rem, with 1.3 line height and -.035em tracking; mobile uses 1.5rem.
+- **Work-list title:** project and contribution names use Martian Mono at 1.25rem, reduced to 1.125rem at 760px. Descriptions use 1rem and 1.6 line height at all widths. The separate contribution index retains its 1.25rem–1.75rem mono title scale.
 - **Project detail:** the mono title scales from 1.5rem to 2rem. The Bricolage tagline uses 1.125rem, reduced to 1rem at 760px and below. The description uses 1rem with a 65ch measure and 1.65 line height.
 - **Settings and contribution page title:** Bricolage scales from 2rem to 3rem. Contribution detail names use the same size range in Martian Mono. Section headings use 1.25rem, and section descriptions and the theme selector use .9375rem.
 - **Body and story caption:** workbench reading and local story purpose remain unchanged. Local story notes use body size with line height 1.8 and 65ch measure; taglines use 1.25rem and 45ch.
@@ -350,7 +351,7 @@ The workbench has a 1536px maximum width, a 204px rail, flexible main area, and 
 
 Editor, showcase, Agents, and Review hide the context panel. The editor splits form and preview equally above 960px, with a clamp(28px, 4vw, 64px) gap, reduced to 28px at 1180px. Its preview sticks 24px below the top, with internal scrolling capped at calc(100dvh - 48px). At 960px it follows the form without a height cap. Paired form fields stack at 1180px. Private showcase entries alternate 90% and 80% widths, become full width at 960px, and reduce vertical margins on mobile.
 
-GitHub signup uses two columns up to a total width of 1120px. The signup form sits beside three real project thumbnails with names and short descriptions. At 800px and below, the examples stack below the form. The waiting page uses a centered 560px content column with 24px side margins. Both pages use open space and a Bricolage Grotesque heading. The waiting account uses a Martian Mono @handle. At 650px and below, the signup action fills the form width. Import content remains at most 920px wide, with 24px side margins and a 580px form. At 650px import actions and footers wrap, and the import form button uses full width. Its bottom action bar remains sticky. Agents content is at most 960px wide. Commands and manual-copy text wrap or scroll inside their own surfaces.
+GitHub signup uses two columns up to a total width of 1240px, with a 1.3:1 column ratio. The gallery heading uses Bricolage at weight 550, 95% width, 1.02 line height, -.04em tracking, and a 13ch measure. Its responsive scale reaches 5.25rem on desktop and ranges from 2.5rem to 4.5rem below 800px. Supporting copy uses 1.125rem–1.25rem and a 36ch measure. The example section has a 1.5rem–1.75rem heading, 1.125rem mono project names, and 1rem descriptions. The signup form sits beside three real project thumbnails with names and short descriptions. At 800px and below, the examples stack below the form. The waiting page uses a centered 560px content column with 24px side margins. Both pages use open space and a Bricolage Grotesque heading. The waiting account uses a Martian Mono @handle. At 650px and below, the signup action fills the form width. Import content remains at most 920px wide, with 24px side margins and a 580px form. At 650px import actions and footers wrap, and the import form button uses full width. Its bottom action bar remains sticky. Agents content is at most 960px wide. Commands and manual-copy text wrap or scroll inside their own surfaces.
 
 Friends uses a 1040px maximum content width with 24px side margins. The welcome row pairs a compact heading with the first-project action. Profile rows align identity and actions horizontally. At 760px and below, navigation takes a separate row, the welcome and profile rows stack, and side margins reduce to 16px.
 
@@ -452,3 +453,7 @@ The portrait is the existing @hopperdraws illustration. Screenshot origins are i
 - **Don't** add tilted screenshots, perspective drift, or a simulated terminal.
 - **Don't** invent source records, people, activity counts, or learning outcomes.
 - **Don't** claim that an agent can read private drafts, write drafts, or publish a profile.
+
+## Gallery voice — November 15, 2026
+
+Position Sidework as “the official personal software gallery of the internet.” The signup headline is “The internet’s personal software gallery.” Short copy about small tools and rabbit holes gives the gallery its voice. Explore uses “Follow the rabbit holes.” Keep access copy direct: browsing the public profile is available; new accounts join a waitlist for private tools. Do not imply that signup publishes a profile. Keep authored project descriptions, evidence, and state labels unchanged.
