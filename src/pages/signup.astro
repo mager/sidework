@@ -20,11 +20,9 @@ const error = errors[Astro.url.searchParams.get('error') || ''] || '';
   <h1>The internet’s personal software gallery.</h1>
   <p class="account-intro">Anyone can build software now. Finding what people make is still hard.</p>
   <form action="/auth/github/" method="POST" class="account-form">
-   <button class="sw-button sw-primary" type="submit" disabled={!ready}><Icon name="code" size={20}/>Join with GitHub</button>
-   <p class="account-note">The gallery is open to browse. New accounts join the waitlist for private tools. @mager approves access.</p>
+   <button class="sw-button sw-primary" type="submit" disabled={!ready}><Icon name="code" size={20}/>Join or re-enter with GitHub</button>
   </form>
   {(error || !ready) && <p class="entry-error" role="status">{error || errors.unavailable}</p>}
-  <p class="account-note">Already joined? Use the same button to sign in.</p>
  </section>
  <aside class="signup-work" aria-label="Work on Sidework">
   <h2>From the gallery</h2>
