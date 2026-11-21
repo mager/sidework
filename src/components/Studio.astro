@@ -7,18 +7,16 @@ import PluginFooter from './PluginFooter.astro';
 import Icon from './SideworkIcon.astro';
 import {projects} from '../data/projects';
 import stories from '../data/contribution-stories.json';
-const {profile = false} = Astro.props;
 const ordered = ['nextmove','cantalo','homeport','moodsh','perch','prxps'].map(id => projects.find(p => p.id === id)!);
 const { kind, category, entries } = workFeed(ordered, stories, {
  kind: Astro.url.searchParams.get('kind') || '', category: Astro.url.searchParams.get('category') || '',
 });
 const availableCategories = Object.entries(PROJECT_CATEGORIES).filter(([id]) => ordered.some(project => project.category === id));
 ---
-<StudioLayout title={profile ? '@mager · Sidework' : 'Explore · Sidework'} active={profile ? 'profile' : 'explore'} bodyClass="studio-with-plugin-footer">
- {!profile && <div class="studio-discovery"><h1>Follow the rabbit holes.</h1><p>Personal software. Open source contributions. The people behind the work.</p></div>}
+<StudioLayout title="@mager · Sidework" active="profile" bodyClass="studio-with-plugin-footer">
  <section class="studio-maker" aria-label="@mager’s profile">
-  <a href={profile ? 'https://github.com/mager' : '/mager/'} class="studio-avatar"><img src="/images/mager.jpg" alt="@mager’s illustrated portrait" width="56" height="56"/></a>
-  <div class="studio-identity">{profile ? <h1><a href="https://github.com/mager">@mager</a></h1> : <h2><a href="/mager/">@mager</a></h2>}<p>Personal software from Chicago.<span class="studio-bio-extra"> Small tools. Long rabbit holes.</span></p></div>
+  <a href="https://github.com/mager" class="studio-avatar"><img src="/images/mager.jpg" alt="@mager’s illustrated portrait" width="56" height="56"/></a>
+  <div class="studio-identity"><h1><a href="https://github.com/mager">@mager</a></h1><p>Personal software from Chicago.<span class="studio-bio-extra"> Small tools. Long rabbit holes.</span></p></div>
   <div class="studio-maker-actions"><a href="https://github.com/mager" aria-label="@mager on GitHub"><Icon name="code" size={17}/><span>GitHub</span></a><button id="follow-maker" type="button" aria-pressed="false" class="sw-button">Follow</button></div>
  </section>
  <nav class="studio-work-filters" aria-label="Work type">

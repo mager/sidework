@@ -25,14 +25,16 @@ Use [the setup guide](docs/github-auth.md) for GitHub sign-in and Firestore. Loc
 - `/contributions/`, `/contributions/[slug]/`, `/contributions/drafts/`: access-controlled stories, source evidence, and private draft editor.
 - `/onboarding/`: search and bulk import of all public repositories owned by a GitHub handle.
 - `/mager/`: public profile with one list of personal projects and external contribution stories; available without an invite.
-- `/`: people-first discovery with real software previews and a local saved collection.
+- `/`: access-controlled discovery of GitHub developers and their public projects.
 - `/workbench/`: project story editor, private profile draft, searchable contribution history, discovery, and a four-project weekly plan.
 - `npm test`: state, URL safety, contribution normalization, saved collection, follows, theme, and workspace reset checks.
 - `npm run build`: Vercel server output in `.vercel/output/`.
 
 ## What works
 
-The profile and Explore alternate six personal projects with six authored external contribution stories, starting with Nextmove and Uber Direct SDK. Both use the same compact row layout: two columns on desktop and one on mobile. Small project thumbnails keep their original colors; full screenshots appear only on detail pages. All work, Projects, and Contributions are normal links that work without JavaScript. Categories appear only under Projects; existing category URLs still work. The contribution list excludes repositories owned by the story author. Each contribution row shows its verified GitHub owner avatar and a direct repository link; its title opens the Sidework story.
+Explore links to a curated list of GitHub developers and their public repositories. It omits the current account by GitHub numeric ID. The list uses a committed snapshot.
+
+The public profile alternates six personal projects with six authored external contribution stories, starting with Nextmove and Uber Direct SDK. It uses two columns on desktop and one on mobile. Small project thumbnails keep their original colors; full screenshots appear only on detail pages. All work, Projects, and Contributions are normal links that work without JavaScript. Categories appear only under Projects. Older Explore filter links open the matching public profile view. The contribution list excludes repositories owned by the story author. Each contribution row shows its verified GitHub owner avatar and a direct repository link; its title opens the Sidework story.
 
 Normal links open separate detail pages with no content borders or panel frames. Project pages use compact headings and place the screenshot beside the story on desktop. At 1000px and below, the image sits above the story; at 760px and below, the story uses one column. Screenshots keep their natural ratio and source size limits. Pages show purpose, source metadata, text-only technology tags, app and save actions, and More by @mager links. prxps uses a real test-account screenshot captured with owner permission. Saved links open the matching detail page. The exact /mager/ profile stays public; detail pages require approved account or valid legacy session access. Raw PR history stays in the workbench, with selected evidence on contribution detail pages. Add a contribution opens the existing private editor; it does not publish.
 
@@ -105,7 +107,7 @@ Backups offers a separate download of all loaded account projects, contribution 
 
 ## Contribution stories and drafts
 
-`/contributions/` shows six authored @mager stories from the software page. Each detail page separates the story from selected PR or commit evidence, with source links and check dates. PR states remain explicit; commits do not receive a merge state. These routes require approved account or valid legacy session access. The exact public `/mager/` profile and Explore place the same external stories beside personal projects in one work list.
+`/contributions/` shows six authored @mager stories from the software page. Each detail page separates the story from selected PR or commit evidence, with source links and check dates. PR states remain explicit; commits do not receive a merge state. These routes require approved account or valid legacy session access. The exact public `/mager/` profile places external stories beside personal projects in one work list.
 
 `/contributions/drafts/` previews and saves up to 20 private stories to an approved account, or in this browser for a legacy session. Each needs a project name, @handle, upstream repository, description, and HTTPS GitHub PR, issue, or commit URL from that repository. URL validation does not verify identity, authorship, or current source state. Account contribution drafts use the server `contributionDrafts` field; project imports, profile draft review, and workbench saves preserve them. Full account backups include them. Existing browser copies remain in `sidework-workbench-v1` (with `:github:<numeric-id>` for accounts). Settings reset and restore affect those browser copies only. Contribution publishing and agent draft preparation are not connected.
 

@@ -1,4 +1,141 @@
 ---
-import Studio from '../components/Studio.astro';
+import Icon from '../components/SideworkIcon.astro';
+import PluginFooter from '../components/PluginFooter.astro';
+import StudioLayout from '../components/StudioLayout.astro';
+import { discoverDevelopers } from '../data/discovery.mjs';
+import { PROJECT_CATEGORIES } from '../scripts/project-metadata.mjs';
+
+const { searchParams } = Astro.url;
+const kind = searchParams.get('kind');
+const category = searchParams.get('category');
+const profileFilters = new URLSearchParams();
+if (kind === 'projects' || kind === 'contributions') profileFilters.set('kind', kind);
+if (kind !== 'contributions' && category && Object.hasOwn(PROJECT_CATEGORIES, category)) {
+  profileFilters.set('category', category);
+}
+if (profileFilters.size) return Astro.redirect(`/mager/?${profileFilters}`);
+
+const developers = discoverDevelopers(Astro.locals.account?.github_id);
 ---
-<Studio />
+<StudioLayout title="Explore · Sidework" description="Discover developers and the public software they build." active="explore" bodyClass="studio-with-plugin-footer">
+  <header class="studio-discovery">
+    <h1>Follow the rabbit holes.</h1>
+    <p>Discover developers through the software they build.</p>
+  </header>
+
+  <section class="developer-discovery" aria-labelledby="developers-title">
+    <h2 id="developers-title">Developers on GitHub</h2>
+    <ul class="developer-list" role="list">
+      {developers.map(({ githubId, handle, project, repository, description }) => (
+        <li>
+          <img src={`https://avatars.githubusercontent.com/u/${githubId}?s=112`} alt="" width="56" height="56" referrerpolicy="no-referrer" />
+          <div>
+            <h3>
+              <a class="developer-profile" href={`https://github.com/${handle}`}>
+                @{handle} <Icon name="external" size={14} />
+              </a>
+            </h3>
+            <a class="developer-project" href={`https://github.com/${repository}`}>{project}</a>
+            <p>{description}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+  <PluginFooter slot="footer" />
+</StudioLayout>
+
+<style>
+  .studio-discovery {
+    padding-block-end: 0;
+  }
+
+  .developer-discovery {
+    max-inline-size: 72rem;
+    margin-block: 40px 48px;
+  }
+
+  .developer-discovery h2 {
+    font-size: 1.125rem;
+    font-weight: 550;
+    margin-block-end: 12px;
+  }
+
+  .developer-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(24px, 5vw, 64px);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .developer-list li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: 16px;
+    padding-block: 16px 20px;
+    border-block-start: 1px solid var(--sw-border);
+  }
+
+  .developer-list img {
+    display: block;
+    inline-size: 56px;
+    block-size: 56px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: var(--sw-surface);
+  }
+
+  .developer-list h3 {
+    font: 500 clamp(1rem, .8rem + .5vw, 1.25rem)/1.4 var(--sw-mono);
+    overflow-wrap: anywhere;
+  }
+
+  .developer-profile {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-block-size: 44px;
+  }
+
+  .developer-profile :global(svg) {
+    flex: none;
+    color: var(--sw-muted);
+  }
+
+  .developer-project {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 24px;
+    font-weight: 550;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .developer-list p {
+    color: var(--sw-muted);
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 760px) {
+    .developer-discovery {
+      margin-block: 28px 32px;
+    }
+
+    .developer-list {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .developer-list li {
+      gap: 12px;
+      padding-block: 12px 16px;
+    }
+
+    .developer-list img {
+      inline-size: 44px;
+      block-size: 44px;
+    }
+  }
+</style>

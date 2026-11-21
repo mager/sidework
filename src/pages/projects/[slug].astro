@@ -27,5 +27,5 @@ const metadata = cleanMetadata(project);
    </div>
   </div>
   <nav class="project-other" aria-label="More projects"><h2>More by @mager</h2>{projects.filter(item => item.id !== project.id).map(item => <a href={`/projects/${item.id}/`}>{item.name}<Icon name="arrow" size={18}/></a>)}</nav>
- </article> : <section class="project-detail"><h1>Project not found</h1><p>This project is not in the Sidework collection.</p><a class="project-back" href="/">Explore projects <Icon name="arrow" size={16}/></a></section>}
+ </article> : <section class="project-detail"><h1>Project not found</h1><p>This project is not in the Sidework collection.</p><a class="project-back" href="/mager/?kind=projects">Browse projects <Icon name="arrow" size={16}/></a></section>}
 </StudioLayout>
