@@ -431,7 +431,7 @@ The shared storage status names private account storage or this browser. The com
 
 The Agents prompt is mono text on a bordered surface, with 18px by 20px padding and a 68ch maximum measure. Three steps cover a scoped token, client setup, and draft review. Copy failure exposes the exact requested text in a labeled readonly field, focuses and selects it; Hide clears it. Tokens stay in page memory. Review links carry compressed fragments, not a server inbox. Agents read evidence and prepare drafts; they cannot read private server drafts, write drafts, or publish.
 
-GitHub import supports public owned repositories, search, fork/archive filters, bulk selection, and rows revealed 100 at a time. It preserves stories and draft order. Selection and storage limits remain explicit. Approved accounts save imports on the server; legacy sessions save in this browser. Review and import status messages cover loading, empty results, invalid data, and storage errors. docs/agents.md defines the integration limits.
+Explore links to the GitHub library. Its Repositories, Stars, and Forks views share search, archive filters, and rows revealed 100 at a time. Stars use direct GitHub links. Repositories and forks support selection and import. Imports preserve stories and draft order. Approved accounts save imports on the server; legacy sessions save in this browser. Status messages cover loading, empty results, refresh errors, and storage errors. docs/agents.md defines the integration limits.
 
 ### Provenance and footer
 

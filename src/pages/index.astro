@@ -21,6 +21,7 @@ const developers = discoverDevelopers(Astro.locals.account?.github_id);
   <header class="studio-discovery">
     <h1>Follow the rabbit holes.</h1>
     <p>Discover developers through the software they build.</p>
+    <a class="sw-button github-library-link" href="/onboarding/?view=stars">Your stars and forks <Icon name="arrow" size={16} /></a>
   </header>
 
   <section class="developer-discovery" aria-labelledby="developers-title">
@@ -48,6 +49,13 @@ const developers = discoverDevelopers(Astro.locals.account?.github_id);
 <style>
   .studio-discovery {
     padding-block-end: 0;
+  }
+
+  .studio-discovery .github-library-link {
+    justify-self: start;
+    width: auto;
+    margin: 0;
+    min-height: 44px;
   }
 
   .developer-discovery {

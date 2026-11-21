@@ -23,7 +23,7 @@ Use [the setup guide](docs/github-auth.md) for GitHub sign-in and Firestore. Loc
 - `/admin/connect/`: main-site sign-in transfer to the separate admin site; it does not expose account records.
 - `/projects/nextmove/`, `/projects/cantalo/`, `/projects/homeport/`, `/projects/moodsh/`, `/projects/perch/`, `/projects/prxps/`: access-controlled project detail pages.
 - `/contributions/`, `/contributions/[slug]/`, `/contributions/drafts/`: access-controlled stories, source evidence, and private draft editor.
-- `/onboarding/`: search and bulk import of all public repositories owned by a GitHub handle.
+- `/onboarding/`: GitHub library for public repositories, stars, and forks. Search each collection and import selected owned repositories or forks.
 - `/mager/`: public profile with one list of personal projects and external contribution stories; available without an invite.
 - `/`: access-controlled discovery of GitHub developers and their public projects.
 - `/workbench/`: project story editor, private profile draft, searchable contribution history, discovery, and a four-project weekly plan.
@@ -139,4 +139,4 @@ Responses use `private, no-store`. Protected account routes fail closed when the
 
 Old invite codes are no longer accepted. Existing invite cookies and version 1 agent tokens remain valid until expiry or removal of their invitation hash. Keep `SIDEWORK_INVITE_HASHES` and the existing `SIDEWORK_SESSION_SECRET` to preserve those sessions. Rotating the session secret ends all signed sessions and tokens. Sign out clears this browser’s account, OAuth, and legacy invite cookies; local work remains.
 
-Public repository import requests GitHub directly from the browser. It reads pages of 100 until complete; a failed page does not return partial success. Forks and archived repositories are included and can be filtered. Search, bulk selection, duplicate checks, cancellation, API errors, and storage errors are handled. Imported drafts save to the approved account, or in the current browser for a legacy session. Account drafts allow up to 5,000 projects within the 700,000-byte limit. Import does not publish a profile or verify ownership. Organization-owned repositories are not part of a user’s owned-repository list; enter the organization handle to find its public repositories.
+The GitHub library reads public repositories, stars, and forks directly from GitHub in the browser. It reads pages of 100 and keeps the last complete results for a collection during a visit if a refresh fails. Stars open the source repository on GitHub. Repositories and forks support bulk import, with duplicate checks by repository ID and source URL. Imported drafts save to the approved account, or in the current browser for a legacy session. Account drafts allow up to 5,000 projects within the 700,000-byte limit. Enter an organization handle to browse public repositories owned by that organization.

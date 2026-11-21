@@ -5,16 +5,39 @@ import BaseHead from '../components/BaseHead.astro';
 import Icon from '../components/SideworkIcon.astro';
 import { projects } from '../data/projects';
 import { opportunities } from '../data/sidework';
+import { repositorySource, repositorySources } from '../scripts/github-import.mjs';
 import '../styles/sidework.css';
 import '../styles/entry.css';
 const seed = JSON.stringify({ projects, opportunityIds:opportunities.map(item => item.id) }).replace(/</g,'\\u003c');
+const source = repositorySource(Astro.url.searchParams.get('view'));
 ---
-<!doctype html><html lang="en"><head><BaseHead title="Bring your projects · Sidework" description="Find your public GitHub repositories and choose what to bring to Sidework."/><meta name="robots" content="noindex,nofollow"/></head><body class="entry-page">
+<!doctype html><html lang="en"><head><BaseHead title="GitHub library · Sidework" description="Browse your public GitHub repositories, stars, and forks."/><meta name="robots" content="noindex,nofollow"/></head><body class="entry-page">
 <header class="entry-header"><a href="/" class="entry-brand"><Icon name="branch" size={27}/>sidework.</a><a class="entry-header-context" href="/workbench/#projects">Your workbench <Icon name="arrow" size={18}/></a><AccountLink/></header>
-<DraftStorage /><main class="import-main" id="main" inert={!!Astro.locals.account}><h1>You’ve already<br/>built something.</h1><p class="entry-intro">Bring it here. Find your public GitHub repositories, then choose the projects you want in your workbench.</p>
-<form id="github-import-form" class="import-form"><label for="github-handle">Your GitHub handle</label><div class="import-input"><input type="text" id="github-handle" name="handle" placeholder="@handle" value={Astro.locals.account ? `@${Astro.locals.account.login}` : ''} autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="40" required/><button class="sw-button sw-primary" id="find-repos" type="submit">Find my repositories <Icon name="arrow" size={18}/></button><button class="sw-button" type="button" id="cancel-import" hidden>Cancel</button></div></form>
-<p class="import-status" id="import-status" role="status">Public repositories only. No GitHub sign-in or account permissions needed.</p>
-<section id="repo-results" aria-label="Choose repositories" hidden><div class="repo-controls"><input type="search" id="repo-search" aria-label="Search repositories" placeholder="Find a project…"/><label><input type="checkbox" id="include-forks" checked/>Forks</label><label><input type="checkbox" id="include-archived" checked/>Archived</label><button class="sw-button" id="select-matching" type="button">Select matching</button><button class="sw-button" id="clear-selection" type="button">Clear selection</button></div><p id="repo-count" class="import-status"></p><ul class="repo-list" id="repo-list"></ul><button class="sw-button" id="show-more" type="button" hidden>Show more repositories</button><div class="import-actions"><p><span id="selection-count">0 selected</span><br/>{Astro.locals.account ? 'Drafts save privately to your account.' : 'Drafts stay in this browser.'}</p><button class="sw-button sw-primary" id="import-selected" type="button" disabled>Import selected</button></div></section>
+<DraftStorage /><main class="import-main" id="main" inert={!!Astro.locals.account}>
+<h1>GitHub library</h1>
+<p class="entry-intro">Browse your public repositories, stars, and forks. Add selected projects and forks to your workbench.</p>
+<form id="github-import-form" class="import-form">
+ <fieldset class="import-sources">
+  <legend class="sw-sr-only">GitHub collection</legend>
+  {Object.entries(repositorySources).map(([value, label]) => <label><input type="radio" name="source" value={value} checked={source === value}/>{label}</label>)}
+ </fieldset>
+ <label for="github-handle">GitHub handle</label>
+ <div class="import-input"><input type="text" id="github-handle" name="handle" placeholder="@handle" value={Astro.locals.account ? `@${Astro.locals.account.login}` : ''} autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="40" required/><button class="sw-button sw-primary" id="find-repos" type="submit"><span id="find-repos-label">Find {repositorySources[source].toLowerCase()}</span> <Icon name="arrow" size={18}/></button><button class="sw-button" type="button" id="cancel-import" hidden>Cancel</button></div>
+</form>
+<p class="import-status" id="import-status" role="status">Sidework reads public GitHub data.</p>
+<section id="repo-results" aria-label="GitHub results" hidden>
+ <div class="repo-controls">
+  <input type="search" id="repo-search" aria-label="Search repositories" placeholder="Search repositories…"/>
+  <label id="include-forks-control"><input type="checkbox" id="include-forks" checked/>Include forks</label>
+  <label><input type="checkbox" id="include-archived" checked/>Include archived</label>
+  <button class="sw-button" id="select-matching" type="button">Select matching</button>
+  <button class="sw-button" id="clear-selection" type="button" hidden>Clear selection</button>
+ </div>
+ <p id="repo-count" class="import-status"></p>
+ <ul class="repo-list" id="repo-list"></ul>
+ <button class="sw-button" id="show-more" type="button" hidden>Show more repositories</button>
+ <div class="import-actions" id="import-actions" hidden><p><span id="selection-count">0 selected</span><br/>{Astro.locals.account ? 'Drafts save privately to your account.' : 'Drafts stay in this browser.'}</p><button class="sw-button sw-primary" id="import-selected" type="button" disabled>Import selected</button></div>
+</section>
 <div id="import-result" class="import-result" role="status" hidden><p id="import-result-text"></p><a href="/workbench/#projects">Open your projects <Icon name="arrow" size={20}/></a></div>
 <noscript><p class="entry-error">Enable JavaScript to find and import your GitHub repositories.</p></noscript></main>
 <footer class="entry-footer"><span>Built with Astra</span><form action="/api/signout" method="POST"><button class="sw-button" type="submit">Lock Sidework</button></form></footer>
