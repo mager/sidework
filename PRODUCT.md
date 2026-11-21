@@ -28,7 +28,7 @@ The owner can grant access to a waiting account or return an approved account to
 
 ## Explore
 
-The signed-in home page shows a curated snapshot of developers on GitHub. Each entry links to a GitHub profile and a public repository. The signed-in developer is omitted using their verified GitHub numeric ID.
+The signed-in home page shows @mager’s Sidework showcase and a selected project.
 
 ## Friends and Settings
 

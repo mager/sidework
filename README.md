@@ -32,7 +32,7 @@ Use [the setup guide](docs/github-auth.md) for GitHub sign-in and Firestore. Loc
 
 ## What works
 
-Explore links to a curated list of GitHub developers and their public repositories. It omits the current account by GitHub numeric ID. The list uses a committed snapshot.
+Explore links to the @mager showcase.
 
 The public profile alternates six personal projects with six authored external contribution stories, starting with Nextmove and Uber Direct SDK. It uses two columns on desktop and one on mobile. Small project thumbnails keep their original colors; full screenshots appear only on detail pages. All work, Projects, and Contributions are normal links that work without JavaScript. Categories appear only under Projects. Older Explore filter links open the matching public profile view. The contribution list excludes repositories owned by the story author. Each contribution row shows its verified GitHub owner avatar and a direct repository link; its title opens the Sidework story.
 
