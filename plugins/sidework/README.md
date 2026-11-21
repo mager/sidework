@@ -34,23 +34,21 @@ In the ChatGPT desktop app, open **Plugins**, choose the **Sidework** marketplac
 
 ### OpenCode
 
-With OpenCode 2, install the plugin from GitHub.
-
-```sh
-opencode plugin add 'github:mager/sidework#plugin-v0.1.1::path:plugins/sidework'
-```
-
-Start a new session and ask it to load `sidework-init` or `sidework-pr-watch`. If your OpenCode version cannot install a Git subdirectory, clone the release and add its absolute plugin directory to the existing `plugins` list in `~/.config/opencode/opencode.json` or `opencode.jsonc`.
+With OpenCode 2, clone the tagged release.
 
 ```sh
 git clone --branch plugin-v0.1.1 https://github.com/mager/sidework.git sidework-plugin
 ```
+
+Add the absolute plugin directory to the existing `plugins` list in `~/.config/opencode/opencode.json` or `opencode.jsonc`.
 
 ```json
 {
   "plugins": ["/absolute/path/sidework-plugin/plugins/sidework"]
 }
 ```
+
+Start a new session and ask it to load `sidework-init` or `sidework-pr-watch`.
 
 ## First run
 
