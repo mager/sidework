@@ -10,7 +10,7 @@ export function validateDraftWrite(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value) || Object.keys(value).some(key => !['revision', 'drafts'].includes(key)) || !Number.isSafeInteger(value.revision) || value.revision < 0 || value.revision >= Number.MAX_SAFE_INTEGER) throw new AccountDraftError('Send a valid revision and draft data.');
   return { revision: value.revision, drafts: validateAccountDrafts(value.drafts) };
 }
-function storedRecord(snapshot) {
+export function storedDraftRecord(snapshot) {
   if (!snapshot.exists) return { revision: 0, updatedAt: null, drafts: { projects: [], showcase: [], contributionDrafts: [] } };
   try {
     const value = snapshot.data();
@@ -27,7 +27,7 @@ export function accountDraftStore(config, database = accountDatabase(config)) {
       const current = await transaction.get(accountRef);
       const approved = current.exists && current.data();
       if (!approved || approved.status !== 'approved' || approved.github_id !== id) throw new AccountDraftError('This account is not approved for draft tools.', 403);
-      const record = storedRecord(await transaction.get(draftRef));
+      const record = storedDraftRecord(await transaction.get(draftRef));
       if (!write) return record;
       if (write.revision !== record.revision) throw new AccountDraftError('Account drafts changed in another tab or browser. Reload before saving.', 409);
       const next = { revision: record.revision + 1, updatedAt: new Date().toISOString(), drafts: write.drafts };

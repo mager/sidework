@@ -74,6 +74,7 @@ const navigation = [
 
         <section class="sw-panel sw-showcase" id="showcase" aria-labelledby="showcase-title">
           <div class="sw-section-heading"><div><h2 id="showcase-title">Make it yours.</h2><p>Choose up to six projects. Put the work you love first.</p></div><a href="/mager/">View @mager’s public profile <Icon name="external" size={16}/></a></div>
+          {Astro.locals.account && <a class="sw-button sw-primary" href="/showcase/">Publish one project <Icon name="arrow" size={16}/></a>}
           <div class="sw-showcase-toolbar"><p><strong id="featured-count">0 selected</strong><span>Private profile draft · {Astro.locals.account ? 'Saved to your account' : 'Saved in this browser'}</span></p><button type="button" id="export-showcase" class="sw-button"><Icon name="download" size={16}/>Export draft</button></div>
           <p class="sw-showcase-boundary">This private draft does not change the public @mager profile. Export keeps a copy of your selected projects and stories.</p>
           <details class="sw-draft-transfer"><summary>Review a draft file</summary><p>Open a draft from your agent or a previous export. You will review it before saving.</p><label for="profile-draft-file">Sidework draft · JSON, up to 64 KB</label><input id="profile-draft-file" type="file" accept="application/json,.json"/><p id="draft-file-status" role="status" hidden></p></details>

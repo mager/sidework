@@ -13,7 +13,7 @@ function load(file, exported, dependencies) {
 }
 function context(path, values={}) {
   const written=new Map(), url=new URL(path,config.origin);
-  return {url,locals:{},cookies:{get:name=>values[name] ? {value:values[name]} : undefined,set:(name,value,options)=>written.set(name,{value,options}),delete:name=>written.set(name,null)},written,redirect:(location,status)=>new Response(null,{status,headers:{Location:location}})};
+  return {url,request:new Request(url),locals:{},cookies:{get:name=>values[name] ? {value:values[name]} : undefined,set:(name,value,options)=>written.set(name,{value,options}),delete:name=>written.set(name,null)},written,redirect:(location,status)=>new Response(null,{status,headers:{Location:location}})};
 }
 test('waiting accounts cannot enter private routes even with a legacy cookie; account deletion and DB failure fail closed',async()=>{
   const values={[auth.ACCOUNT_COOKIE]:auth.createAccountSession('123',config),[legacy.COOKIE_NAME]:legacy.createSession(oldConfig.hashes[0],oldConfig)};
@@ -36,6 +36,27 @@ test('waiting accounts cannot enter private routes even with a legacy cookie; ac
   assert.equal((await run('/mager/')).status,200);
   assert.equal((await run('/api/mcp',{})).status,200); // MCP has separate bearer authorization.
   assert.equal((await run('/friends/',{})).headers.get('location'),'/signup/');
+});
+test('only exact showcase GET and HEAD URLs are public, and public pages ignore account cookies', async () => {
+  const middleware = load('../src/middleware.ts', 'onRequest', {
+    defineMiddleware: fn => fn, ...legacy, ...auth, configuration: () => oldConfig, authConfiguration: () => config,
+    accountStore: () => { throw new Error('Public showcase should not look up visitor credentials.'); },
+  });
+  const slug = 'a'.repeat(32);
+  for (const method of ['GET', 'HEAD']) {
+    const ctx = context(`/showcase/${slug}/`, { [auth.ACCOUNT_COOKIE]: auth.createAccountSession('123', config) });
+    ctx.request = new Request(ctx.url, { method });
+    const response = await middleware(ctx, async () => new Response('public'));
+    assert.equal(response.status, 200);
+    assert.equal(ctx.locals.account, null);
+    assert.equal(ctx.locals.hasAccess, false);
+  }
+  for (const [path, method] of [['/showcase/', 'GET'], ['/showcase/save/', 'POST'], [`/showcase/${slug}/`, 'POST'], [`/showcase/${slug}/draft`, 'GET']]) {
+    const ctx = context(path);
+    ctx.request = new Request(ctx.url, { method });
+    assert.equal((await middleware(ctx, async () => new Response('protected'))).headers.get('location'), '/signup/');
+  }
+  assert.equal((await middleware(context('/api/account/favorites'), async () => new Response('protected'))).status, 401);
 });
 test('OAuth callback saves a waiting account before issuing its separate HTTP-only cookie',async()=>{
   const start=auth.beginGithubLogin(config,true), state=new URL(start.url).searchParams.get('state');

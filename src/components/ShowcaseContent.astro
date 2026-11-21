@@ -1,0 +1,67 @@
+---
+import Icon from './SideworkIcon.astro';
+import '../styles/showcase.css';
+
+interface Props {
+  content: {
+    handle: string;
+    project: {
+      name: string;
+      tagline: string;
+      description: string;
+      url: string;
+      source: string;
+      image: string;
+      imageAlt: string;
+      stack: string;
+    };
+    favorites: { repository: string; url: string; note: string }[];
+  };
+  preview?: boolean;
+}
+
+const { content, preview = false } = Astro.props;
+const { handle, project, favorites } = content;
+const distinctSource = project.source && project.source !== project.url;
+const Heading = preview ? 'h3' : 'h1';
+const FavoritesHeading = preview ? 'h3' : 'h2';
+const publicLinks = [
+  { label: 'Project link', url: project.url },
+  { label: 'Source code', url: distinctSource },
+  { label: 'Screenshot URL', url: project.image },
+].filter(({ url }) => url);
+---
+<article class="showcase-content">
+  <header class="showcase-project-heading">
+    <Heading class="showcase-project-name">{project.name}</Heading>
+    {project.tagline && <p class="showcase-tagline">{project.tagline}</p>}
+    <p class="showcase-byline">By <span>{handle}</span></p>
+  </header>
+  <div class:list={['showcase-project', { 'showcase-project-with-image': project.image }]}>
+    <div class="showcase-story">
+      {project.description && <p>{project.description}</p>}
+      {project.stack && <dl class="showcase-stack"><dt>Built with</dt><dd>{project.stack}</dd></dl>}
+      {(project.url || distinctSource) && <div class="showcase-actions">
+        {project.url && <a class="sw-button sw-primary" href={project.url} rel="noreferrer">Open project <Icon name="external" size={16}/></a>}
+        {distinctSource && <a class="sw-button" href={distinctSource} rel="noreferrer">View source <Icon name="external" size={16}/></a>}
+      </div>}
+    </div>
+    {project.image && <figure class="showcase-image">
+      <a href={project.image} rel="noreferrer" aria-label={`View the ${project.name} screenshot at full size`}>
+        <img src={project.image} alt={project.imageAlt || `Screenshot of ${project.name}`} decoding="async" referrerpolicy="no-referrer"/>
+      </a>
+    </figure>}
+  </div>
+  {preview && publicLinks.length > 0 && <dl class="showcase-review-links">
+    {publicLinks.map(({ label, url }) => <div><dt>{label}</dt><dd>{url}</dd></div>)}
+  </dl>}
+  {favorites.length > 0 && <section class="showcase-favorites" aria-label="Favorite repos">
+    <FavoritesHeading>Favorite repos</FavoritesHeading>
+    <ul role="list">
+      {favorites.map(({ repository, url, note }) => <li>
+        <a href={url} rel="noreferrer">{repository} <Icon name="external" size={14}/></a>
+        {note && <p>{note}</p>}
+      </li>)}
+    </ul>
+  </section>}
+</article>

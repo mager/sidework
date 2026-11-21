@@ -25,6 +25,11 @@ const source = repositorySource(Astro.url.searchParams.get('view'));
  <div class="import-input"><input type="text" id="github-handle" name="handle" placeholder="@handle" value={Astro.locals.account ? `@${Astro.locals.account.login}` : ''} autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="40" required/><button class="sw-button sw-primary" id="find-repos" type="submit"><span id="find-repos-label">Find {repositorySources[source].toLowerCase()}</span> <Icon name="arrow" size={18}/></button><button class="sw-button" type="button" id="cancel-import" hidden>Cancel</button></div>
 </form>
 <p class="import-status" id="import-status" role="status">Sidework reads public GitHub data.</p>
+{Astro.locals.account && <div id="favorite-tools" class="favorite-tools" hidden>
+ <a href="/showcase/">Open your showcase <Icon name="arrow" size={16}/></a>
+ <p id="favorite-status" role="status"></p>
+ <button id="favorite-retry" class="sw-button" type="button" hidden>Retry favorites</button>
+</div>}
 <section id="repo-results" aria-label="GitHub results" hidden>
  <div class="repo-controls">
   <input type="search" id="repo-search" aria-label="Search repositories" placeholder="Search repositories…"/>

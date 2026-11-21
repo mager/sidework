@@ -1,0 +1,48 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Icon from '../../components/SideworkIcon.astro';
+import PluginFooter from '../../components/PluginFooter.astro';
+import ShowcaseContent from '../../components/ShowcaseContent.astro';
+import { authConfiguration } from '../../lib/github-auth.mjs';
+import { showcaseStore } from '../../lib/showcases.mjs';
+import '../../styles/sidework.css';
+import '../../styles/studio.css';
+import '../../styles/showcase.css';
+
+let content;
+let unavailable = false;
+const slug = Astro.params.slug;
+if (slug) {
+  try {
+    content = await showcaseStore(authConfiguration()).publicBySlug(slug);
+  } catch {
+    unavailable = true;
+  }
+}
+if (!content) Astro.response.status = unavailable ? 503 : 404;
+const title = content ? `${content.project.name} by ${content.handle}` : unavailable ? 'Showcase unavailable' : 'Showcase not found';
+const description = content?.project.tagline || content?.project.description || 'Discover personal software on Sidework.';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={`${title} · Sidework`} description={description} image={content?.project.image || '/favicon.svg'}/>
+    <meta name="robots" content="noindex,nofollow"/>
+  </head>
+  <body class="studio showcase-public">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="studio-header showcase-public-header">
+      <a href="/" class="studio-wordmark" aria-label="Sidework home"><Icon name="branch" size={23}/>sidework<span>.</span></a>
+      <a class="showcase-browse" href="/mager/">Browse the gallery <Icon name="arrow" size={16}/></a>
+    </header>
+    <main id="main" class="studio-main showcase-public-main">
+      {content
+        ? <ShowcaseContent content={content}/>
+        : <div class="showcase-manager-heading">
+          <h1>{title}</h1>
+          <p>{unavailable ? 'Sidework could not load this showcase. Try again in a moment.' : 'This showcase is unavailable. Check the link with the person who shared it.'}</p>
+        </div>}
+    </main>
+    <PluginFooter/>
+  </body>
+</html>

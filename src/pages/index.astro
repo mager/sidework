@@ -3,6 +3,8 @@ import Icon from '../components/SideworkIcon.astro';
 import PluginFooter from '../components/PluginFooter.astro';
 import StudioLayout from '../components/StudioLayout.astro';
 import { projects } from '../data/projects';
+import { authConfiguration } from '../lib/github-auth.mjs';
+import { showcaseStore } from '../lib/showcases.mjs';
 import { PROJECT_CATEGORIES } from '../scripts/project-metadata.mjs';
 
 const { searchParams } = Astro.url;
@@ -16,25 +18,43 @@ if (kind !== 'contributions' && category && Object.hasOwn(PROJECT_CATEGORIES, ca
 if (profileFilters.size) return Astro.redirect(`/mager/?${profileFilters}`);
 
 const featured = projects[0];
+const config = authConfiguration();
+let showcases = [];
+try { if (config.ready) showcases = await showcaseStore(config).explore(); }
+catch { /* The committed @mager showcase is available during an account store outage. */ }
+const hasMagerShowcase = showcases.some(showcase => showcase.githubId === '17733');
 ---
 <StudioLayout title="Explore · Sidework" description="Discover developers and the public software they build." active="explore" bodyClass="studio-with-plugin-footer">
   <header class="studio-discovery">
-    <h1>Follow the rabbit holes.</h1>
-    <p>Discover developers through the software they build.</p>
-    <a class="sw-button github-library-link" href="/onboarding/?view=stars">Your stars and forks <Icon name="arrow" size={16} /></a>
+    <h1>Find software people make.</h1>
+    <p>Browse work that Sidework builders chose to share.</p>
+    <div class="discovery-actions">
+      {Astro.locals.account && <a class="sw-button sw-primary" href="/showcase/">Your showcase <Icon name="arrow" size={16} /></a>}
+      <a class="sw-button" href="/onboarding/?view=stars">Your stars and forks <Icon name="arrow" size={16} /></a>
+    </div>
   </header>
 
   <section class="developer-discovery" aria-labelledby="developers-title">
     <h2 id="developers-title">Sidework showcases</h2>
     <ul class="developer-list" role="list">
-      <li>
+      {!hasMagerShowcase && <li>
         <img src="/images/mager.jpg" alt="" width="56" height="56" />
         <div>
           <h3><a class="developer-profile" href="/mager/">@mager <Icon name="arrow" size={14} /></a></h3>
           <a class="developer-project" href={`/projects/${featured.id}/`}>{featured.name}</a>
           <p>{featured.tagline}</p>
         </div>
-      </li>
+      </li>}
+      {showcases.map(showcase => (
+        <li>
+          <span class="developer-mark" aria-hidden="true"><Icon name="branch" size={22} /></span>
+          <div>
+            <h3><a class="developer-profile" href={`/showcase/${showcase.slug}/`}>{showcase.handle} <Icon name="arrow" size={14} /></a></h3>
+            <strong>{showcase.project.name}</strong>
+            {(showcase.project.tagline || showcase.project.description) && <p>{showcase.project.tagline || showcase.project.description}</p>}
+          </div>
+        </li>
+      ))}
     </ul>
   </section>
   <PluginFooter slot="footer" />
@@ -45,8 +65,9 @@ const featured = projects[0];
     padding-block-end: 0;
   }
 
-  .studio-discovery .github-library-link {
-    justify-self: start;
+  .discovery-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  .studio-discovery .discovery-actions a {
     width: auto;
     margin: 0;
     min-height: 44px;
@@ -88,6 +109,14 @@ const featured = projects[0];
     object-fit: cover;
     border-radius: 6px;
     background: var(--sw-surface);
+  }
+
+  .developer-mark {
+    display: grid;
+    place-items: center;
+    inline-size: 56px;
+    block-size: 56px;
+    color: var(--sw-muted);
   }
 
   .developer-list h3 {
@@ -135,7 +164,7 @@ const featured = projects[0];
       padding-block: 12px 16px;
     }
 
-    .developer-list img {
+    .developer-list img,.developer-mark {
       inline-size: 44px;
       block-size: 44px;
     }

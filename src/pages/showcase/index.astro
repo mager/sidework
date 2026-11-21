@@ -1,0 +1,155 @@
+---
+import StudioLayout from '../../components/StudioLayout.astro';
+import Icon from '../../components/SideworkIcon.astro';
+import ShowcaseContent from '../../components/ShowcaseContent.astro';
+import { authConfiguration } from '../../lib/github-auth.mjs';
+import { buildShowcasePreview, showcaseStore } from '../../lib/showcases.mjs';
+import '../../styles/showcase.css';
+
+const account = Astro.locals.account;
+let model;
+let unavailable = false;
+if (account?.status === 'approved') {
+  try {
+    model = await showcaseStore(authConfiguration()).read(account);
+  } catch {
+    unavailable = true;
+    Astro.response.status = 503;
+  }
+}
+const projectId = Astro.url.searchParams.get('project');
+const preview = model && projectId ? buildShowcasePreview(model, projectId) : null;
+const publication = model?.publication;
+const livePath = publication?.slug && publication.publishedAt ? `/showcase/${publication.slug}/` : '';
+const liveUrl = livePath ? new URL(livePath, Astro.url.origin).href : '';
+const selectedProject = preview ? projectId : model?.projects.find(project => project.id === publication?.projectId)?.id;
+const saved = new Map([
+  ['published', 'Your showcase is published. You can share its link.'],
+  ['unpublished', 'Your showcase is unpublished.'],
+  ['favorite', 'Your favorite repos are updated.'],
+]).get(Astro.url.searchParams.get('saved') ?? '');
+const error = new Map([
+  ['changed', 'Your showcase or drafts changed while this page was open. Review your latest changes and try again.'],
+  ['unavailable', 'Sidework could not save your changes. Try again.'],
+  ['invalid', 'Check your project or favorite repo and try again.'],
+  ['permission', 'You need approved Sidework access to make this change.'],
+]).get(Astro.url.searchParams.get('error') ?? '');
+---
+<StudioLayout title="Your showcase · Sidework">
+  <div class="showcase-manager">
+    <header class="showcase-manager-heading">
+      <h1>Your showcase</h1>
+      {model && <p>Choose one project and share the repos you recommend.</p>}
+    </header>
+    {saved && <p class="showcase-message" role="status">{saved}</p>}
+    {error && <p class="showcase-message" role="alert">{error}</p>}
+    {unavailable
+      ? <p class="showcase-message" role="alert">Sidework could not load your showcase. <a href="/showcase/">Try again</a>.</p>
+      : !model
+        ? <div class="showcase-section"><p>Sign in with an approved GitHub account to publish a showcase.</p><a class="sw-button sw-primary" href="/signup/">Sign in with GitHub <Icon name="arrow" size={16}/></a></div>
+        : <>
+          {livePath && <section class="showcase-section showcase-live" aria-labelledby="share-title">
+            <div><h2 id="share-title">Share your showcase</h2><p>{publication?.listed ? 'Anyone with the link can view it. It also appears in Explore.' : 'Anyone with the link can view it.'}</p></div>
+            <label class="showcase-field">Public link
+              <input id="showcase-public-link" type="url" readonly value={liveUrl}/>
+            </label>
+            <div class="showcase-actions">
+              <button class="sw-button sw-primary" id="copy-showcase-link" type="button" hidden>Copy link</button>
+              <a class="sw-button" href={livePath}>Open showcase <Icon name="arrow" size={16}/></a>
+            </div>
+            <p id="showcase-copy-status" role="status" hidden></p>
+            <details class="showcase-unpublish">
+              <summary>Unpublish showcase</summary>
+              <form method="POST" action="/showcase/save/">
+                <input type="hidden" name="account" value={account?.github_id}/>
+                <input type="hidden" name="action" value="unpublish"/>
+                <input type="hidden" name="revision" value={publication?.revision}/>
+                <p>Visitors will lose access to this link. You can publish again when you’re ready.</p>
+                <button type="submit" class="sw-button">Unpublish</button>
+              </form>
+            </details>
+          </section>}
+
+          <section class="showcase-section" aria-labelledby="choose-project-title">
+            <h2 id="choose-project-title">Choose a project</h2>
+            {model.projects.length
+              ? <form class="showcase-select" method="GET" action="/showcase/#showcase-review">
+                <div class="showcase-field">
+                  <label for="showcase-project">Project</label>
+                  <select id="showcase-project" name="project" required>
+                    <option value="" disabled selected={!selectedProject}>Choose a saved project</option>
+                    {model.projects.map(({ id, name }) => <option value={id} selected={id === selectedProject}>{name}</option>)}
+                  </select>
+                </div>
+                <button type="submit" class="sw-button sw-primary">Review showcase <Icon name="arrow" size={16}/></button>
+              </form>
+              : <><p>Add a project in your workbench first.</p><a class="sw-button sw-primary" href="/workbench/#projects">Open My projects <Icon name="arrow" size={16}/></a></>}
+          </section>
+
+          {projectId && <section class="showcase-section showcase-review" id="showcase-review" aria-labelledby="showcase-review-title">
+            <h2 id="showcase-review-title">Review your showcase</h2>
+            {preview
+              ? <>
+                <p>Anyone with the showcase link can see the content and links below after you publish.</p>
+                <ShowcaseContent content={preview} preview/>
+                <form method="POST" action="/showcase/save/" class="showcase-publish">
+                  <input type="hidden" name="account" value={account?.github_id}/>
+                  <input type="hidden" name="action" value="publish"/>
+                  <input type="hidden" name="project" value={projectId}/>
+                  <input type="hidden" name="draftRevision" value={model.draftRevision}/>
+                  <input type="hidden" name="favoritesRevision" value={model.favoritesRevision}/>
+                  <input type="hidden" name="revision" value={model.publication.revision}/>
+                  <input type="hidden" name="handle" value={model.handle}/>
+                  <label class="showcase-consent"><input type="checkbox" name="listed" value="on" checked={model.publication.listed}/> Show this showcase in Explore</label>
+                  <button type="submit" class="sw-button sw-primary">{livePath ? 'Publish changes' : 'Publish showcase'} <Icon name="arrow" size={16}/></button>
+                </form>
+              </>
+              : <p role="alert">This project is unavailable. Choose a saved project to review.</p>}
+          </section>}
+
+          <section class="showcase-section" aria-labelledby="favorite-repos-title">
+            <div class="showcase-section-heading">
+              <div><h2 id="favorite-repos-title">Favorite repos</h2><p>Choose up to six repos from GitHub Stars. Add a short note about why you recommend each one.</p></div>
+              <a class="sw-button" href="/onboarding/?view=stars">Browse GitHub stars <Icon name="arrow" size={16}/></a>
+            </div>
+            {model.favorites.length > 0 && <ul class="showcase-favorite-editor" role="list">
+              {model.favorites.map(({ id, repository, url, note }) => <li>
+                <a class="showcase-repository" href={url} rel="noreferrer">{repository} <Icon name="external" size={14}/></a>
+                <form method="POST" action="/showcase/save/">
+                  <input type="hidden" name="account" value={account?.github_id}/>
+                  <input type="hidden" name="favoriteId" value={id}/>
+                  <input type="hidden" name="favoritesRevision" value={model.favoritesRevision}/>
+                  <label class="showcase-field">Why do you recommend {repository}?
+                    <input type="text" name="note" maxlength="160" value={note}/>
+                  </label>
+                  <div class="showcase-actions">
+                    <button type="submit" class="sw-button" name="action" value="note">Save note</button>
+                    <button type="submit" class="sw-button" name="action" value="remove" formnovalidate aria-label={`Remove ${repository} from favorites`}>Remove</button>
+                  </div>
+                </form>
+              </li>)}
+            </ul>}
+          </section>
+        </>}
+  </div>
+</StudioLayout>
+
+<script>
+  const copy = document.querySelector<HTMLButtonElement>('#copy-showcase-link');
+  const link = document.querySelector<HTMLInputElement>('#showcase-public-link');
+  const status = document.querySelector<HTMLElement>('#showcase-copy-status');
+  if (copy && link && status && navigator.clipboard) {
+    copy.hidden = false;
+    copy.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(link.value);
+        status.textContent = 'Showcase link copied.';
+      } catch {
+        link.focus();
+        link.select();
+        status.textContent = 'Copy the selected link.';
+      }
+      status.hidden = false;
+    });
+  }
+</script>

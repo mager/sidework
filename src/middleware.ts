@@ -1,5 +1,5 @@
 import { defineMiddleware } from 'astro:middleware';
-import { COOKIE_NAME, configuration, validSession, requiresInvite } from './lib/invite.mjs';
+import { COOKIE_NAME, configuration, validSession, requiresInvite, isPublicShowcasePath } from './lib/invite.mjs';
 import { ACCOUNT_COOKIE, ACCOUNT_SECONDS, createAccountSession, authConfiguration, readAccountSession, accountAccess } from './lib/github-auth.mjs';
 import { accountStore } from './lib/accounts.mjs';
 import { adminRequest } from './lib/admin-middleware';
@@ -15,11 +15,15 @@ export const onRequest = defineMiddleware(async (context, next) => {
   }
   const path = context.url.pathname.replace(/\/+$/, '') || '/';
   const agentEndpoint = path === '/api/mcp';
-  const draftEndpoint = path === '/api/account/drafts';
+  const draftEndpoint = path === '/api/account/drafts' || path === '/api/account/favorites';
+  const publicShowcase = isPublicShowcasePath(path) && ['GET', 'HEAD'].includes(context.request.method);
   const publicRoute = !requiresInvite(path) || path === '/admin/connect';
   const waitingRoute = ['/waiting', '/api/account/updates', '/api/signout'].includes(path);
   let response: Response | undefined;
-  if (!agentEndpoint && path !== '/api/signout') {
+  if (publicShowcase) {
+    context.locals.account = null;
+    context.locals.hasAccess = false;
+  } else if (!agentEndpoint && path !== '/api/signout') {
     const config = authConfiguration();
     const claims = config.origin === context.url.origin && readAccountSession(context.cookies.get(ACCOUNT_COOKIE)?.value, config);
     context.locals.account = null;

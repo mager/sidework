@@ -1,4 +1,5 @@
 import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
+export { isPublicShowcasePath } from '../scripts/showcase-path.mjs';
 export const COOKIE_NAME = 'sidework-access';
 export const SESSION_SECONDS = 60 * 60 * 24 * 7;
 export function requiresInvite(pathname) {

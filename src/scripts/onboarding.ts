@@ -1,6 +1,7 @@
 import { openDraftWorkspace } from './draft-storage';
 import { readState } from './sidework-state.mjs';
 import { fetchRepositories, githubHandle, importedProjects, importSelection, projectKey, repositorySource, repositorySources } from './github-import.mjs';
+import { connectFavorites } from './showcase-favorites';
 
 type Repository = Awaited<ReturnType<typeof fetchRepositories>>[number];
 
@@ -13,6 +14,7 @@ async function startImport() {
   const seed = JSON.parse(element('import-seed').textContent!);
   const workspace = await openDraftWorkspace(element('main'), seed.projects, () => { loadExisting(); render(); });
   if (!workspace) return;
+  const favorites = connectFavorites();
 
   const selected = new Set<string>();
   const snapshots = new Map<string, Repository[]>();
@@ -69,6 +71,7 @@ async function startImport() {
       link.append(title);
       copy.append(link, description, meta);
       row.append(copy);
+      if (favorites) row.append(favorites.button(repo.project.id.slice('github-'.length), repo.fullName));
       return row;
     }
 
@@ -107,6 +110,7 @@ async function startImport() {
     element('find-repos-label').textContent = `Find ${repositorySources[source].toLowerCase()}`;
     element('include-forks-control').hidden = source !== 'repositories';
     element('select-matching').hidden = source === 'stars';
+    favorites?.show(source === 'stars');
   }
 
   function setLoading(loading: boolean) {
