@@ -56,7 +56,7 @@ People can create and edit up to 20 private contribution drafts in their approve
 
 ## Agent setup and draft review
 
-The agent mode is Operate: an agent reads source evidence and prepares a draft for the user to review. The user can ask, “Set up my Sidework profile from my GitHub projects.” Sidework provides its own Streamable HTTP MCP endpoint and a Claude Code plugin distributed from this repository. [docs/agents.md](docs/agents.md) is the capability and setup reference.
+The Sidework plugin for Claude Code, Codex, and OpenCode tracks public projects and selected upstream PRs on the user's device. The user can ask, “What’s next on my open source PRs?” The optional Streamable HTTP MCP connection prepares private profile drafts for browser review. See the [plugin guide](plugins/sidework/README.md) and the [MCP guide](docs/agents.md).
 
 The MCP has six tools: read the profile, search published projects, read dated contributions, discover curated opportunities, page through public GitHub repositories, and prepare one to six projects in featured order. It also has one profile resource and one setup prompt. The plugin supplies setup-profile and find-contribution skills. Agents must use source evidence and the author’s input for project stories. They cannot read browser-local or private server drafts, write drafts, publish, delete, send messages, or change GitHub. The author can supply an exported draft with their latest edits.
 

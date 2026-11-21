@@ -4,21 +4,11 @@ Ask: **“Set up my Sidework profile from my GitHub projects.”**
 
 The agent reads public repositories, helps you choose up to six projects, and prepares their stories. It returns a direct review link. Open it in Sidework, check the result, then choose **Save these projects**. Nothing is saved before that action. The public profile stays unchanged.
 
-## Connect Claude Code
+## Connect the Sidework plugin
 
-1. Open [Workbench → Agents](https://sidework.dev/workbench/#agents) with an approved account or a valid legacy session.
-2. Select **Create agent token**, then **Copy token**.
-3. Run these commands inside Claude Code:
+Follow the [Sidework plugin guide](../plugins/sidework/README.md) to install it in Claude Code, Codex, or OpenCode. The plugin uses `gh` for local project setup and live PR review checks. A Sidework agent token connects only the optional profile draft workflow.
 
-```text
-/plugin marketplace add mager/sidework
-/plugin install sidework@sidework
-```
-
-4. Paste the token into the plugin's sensitive **Sidework agent token** configuration field. Do not paste it into chat. If your version does not support plugin user configuration, use the generic MCP configuration below instead.
-5. Run `/sidework:setup-profile @mager`. Use `/sidework:find-contribution accessibility` for a contribution idea.
-
-The plugin has no shell hooks, background jobs, local filesystem server, or GitHub permissions. It is distributed from this repository; no public directory listing is claimed.
+Open [Workbench → Agents](https://sidework.dev/workbench/#agents) with an approved account or a valid legacy session. Select **Create agent token**, then **Copy token**. In Claude Code, enter it in the plugin's sensitive **Sidework agent token** field. For other clients, use the Streamable HTTP configuration below. Keep the token out of chat.
 
 ## Other MCP clients
 

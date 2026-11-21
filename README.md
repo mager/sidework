@@ -45,7 +45,7 @@ Normal links open separate detail pages with no content borders or panel frames.
 - Saved opportunities and planned / in progress / submitted states.
 - Private project stories with a tagline, description, stage, screenshot, source links, and optional notes about purpose and learning.
 - Live project preview, up to six featured projects, accessible ordering controls, and JSON export of the selected profile draft.
-- An authenticated MCP endpoint and Claude Code plugin for public GitHub discovery and agent-prepared profile drafts, with direct review links.
+- A plugin for Claude Code, Codex, and OpenCode that tracks projects and upstream PR reviews, plus an authenticated MCP endpoint for private profile drafts.
 - Public GitHub refresh for @mager’s repositories and recent pull requests, with loading, timeout, and rate-limit recovery.
 - Markdown export of the public work record.
 - Responsive layouts, keyboard navigation, and Light, Dark, and System themes.
@@ -119,7 +119,9 @@ The public @mager profile and its dated evidence remain unchanged. Your workbenc
 
 ## Agent connections
 
-Open Workbench → Agents to create a scoped token and connect Claude Code or another MCP client. Six tools read committed records, find public GitHub repositories, and prepare drafts for review. They cannot publish, read browser storage, or read or write private server drafts. The plugin lives in `plugins/sidework`; `.claude-plugin/marketplace.json` makes it installable from `mager/sidework`. See [the agent guide](docs/agents.md) for setup and limits.
+Install the Sidework plugin for Claude Code, Codex, or OpenCode. Use `sidework-init` to add public projects and select your upstream PRs. Use `sidework-pr-watch` to get the next action from live GitHub review comments. You can run one check or set a schedule. Start with the [plugin install guide](plugins/sidework/README.md).
+
+To prepare a private profile draft, create a scoped token in Workbench → Agents and connect to Sidework MCP. Open the review link in Sidework to check and save the draft. See the [MCP guide](docs/agents.md).
 
 ## License
 

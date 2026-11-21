@@ -1,19 +1,20 @@
 {
   "name": "sidework",
-  "version": "0.1.0",
-  "description": "Find your software, tell its story, and prepare a Sidework profile for review.",
+  "version": "0.1.1",
+  "description": "Add public GitHub projects and find the next action on your upstream pull requests.",
   "author": { "name": "@mager", "url": "https://github.com/mager" },
-  "homepage": "https://sidework-ten.vercel.app/mager/",
+  "homepage": "https://sidework.dev",
   "repository": "https://github.com/mager/sidework",
   "license": "MIT",
   "keywords": ["sidework", "github", "portfolio", "open-source", "mcp"],
+  "mcpServers": "./claude-mcp.json",
   "userConfig": {
     "agent_token": {
       "type": "string",
       "title": "Sidework agent token",
-      "description": "Create a token in Sidework → Workbench → Agents. It expires within 24 hours and cannot publish.",
+      "description": "Optional. Create a token in Sidework → Workbench → Agents to prepare a private profile draft. It expires within 24 hours.",
       "sensitive": true,
-      "required": true
+      "required": false
     }
   }
 }

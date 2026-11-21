@@ -1,0 +1,11 @@
+{
+  "name": "sidework-opencode",
+  "version": "0.1.1",
+  "description": "Sidework project setup and pull request review skills for OpenCode.",
+  "type": "module",
+  "main": "./index.js",
+  "exports": "./index.js",
+  "files": ["index.js", "bin/", "skills/"],
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/mager/sidework.git", "directory": "plugins/sidework" }
+}

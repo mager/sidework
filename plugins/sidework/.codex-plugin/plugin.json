@@ -1,0 +1,16 @@
+{
+  "name": "sidework",
+  "version": "0.1.1",
+  "description": "Add public GitHub projects and find the next action on your upstream pull requests.",
+  "author": { "name": "@mager", "url": "https://github.com/mager" },
+  "homepage": "https://sidework.dev",
+  "repository": "https://github.com/mager/sidework",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Sidework",
+    "shortDescription": "Track your projects and upstream PR reviews",
+    "longDescription": "Add your public GitHub projects, choose which upstream pull requests to watch, and get the next action from live review comments.",
+    "defaultPrompt": ["Use Sidework to add this repository as a project.", "What is next on my selected open source pull requests?"]
+  }
+}
