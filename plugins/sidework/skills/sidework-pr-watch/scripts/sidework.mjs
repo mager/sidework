@@ -1,8 +1,8 @@
 import { createHash, randomUUID } from 'node:crypto';
-import { mkdir, readFile, rename, rmdir, unlink, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, realpath, rename, rmdir, unlink, writeFile } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { dirname, join } from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import { createGitHub, githubReference } from './github.mjs';
 
 const commands = [
@@ -119,7 +119,7 @@ export async function runSidework(args, { github = createGitHub(), stateDirector
   return { account, ...result };
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (process.argv[1] && fileURLToPath(import.meta.url) === await realpath(process.argv[1]).catch(() => null)) {
   try {
     const result = await runSidework(process.argv.slice(2));
     process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);

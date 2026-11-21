@@ -2,17 +2,17 @@
 import Icon from './SideworkIcon.astro';
 ---
 <section class="sw-panel sw-agents" id="agents" aria-labelledby="agents-title" hidden>
-  <div class="sw-composer-heading"><div><h2 id="agents-title">Bring your coding partner.</h2><p>Give your agent the context. Keep the final say.</p></div><a class="sw-button" href="https://github.com/mager/sidework/blob/main/docs/agents.md">Setup guide <Icon name="external" size={16}/></a></div>
-  <p class="sw-agent-intro">“Set up my Sidework profile from my GitHub projects.”</p>
-  <p class="sw-agent-purpose">Your agent can find public repositories, help tell their stories, and send a review link back here. You choose what to save.</p>
+  <div class="sw-composer-heading"><div><h2 id="agents-title">Sidework plugin</h2><p>Import your GitHub projects and check reviews on your upstream PRs.</p></div><a class="sw-button" href="https://github.com/mager/sidework/tree/main/plugins/sidework">Install guide <Icon name="external" size={16}/></a></div>
+  <p class="sw-agent-intro">“Import this repository into Sidework.”</p>
   <ol class="sw-agent-steps">
-    <li><h3>Make the connection</h3><p>Create a token for reading project records and preparing drafts. It lasts up to 24 hours and cannot publish or open the website.</p><button type="button" id="create-agent-token" class="sw-button sw-primary">Create agent token <Icon name="plus" size={16}/></button>
+    <li><h3>Install in your agent</h3><p>Use the install guide for Claude Code, Codex, or OpenCode. For Claude Code, run these commands.</p><pre><code>/plugin marketplace add mager/sidework
+/plugin install sidework@sidework</code></pre><button type="button" class="sw-button" id="copy-plugin-install">Copy install commands</button></li>
+    <li><h3>Import your repositories</h3><p>Ask your agent to import the current repository or give it public GitHub links. Open the link it returns and choose “Import” to save projects in your workbench.</p></li>
+    <li><h3>Connect MCP to prepare profile drafts</h3><p>This connection is optional. Create a token, then copy the MCP config into your agent. The token lasts up to 24 hours. <a href="https://github.com/mager/sidework/blob/main/docs/agents.md">MCP setup guide</a></p><button type="button" id="create-agent-token" class="sw-button">Create agent token <Icon name="plus" size={16}/></button>
       <div id="agent-token-result" hidden><label for="agent-token">Your agent token</label><input id="agent-token" type="password" readonly autocomplete="off" spellcheck="false"/><div class="sw-agent-actions"><button type="button" class="sw-button" id="copy-agent-token">Copy token</button><button type="button" class="sw-button" id="copy-agent-config">Copy MCP config</button></div><p id="agent-token-expiry"></p><p>Keep the token private. It is not stored in this browser.</p></div>
       <p id="agent-token-status" role="status" hidden></p>
       <div class="sw-agent-copy" id="agent-copy-fallback" hidden><label for="agent-copy-text" id="agent-copy-label">Copy manually</label><textarea id="agent-copy-text" readonly rows="7" spellcheck="false" autocomplete="off"></textarea><button type="button" class="sw-button" id="hide-agent-copy">Hide text</button></div>
+      <details><summary>MCP endpoint</summary><p>Use Streamable HTTP with a Bearer token.</p><code class="sw-agent-endpoint" id="agent-endpoint"></code></details>
     </li>
-    <li><h3>Add Sidework to Claude Code</h3><p>Run these commands in Claude Code. When the plugin asks for a Sidework agent token, paste the one above.</p><pre><code>/plugin marketplace add mager/sidework
-/plugin install sidework@sidework</code></pre><button type="button" class="sw-button" id="copy-plugin-install">Copy install commands</button><details><summary>Use another MCP client</summary><p>Use Streamable HTTP with a Bearer token. “Copy MCP config” includes the endpoint and your current token.</p><code class="sw-agent-endpoint" id="agent-endpoint"></code></details></li>
-    <li><h3>Review your profile draft</h3><p>Ask your agent to use <code>sidework-init</code> to prepare a profile draft. Open the review link here and choose “Save these projects”.</p><p class="sw-agent-boundary">Drafts use your signed-in account. The public catalog is @mager’s example. Agents cannot read local drafts or publish. Export a draft to share your edits.</p><a class="sw-button" href="#showcase" data-view="showcase">Open profile draft <Icon name="arrow" size={16}/></a></li>
   </ol>
 </section>

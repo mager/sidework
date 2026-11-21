@@ -9,13 +9,14 @@ import { repositorySource, repositorySources } from '../scripts/github-import.mj
 import '../styles/sidework.css';
 import '../styles/entry.css';
 const seed = JSON.stringify({ projects, opportunityIds:opportunities.map(item => item.id) }).replace(/</g,'\\u003c');
-const source = repositorySource(Astro.url.searchParams.get('view'));
+const linked = Astro.url.searchParams.has('repo');
+const source = repositorySource(linked ? null : Astro.url.searchParams.get('view'));
 ---
 <!doctype html><html lang="en"><head><BaseHead title="GitHub library · Sidework" description="Browse your public GitHub repositories, stars, and forks."/><meta name="robots" content="noindex,nofollow"/></head><body class="entry-page">
 <header class="entry-header"><a href="/" class="entry-brand"><Icon name="branch" size={27}/>sidework.</a><a class="entry-header-context" href="/workbench/#projects">Your workbench <Icon name="arrow" size={18}/></a><AccountLink/></header>
 <DraftStorage /><main class="import-main" id="main" inert={!!Astro.locals.account}>
 <h1>GitHub library</h1>
-<p class="entry-intro">Browse your public repositories, stars, and forks. Add selected projects and forks to your workbench.</p>
+<p class="entry-intro">{linked ? 'Review the linked repositories and import them as private project drafts.' : 'Browse your public repositories, stars, and forks. Add selected projects and forks to your workbench.'}</p>
 <form id="github-import-form" class="import-form">
  <fieldset class="import-sources">
   <legend class="sw-sr-only">GitHub collection</legend>

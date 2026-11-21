@@ -1,6 +1,6 @@
 import { openDraftWorkspace } from './draft-storage';
 import { readState } from './sidework-state.mjs';
-import { fetchRepositories, githubHandle, importedProjects, importSelection, projectKey, repositorySource, repositorySources } from './github-import.mjs';
+import { fetchLinkedRepositories, fetchRepositories, githubHandle, importedProjects, importSelection, projectKey, repositorySource, repositorySources } from './github-import.mjs';
 import { connectFavorites } from './showcase-favorites';
 
 type Repository = Awaited<ReturnType<typeof fetchRepositories>>[number];
@@ -118,6 +118,36 @@ async function startImport() {
     element('cancel-import').hidden = !loading;
   }
 
+  async function loadLinkedRepositories(names: string[]) {
+    const current = new AbortController();
+    pending = current;
+    const timeout = setTimeout(() => current.abort(), 30000);
+    setLoading(true);
+    status('Loading the linked repositories…');
+    try {
+      loadExisting();
+      const result = await fetchLinkedRepositories(names, { signal: current.signal });
+      if (pending !== current) return;
+      repositories = result.repositories;
+      for (const repo of repositories) {
+        if (!alreadyImported(repo.project)) selected.add(projectKey(repo.project));
+      }
+      const loaded = repositories.length ? 'Review the repositories below.' : 'No linked repositories are available to import.';
+      const unavailable = result.unavailable.length ? ` Could not load these public repositories: ${result.unavailable.join(', ')}.` : '';
+      status(loaded + unavailable);
+    } catch (error: any) {
+      if (pending !== current) return;
+      status(current.signal.aborted ? 'Import search stopped. Reload this page to retry.' : error.message);
+    } finally {
+      clearTimeout(timeout);
+      if (pending === current) {
+        pending = null;
+        setLoading(false);
+        render();
+      }
+    }
+  }
+
   async function loadCollection(useSnapshot: boolean) {
     const collection = source;
     const name = repositorySources[collection].toLowerCase();
@@ -179,7 +209,13 @@ async function startImport() {
 
   form.addEventListener('submit', event => {
     event.preventDefault();
-    if (!pending) void loadCollection(false);
+    if (pending) return;
+    const url = new URL(location.href);
+    if (url.searchParams.has('repo')) {
+      url.searchParams.delete('repo');
+      history.replaceState(history.state, '', url);
+    }
+    void loadCollection(false);
   });
   form.addEventListener('change', event => {
     if (!(event.target instanceof HTMLInputElement) || event.target.name !== 'source') return;
@@ -189,6 +225,7 @@ async function startImport() {
     source = repositorySource(choices.value);
     configureSource();
     const url = new URL(location.href);
+    url.searchParams.delete('repo');
     if (source === 'repositories') url.searchParams.delete('view');
     else url.searchParams.set('view', source);
     history.replaceState(history.state, '', url);
@@ -238,7 +275,9 @@ async function startImport() {
   });
 
   configureSource();
-  if (source !== 'repositories' && input('github-handle').value.trim()) void loadCollection(true);
+  const linkedNames = new URLSearchParams(location.search).getAll('repo');
+  if (linkedNames.length) void loadLinkedRepositories(linkedNames);
+  else if (source !== 'repositories' && input('github-handle').value.trim()) void loadCollection(true);
 }
 
 void startImport();

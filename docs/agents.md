@@ -6,9 +6,9 @@ The agent reads public repositories, helps you choose up to six projects, and pr
 
 ## Connect the Sidework plugin
 
-Follow the [Sidework plugin guide](../plugins/sidework/README.md) to install it in Claude Code, Codex, or OpenCode. The plugin uses `gh` for local project setup and live PR review checks. A Sidework agent token connects only the optional profile draft workflow.
+Follow the [Sidework plugin guide](../plugins/sidework/README.md) to install it in Claude Code, Codex, or OpenCode. The plugin opens a browser review for project imports and uses `gh` for live PR review checks. Both skills work without a Sidework agent token. Use a token for the optional profile draft workflow below.
 
-Open [Workbench → Agents](https://sidework.dev/workbench/#agents) with an approved account or a valid legacy session. Select **Create agent token**, then **Copy token**. In Claude Code, enter it in the plugin's sensitive **Sidework agent token** field. For other clients, use the Streamable HTTP configuration below. Keep the token out of chat.
+Open [Workbench → Agents](https://sidework.dev/workbench/#agents) with an approved account or a valid legacy session. Select **Create agent token**, then **Copy token**. Connect it in your client using the Streamable HTTP configuration below. Keep the token out of chat.
 
 ## Other MCP clients
 
@@ -59,7 +59,7 @@ Version 2 tokens identify the GitHub account and recheck its `approved` status i
 
 Run `npm test` and `npm run build`. Protocol tests use the official MCP client against the deployed route's handler. They check initialization, tools, resources, prompts, auth boundaries, limits, unsafe URLs, review links, and atomic merges. Validate with `claude plugin validate ./plugins/sidework` and `claude plugin validate .`.
 
-For localhost, use a generic MCP configuration and a token issued at the same origin. The distributed plugin points to production.
+For localhost, use a generic MCP configuration and a token issued at the same origin. Plugin import links open the live Sidework site.
 
 Implementation references: [MCP TypeScript SDK](https://ts.sdk.modelcontextprotocol.io/server), [Claude plugin manifest](https://code.claude.com/docs/en/plugins-reference), and [Claude marketplace format](https://code.claude.com/docs/en/plugin-marketplaces).
 

@@ -1,20 +1,10 @@
 {
   "name": "sidework",
-  "version": "0.1.1",
-  "description": "Add public GitHub projects and find the next action on your upstream pull requests.",
+  "version": "0.1.2",
+  "description": "Import public GitHub projects into Sidework and find the next action on your upstream pull requests.",
   "author": { "name": "@mager", "url": "https://github.com/mager" },
   "homepage": "https://sidework.dev",
   "repository": "https://github.com/mager/sidework",
   "license": "MIT",
-  "keywords": ["sidework", "github", "portfolio", "open-source", "mcp"],
-  "mcpServers": "./claude-mcp.json",
-  "userConfig": {
-    "agent_token": {
-      "type": "string",
-      "title": "Sidework agent token",
-      "description": "Optional. Create a token in Sidework → Workbench → Agents to prepare a private profile draft. It expires within 24 hours.",
-      "sensitive": true,
-      "required": false
-    }
-  }
+  "keywords": ["sidework", "github", "portfolio", "open-source", "mcp"]
 }

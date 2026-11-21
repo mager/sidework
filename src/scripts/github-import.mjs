@@ -12,6 +12,37 @@ export function repositoryProject(repo) {
   if (!/^https:\/\/github\.com\/[^/]+\/[^/]+$/.test(repo.html_url || '')) return null;
   return cleanProject({ id:`github-${repo.id}`, name:repo.name, description:repo.description || '', stack:repo.language || '', url:safeUrl(repo.homepage) || repo.html_url, source:repo.html_url, local:true });
 }
+
+export function linkedRepositoryNames(names) {
+  if (names.some(name => !/^[a-z\d][a-z\d-]{0,38}\/[a-z\d_.-]{1,100}$/i.test(name) || name !== name.trim() || /\/\.{1,2}$/.test(name))) {
+    throw new Error('An import link must use GitHub repository names such as owner/repo.');
+  }
+  const unique = new Map();
+  for (const name of names) if (!unique.has(name.toLowerCase())) unique.set(name.toLowerCase(), name);
+  if (unique.size > 6) throw new Error('An import link can include up to six repositories.');
+  return [...unique.values()];
+}
+
+export async function fetchLinkedRepositories(names, { fetcher = fetch, signal } = {}) {
+  const selected = linkedRepositoryNames(names);
+  const entries = await Promise.all(selected.map(async name => {
+    const response = await fetcher(`https://api.github.com/repos/${name}`, { signal, headers: { Accept: 'application/vnd.github+json' } });
+    if (response.status === 404) return null;
+    if (!response.ok) throw new Error([403, 429].includes(response.status)
+      ? 'GitHub’s public request limit was reached. Wait a while, then reload this page.'
+      : 'GitHub could not load the linked repositories. Reload this page to retry.');
+    const repo = await response.json();
+    const project = repositoryProject(repo);
+    return project && { project, fullName: repo.full_name, fork: !!repo.fork, archived: !!repo.archived };
+  }));
+  const repositories = new Map();
+  const unavailable = [];
+  entries.forEach((entry, index) => {
+    if (entry) repositories.set(entry.project.id, entry);
+    else unavailable.push(selected[index]);
+  });
+  return { repositories: [...repositories.values()], unavailable };
+}
 export async function fetchRepositories(handle, { source = 'repositories', fetcher = fetch, signal, onProgress = () => {} } = {}) {
   const user = githubHandle(handle);
   const endpoint = source === 'stars' ? 'starred?sort=created&direction=desc' : 'repos?type=owner&sort=full_name&direction=asc';

@@ -122,7 +122,7 @@ The public @mager profile and its dated evidence remain unchanged. Your workbenc
 
 ## Agent connections
 
-Install the Sidework plugin for Claude Code, Codex, or OpenCode. Use `sidework-init` to add public projects and select your upstream PRs. Use `sidework-pr-watch` to get the next action from live GitHub review comments. You can run one check or set a schedule. Start with the [plugin install guide](plugins/sidework/README.md).
+Install the Sidework plugin for Claude Code, Codex, or OpenCode. Use `sidework-init` to import public projects into your Sidework workbench and select your upstream PRs. Use `sidework-pr-watch` to get the next action from live GitHub review comments. You can run one check or set a schedule. Start with the [plugin install guide](plugins/sidework/README.md).
 
 To prepare a private profile draft, create a scoped token in Workbench → Agents and connect to Sidework MCP. Open the review link in Sidework to check and save the draft. See the [MCP guide](docs/agents.md).
 

@@ -1,7 +1,29 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { fetchRepositories, repositoryProject, githubHandle, importSelection } from '../src/scripts/github-import.mjs';
+import { fetchRepositories, fetchLinkedRepositories, linkedRepositoryNames, repositoryProject, githubHandle, importSelection } from '../src/scripts/github-import.mjs';
 const repo = id => ({id,name:`project-${id}`,full_name:`mager/project-${id}`,html_url:`https://github.com/mager/project-${id}`,private:false,fork:id===1,archived:id===2});
+
+test('plugin import links accept only distinct GitHub repository names in a small batch', () => {
+  assert.deepEqual(linkedRepositoryNames(['mager/project-1', 'MAGER/project-1', 'Team/tool']), ['mager/project-1', 'Team/tool']);
+  for (const bad of ['a/..', '../a', 'a/b/pull/1', 'https://github.com/a/b', 'a/b?x=1', 'a/b\n']) {
+    assert.throws(() => linkedRepositoryNames([bad]), /repository/i);
+  }
+  assert.throws(() => linkedRepositoryNames(Array.from({ length: 7 }, (_, n) => `owner/repo-${n}`)), /six/i);
+});
+
+test('plugin links fetch only named public repositories and deduplicate renamed matches', async () => {
+  const urls = [];
+  const result = await fetchLinkedRepositories(['mager/old', 'mager/project-1', 'mager/hidden', 'mager/missing'], {
+    fetcher: async url => {
+      urls.push(url);
+      if (url.endsWith('/missing')) return new Response(null, { status: 404 });
+      return Response.json(url.endsWith('/hidden') ? { ...repo(2), private: true } : repo(1));
+    },
+  });
+  assert.deepEqual(urls, ['old', 'project-1', 'hidden', 'missing'].map(name => `https://api.github.com/repos/mager/${name}`));
+  assert.deepEqual(result.repositories.map(item => item.fullName), ['mager/project-1']);
+  assert.deepEqual(result.unavailable, ['mager/hidden', 'mager/missing']);
+});
 test('reads every page, retains forks and archives, deduplicates overlapping results',async()=>{
   const urls=[];
   const repos=await fetchRepositories('@mager',{fetcher:async url=>{urls.push(url);return {ok:true,json:async()=>urls.length===1?Array.from({length:100},(_,i)=>repo(i)):[repo(99),repo(100)]};}});

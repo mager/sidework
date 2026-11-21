@@ -1,10 +1,12 @@
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { execFile } from 'node:child_process';
+import { cp, mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { runSidework } from '../plugins/sidework/bin/sidework.mjs';
-import { createGitHub } from '../plugins/sidework/bin/github.mjs';
+import { promisify } from 'node:util';
+import { runSidework } from '../plugins/sidework/skills/sidework-pr-watch/scripts/sidework.mjs';
+import { createGitHub } from '../plugins/sidework/skills/sidework-pr-watch/scripts/github.mjs';
 
 function fixture() {
   let account = { id: '123', handle: '@developer' };
@@ -26,6 +28,16 @@ async function workspace(t, github) {
   t.after(() => rm(stateDirectory, { recursive: true, force: true }));
   return { stateDirectory, run: (...args) => runSidework(args, { github, stateDirectory }) };
 }
+
+test('the installed PR skill carries its runner and can start outside a checkout', async t => {
+  const directory = await mkdtemp(join(tmpdir(), 'sidework-installed-skill-'));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  const skill = new URL('../plugins/sidework/skills/sidework-pr-watch/', import.meta.url);
+  const installed = join(directory, 'installed skill');
+  await cp(skill, installed, { recursive: true });
+  const { stdout } = await promisify(execFile)(process.execPath, [join(installed, 'scripts', 'sidework.mjs'), '--help'], { cwd: directory });
+  assert.ok(JSON.parse(stdout).commands.includes('check'));
+});
 
 test('setup keeps public projects and selected contributions separate per GitHub account', async t => {
   const { github, switchAccount } = fixture();

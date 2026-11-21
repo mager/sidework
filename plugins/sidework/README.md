@@ -1,43 +1,44 @@
-# Sidework plugin v0.1
+# Sidework plugin v0.1.2
 
-Ask **“What’s next on my open source PRs?”** Sidework reads GitHub review comments and shows the next action with a link to the source.
+Import your GitHub projects into [Sidework](https://sidework.dev/). Ask your agent what needs your attention on upstream pull requests.
 
-| Skill | Use it to |
+| Skill | What to ask |
 | --- | --- |
-| `sidework-init` | Add a public project, choose upstream PRs to watch, or remove a selection. |
-| `sidework-pr-watch` | Check the review queue now or report changes on a schedule. |
-
-Both skills use Node.js 22 and the [GitHub CLI](https://cli.github.com/). Run `gh auth login --hostname github.com` if you need to sign in. Use the same GitHub account for setup and scheduled checks.
+| `sidework-init` | “Import this repository into Sidework.” or “Show my upstream PRs and let me choose what to watch.” |
+| `sidework-pr-watch` | “What’s next on my open source PRs?” |
 
 ## Install
 
+Install the plugin once in your agent. It includes the PR watcher. Start a new session after installing or updating.
+
 ### Claude Code
 
-Inside Claude Code, run these commands.
+Run these commands in Claude Code.
 
 ```text
 /plugin marketplace add mager/sidework
 /plugin install sidework@sidework
 ```
 
-Start a new session, then use `/sidework:sidework-init` or `/sidework:sidework-pr-watch`. If you used the earlier prototype, update the Sidework marketplace and plugin. The two skills above replace `setup-profile` and `find-contribution`.
+Use `/sidework:sidework-init` or `/sidework:sidework-pr-watch`. If Sidework is already installed, update the marketplace and plugin from **/plugin**.
 
 ### Codex
 
-In a terminal, add the Sidework marketplace.
+Run these commands in a terminal with a current Codex CLI.
 
 ```sh
-codex plugin marketplace add mager/sidework --ref plugin-v0.1.1
+codex plugin marketplace add mager/sidework
+codex plugin add sidework@sidework
 ```
 
-In the ChatGPT desktop app, open **Plugins**, choose the **Sidework** marketplace, and install **Sidework**. In a Codex CLI version that supports plugin installs, run `codex plugin add sidework@sidework`. Start a new session and use the skills picker or ask for `sidework-init` or `sidework-pr-watch` by name.
+You can also install **Sidework** from the **Sidework** marketplace in the Codex desktop plugin browser after you add the marketplace. If you pinned the marketplace to `plugin-v0.1.1`, remove that source with `codex plugin marketplace remove sidework`, then add it again with the commands above. Otherwise run `codex plugin marketplace upgrade sidework` first. In a new session, ask for either skill by name or use the skills picker.
 
 ### OpenCode
 
-With OpenCode 2, clone the tagged release.
+With OpenCode 2, clone the release.
 
 ```sh
-git clone --branch plugin-v0.1.1 https://github.com/mager/sidework.git sidework-plugin
+git clone --branch plugin-v0.1.2 https://github.com/mager/sidework.git sidework-plugin
 ```
 
 Add the absolute plugin directory to the existing `plugins` list in `~/.config/opencode/opencode.json` or `opencode.jsonc`.
@@ -48,56 +49,35 @@ Add the absolute plugin directory to the existing `plugins` list in `~/.config/o
 }
 ```
 
-Start a new session and ask it to load `sidework-init` or `sidework-pr-watch`.
+Start a new session and ask for either skill by name. To update an existing checkout, fetch tags and check out `plugin-v0.1.2`.
 
 ## First run
 
-1. Ask **“Use Sidework to add this repository as my project.”** You can also give it the public GitHub URL or `OWNER/REPO`.
-2. Ask **“Show my recent upstream PRs and let me choose what to watch.”** Select by URL or `OWNER/REPO#NUMBER`. The GitHub account in `gh` must be the PR author. To stop watching one, ask Sidework to deselect it.
-3. Ask **“What’s next on my selected open source PRs?”** Sidework checks inline review threads, submitted reviews, and PR conversation. It reports draft, open, merged, and closed states with links to the source.
+1. Ask **“Import this repository into Sidework.”** You can also give your agent public GitHub URLs or `OWNER/REPO` names. Open its **Review and import in Sidework** link, then choose **Import**. Your projects appear in your private workbench. Website import uses your normal Sidework sign-in and requires approved access. If you had to sign in, reopen the import link.
+2. To use PR watch, have [Node.js 22](https://nodejs.org/en/download) and the [GitHub CLI](https://cli.github.com/) on the machine where your agent runs. If you have not signed in to GitHub CLI, run `gh auth login --hostname github.com` once. Project import needs only your Sidework website sign-in.
+3. Ask **“Show my recent upstream PRs and let me choose what to watch.”** Pick one of your PRs or give its GitHub link. Ask **“What’s next on my selected open source PRs?”** to see review comments and a next action with a source link. To stop watching a PR, ask Sidework to deselect it.
 
-## Run the review loop
+The watch list stays on the machine that runs your agent, under its active GitHub account. An upgrade keeps your existing PR selections. If you added projects with v0.1.1, ask to import those repositories on the website.
 
-First select at least one PR. A one-time check shows the current review queue. A recurring check shows each PR on the first run, then reports changes to its checked evidence or status. A failed check is shown as an error and can be retried.
+## Run a recurring PR check
 
-- **Claude Code** — Run `/loop 15m Use the Sidework PR watch skill in poll mode and report the next action only when something changes or a check fails.` Keep that session open. To stop, ask Claude to cancel the loop. [Claude Code loop guide](https://code.claude.com/docs/en/scheduled-tasks)
-- **Codex** — Create a scheduled task for a local project in the desktop app. Set the cadence and use the prompt below. Keep the computer and app running. [Codex scheduled task guide](https://learn.chatgpt.com/docs/automations?surface=app)
-- **OpenCode** — Run the command below from the directory where the plugin is enabled. For recurring checks, run it every 15 minutes with your local scheduler, such as cron or Task Scheduler. Use the same local account and set the scheduler's PATH so it can find `opencode`, `node`, and `gh`. Stop by removing the scheduled entry. [OpenCode CLI guide](https://opencode.ai/docs/cli/)
+Select at least one PR first. A recurring run reports the first check, then changes and failed checks. Use the same GitHub account for setup and monitoring. GitHub access is read-only.
 
-Use this scheduled task prompt.
+- **Claude Code** — Run `/loop 15m Use sidework-pr-watch in poll mode. Report changed PRs and failed checks.` Keep the session open. [Claude Code loop guide](https://code.claude.com/docs/en/scheduled-tasks)
+- **Codex** — Create a scheduled task for a local project in the desktop app. Give it the prompt below. Keep the computer and app running. [Codex scheduled task guide](https://learn.chatgpt.com/docs/automations?surface=app)
+- **OpenCode** — Give your local scheduler the command below. Use the same local account and make sure its PATH includes `opencode`, `node`, and `gh`. [OpenCode CLI guide](https://opencode.ai/docs/cli/)
 
 ```text
-Use the sidework-pr-watch skill in poll mode. Tell me the next action for each
-changed PR. Include GitHub evidence links and report failed checks. When the
-queue is quiet, skip the notification if the client supports it. Keep GitHub
-read-only.
+Use sidework-pr-watch in poll mode. Report the next action and source link
+for each changed PR. Report failed checks. Skip empty alerts if supported.
 ```
 
 ```sh
-opencode run 'Use sidework-pr-watch in poll mode. Report next actions with GitHub links only for changed PRs, and report failed checks. Keep GitHub read-only.'
+opencode run 'Use sidework-pr-watch in poll mode. Report changed PRs and failed checks.'
 ```
 
-Run one recurring check per GitHub account. The local watch list and poll fingerprints are stored under `${XDG_CONFIG_HOME:-~/.config}/sidework/<GitHub numeric ID>/`. They contain project and PR references and hashes of checked evidence. Each check reads all review thread pages, the opening comment and latest ten comments per thread, and the latest 30 reviews and PR conversation comments. If a check omits older comments or shortens a long body, use the source link for full context.
-
-## Optional Sidework profile draft
-
-The two skills work with `gh` alone. To prepare a private profile draft, open [Sidework → Workbench → Agents](https://sidework.dev/workbench/#agents) with approved access and create an agent token. Enter it in Claude's optional **Sidework agent token** field or connect your client's MCP server using [the MCP setup guide](../../docs/agents.md). Keep the token out of chat. It expires within 24 hours.
-
-Ask `sidework-init` to prepare the profile, choose up to six projects in order, then open the review link or file in Sidework. Choose **Save these projects** when the draft is ready. Approved accounts save it to private account storage. For a legacy session, it stays in that browser.
-
-## Use the helper directly
-
-From a checkout or an extracted release, run the helper at `plugins/sidework/bin/sidework.mjs`. For example:
-
-```sh
-node plugins/sidework/bin/sidework.mjs project add mager/sidework
-node plugins/sidework/bin/sidework.mjs find
-node plugins/sidework/bin/sidework.mjs list
-node plugins/sidework/bin/sidework.mjs check
-```
-
-Run it with `--help` for all commands. Quote a PR reference like `'OWNER/REPO#NUMBER'` when you use it in a shell. Use `check` to reread the queue if a summary was interrupted after `poll` ran.
+Use **“Check my Sidework PRs now”** to read the full queue if a scheduled summary was interrupted. For an optional workflow to write project stories with an agent, see the [Sidework MCP guide](../../docs/agents.md).
 
 ## Development
 
-Run `npm test` and `npm run build` from the repository root. Validate Claude manifests with `claude plugin validate ./plugins/sidework` and `claude plugin validate .`. Test locally with `claude --plugin-dir ./plugins/sidework` or `codex plugin marketplace add .`. For OpenCode, add the absolute plugin directory to the `plugins` list, start OpenCode, and run `opencode api GET /api/skill` against the running server to check skill discovery.
+Run `npm test` and `npm run build` at the repository root. Validate the Claude manifests with `claude plugin validate ./plugins/sidework` and `claude plugin validate .`. Use a temporary client profile to check skill discovery and run the watcher outside the repository.
