@@ -347,7 +347,7 @@ At 900px the header gap reduces to 16px and hides Import projects; the shared si
 
 All work, Projects, Contributions, and category filters use server-rendered GET links. Existing category-only URLs select Projects. The contribution feed excludes repositories owned by the story author. Add a contribution opens the private editor; GitHub history opens the workbench. The footer follows content in normal flow. Separate contribution pages and evidence rules are in `.impeccable/surfaces/contributions.md`.
 
-Settings content is at most 960px wide, with 48px top and 64px bottom padding. Appearance, Workspace, Email updates, Preview access, and the owner-only Admin link use unboxed sections with 56px top margins. Each section has a flexible description column and an action column, with 20px vertical and 48px horizontal gaps. At 760px, sections stack, their top margins reduce to 40px, and page top padding becomes 28px.
+Settings content is at most 960px wide, with 48px top and 64px bottom padding. Appearance, Workspace, Preview access, and the owner-only Admin link use unboxed sections with 56px top margins. Each section has a flexible description column and an action column, with 20px vertical and 48px horizontal gaps. At 760px, sections stack, their top margins reduce to 40px, and page top padding becomes 28px.
 
 The workbench has a 1536px maximum width, a 204px rail, flexible main area, and 262px context panel. At 1180px side areas reduce to 180px and 225px. At 960px the context panel disappears and the rail becomes 175px. At 700px the shell becomes one flow with wrapping navigation. Main side padding is 32px, 42px from 1440px, 24px at intermediate widths, and 18px on mobile. At 400px, the shared workbench header navigation wraps so that its links and Settings link fit.
 
@@ -389,13 +389,13 @@ Story fields and token fields use 48px minimum height and 12px by 14px padding. 
 
 ### Account entry
 
-Signup uses one GitHub action and an optional, unchecked email consent checkbox. Missing configuration disables the action and shows a clear unavailable message. The waiting page shows the signed-in @handle and three steps from signup to the Workbench. Check access is the main action. The public profile link and Sign out are secondary. Email preferences use a collapsed disclosure that opens when a save succeeds or fails. Native checkboxes have a 44px label target; form buttons have a 48px minimum height. Error and saved messages use the shared neutral palette. No email delivery or immediate tool access is promised.
+Signup uses one GitHub action. Missing configuration disables the action and shows a clear unavailable message. The waiting page shows the signed-in @handle and three steps from signup to the Workbench. Check access is the main action. The public profile link and Sign out are secondary. Signup form buttons have a 48px minimum height. Error messages use the shared neutral palette. No email delivery or immediate tool access is promised.
 
 ### Settings and theme control
 
 Settings is the only location for the theme control. Appearance has a labeled native select with System, Light, and Dark. It uses a 44px minimum height, 160px minimum width, 6px corners, a surface fill, and no border. Focus uses the shared visible outline. The control appears after its script connects. Other headers and the import page link to Settings; the account footer has no theme control.
 
-Workspace places Reset my workspace and Restore previous workspace beside the explanation. Copy states that these actions affect browser data only and do not delete account drafts. Restore appears when a backup exists. Status messages span the section. Signed-in accounts have an Email updates form. Preview access names the signed-in @handle, or the legacy session, and contains Sign out. These are unboxed sections, not cards. The configured owner also has an Admin section with Open admin, which opens the separate owner site.
+Workspace places Reset my workspace and Restore previous workspace beside the explanation. Copy states that these actions affect browser data only and do not delete account drafts. Restore appears when a backup exists. Status messages span the section. Preview access names the signed-in @handle, or the legacy session, and contains Sign out. These are unboxed sections, not cards. The configured owner also has an Admin section with Open admin, which opens the separate owner site.
 
 ### Project navigation and content
 
@@ -458,4 +458,4 @@ The portrait is the existing @hopperdraws illustration. Screenshot origins are i
 
 ## Gallery voice — November 15, 2026
 
-Position Sidework as “the official personal software gallery of the internet.” The signup headline is “The internet’s personal software gallery.” Short copy about small tools and rabbit holes gives the gallery its voice. Explore uses “Follow the rabbit holes.” Keep access copy direct: browsing the public profile is available; new accounts join a waitlist for private tools. Do not imply that signup publishes a profile. Keep authored project descriptions, evidence, and state labels unchanged.
+Position Sidework as “the official personal software gallery of the internet.” The signup headline is “The internet’s personal software gallery.” Signup copy explains the discovery problem. Anyone can build software now, and finding what people make is still hard. Explore uses “Follow the rabbit holes.” Keep access copy direct: browsing the public profile is available; new accounts join a waitlist for private tools. Do not imply that signup publishes a profile. Keep authored project descriptions, evidence, and state labels unchanged.

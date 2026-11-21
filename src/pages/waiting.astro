@@ -4,8 +4,6 @@ import Icon from '../components/SideworkIcon.astro';
 const account = Astro.locals.account;
 if (!account) return Astro.redirect(Astro.locals.hasAccess ? '/friends/' : '/signup/',303);
 if (Astro.locals.hasAccess) return Astro.redirect('/workbench/',303);
-const saved = Astro.url.searchParams.get('saved') === '1';
-const error = Astro.url.searchParams.has('error');
 ---
 <AccountLayout title="You’re on the list">
  <h1>You’re in line.</h1>
@@ -18,9 +16,5 @@ const error = Astro.url.searchParams.has('error');
  </ol>
  <div class="waiting-actions"><a class="sw-button sw-primary" href="/waiting/">Check access <Icon name="arrow" size={18}/></a><a class="account-explore" href="/mager/">Explore @mager’s work</a></div>
  <p class="account-note">No need to sign up again. Once approved, this opens your workbench.</p>
- <details class="account-preferences" open={saved || error}><summary>Email preferences</summary><p class="account-note">{account.email}</p>
-  <form action="/api/account/updates" method="POST" class="account-form"><label class="account-check"><input type="checkbox" name="updates" checked={account.email_updates}/>Email me Sidework updates.</label><button type="submit" class="sw-button">Save preference</button></form>
-  {saved && <p class="account-note" role="status">Preference saved.</p>}{error && <p class="entry-error" role="alert">We could not save that. Please try again.</p>}
- </details>
  <form action="/api/signout" method="POST"><button class="account-signout" type="submit">Sign out</button></form>
 </AccountLayout>

@@ -16,7 +16,7 @@ npm run dev -- --host 127.0.0.1 --port 4345
 Use [the setup guide](docs/github-auth.md) for GitHub sign-in and Firestore. Local access uses a short-lived Vercel OIDC token. Missing configuration leaves the public profile available and shows signup as unavailable.
 
 - `/signup/`: GitHub sign-in, waitlist signup, and a preview of @mager’s projects.
-- `/waiting/`: signed-in waitlist status, Check access, and optional email preferences.
+- `/waiting/`: signed-in waitlist status and Check access.
 - `/invite/`: old links redirect to signup; codes no longer create sessions.
 - `/friends/`: access-controlled local follows and first-project entry.
 - `/settings/`: access-controlled Appearance, workspace reset and restore, sign-out, and an owner-only Open admin link.
@@ -52,7 +52,7 @@ Normal links open separate detail pages with no content borders or panel frames.
 - Markdown export of the public work record.
 - Responsive layouts, keyboard navigation, and Light, Dark, and System themes.
 
-The interface uses black, white, and neutral gray to keep attention on the work. Project screenshots retain their original colors. System is the default theme. The theme selector appears only in Settings → Appearance. Home and Friends use the same header, including Saved and Import projects. Signed-in headers show the GitHub avatar at the far right; it links to Settings and has an accessible @handle label. Waiting accounts return to preview preferences, and legacy sessions use a profile icon. A saved choice applies before paint; System follows changes to the device theme. Theme changes also update other open tabs. Without JavaScript, CSS follows the device theme.
+The interface uses black, white, and neutral gray to keep attention on the work. Project screenshots retain their original colors. System is the default theme. The theme selector appears only in Settings → Appearance. Home and Friends use the same header, including Saved and Import projects. Signed-in headers show the GitHub avatar at the far right; it links to Settings and has an accessible @handle label. Waiting accounts return to their waitlist status, and legacy sessions use a profile icon. A saved choice applies before paint; System follows changes to the device theme. Theme changes also update other open tabs. Without JavaScript, CSS follows the device theme.
 
 ## Owner admin
 
@@ -62,7 +62,7 @@ The admin uses a separate eight-hour session and checks the approved owner accou
 
 ## Prototype boundaries
 
-GitHub signup records the verified numeric ID, login, verified email, waiting status, and optional update consent in Firestore. Only the configured owner starts approved. Other accounts wait for the owner to grant access. Check access opens the Workbench after approval. The account session lasts 30 days and renews after 15 days when the server verifies the current account. Email delivery is not connected. GitHub OAuth and Firestore are live. Local and production checks covered owner access, waiting access, consent changes, sign-out, and repeat sign-in. A production HTTP callback check covered cancellation with valid OAuth state.
+GitHub signup records the verified numeric ID, login, verified email, and access status in Firestore. Only the configured owner starts approved. Other accounts wait for the owner to grant access. Check access opens the Workbench after approval. The account session lasts 30 days and renews after 15 days when the server verifies the current account. Email delivery is not connected. GitHub OAuth and Firestore are live. Local and production checks covered owner access, waiting access, consent changes, sign-out, and repeat sign-in. A production HTTP callback check covered cancellation with valid OAuth state.
 
 Private exports, draft review, and MCP templates now use the signed-in account’s numeric GitHub ID and current @handle. Manual approval grants private tools. The [MVP plan](docs/mvp.md) tracks the remaining work for a public release. Approved accounts save project stories, featured order, and contribution drafts on the server. Another browser loads those private drafts after sign-in. There is no public multi-profile publishing or shared social graph. Saves, follows, and plans remain in browser `localStorage`, with a GitHub numeric ID suffix for signed-in accounts. Existing browser drafts remain intact until an explicit browser reset; import to the account requires review and a save. Legacy sessions keep browser-local drafts, with no automatic migration of legacy keys. Theme stays browser-global. Anyone with access to the browser profile can inspect its local data. Drafts and plans are not posted to GitHub or included in the public profile. See [private account drafts](docs/account-drafts.md) for storage, conflicts, import, and recovery.
 
