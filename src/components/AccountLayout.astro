@@ -2,6 +2,7 @@
 import AccountLink from './AccountLink.astro';
 import BaseHead from './BaseHead.astro';
 import Icon from './SideworkIcon.astro';
+import PluginFooter from './PluginFooter.astro';
 import '../styles/sidework.css';
 import '../styles/entry.css';
 import '../styles/account.css';
@@ -11,5 +12,5 @@ const {title, showcase = false} = Astro.props;
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="entry-header"><a href="/mager/" class="entry-brand"><Icon name="branch" size={27}/>sidework.</a><a class="entry-header-context" href="/mager/">Browse the gallery <Icon name="arrow" size={16}/></a>{Astro.locals.account && <AccountLink/>}</header>
 <main id="main" class:list={["account-main", {"account-showcase":showcase}]}><slot /></main>
-<footer class="entry-footer"><span>Built with Astra</span><a href="https://github.com/mager/sidework">Source on GitHub <Icon name="external" size={14}/></a></footer>
+{showcase ? <PluginFooter /> : <footer class="entry-footer"><span>Built with Astra</span><a href="https://github.com/mager/sidework">Source on GitHub <Icon name="external" size={14}/></a></footer>}
 </body></html>

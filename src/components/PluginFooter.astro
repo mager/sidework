@@ -1,0 +1,44 @@
+---
+import Icon from './SideworkIcon.astro';
+---
+<footer class="plugin-footer">
+  <span>Built with Astra</span>
+  <a href="https://github.com/mager/sidework/tree/main/plugins/sidework">Sidework plugin on GitHub <Icon name="external" size={14}/></a>
+</footer>
+
+<style>
+  :global(html:has(.plugin-footer)) {
+    --plugin-footer-height: calc(3.3125rem + env(safe-area-inset-bottom, 0px));
+    scroll-padding-block-end: var(--plugin-footer-height);
+  }
+
+  .plugin-footer {
+    position: sticky;
+    inset-block-end: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0 12px;
+    min-block-size: var(--plugin-footer-height);
+    margin-block-start: auto;
+    padding-block: 4px calc(4px + env(safe-area-inset-bottom, 0px));
+    padding-inline: var(--studio-gutter, clamp(16px, 4vw, 64px));
+    border-block-start: 1px solid var(--sw-border);
+    background: var(--sw-bg);
+    color: var(--sw-muted);
+    font-size: .8125rem;
+  }
+
+  .plugin-footer a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-block-size: 44px;
+    color: var(--sw-text);
+    text-decoration: underline;
+  }
+
+  .plugin-footer a:focus-visible { outline-offset: 2px; }
+</style>

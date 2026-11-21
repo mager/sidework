@@ -3,6 +3,7 @@ import { PROJECT_CATEGORIES } from '../scripts/project-metadata.mjs';
 import { workFeed } from '../scripts/work-feed.mjs';
 import '../styles/project-metadata.css';
 import StudioLayout from './StudioLayout.astro';
+import PluginFooter from './PluginFooter.astro';
 import Icon from './SideworkIcon.astro';
 import {projects} from '../data/projects';
 import stories from '../data/contribution-stories.json';
@@ -13,7 +14,7 @@ const { kind, category, entries } = workFeed(ordered, stories, {
 });
 const availableCategories = Object.entries(PROJECT_CATEGORIES).filter(([id]) => ordered.some(project => project.category === id));
 ---
-<StudioLayout title={profile ? '@mager · Sidework' : 'Explore · Sidework'} active={profile ? 'profile' : 'explore'}>
+<StudioLayout title={profile ? '@mager · Sidework' : 'Explore · Sidework'} active={profile ? 'profile' : 'explore'} bodyClass="studio-with-plugin-footer">
  {!profile && <div class="studio-discovery"><h1>Follow the rabbit holes.</h1><p>Personal software. Open source contributions. The people behind the work.</p></div>}
  <section class="studio-maker" aria-label="@mager’s profile">
   <a href={profile ? 'https://github.com/mager' : '/mager/'} class="studio-avatar"><img src="/images/mager.jpg" alt="@mager’s illustrated portrait" width="56" height="56"/></a>
@@ -39,4 +40,5 @@ const availableCategories = Object.entries(PROJECT_CATEGORIES).filter(([id]) => 
  {entries.length === 0 && <p>No work in this view yet. <a href={Astro.url.pathname}>See all work</a>.</p>}
  <div class="studio-work-end"><a href="/contributions/drafts/">Add a contribution <Icon name="plus" size={16}/></a><a href="/workbench/#contributions">GitHub history <Icon name="arrow" size={16}/></a></div>
  <p class="studio-local-note">Saves and follows stay in this browser.</p>
+ <PluginFooter slot="footer" />
 </StudioLayout>
