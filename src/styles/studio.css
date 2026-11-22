@@ -18,7 +18,7 @@
 .studio-discovery { display:grid; gap:16px; padding-block:40px 20px; }
 .studio-discovery h1 { max-width:20ch; font-size:clamp(2.5rem,1.5rem + 3vw,4.5rem); font-weight:550; line-height:1.06; letter-spacing:-.04em; }
 .studio-discovery p { max-width:50ch; font-size:1.125rem; line-height:1.6; color:var(--sw-muted); text-wrap:pretty; }
-.studio-discovery span,.studio-discovery a { font-size:.75rem; color:var(--sw-muted); }
+.studio-discovery span,.studio-discovery a:not(.sw-primary) { font-size:.75rem; color:var(--sw-muted); }
 .studio-discovery a { margin-left:auto; min-height:32px; }
 .studio-maker { display:flex; align-items:center; gap:20px; padding:36px 0 28px; }
 .studio-avatar { flex-shrink:0; }
