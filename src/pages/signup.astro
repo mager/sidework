@@ -23,6 +23,11 @@ const error = errors[Astro.url.searchParams.get('error') || ''] || '';
    <button class="sw-button sw-primary" type="submit" disabled={!ready}><Icon name="code" size={20}/>Join or re-enter with GitHub</button>
   </form>
   {(error || !ready) && <p class="entry-error" role="status">{error || errors.unavailable}</p>}
+  <section class="signup-plugin" aria-labelledby="signup-plugin-title">
+   <h2 id="signup-plugin-title">Sidework plugin</h2>
+   <p>Import GitHub repos and see which pull requests need your attention. Works with Claude Code, Codex, and OpenCode.</p>
+   <a class="account-explore" href="https://github.com/mager/sidework/tree/main/plugins/sidework#install">Install the plugin <Icon name="external" size={16}/></a>
+  </section>
  </section>
  <aside class="signup-work" aria-label="Work on Sidework">
   <h2>From the gallery</h2>
@@ -30,3 +35,27 @@ const error = errors[Astro.url.searchParams.get('error') || ''] || '';
   <a class="signup-explore" href="/mager/">Browse @mager’s gallery <Icon name="arrow" size={16}/></a>
  </aside>
 </AccountLayout>
+
+<style>
+ .signup-plugin {
+  max-inline-size: 28rem;
+  margin-block-start: 28px;
+  padding-block-start: 20px;
+  border-block-start: 1px solid var(--sw-border);
+ }
+
+ .signup-plugin h2 {
+  font-size: 1.25rem;
+  font-weight: 550;
+  line-height: 1.2;
+  letter-spacing: -.02em;
+ }
+
+ .signup-plugin p {
+  margin-block: 8px 2px;
+  color: var(--sw-muted);
+  font-size: 1rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+ }
+</style>
