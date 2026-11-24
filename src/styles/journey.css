@@ -1,0 +1,32 @@
+/* A short path from a private draft to an explicitly published project. */
+.sw-shell[data-account='true'] .sw-page-heading { margin-bottom:32px; }
+.sw-page-heading h1 { overflow-wrap:anywhere; }
+.first-project-start { max-width:760px; padding-block:24px 40px; }
+.journey-eyebrow { font:.75rem/1.6 var(--sw-mono); color:var(--sw-muted); margin-bottom:18px; }
+.first-project-start h2 { font:550 clamp(2rem,4vw,3.25rem)/1.08 var(--sw-display); letter-spacing:-.04em; max-width:19ch; text-wrap:balance; }
+.first-project-start>p:not(.journey-eyebrow) { margin-top:22px; color:var(--sw-muted); max-width:55ch; }
+.journey-outline { display:flex; flex-wrap:wrap; gap:18px 32px; margin:32px 0; padding-left:20px; font-size:.875rem; }
+.journey-outline li { padding-inline-start:3px; }
+.journey-actions { display:flex; flex-wrap:wrap; gap:12px; }
+.first-project-start .journey-note { font-size:.8125rem; }
+.sw-shell[data-empty='true'][data-view='overview'] { grid-template-columns:204px minmax(0,1fr); }
+.sw-shell[data-empty='true'][data-view='overview']>.sw-context { display:none; }
+.project-journey { margin-block:24px 10px; }
+.project-journey ol { display:flex; flex-wrap:wrap; gap:14px 24px; list-style:none; padding:0; font:.75rem/1.8 var(--sw-mono); color:var(--sw-muted); }
+.project-journey li { display:flex; gap:8px; }
+.project-journey li[aria-current='step'] { color:var(--sw-text); }
+.project-journey a { text-decoration:underline; text-underline-offset:3px; }
+.project-journey p { color:var(--sw-muted); font-size:.8125rem; margin-top:12px; }
+.sw-screenshot-fields { margin-top:32px; padding-top:24px; border-top:1px solid var(--sw-border); scroll-margin-top:28px; }
+.sw-screenshot-fields h3 { font-size:1.125rem; font-weight:550; }
+.sw-screenshot-fields>p { color:var(--sw-muted); font-size:.875rem; margin-top:8px; max-width:50ch; }
+.sw-screenshot-fields label { margin-top:20px; }
+.sw-draft-save:has(#save-review-project:not([hidden])) #save-project { background:transparent; color:var(--sw-text); border-color:var(--sw-border); }
+.import-main .journey-import-heading { margin-bottom:28px; }
+.journey-import-heading h1 { max-width:18ch; }
+.journey-import-heading .entry-intro { margin-top:16px; }
+.journey-import-heading .journey-actions { margin-top:18px; }
+@media(max-width:1180px) { .sw-shell[data-empty='true'][data-view='overview'] { grid-template-columns:180px minmax(0,1fr); } }
+@media(max-width:960px) { .sw-shell[data-empty='true'][data-view='overview'] { grid-template-columns:175px minmax(0,1fr); } }
+@media(max-width:700px) { .sw-shell[data-empty='true'][data-view='overview'] { grid-template-columns:minmax(0,1fr); } .first-project-start { padding-block:8px 24px; } .journey-outline { display:grid; grid-template-columns:1fr 1fr; gap:16px 24px; } .project-journey ol { column-gap:16px; } }
+@media(max-width:450px) { .journey-actions { flex-direction:column; align-items:stretch; } .journey-actions a { justify-content:center; } .sw-draft-save:has(#save-review-project:not([hidden]))>button { width:100%; justify-content:center; } }

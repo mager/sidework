@@ -5,6 +5,7 @@ import StudioLayout from '../components/StudioLayout.astro';
 import { projects } from '../data/projects';
 import { authConfiguration } from '../lib/github-auth.mjs';
 import { showcaseStore } from '../lib/showcases.mjs';
+import '../styles/gallery.css';
 import { PROJECT_CATEGORIES } from '../scripts/project-metadata.mjs';
 
 const { searchParams } = Astro.url;
@@ -23,150 +24,44 @@ let showcases = [];
 try { if (config.ready) showcases = await showcaseStore(config).explore(); }
 catch { /* The committed @mager showcase is available during an account store outage. */ }
 const hasMagerShowcase = showcases.some(showcase => showcase.githubId === '17733');
+const gallery = [
+  ...(!hasMagerShowcase ? [{ handle: '@mager', path: `/projects/${featured.id}/`, project: featured, committed: true }] : []),
+  ...showcases.map(showcase => ({ ...showcase, path: `/showcase/${showcase.slug}/`, committed: false })),
+];
 ---
-<StudioLayout title="Explore · Sidework" description="Discover developers and the public software they build." active="explore" bodyClass="studio-with-plugin-footer">
-  <header class="studio-discovery">
-    <h1>Find software people make.</h1>
-    <p>Browse work that Sidework builders chose to share.</p>
-    <div class="discovery-actions">
-      {Astro.locals.account && <a class="sw-button sw-primary" href="/showcase/">Your showcase <Icon name="arrow" size={16} /></a>}
-      <a class="sw-button" href="/onboarding/?view=stars">Your stars and forks <Icon name="arrow" size={16} /></a>
+<StudioLayout title="Explore · Sidework" description="Discover personal software and the people who build it." active="explore" bodyClass="studio-with-plugin-footer gallery-page">
+  <header class="gallery-intro">
+    <div>
+      <p class="gallery-eyebrow">The personal software gallery</p>
+      <h1>Made by people.<br/>Made for something.</h1>
+      <p class="gallery-intro-copy">Small tools, side projects, and ideas people cared enough to build. Take a look around.</p>
+    </div>
+    <div class="gallery-intro-actions">
+      {Astro.locals.account && <a class="sw-button sw-primary" href="/showcase/">Share your project <Icon name="arrow" size={16}/></a>}
+      <a class="gallery-text-link" href="/onboarding/?view=stars">Your stars and forks <Icon name="arrow" size={16}/></a>
     </div>
   </header>
 
-  <section class="developer-discovery" aria-labelledby="developers-title">
-    <h2 id="developers-title">Sidework showcases</h2>
-    <ul class="developer-list" role="list">
-      {!hasMagerShowcase && <li>
-        <img src="/images/mager.jpg" alt="" width="56" height="56" />
-        <div>
-          <h3><a class="developer-profile" href="/mager/">@mager <Icon name="arrow" size={14} /></a></h3>
-          <a class="developer-project" href={`/projects/${featured.id}/`}>{featured.name}</a>
-          <p>{featured.tagline}</p>
-        </div>
-      </li>}
-      {showcases.map(showcase => (
-        <li>
-          <span class="developer-mark" aria-hidden="true"><Icon name="branch" size={22} /></span>
-          <div>
-            <h3><a class="developer-profile" href={`/showcase/${showcase.slug}/`}>{showcase.handle} <Icon name="arrow" size={14} /></a></h3>
-            <strong>{showcase.project.name}</strong>
-            {(showcase.project.tagline || showcase.project.description) && <p>{showcase.project.tagline || showcase.project.description}</p>}
+  <section class="gallery" aria-labelledby="gallery-title">
+    <div class="gallery-heading"><h2 id="gallery-title">In the gallery</h2><p>Shared by their builders.</p></div>
+    <ul class="gallery-grid" role="list">
+      {gallery.map(({ handle, path, project, committed }, index) => <li class="gallery-item">
+        <a class="gallery-media" href={path} aria-label={`Explore ${project.name} by ${handle}`}>
+          {project.image
+            ? <img src={project.image} alt={project.imageAlt || `Screenshot of ${project.name}`} width={project.imageWidth} height={project.imageHeight} loading={index < 2 ? 'eager' : 'lazy'} decoding="async" referrerpolicy="no-referrer"/>
+            : <div class="gallery-type-preview"><span>{project.name}</span><small>Personal software by {handle}</small></div>}
+        </a>
+        <div class="gallery-project-copy">
+          <p class="gallery-maker"><a href={committed ? '/mager/' : path}>{handle}</a></p>
+          <h3><a href={path}>{project.name} <Icon name="arrow" size={18}/></a></h3>
+          {(project.tagline || project.description) && <p class="gallery-purpose">{project.tagline || project.description}</p>}
+          <div class="gallery-source">
+            <a href={path}>{committed ? 'From the public profile' : 'View showcase'}</a>
+            {project.source && <a href={project.source} rel="noreferrer">Source <Icon name="external" size={13}/></a>}
           </div>
-        </li>
-      ))}
+        </div>
+      </li>)}
     </ul>
   </section>
   <PluginFooter slot="footer" />
 </StudioLayout>
-
-<style>
-  .studio-discovery {
-    padding-block-end: 0;
-  }
-
-  .discovery-actions { display: flex; flex-wrap: wrap; gap: 12px; }
-
-  .studio-discovery .discovery-actions a {
-    width: auto;
-    margin: 0;
-    min-height: 44px;
-  }
-
-  .developer-discovery {
-    max-inline-size: 72rem;
-    margin-block: 40px 48px;
-  }
-
-  .developer-discovery h2 {
-    font-size: 1.125rem;
-    font-weight: 550;
-    margin-block-end: 12px;
-  }
-
-  .developer-list {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: clamp(24px, 5vw, 64px);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .developer-list li {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: start;
-    gap: 16px;
-    padding-block: 16px 20px;
-    border-block-start: 1px solid var(--sw-border);
-  }
-
-  .developer-list img {
-    display: block;
-    inline-size: 56px;
-    block-size: 56px;
-    object-fit: cover;
-    border-radius: 6px;
-    background: var(--sw-surface);
-  }
-
-  .developer-mark {
-    display: grid;
-    place-items: center;
-    inline-size: 56px;
-    block-size: 56px;
-    color: var(--sw-muted);
-  }
-
-  .developer-list h3 {
-    font: 500 clamp(1rem, .8rem + .5vw, 1.25rem)/1.4 var(--sw-mono);
-    overflow-wrap: anywhere;
-  }
-
-  .developer-profile {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    min-block-size: 44px;
-  }
-
-  .developer-profile :global(svg) {
-    flex: none;
-    color: var(--sw-muted);
-  }
-
-  .developer-project {
-    display: inline-flex;
-    align-items: center;
-    min-block-size: 24px;
-    font-weight: 550;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
-
-  .developer-list p {
-    color: var(--sw-muted);
-    text-wrap: pretty;
-  }
-
-  @media (max-width: 760px) {
-    .developer-discovery {
-      margin-block: 28px 32px;
-    }
-
-    .developer-list {
-      grid-template-columns: minmax(0, 1fr);
-    }
-
-    .developer-list li {
-      gap: 12px;
-      padding-block: 12px 16px;
-    }
-
-    .developer-list img,.developer-mark {
-      inline-size: 44px;
-      block-size: 44px;
-    }
-  }
-</style>

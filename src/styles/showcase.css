@@ -82,11 +82,89 @@
 }
 
 .showcase-live {
-  max-inline-size: 40rem;
+  max-inline-size: 100%;
 }
 
 .showcase-live h2 {
-  font-size: 1.25rem;
+  font: 500 clamp(1.25rem, 2vw, 1.75rem)/1.4 var(--sw-mono);
+  letter-spacing: -.025em;
+}
+
+.showcase-live-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 48px);
+  margin-block-end: 24px;
+}
+
+.showcase-live-label {
+  font-size: .8125rem;
+  color: var(--sw-muted);
+  margin-block-end: 10px;
+}
+
+.showcase-live-purpose {
+  margin-block: 10px 16px;
+  font-size: 1.125rem;
+  text-wrap: pretty;
+}
+
+.showcase-live-summary > div > p:last-child {
+  font-size: .875rem;
+}
+
+.showcase-share-preview {
+  display: block;
+  min-inline-size: 0;
+}
+
+.showcase-share-preview img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.showcase-share-preview span {
+  display: block;
+  color: var(--sw-muted);
+  font-size: .75rem;
+  margin-block-start: 8px;
+}
+
+.showcase-live > .showcase-field {
+  max-inline-size: 42rem;
+}
+
+.showcase-manager-heading .showcase-success-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-block: 0 16px;
+  color: var(--sw-text);
+  font-size: .875rem;
+}
+
+.showcase-update-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-block-size: 44px;
+  color: var(--sw-muted);
+  font-size: .875rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.showcase-consent-note {
+  font-size: .8125rem;
+  color: var(--sw-muted);
+  max-inline-size: 60ch;
+}
+
+#showcase-copy-status {
+  font-size: .875rem;
+  margin-block: 8px;
 }
 
 .showcase-live > .showcase-actions {
@@ -213,7 +291,7 @@
 .showcase-project-with-image {
   display: grid;
   align-items: start;
-  grid-template-columns: minmax(15rem, 1fr) minmax(0, 1.4fr);
+  grid-template-columns: minmax(0, 1.4fr) minmax(15rem, 1fr);
   gap: clamp(24px, 4vw, 48px);
 }
 
@@ -278,6 +356,15 @@
 }
 
 @media (max-width: 760px) {
+  .showcase-live-summary {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .showcase-share-preview {
+    max-inline-size: 30rem;
+  }
+
   .showcase-project-with-image {
     grid-template-columns: minmax(0, 1fr);
   }

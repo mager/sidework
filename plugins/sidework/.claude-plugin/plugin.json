@@ -1,7 +1,7 @@
 {
   "name": "sidework",
   "version": "0.1.2",
-  "description": "Import public GitHub projects into Sidework and find the next action on your upstream pull requests.",
+  "description": "Tell the story of what you built, import public GitHub projects into Sidework, and check upstream pull requests.",
   "author": { "name": "@mager", "url": "https://github.com/mager" },
   "homepage": "https://sidework.dev",
   "repository": "https://github.com/mager/sidework",

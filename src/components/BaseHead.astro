@@ -1,8 +1,9 @@
 ---
 import '../styles/fonts.css';
 import themeScript from '../scripts/theme.js?raw';
-interface Props { title: string; description: string; image?: string; }
-const {title, description, image = '/images/mager.jpg'} = Astro.props;
+interface Props { title: string; description: string; image?: string; canonical?: string; imageWidth?: number; imageHeight?: number; }
+const {title, description, image = '/images/mager.jpg', canonical, imageWidth, imageHeight} = Astro.props;
+const imageUrl = new URL(image, Astro.url).href;
 ---
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -12,7 +13,17 @@ const {title, description, image = '/images/mager.jpg'} = Astro.props;
 <meta name="description" content={description} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+{canonical && <link rel="canonical" href={canonical} />}
+{canonical && <meta property="og:url" content={canonical} />}
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Sidework" />
+<meta property="og:image" content={imageUrl} />
+{imageWidth && <meta property="og:image:width" content={imageWidth} />}
+{imageHeight && <meta property="og:image:height" content={imageHeight} />}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/fonts/anybody-latin.woff2" as="font" type="font/woff2" crossorigin />

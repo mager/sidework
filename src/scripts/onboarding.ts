@@ -15,6 +15,7 @@ async function startImport() {
   const workspace = await openDraftWorkspace(element('main'), seed.projects, () => { loadExisting(); render(); });
   if (!workspace) return;
   const favorites = connectFavorites();
+  const journey = workspace.account && new URLSearchParams(location.search).get('journey') === 'first';
 
   const selected = new Set<string>();
   const snapshots = new Map<string, Repository[]>();
@@ -46,9 +47,9 @@ async function startImport() {
     const hasSelection = source !== 'stars' && selected.size > 0;
     element('import-actions').hidden = !hasSelection;
     element('clear-selection').hidden = !hasSelection;
-    element('selection-count').textContent = `${selected.size} selected`;
+    element('selection-count').textContent = journey ? 'One project · Next: tell its story' : `${selected.size} selected`;
     button('import-selected').disabled = pending !== null || workspace!.busy || !hasSelection;
-    button('import-selected').textContent = selected.size ? `Import ${selected.size} ${selected.size === 1 ? 'project' : 'projects'}` : 'Import selected';
+    button('import-selected').textContent = journey ? 'Continue with this project' : selected.size ? `Import ${selected.size} ${selected.size === 1 ? 'project' : 'projects'}` : 'Import selected';
   }
 
   function repositoryRow(repo: Repository) {
@@ -77,11 +78,13 @@ async function startImport() {
 
     const label = document.createElement('label');
     const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
+    checkbox.type = journey ? 'radio' : 'checkbox';
+    if(journey) checkbox.name = 'first-project';
     checkbox.checked = selected.has(key);
-    checkbox.disabled = added;
+    checkbox.disabled = added && !journey;
     checkbox.setAttribute('aria-label', repo.fullName);
     checkbox.addEventListener('change', () => {
+      if (journey) selected.clear();
       if (checkbox.checked) selected.add(key);
       else selected.delete(key);
       updateSelection();
@@ -109,7 +112,7 @@ async function startImport() {
   function configureSource() {
     element('find-repos-label').textContent = `Find ${repositorySources[source].toLowerCase()}`;
     element('include-forks-control').hidden = source !== 'repositories';
-    element('select-matching').hidden = source === 'stars';
+    element('select-matching').hidden = journey || source === 'stars';
     favorites?.show(source === 'stars');
   }
 
@@ -130,7 +133,7 @@ async function startImport() {
       if (pending !== current) return;
       repositories = result.repositories;
       for (const repo of repositories) {
-        if (!alreadyImported(repo.project)) selected.add(projectKey(repo.project));
+        if (!journey && !alreadyImported(repo.project)) selected.add(projectKey(repo.project));
       }
       const loaded = repositories.length ? 'Review the repositories below.' : 'No linked repositories are available to import.';
       const unavailable = result.unavailable.length ? ` Could not load these public repositories: ${result.unavailable.join(', ')}.` : '';
@@ -250,7 +253,8 @@ async function startImport() {
   element('clear-selection').addEventListener('click', () => {
     selected.clear();
     render();
-    button('select-matching').focus();
+    if (journey) input('repo-search').focus();
+    else button('select-matching').focus();
   });
   element('show-more').addEventListener('click', () => { visible += 100; render(); });
   element('import-selected').addEventListener('click', async () => {
@@ -260,6 +264,13 @@ async function startImport() {
       const result = importSelection(JSON.stringify(workspace.read()), chosen, seed.projects, seed.opportunityIds);
       button('import-selected').disabled = true;
       await workspace.save(result.value, { projectsOnly: true });
+      if(journey && chosen.length === 1) {
+        const saved = workspace.read().projects.find((project: Repository['project']) => project.id === chosen[0].id || projectKey(project) === projectKey(chosen[0]));
+        if(!saved) throw new Error('The selected project could not be found after saving. Your other drafts are still saved.');
+        const editUrl = `/workbench/?journey=first&project=${encodeURIComponent(saved.id)}#editor`;
+        location.assign(editUrl);
+        return;
+      }
       selected.clear();
       loadExisting();
       render();
@@ -277,7 +288,7 @@ async function startImport() {
   configureSource();
   const linkedNames = new URLSearchParams(location.search).getAll('repo');
   if (linkedNames.length) void loadLinkedRepositories(linkedNames);
-  else if (source !== 'repositories' && input('github-handle').value.trim()) void loadCollection(true);
+  else if ((journey || source !== 'repositories') && input('github-handle').value.trim()) void loadCollection(true);
 }
 
 void startImport();

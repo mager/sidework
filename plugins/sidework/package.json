@@ -1,7 +1,7 @@
 {
   "name": "sidework-opencode",
   "version": "0.1.2",
-  "description": "Sidework project setup and pull request review skills for OpenCode.",
+  "description": "Sidework project stories, public repository import, and pull request review skills for OpenCode.",
   "type": "module",
   "main": "./index.js",
   "exports": "./index.js",

@@ -1,0 +1,55 @@
+.gallery-page .gallery-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 32px;
+  padding-block: clamp(32px, 5vw, 72px) clamp(40px, 5vw, 72px);
+}
+.gallery-eyebrow, .gallery-heading p {
+  color: var(--sw-muted);
+  font-size: .875rem;
+}
+.gallery-intro h1 {
+  margin-block: 16px 20px;
+  font-size: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+  font-weight: 550;
+  line-height: 1.06;
+  letter-spacing: -.04em;
+}
+.gallery-intro-copy {
+  max-inline-size: 43ch;
+  color: var(--sw-muted);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+.gallery-intro-actions { display: grid; justify-items: start; gap: 12px; flex: none; }
+.gallery-text-link { display: inline-flex; align-items: center; gap: 12px; min-block-size: 44px; font-size: .875rem; }
+.gallery { margin-block-end: 64px; }
+.gallery-heading { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: baseline; margin-block-end: 28px; }
+.gallery-heading h2 { font-size: 1.125rem; font-weight: 550; }
+.gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px clamp(28px, 4vw, 64px); list-style: none; margin: 0; padding: 0; }
+.gallery-item { min-inline-size: 0; }
+.gallery-media { display: block; width: 100%; }
+.gallery-media img { display: block; max-inline-size: 100%; inline-size: auto; block-size: auto; }
+.gallery-type-preview { min-block-size: clamp(220px, 27vw, 400px); display: flex; flex-direction: column; justify-content: center; gap: 20px; padding: clamp(24px, 4vw, 48px); background: var(--sw-surface); overflow-wrap: anywhere; }
+.gallery-type-preview > span { font: 500 clamp(1.75rem, 3vw, 3rem)/1.25 var(--sw-mono); letter-spacing: -.035em; }
+.gallery-type-preview small { color: var(--sw-muted); font-size: .875rem; }
+.gallery-project-copy { padding-block-start: 20px; }
+.gallery-maker { font: .8125rem/1.7 var(--sw-mono); color: var(--sw-muted); }
+.gallery-maker a { display: inline-flex; align-items: center; min-block-size: 32px; }
+.gallery-project-copy h3 { font: 500 clamp(1.125rem, 1rem + .4vw, 1.5rem)/1.4 var(--sw-mono); letter-spacing: -.025em; overflow-wrap: anywhere; }
+.gallery-project-copy h3 a { display: inline-flex; align-items: center; gap: 12px; min-block-size: 44px; }
+.gallery-project-copy h3 svg { flex: none; color: var(--sw-muted); }
+.gallery-purpose { margin-block-start: 6px; max-inline-size: 52ch; font-size: 1rem; line-height: 1.6; text-wrap: pretty; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.gallery-source { display: flex; flex-wrap: wrap; gap: 4px 24px; margin-block-start: 8px; color: var(--sw-muted); font-size: .8125rem; }
+.gallery-source a { display: inline-flex; align-items: center; gap: 8px; min-block-size: 44px; }
+@media (max-width: 760px) {
+  .gallery-page .gallery-intro { display: grid; gap: 20px; padding-block: 28px 40px; }
+  .gallery-intro h1 { margin-block: 12px 16px; }
+  .gallery-intro-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 24px; }
+  .gallery-heading { margin-block-end: 20px; }
+  .gallery-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .gallery-project-copy { padding-block-start: 12px; }
+  .gallery { margin-block-end: 40px; }
+}

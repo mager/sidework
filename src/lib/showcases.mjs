@@ -102,7 +102,7 @@ export function showcaseStore(config, database = accountDatabase(config)) {
     const saved = favoriteRecord(favoriteSnapshot);
     const { content, ...publication } = publicationRecord(publicationSnapshot);
     return { handle: `@${githubHandle(current.login)}`, projects: draft.drafts.projects, draftRevision: draft.revision,
-      favorites: saved.favorites, favoritesRevision: saved.revision, publication };
+      favorites: saved.favorites, favoritesRevision: saved.revision, publication, publicationContent: content };
   }
 
   async function visible(snapshot) {

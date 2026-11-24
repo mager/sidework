@@ -22,7 +22,7 @@ export const GET: APIRoute = async ({url, cookies, redirect}) => {
       const code = await issueAdminTicket(account,flow.admin,admin,accountDatabase(config));
       return redirect(`${admin.origin}/auth/admin/callback/?${new URLSearchParams({code,state:flow.admin.state})}`,303);
     }
-    return redirect(account.status === 'approved' ? '/friends/' : '/waiting/',303);
+    return redirect(account.status === 'approved' ? '/workbench/' : '/waiting/',303);
   } catch (error) {
     return redirect(`/signup/?error=${error instanceof Error && error.message === 'verified-email-required' ? 'email' : 'retry'}`,303);
   }

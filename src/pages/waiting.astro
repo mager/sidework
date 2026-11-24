@@ -2,7 +2,7 @@
 import AccountLayout from '../components/AccountLayout.astro';
 import Icon from '../components/SideworkIcon.astro';
 const account = Astro.locals.account;
-if (!account) return Astro.redirect(Astro.locals.hasAccess ? '/friends/' : '/signup/',303);
+if (!account) return Astro.redirect(Astro.locals.hasAccess ? '/workbench/' : '/signup/',303);
 if (Astro.locals.hasAccess) return Astro.redirect('/workbench/',303);
 ---
 <AccountLayout title="You’re on the list">
@@ -12,9 +12,9 @@ if (Astro.locals.hasAccess) return Astro.redirect('/workbench/',303);
  <ol class="account-progress" aria-label="Signup status">
   <li><span>Joined</span><span>Complete</span></li>
   <li aria-current="step"><strong>Waiting for access</strong><span>Current step</span></li>
-  <li><span>Your workbench</span><span>Next</span></li>
+  <li><span>Build your first showcase</span><span>Next</span></li>
  </ol>
  <div class="waiting-actions"><a class="sw-button sw-primary" href="/waiting/">Check access <Icon name="arrow" size={18}/></a><a class="account-explore" href="/mager/">Explore @mager’s work</a></div>
- <p class="account-note">No need to sign up again. Once approved, this opens your workbench.</p>
+ <p class="account-note">No need to sign up again. Once approved, choose one project to bring to the gallery.</p>
  <form action="/api/signout" method="POST"><button class="account-signout" type="submit">Sign out</button></form>
 </AccountLayout>

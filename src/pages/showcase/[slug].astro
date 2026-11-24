@@ -5,6 +5,8 @@ import PluginFooter from '../../components/PluginFooter.astro';
 import ShowcaseContent from '../../components/ShowcaseContent.astro';
 import { authConfiguration } from '../../lib/github-auth.mjs';
 import { showcaseStore } from '../../lib/showcases.mjs';
+import { showcaseMetadata } from '../../lib/showcase-metadata.mjs';
+import { showcaseImageResponse } from '../../lib/showcase-image.mjs';
 import '../../styles/sidework.css';
 import '../../styles/studio.css';
 import '../../styles/showcase.css';
@@ -20,13 +22,20 @@ if (slug) {
   }
 }
 if (!content) Astro.response.status = unavailable ? 503 : 404;
+if (Astro.url.searchParams.get('image') === 'share') {
+  if (!content) return new Response(unavailable ? 'Showcase unavailable' : 'Showcase not found', {
+    status: unavailable ? 503 : 404, headers: { 'Cache-Control': 'no-store', 'Content-Type': 'text/plain; charset=utf-8' },
+  });
+  return showcaseImageResponse(content, Astro.request.method);
+}
 const title = content ? `${content.project.name} by ${content.handle}` : unavailable ? 'Showcase unavailable' : 'Showcase not found';
 const description = content?.project.tagline || content?.project.description || 'Discover personal software on Sidework.';
+const metadata = showcaseMetadata(content, slug, Astro.url.origin);
 ---
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={`${title} · Sidework`} description={description} image={content?.project.image || '/favicon.svg'}/>
+    <BaseHead {...(metadata || { title: `${title} · Sidework`, description, image: '/favicon.svg' })}/>
     <meta name="robots" content="noindex,nofollow"/>
   </head>
   <body class="studio showcase-public">

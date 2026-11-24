@@ -1,9 +1,10 @@
 # Sidework plugin v0.1.2
 
-Import your GitHub projects into [Sidework](https://sidework.dev/). Ask your agent what needs your attention on upstream pull requests.
+Tell the story of what you built in [Sidework](https://sidework.dev/), import public GitHub projects, and check your upstream pull requests.
 
 | Skill | What to ask |
 | --- | --- |
+| `sidework-story` | “Help me tell the story of what I built.” |
 | `sidework-init` | “Import this repository into Sidework.” or “Show my upstream PRs and let me choose what to watch.” |
 | `sidework-pr-watch` | “What’s next on my open source PRs?” |
 
@@ -20,7 +21,7 @@ Run these commands in Claude Code.
 /plugin install sidework@sidework
 ```
 
-Use `/sidework:sidework-init` or `/sidework:sidework-pr-watch`. If Sidework is already installed, update the marketplace and plugin from **/plugin**.
+Use `/sidework:sidework-story`, `/sidework:sidework-init`, or `/sidework:sidework-pr-watch`. If Sidework is already installed, update the marketplace and plugin from **/plugin**.
 
 ### Codex
 
@@ -31,14 +32,14 @@ codex plugin marketplace add mager/sidework
 codex plugin add sidework@sidework
 ```
 
-You can also install **Sidework** from the **Sidework** marketplace in the Codex desktop plugin browser after you add the marketplace. If you pinned the marketplace to `plugin-v0.1.1`, remove that source with `codex plugin marketplace remove sidework`, then add it again with the commands above. Otherwise run `codex plugin marketplace upgrade sidework` first. In a new session, ask for either skill by name or use the skills picker.
+You can also install **Sidework** from the **Sidework** marketplace in the Codex desktop plugin browser after you add the marketplace. If you pinned the marketplace to `plugin-v0.1.1`, remove that source with `codex plugin marketplace remove sidework`, then add it again with the commands above. Otherwise run `codex plugin marketplace upgrade sidework` first. In a new session, ask for a skill by name or use the skills picker.
 
 ### OpenCode
 
-With OpenCode 2, clone the release.
+With OpenCode 2, clone the current plugin source.
 
 ```sh
-git clone --branch plugin-v0.1.2 https://github.com/mager/sidework.git sidework-plugin
+git clone https://github.com/mager/sidework.git sidework-plugin
 ```
 
 Add the absolute plugin directory to the existing `plugins` list in `~/.config/opencode/opencode.json` or `opencode.jsonc`.
@@ -49,7 +50,15 @@ Add the absolute plugin directory to the existing `plugins` list in `~/.config/o
 }
 ```
 
-Start a new session and ask for either skill by name. To update an existing checkout, fetch tags and check out `plugin-v0.1.2`.
+Start a new session and ask for a skill by name. To update an existing checkout, switch to `main` and pull the latest changes with `git pull --ff-only`.
+
+## Tell one project's story
+
+Ask **“Help me tell the story of what I built.”** in your project checkout, or provide a public repository URL. The `sidework-story` skill checks public source evidence and asks you what you personally built, why, and what you learned. Unknown claims stay blank.
+
+With the optional [Sidework MCP connection](../../docs/agents.md), the agent prepares one project and returns a private review link plus a JSON file. Without MCP, it gives you a repository import link and the story to copy into the editor. Neither path requires terminal Sidework sign-in; MCP tokens belong in your agent's private connection settings.
+
+**Draft → Review → Save → Publish:** open the link or file, review, and explicitly save in the browser to your private account. Legacy sessions save in this browser. Publish one reviewed project and its selected favorites separately in Showcase. Agents cannot read private account drafts, save, or publish.
 
 ## First run
 

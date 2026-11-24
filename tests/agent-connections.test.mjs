@@ -30,3 +30,38 @@ test('an expired invitation reports recovery and restores the create control',as
   doc.querySelector('#create-agent-token').click();await settle();
   assert.match(doc.querySelector('#agent-token-status').textContent,/Reload Sidework/);assert.equal(doc.querySelector('#create-agent-token').disabled,false);assert.equal(doc.querySelector('#agent-token-result').hidden,true);dom.window.close();
 });
+
+test('the story task can be copied before connecting and its manual fallback returns focus to the task',async()=>{
+  const dom=setup(),doc=dom.window.document;
+  const button=doc.querySelector('#copy-agent-story');
+  assert.ok(button,'a story prompt copy action is available');
+  button.click();await settle();
+  const field=doc.querySelector('#agent-copy-text');
+  assert.equal(field.value,doc.querySelector('#agent-story-task').textContent.trim());
+  assert.match(field.value,/Help me tell the story/);
+  assert.match(field.value,/motivation/);
+  assert.match(field.value,/learning/);
+  assert.match(field.value,/review link/i);
+  assert.equal(doc.activeElement,field);
+  assert.equal(field.selectionEnd,field.value.length);
+  assert.doesNotMatch(doc.querySelector('#agent-token-status').textContent,/tokens/i);
+  doc.querySelector('#hide-agent-copy').click();
+  assert.equal(field.value,'');
+  assert.equal(doc.activeElement,button);
+  assert.equal(doc.querySelector('#agent-token-result').hidden,true);
+  assert.equal(dom.window.localStorage.length,0);dom.window.close();
+});
+
+test('successful story task copy clears any previous private copy fallback',async()=>{
+  const dom=setup(),doc=dom.window.document;
+  doc.querySelector('#create-agent-token').click();await settle();
+  doc.querySelector('#copy-agent-token').click();await settle();
+  let copied='';dom.window.navigator.clipboard.writeText=async text=>{copied=text;};
+  const button=doc.querySelector('#copy-agent-story');assert.ok(button);
+  button.click();await settle();
+  assert.equal(copied,doc.querySelector('#agent-story-task').textContent.trim());
+  assert.equal(doc.querySelector('#agent-copy-text').value,'');
+  assert.equal(doc.querySelector('#agent-copy-fallback').hidden,true);
+  assert.match(doc.querySelector('#agent-token-status').textContent,/task copied/i);
+  dom.window.close();
+});

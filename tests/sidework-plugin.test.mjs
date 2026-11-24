@@ -7,6 +7,23 @@ import test from 'node:test';
 import { promisify } from 'node:util';
 import { runSidework } from '../plugins/sidework/skills/sidework-pr-watch/scripts/sidework.mjs';
 import { createGitHub } from '../plugins/sidework/skills/sidework-pr-watch/scripts/github.mjs';
+import plugin from '../plugins/sidework/index.js';
+
+test('OpenCode discovers the installed project-story skill alongside import and PR watch',async()=>{
+  const registered=[];
+  let disposed=false;
+  const cleanup=await plugin.setup({skill:{transform:async update=>{update({add:skill=>registered.push(skill)});return {dispose:()=>{disposed=true;}};}}});
+  const story=registered.find(skill=>skill.id==='sidework-story');
+  assert.ok(story,'the story skill is registered');
+  assert.match(story.description,/Use when/);
+  assert.match(story.content,/prepare_profile_draft/);
+  assert.match(story.content,/motivation/);
+  assert.match(story.content,/learning/);
+  assert.match(story.content,/repo=mager%2Fsidework/);
+  assert.match(story.content,/explicit browser save/i);
+  assert.equal(registered.length,3);
+  cleanup();assert.equal(disposed,true);
+});
 
 function fixture() {
   let account = { id: '123', handle: '@developer' };

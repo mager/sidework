@@ -120,3 +120,11 @@ test('the same account session follows approval, waiting, and approval again wit
   assert.equal((await run('/waiting/')).status,200);
  }
 });
+
+
+test('an approved GitHub sign-in opens the workbench rather than an empty Friends view',async()=>{
+ const start=auth.beginGithubLogin(config),state=new URL(start.url).searchParams.get('state');
+ const callback=load('../src/pages/auth/github/callback.ts','GET',{...auth,authConfiguration:()=>config,githubIdentity:async()=>({githubId:'123',login:'builder',email:'builder@example.com'}),accountStore:()=>({save:async()=>({github_id:'123',status:'approved'})})});
+ const ctx=context(`/auth/github/callback/?code=test&state=${state}`,{[auth.OAUTH_COOKIE]:start.cookie});
+ assert.equal((await callback(ctx)).headers.get('location'),'/workbench/');assert.ok(ctx.written.get(auth.ACCOUNT_COOKIE));
+});

@@ -8,17 +8,20 @@ import { opportunities } from '../data/sidework';
 import { repositorySource, repositorySources } from '../scripts/github-import.mjs';
 import '../styles/sidework.css';
 import '../styles/entry.css';
+import '../styles/journey.css';
 const seed = JSON.stringify({ projects, opportunityIds:opportunities.map(item => item.id) }).replace(/</g,'\\u003c');
+const journey = !!Astro.locals.account && Astro.url.searchParams.get('journey') === 'first';
 const linked = Astro.url.searchParams.has('repo');
-const source = repositorySource(linked ? null : Astro.url.searchParams.get('view'));
+const source = repositorySource(linked || journey ? null : Astro.url.searchParams.get('view'));
 ---
-<!doctype html><html lang="en"><head><BaseHead title="GitHub library · Sidework" description="Browse your public GitHub repositories, stars, and forks."/><meta name="robots" content="noindex,nofollow"/></head><body class="entry-page">
+<!doctype html><html lang="en"><head><BaseHead title={journey ? 'Choose your first project · Sidework' : 'GitHub library · Sidework'} description="Browse your public GitHub repositories, stars, and forks."/><meta name="robots" content="noindex,nofollow"/></head><body class="entry-page">
 <header class="entry-header"><a href="/" class="entry-brand"><Icon name="branch" size={27}/>sidework.</a><a class="entry-header-context" href="/workbench/#projects">Your workbench <Icon name="arrow" size={18}/></a><AccountLink/></header>
 <DraftStorage /><main class="import-main" id="main" inert={!!Astro.locals.account}>
-<h1>GitHub library</h1>
-<p class="entry-intro">{linked ? 'Review the linked repositories and import them as private project drafts.' : 'Browse your public repositories, stars, and forks. Add selected projects and forks to your workbench.'}</p>
+{journey && <div class="journey-import-heading"><p class="journey-eyebrow">@{Astro.locals.account?.login} · Your first project</p><h1>Start with one thing you made.</h1><p class="entry-intro">Choose a repository. Next, tell its story, add a screenshot, and review your page before publishing.</p><div class="journey-actions"><a href="/workbench/?journey=first&new=1">Add a project manually <Icon name="arrow" size={16}/></a><a href="/onboarding/">Browse the full GitHub library</a></div></div>}
+{!journey && <><h1>GitHub library</h1>
+<p class="entry-intro">{linked ? 'Review the linked repositories and import them as private project drafts.' : 'Browse your public repositories, stars, and forks. Add selected projects and forks to your workbench.'}</p></>}
 <form id="github-import-form" class="import-form">
- <fieldset class="import-sources">
+ <fieldset class="import-sources" hidden={journey}>
   <legend class="sw-sr-only">GitHub collection</legend>
   {Object.entries(repositorySources).map(([value, label]) => <label><input type="radio" name="source" value={value} checked={source === value}/>{label}</label>)}
  </fieldset>
@@ -36,7 +39,7 @@ const source = repositorySource(linked ? null : Astro.url.searchParams.get('view
   <input type="search" id="repo-search" aria-label="Search repositories" placeholder="Search repositories…"/>
   <label id="include-forks-control"><input type="checkbox" id="include-forks" checked/>Include forks</label>
   <label><input type="checkbox" id="include-archived" checked/>Include archived</label>
-  <button class="sw-button" id="select-matching" type="button">Select matching</button>
+  <button class="sw-button" id="select-matching" type="button" hidden={journey}>Select matching</button>
   <button class="sw-button" id="clear-selection" type="button" hidden>Clear selection</button>
  </div>
  <p id="repo-count" class="import-status"></p>

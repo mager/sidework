@@ -1,7 +1,7 @@
 {
   "name": "sidework",
   "version": "0.1.2",
-  "description": "Import public GitHub projects into Sidework and find the next action on your upstream pull requests.",
+  "description": "Tell the story of what you built, import public GitHub projects into Sidework, and check upstream pull requests.",
   "author": { "name": "@mager", "url": "https://github.com/mager" },
   "homepage": "https://sidework.dev",
   "repository": "https://github.com/mager/sidework",
@@ -10,8 +10,8 @@
   "onboardingSkill": "./skills/sidework-init/SKILL.md",
   "interface": {
     "displayName": "Sidework",
-    "shortDescription": "Track your projects and upstream PR reviews",
-    "longDescription": "Add your public GitHub projects, choose which upstream pull requests to watch, and get the next action from live review comments.",
-    "defaultPrompt": ["Use Sidework to import this repository.", "What is next on my selected open source pull requests?"]
+    "shortDescription": "Tell your project's story and review upstream PRs",
+    "longDescription": "Explain what you built from public source evidence and your own context. Prepare a private Sidework review, import repositories, and check selected upstream PRs.",
+    "defaultPrompt": ["Help me tell the story of what I built for Sidework.", "Use Sidework to import this repository.", "What is next on my selected open source pull requests?"]
   }
 }

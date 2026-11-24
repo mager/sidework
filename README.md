@@ -33,7 +33,11 @@ Use [the setup guide](docs/github-auth.md) for GitHub sign-in and Firestore. Loc
 
 ## What works
 
-Explore shows @mager’s showcase and published showcases that their builders choose to list.
+Explore shows real project screenshots, purpose, source links, and @handles from showcases that their builders explicitly choose to list, with the committed @mager project as the initial example. Projects without screenshots use their actual names as a text preview.
+
+Approved accounts open Workbench after sign-in. Empty accounts get a focused first-project path: choose one public repository, tell its story, add an optional public HTTPS screenshot URL, then Save and review. Import opens the exact saved project; manual entry is available too. Publishing remains a separate browser action for one reviewed project and its selected favorites. Screenshot file upload is not connected.
+
+After publishing, the showcase manager displays the saved public snapshot, its link, and a project-specific 1200×630 share image. Copy link offers manual selection when clipboard access fails; native Share appears when supported. Public showcase metadata and image requests read only the published projection. Share images use the same exact public showcase URL with `?image=share` and retain `no-store` responses. Editing private drafts never changes a live showcase or its image until the author publishes again.
 
 The public profile alternates six personal projects with six authored external contribution stories, starting with Nextmove and Uber Direct SDK. It uses two columns on desktop and one on mobile. Small project thumbnails keep their original colors; full screenshots appear only on detail pages. All work, Projects, and Contributions are normal links that work without JavaScript. Categories appear only under Projects. Older Explore filter links open the matching public profile view. The contribution list excludes repositories owned by the story author. Each contribution row shows its verified GitHub owner avatar and a direct repository link; its title opens the Sidework story.
 
@@ -90,7 +94,7 @@ The three active Latin WOFF2 subsets are self-hosted. They are self-hosted with 
 
 ## Next build
 
-1. Add profile ownership, preview, publish, edit, and unpublish for projects and contributions.
+1. Validate the one-project showcase journey with new approved builders. Contribution publishing and a multi-project public profile remain future work.
 2. Complete access, recovery, and deletion checks before opening the preview.
 3. Add shared follows, saves, and source refresh for V1.
 
@@ -102,7 +106,7 @@ Keep project ownership separate from upstream contribution credit. Keep activity
 
 A fresh workbench starts without projects or featured selections. Import repositories or create a story, then open My projects → Edit story. Older browser version 1 workspaces without an `includeExamples` field keep the seeded examples. Account workspaces start empty. Explicit browser import includes selected examples as private copies; it does not change the committed public profile. The editor previews safe text, HTTPS screenshots, and project links. It warns before discarding unsaved changes and retains the form when a save fails.
 
-Feature up to six projects, then open Profile draft to change their order. Export draft downloads selected stories as `sidework-profile-draft.json`, marked `private-draft`. This export includes projects only; it does not include contribution drafts. Review a draft file restores a backup or opens an agent-prepared file after review. Agents can also return a direct review link. Saving a reviewed profile draft updates matching private stories and replaces featured order; unrelated projects, contribution drafts, and weekly plans remain. Approved accounts save to the server; legacy sessions save in this browser. Public publishing is not connected.
+Feature up to six projects, then open Profile draft to change their order. Export draft downloads selected stories as `sidework-profile-draft.json`, marked `private-draft`. This export includes projects only; it does not include contribution drafts. Review a draft file restores a backup or opens an agent-prepared file after review. Agents can also return a direct review link. Saving a reviewed profile draft updates matching private stories and replaces featured order; unrelated projects, contribution drafts, and weekly plans remain. Approved accounts save to the server; legacy sessions save in this browser. Approved accounts separately review and publish one project through Showcase; a profile draft export is never a publication.
 
 Backups offers a separate download of all loaded account projects, contribution drafts, and featured order. It also offers explicit review of browser drafts and full account backup restore. Full restore replaces all private drafts and order after review; download the current account drafts first. The backup must have the same numeric account ID. Failed saves retain changes and offer a recovery download.
 
@@ -114,7 +118,7 @@ Backups offers a separate download of all loaded account projects, contribution 
 
 ## Friends and starting fresh
 
-After GitHub sign-in, approved accounts open Friends and waiting accounts open the pending page. Friends lists local follows and offers the sole public profile, @mager. Follow and Unfollow do not send requests or create a shared social record.
+After GitHub sign-in, approved accounts open Workbench and waiting accounts open the pending page. Friends lists local follows and offers the committed public profile, @mager. Follow and Unfollow do not send requests or create a shared social record.
 
 Open Settings → Workspace → Reset my workspace to clear browser data. The reset clears browser project and contribution drafts, browser featured order, the weekly plan, saves, and follows. It does not delete server account drafts or change their featured order. It keeps access and the theme choice. Before changing those values, it stores one restore copy in `localStorage` under `sidework-reset-backup-v1` (with `:github:<numeric-id>` for accounts). Restore previous workspace recovers that copy. Each later reset replaces it; clearing browser storage removes it. The copy stays in the same browser and origin. A successful reset or restore opens Friends.
 
@@ -122,7 +126,7 @@ The public @mager profile and its dated evidence remain unchanged. Your workbenc
 
 ## Agent connections
 
-Install the Sidework plugin for Claude Code, Codex, or OpenCode. Use `sidework-init` to import public projects into your Sidework workbench and select your upstream PRs. Use `sidework-pr-watch` to get the next action from live GitHub review comments. You can run one check or set a schedule. Start with the [plugin install guide](plugins/sidework/README.md).
+Install the Sidework plugin for Claude Code, Codex, or OpenCode. Use `sidework-story` to prepare one source-backed project story with your own motivation and learning. The optional MCP connection returns an account-bound review link and JSON file; without MCP, the plugin returns the story and a repository import link. Use `sidework-init` to import public projects into your Sidework workbench and select your upstream PRs. Use `sidework-pr-watch` to get the next action from live GitHub review comments. You can run one check or set a schedule. Start with the [plugin install guide](plugins/sidework/README.md).
 
 To prepare a private profile draft, create a scoped token in Workbench → Agents and connect to Sidework MCP. Open the review link in Sidework to check and save the draft. See the [MCP guide](docs/agents.md).
 

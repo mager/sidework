@@ -38,6 +38,11 @@ const publicLinks = [
     <p class="showcase-byline">By <span>{handle}</span></p>
   </header>
   <div class:list={['showcase-project', { 'showcase-project-with-image': project.image }]}>
+    {project.image && <figure class="showcase-image">
+      <a href={project.image} rel="noreferrer" aria-label={`View the ${project.name} screenshot at full size`}>
+        <img src={project.image} alt={project.imageAlt || `Screenshot of ${project.name}`} decoding="async" referrerpolicy="no-referrer"/>
+      </a>
+    </figure>}
     <div class="showcase-story">
       {project.description && <p>{project.description}</p>}
       {project.stack && <dl class="showcase-stack"><dt>Built with</dt><dd>{project.stack}</dd></dl>}
@@ -46,11 +51,6 @@ const publicLinks = [
         {distinctSource && <a class="sw-button" href={distinctSource} rel="noreferrer">View source <Icon name="external" size={16}/></a>}
       </div>}
     </div>
-    {project.image && <figure class="showcase-image">
-      <a href={project.image} rel="noreferrer" aria-label={`View the ${project.name} screenshot at full size`}>
-        <img src={project.image} alt={project.imageAlt || `Screenshot of ${project.name}`} decoding="async" referrerpolicy="no-referrer"/>
-      </a>
-    </figure>}
   </div>
   {preview && publicLinks.length > 0 && <dl class="showcase-review-links">
     {publicLinks.map(({ label, url }) => <div><dt>{label}</dt><dd>{url}</dd></div>)}

@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
 const skillRoot = new URL('./skills/', import.meta.url);
-const skillNames = ['sidework-init', 'sidework-pr-watch'];
+const skillNames = ['sidework-story', 'sidework-init', 'sidework-pr-watch'];
 
 export default {
   id: 'sidework',

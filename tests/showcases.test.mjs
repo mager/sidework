@@ -70,6 +70,22 @@ test('stale drafts, favorite changes, and revoked approval stop publication', as
   await assert.rejects(store.read(null), { status: 401 });
 });
 
+test('the author live preview retains the published projection while private drafts change', async () => {
+  const { store, documents } = fixture();
+  assert.equal((await store.read(account)).publicationContent, null);
+  const publication = await store.publish(account, { projectId: project.id, handle: '@builder', draftRevision: 2, favoritesRevision: 0, revision: 0, listed: false });
+  const published = await store.publicBySlug(publication.slug);
+  const saved = documents.get('sidework_drafts/123');
+  documents.set('sidework_drafts/123', { ...saved, revision: 3, drafts: { ...saved.drafts,
+    projects: [{ ...project, name: 'Unpublished rename', description: 'Unpublished description' }] } });
+  const model = await store.read(account);
+  assert.equal(model.projects[0].name, 'Unpublished rename');
+  assert.deepEqual(model.publicationContent, { handle: published.handle, project: published.project, favorites: published.favorites });
+  assert.doesNotMatch(JSON.stringify(model.publicationContent), /Unpublished|Private notes|Private lessons|private@example/);
+  await store.unpublish(account, { revision: 1 });
+  assert.equal((await store.read(account)).publicationContent, null);
+});
+
 test('favorites and publication require the signed-in account and same-origin mutations', async () => {
   const { store } = fixture();
   const origin = 'https://sidework.example';

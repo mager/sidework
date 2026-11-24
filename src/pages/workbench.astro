@@ -10,6 +10,7 @@ import { projects } from '../data/projects';
 import { contributions, opportunities } from '../data/sidework';
 import '../styles/sidework.css';
 import '../styles/composer.css';
+import '../styles/journey.css';
 import '../styles/agents.css';
 
 const records = contributions.slice(0, 36);
@@ -33,7 +34,7 @@ const navigation = [
   <body class="publication sidework">
     <a class="skip-link" href="#main-content">Skip to workbench</a>
     <Header homepage themeToggle />
-    <DraftStorage /><div class="sw-shell" id="sidework" inert={!!Astro.locals.account}>
+    <DraftStorage /><div class="sw-shell" id="sidework" data-account={!!Astro.locals.account} inert={!!Astro.locals.account}>
       <aside class="sw-rail" aria-label="Sidework navigation">
         <a href="/" class="sw-brand"><span class="sw-brand-mark" aria-hidden="true"><Icon name="branch" /></span>sidework<span class="sw-preview">preview</span></a>
         <nav aria-label="Workbench views">{navigation.map(item => <a href={`#${item.id}`} data-view={item.id} aria-current={item.id === 'overview' ? 'page' : undefined}><Icon name={item.icon} /><span>{item.label}</span>{item.id === 'plan' && <span class="sw-nav-count" id="saved-count">0</span>}</a>)}</nav>
@@ -47,22 +48,30 @@ const navigation = [
 
       <main id="main-content" class="sw-main">
         <header class="sw-page-heading">
-          <div><h1>Your workbench<span>.</span></h1><p>Personal software. Shared progress. Your next contribution.</p></div>
+          <div><h1>{Astro.locals.account ? `@${Astro.locals.account.login}’s workbench` : 'Your workbench'}<span>.</span></h1><p>Your projects, from first draft to the gallery.</p></div>
           <a class="sw-button" href="/onboarding/">Import from GitHub <Icon name="plus" size={15}/></a><button class="sw-button sw-primary" id="add-project" type="button"><Icon name="plus" size={17} />Add a project</button>
         </header>
-        <div class="sw-source-line"><span class="sw-source-dot" aria-hidden="true"></span><span>@mager’s public snapshot · <time datetime="2026-11-04">Nov 4, 2026</time></span><a href="#connections" id="manage-github">View source data</a></div>
+        <div class="sw-source-line" hidden={!!Astro.locals.account}><span class="sw-source-dot" aria-hidden="true"></span><span>@mager’s public snapshot · <time datetime="2026-11-04">Nov 4, 2026</time></span><a href="#connections" id="manage-github">View source data</a></div>
         <p class="sw-notice" id="feedback" role="status" aria-live="polite" hidden></p>
         <noscript><p class="sw-notice">All sections are shown below. Enable JavaScript to filter work, save a plan, or add a project.</p></noscript>
 
         <ProjectComposer />
         <AgentConnections />
 
-        <section class="sw-panel" id="overview" aria-labelledby="overview-title">
-          <div class="sw-section-heading"><h2 id="overview-title">Make room for your work.</h2></div>
+        <section class="sw-panel" id="overview" aria-label="Your workbench">
+          <section id="first-project-start" class="first-project-start" hidden>
+            <p class="journey-eyebrow">Your first project</p>
+            <h2>Put something you made in the gallery.</h2>
+            <p>Choose one repository, tell its story, and add a screenshot. Review the page before you publish it.</p>
+            <ol class="journey-outline"><li>Choose a project</li><li>Tell the story</li><li>Add a screenshot</li><li>Review & publish</li></ol>
+            <div class="journey-actions"><a class="sw-button sw-primary" href="/onboarding/?journey=first">Choose a GitHub repository <Icon name="arrow" size={16}/></a><a class="sw-button" href="/workbench/?journey=first&new=1">Add a project manually</a></div>
+            <p class="journey-note">Your drafts save privately to your account. Publishing is a separate choice.</p>
+          </section>
+          <div id="workspace-existing"><div class="sw-section-heading"><h2 id="overview-title">Make room for your work.</h2></div>
           <p id="workspace-summary">Your workspace is empty. Bring a project from GitHub or add one yourself.</p>
           <div class="sw-start-actions"><a class="sw-button sw-primary" href="/onboarding/">Import from GitHub <Icon name="arrow" size={16}/></a><a class="sw-button" href="#projects" data-view="projects">My projects</a><a class="sw-button" href="/friends/">Find friends</a></div>
-          <div class="sw-section-heading sw-space-above"><h2>From @mager’s public record</h2><a href="/mager/">View profile <Icon name="external" size={16}/></a></div>
-          <div class="sw-recent-list" id="recent-list"></div>
+          </div><div id="overview-examples"><div class="sw-section-heading sw-space-above"><h2>From @mager’s public record</h2><a href="/mager/">View profile <Icon name="external" size={16}/></a></div>
+          <div class="sw-recent-list" id="recent-list"></div></div>
         </section>
 
         <section class="sw-panel" id="projects" aria-labelledby="projects-title">

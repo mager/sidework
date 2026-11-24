@@ -38,6 +38,7 @@ const notify = (text: string, error = false) => {
 const workspace = await openDraftWorkspace(root,seed.projects,()=>{state=readState(JSON.stringify(workspace!.read()),seed.opportunities.map(item=>item.id));editorActive=false;pendingProfileDraft=null;renderProjects();history.replaceState(null,'','#projects');showView('projects',true);},()=>!editorDirty()||confirm('Discard the unsaved changes in this editor?'));
 if(!workspace)return;
 const savedWhere=workspace.account?'to your account':'in this browser';
+const journey = workspace.account && new URLSearchParams(location.search).get('journey') === 'first';
 let storageAvailable = true;
 let raw: string | null = null;
 try { raw = JSON.stringify(workspace.read()); } catch { storageAvailable = false; }
@@ -72,7 +73,7 @@ function showView(id: string, focus = false) {
     else nav.removeAttribute('aria-current');
   }
   if (focus) {
-    const heading = document.querySelector<HTMLElement>(`#${view} h2`);
+    const heading = [...document.querySelectorAll<HTMLElement>(`#${view} h2`)].find(item => !item.closest('[hidden]'));
     heading?.setAttribute('tabindex', '-1');
     heading?.focus({ preventScroll: true });
     $('#main-content').scrollIntoView({ block: 'start', behavior: 'instant' });
@@ -98,6 +99,13 @@ function renderProjects() {
   $('#project-count').textContent = `${filtered.length} of ${all.length} projects`;
   $('#project-empty').hidden = filtered.length !== 0;
   $('#project-empty').textContent = all.length ? 'No projects match. Try another search.' : 'No projects yet. Import from GitHub or add your first project.';
+  root.dataset.empty = String(!all.length);
+  const firstStart = document.getElementById('first-project-start');
+  if(firstStart) firstStart.hidden = !workspace.account || all.length > 0;
+  const existingStart = document.getElementById('workspace-existing');
+  if(existingStart) existingStart.hidden = workspace.account && !all.length;
+  const examples = document.getElementById('overview-examples');
+  if(examples) examples.hidden = workspace.account && !all.length;
   const summary = document.getElementById('workspace-summary');
   if (summary) summary.textContent = all.length ? `${all.length} ${all.length === 1 ? 'project' : 'projects'} ${workspace.account?'in your account':'in this browser'}. Open My projects to edit and feature your work.` : 'Your workspace is empty. Bring a project from GitHub or add one yourself.';
   for (const project of filtered) {
@@ -233,7 +241,7 @@ function updateEditorPreview() {
   const oldImage = oldFrame?.querySelector('img'), nextImage = nextFrame?.querySelector('img');
   if (oldImage && nextImage && oldImage.src === nextImage.src) { oldImage.alt=nextImage.alt; nextFrame!.replaceWith(oldFrame!); }
   $('#project-preview').replaceChildren(preview);
-  $('#draft-save-note').textContent = editorDirty() ? 'Unsaved changes · Save keeps them in this browser.' : 'Saved only in this browser. Your public profile stays unchanged.';
+  $('#draft-save-note').textContent = editorDirty() ? `Unsaved changes · Save keeps them ${savedWhere}.` : `Private draft · Saved ${savedWhere}. Review before publishing.`;
 }
 function openEditor(project?: Project) {
   if (editorDirty() && !window.confirm('Discard the unsaved changes to this project?')) return;
@@ -243,6 +251,10 @@ function openEditor(project?: Project) {
   editorActive = true; editorBaseline = JSON.stringify(draftValues());
   $('#editor-title').textContent = project ? `The story behind ${project.name}.` : 'Tell the story.';
   $('#draft-error').hidden=true;
+  const progress = document.getElementById('project-journey');
+  if(progress) progress.hidden = !journey;
+  const reviewAction = document.getElementById('save-review-project');
+  if(reviewAction) reviewAction.hidden = !workspace.account;
   updateEditorPreview();
   history.pushState(null,'','#editor'); showView('editor',true);
   form.querySelector<HTMLInputElement>('[name=name]')!.focus({preventScroll:true});
@@ -252,6 +264,17 @@ async function persistDraftState(next: typeof state) {
   catch(error) { notify(error instanceof Error?error.message:'Could not save. Your changes are still here.',true);return false; }
 }
 $('#add-project').addEventListener('click',()=>openEditor());
+$('#focus-project-screenshot')?.addEventListener('click',event=>{
+  event.preventDefault();
+  const field = $('#draft-image') as HTMLInputElement;
+  field.focus({preventScroll:true});
+  field.scrollIntoView({block:'center'});
+});
+form.addEventListener('focusin',event=>{
+  const steps = document.querySelectorAll('#project-journey li');
+  const screenshot = ['image','imageAlt'].includes((event.target as HTMLInputElement).name);
+  steps.forEach((step,index)=>{if(index === (screenshot ? 2 : 1)) step.setAttribute('aria-current','step'); else step.removeAttribute('aria-current');});
+});
 $('#cancel-project').addEventListener('click',()=>{ showView('projects',true); if(!editorActive) history.pushState(null,'','#projects'); });
 form.addEventListener('input',event=>{ $('#draft-error').hidden=true; if((event.target as HTMLInputElement).name !== 'image')updateEditorPreview(); });
 form.addEventListener('change',updateEditorPreview);
@@ -259,6 +282,7 @@ window.addEventListener('beforeunload',event=>{ if(editorDirty()){event.preventD
 form.addEventListener('submit', async event => {
   event.preventDefault();
   const values=draftValues();
+  const wantsReview = workspace.account && (event as SubmitEvent).submitter?.id === 'save-review-project';
   const fail=(text:string)=>{ $('#draft-error').textContent=text;$('#draft-error').hidden=false;$('#draft-error').scrollIntoView({block:'nearest'}); };
   if ((values.source && !safeUrl(values.source)) || !safeUrl(values.url)) {fail('Use a complete HTTP or HTTPS link without a username or password.');return;}
   if (values.image && !safeUrl(values.image).startsWith('https://')) {fail('Use a public HTTPS image link for the screenshot.');return;}
@@ -266,7 +290,19 @@ form.addEventListener('submit', async event => {
     const next=saveProjectDraft(state,{...values,id:editingId},catalog);
     if(!await persistDraftState(next)){fail($('#feedback').textContent || 'Your draft could not be saved. Your changes are still here.');return;}
     editorBaseline=JSON.stringify(draftValues()); editorActive=false;
-    renderProjects(); history.pushState(null,'','#projects');showView('projects',true);
+    if(journey) {
+      const editorUrl = new URL(location.href);
+      editorUrl.searchParams.delete('new');
+      editorUrl.searchParams.set('project', editingId);
+      history.replaceState(null, '', editorUrl);
+    }
+    renderProjects();
+    if(wantsReview) {
+      const reviewUrl = `/showcase/?project=${encodeURIComponent(editingId)}`;
+      location.assign(reviewUrl);
+      return;
+    }
+    history.pushState(null,'','#projects');showView('projects',true);
     notify(`Project story saved ${savedWhere}. Your public profile is unchanged.`);
   }catch(error){fail(error instanceof Error ? error.message : 'Could not save this draft. Try again.');}
 });
@@ -410,6 +446,13 @@ root.dataset.enhanced = 'true';
 const incomingReview=location.hash.startsWith('#review=') ? location.hash.slice(8) : '';
 showView(incomingReview ? 'showcase' : location.hash.slice(1)); renderProjects(); renderContributions(); renderPlan();
 if(incomingReview)loadReviewLink(incomingReview);
+else if(journey && (!location.hash || location.hash === '#editor')) {
+  const parameters = new URLSearchParams(location.search);
+  const selectedProject = allProjects().find(project => project.id === parameters.get('project'));
+  if(selectedProject) openEditor(selectedProject);
+  else if(parameters.get('new') === '1') openEditor();
+  else if(parameters.has('project')) { showView('projects',true);notify('That project is not in this account. Choose one of your projects or add a new story.',true); }
+}
 if (!storageAvailable) notify('Browser storage is unavailable. You can explore, but edits and plans will only last for this visit.', true);
 
 }
