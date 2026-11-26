@@ -33,7 +33,7 @@ export async function fetchLinkedRepositories(names, { fetcher = fetch, signal }
       : 'GitHub could not load the linked repositories. Reload this page to retry.');
     const repo = await response.json();
     const project = repositoryProject(repo);
-    return project && { project, fullName: repo.full_name, fork: !!repo.fork, archived: !!repo.archived };
+    return project && { project, fullName: repo.full_name, fork: !!repo.fork, archived: !!repo.archived, updatedAt: typeof repo.updated_at === 'string' ? repo.updated_at : '' };
   }));
   const repositories = new Map();
   const unavailable = [];
@@ -45,7 +45,7 @@ export async function fetchLinkedRepositories(names, { fetcher = fetch, signal }
 }
 export async function fetchRepositories(handle, { source = 'repositories', fetcher = fetch, signal, onProgress = () => {} } = {}) {
   const user = githubHandle(handle);
-  const endpoint = source === 'stars' ? 'starred?sort=created&direction=desc' : 'repos?type=owner&sort=full_name&direction=asc';
+  const endpoint = source === 'stars' ? 'starred?sort=created&direction=desc' : 'repos?type=owner&sort=updated&direction=desc';
   const repos = new Map();
   for (let page = 1; ; page++) {
     const response = await fetcher(`https://api.github.com/users/${encodeURIComponent(user)}/${endpoint}&per_page=100&page=${page}`, { signal, headers:{Accept:'application/vnd.github+json'} });
@@ -54,7 +54,7 @@ export async function fetchRepositories(handle, { source = 'repositories', fetch
     if (!Array.isArray(items)) throw new Error('GitHub returned an unexpected response. Try again.');
     for (const item of items) {
       const project = repositoryProject(item);
-      if (project && (source !== 'forks' || item.fork === true)) repos.set(item.id, { project, fullName:item.full_name, fork:!!item.fork, archived:!!item.archived });
+      if (project && (source !== 'forks' || item.fork === true)) repos.set(item.id, { project, fullName:item.full_name, fork:!!item.fork, archived:!!item.archived, updatedAt:typeof item.updated_at === 'string' ? item.updated_at : '' });
     }
     onProgress(repos.size);
     if (items.length < 100) break;

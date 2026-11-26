@@ -30,6 +30,13 @@ test('reads every page, retains forks and archives, deduplicates overlapping res
   assert.equal(repos.length,101);assert.match(urls[1],/page=2$/);
   assert.equal(repos[1].fork,true);assert.equal(repos[2].archived,true);
 });
+
+test('repository discovery requests recent updates and retains their source dates',async()=>{
+ let requested;
+ const results=await fetchRepositories('mager',{fetcher:async url=>{requested=new URL(url);return Response.json([{...repo(1),updated_at:'2026-11-20T10:00:00Z'}]);}});
+ assert.equal(requested.searchParams.get('sort'),'updated');assert.equal(requested.searchParams.get('direction'),'desc');
+ assert.equal(results[0].updatedAt,'2026-11-20T10:00:00Z');
+});
 test('pagination failure does not pass off partial results as complete',async()=>{
   let count=0;
   await assert.rejects(fetchRepositories('mager',{fetcher:async()=>++count===1?{ok:true,json:async()=>Array.from({length:100},(_,i)=>repo(i))}:{ok:false,status:403}}),/limit/);

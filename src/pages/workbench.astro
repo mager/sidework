@@ -49,7 +49,7 @@ const navigation = [
       <main id="main-content" class="sw-main">
         <header class="sw-page-heading">
           <div><h1>{Astro.locals.account ? `@${Astro.locals.account.login}’s workbench` : 'Your workbench'}<span>.</span></h1><p>Your projects, from first draft to the gallery.</p></div>
-          <a class="sw-button" href="/onboarding/">Import from GitHub <Icon name="plus" size={15}/></a><button class="sw-button sw-primary" id="add-project" type="button"><Icon name="plus" size={17} />Add a project</button>
+          <a class="sw-button sw-primary" href="/onboarding/">Add projects <Icon name="plus" size={15}/></a><button class="sw-button" id="add-project" type="button">Write a story</button>
         </header>
         <div class="sw-source-line" hidden={!!Astro.locals.account}><span class="sw-source-dot" aria-hidden="true"></span><span>@mager’s public snapshot · <time datetime="2026-11-04">Nov 4, 2026</time></span><a href="#connections" id="manage-github">View source data</a></div>
         <p class="sw-notice" id="feedback" role="status" aria-live="polite" hidden></p>

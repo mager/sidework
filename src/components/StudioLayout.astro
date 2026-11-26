@@ -15,7 +15,7 @@ const ordered = projects;
 <header class="studio-header">
  <a href="/" class="studio-wordmark" aria-label="Sidework home"><Icon name="branch" size={23}/>sidework<span>.</span></a>
  <nav aria-label="Explore Sidework"><a href="/" aria-current={active === 'explore' ? 'page' : undefined}>Explore</a>{signedIn ? <a href="/friends/" aria-current={active === 'friends' ? 'page' : undefined}>Friends</a> : <a href="/mager/" aria-current={active === 'profile' ? 'page' : undefined}>@mager</a>}<button type="button" popovertarget="saved-projects"><Icon name="bookmark" size={16}/>Saved <span id="saved-count">0</span></button><a href="/workbench/"><Icon name="code" size={17}/>Workbench</a></nav>
- <div class="studio-account-actions">{signedIn && <a href="/onboarding/" class="sw-button studio-import"><Icon name="plus" size={16}/>Import projects</a>}<AccountLink active={active === 'settings'}/></div>
+ <div class="studio-account-actions">{signedIn && <a href="/onboarding/" class="sw-button studio-import"><Icon name="plus" size={16}/>Add projects</a>}<AccountLink active={active === 'settings'}/></div>
 </header>
 <main id="studio-main" class="studio-main"><slot /></main>
 <slot name="footer"><footer class="studio-footer"><a href="https://github.com/mager/sidework">Built with Astra <Icon name="code" size={15}/></a><span>The internet’s personal software gallery. By <a href="/mager/">@mager</a>.</span></footer></slot>

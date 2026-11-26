@@ -14,40 +14,51 @@ const journey = !!Astro.locals.account && Astro.url.searchParams.get('journey') 
 const linked = Astro.url.searchParams.has('repo');
 const source = repositorySource(linked || journey ? null : Astro.url.searchParams.get('view'));
 ---
-<!doctype html><html lang="en"><head><BaseHead title={journey ? 'Choose your first project · Sidework' : 'GitHub library · Sidework'} description="Browse your public GitHub repositories, stars, and forks."/><meta name="robots" content="noindex,nofollow"/></head><body class="entry-page">
+<!doctype html><html lang="en"><head><BaseHead title={journey ? 'Choose your first project · Sidework' : 'Add projects · Sidework'} description="Find public GitHub repositories to add to your private workbench."/><meta name="robots" content="noindex,nofollow"/></head><body class="entry-page">
 <header class="entry-header"><a href="/" class="entry-brand"><Icon name="branch" size={27}/>sidework.</a><a class="entry-header-context" href="/workbench/#projects">Your workbench <Icon name="arrow" size={18}/></a><AccountLink/></header>
 <DraftStorage /><main class="import-main" id="main" inert={!!Astro.locals.account}>
 {journey && <div class="journey-import-heading"><p class="journey-eyebrow">@{Astro.locals.account?.login} · Your first project</p><h1>Start with one thing you made.</h1><p class="entry-intro">Choose a repository. Next, tell its story, add a screenshot, and review your page before publishing.</p><div class="journey-actions"><a href="/workbench/?journey=first&new=1">Add a project manually <Icon name="arrow" size={16}/></a><a href="/onboarding/">Browse the full GitHub library</a></div></div>}
-{!journey && <><h1>GitHub library</h1>
-<p class="entry-intro">{linked ? 'Review the linked repositories and import them as private project drafts.' : 'Browse your public repositories, stars, and forks. Add selected projects and forks to your workbench.'}</p></>}
+{!journey && <div class="import-heading"><div><h1>Add projects</h1>
+<p class="entry-intro">{linked ? 'Review the linked repositories and add them as private drafts.' : 'Find a repository, or select a few to bring into your workbench. Already added projects stay out of the way.'}</p></div><a class="import-manual" href={Astro.locals.account ? '/workbench/?journey=first&new=1' : '/workbench/#projects'}>Write a story instead <Icon name="arrow" size={16}/></a></div>}
 <form id="github-import-form" class="import-form">
  <fieldset class="import-sources" hidden={journey}>
   <legend class="sw-sr-only">GitHub collection</legend>
   {Object.entries(repositorySources).map(([value, label]) => <label><input type="radio" name="source" value={value} checked={source === value}/>{label}</label>)}
  </fieldset>
- <label for="github-handle">GitHub handle</label>
- <div class="import-input"><input type="text" id="github-handle" name="handle" placeholder="@handle" value={Astro.locals.account ? `@${Astro.locals.account.login}` : ''} autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="40" required/><button class="sw-button sw-primary" id="find-repos" type="submit"><span id="find-repos-label">Find {repositorySources[source].toLowerCase()}</span> <Icon name="arrow" size={18}/></button><button class="sw-button" type="button" id="cancel-import" hidden>Cancel</button></div>
+ <details class="import-account" open={!Astro.locals.account}>
+  <summary>{Astro.locals.account ? `GitHub account · @${Astro.locals.account.login}` : 'Choose a GitHub account'}</summary>
+  <label for="github-handle">GitHub handle</label>
+  <div class="import-input"><input type="text" id="github-handle" name="handle" placeholder="@handle" value={Astro.locals.account ? `@${Astro.locals.account.login}` : ''} autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="40" required/><button class="sw-button" id="find-repos" type="submit"><span id="find-repos-label">Find {repositorySources[source].toLowerCase()}</span> <Icon name="arrow" size={18}/></button><button class="sw-button" type="button" id="cancel-import" hidden>Cancel</button></div>
+ </details>
 </form>
 <p class="import-status" id="import-status" role="status">Sidework reads public GitHub data.</p>
+<div class="repo-tools">
+ <label class="repo-search-label" for="repo-search">Find a repository
+  <span class="repo-search-field"><Icon name="search" size={20}/><input type="search" id="repo-search" placeholder="Search name, description, or language…" autocomplete="off" spellcheck="false"/></span>
+ </label>
+ <label class="repo-sort-label" for="repo-sort">Sort by<select id="repo-sort"><option value="recent">Recently updated</option><option value="name">Repository name</option></select></label>
+</div>
+<div class="repo-controls">
+ <label id="include-forks-control"><input type="checkbox" id="include-forks"/>Include forks</label>
+ <label><input type="checkbox" id="include-archived"/>Include archived</label>
+ <button class="sw-button" id="clear-filters" type="button" hidden>Clear search and filters</button>
+</div>
 {Astro.locals.account && <div id="favorite-tools" class="favorite-tools" hidden>
  <a href="/showcase/">Open your showcase <Icon name="arrow" size={16}/></a>
  <p id="favorite-status" role="status"></p>
  <button id="favorite-retry" class="sw-button" type="button" hidden>Retry favorites</button>
 </div>}
+<div id="import-result" class="import-result" role="status" hidden><p id="import-result-text"></p><a href="/workbench/#projects">Open your projects <Icon name="arrow" size={20}/></a></div>
 <section id="repo-results" aria-label="GitHub results" hidden>
- <div class="repo-controls">
-  <input type="search" id="repo-search" aria-label="Search repositories" placeholder="Search repositories…"/>
-  <label id="include-forks-control"><input type="checkbox" id="include-forks" checked/>Include forks</label>
-  <label><input type="checkbox" id="include-archived" checked/>Include archived</label>
-  <button class="sw-button" id="select-matching" type="button" hidden={journey}>Select matching</button>
-  <button class="sw-button" id="clear-selection" type="button" hidden>Clear selection</button>
+ <div class="repo-results-heading"><p id="repo-count" class="import-status" role="status"></p><button class="sw-button" id="select-matching" type="button" hidden={journey}>Select matching</button></div>
+ <div class="import-actions" id="import-actions" hidden>
+  <div><strong id="selection-count">0 selected</strong><p id="selection-detail" aria-live="polite"></p><p>{Astro.locals.account ? 'Drafts save privately to your account.' : 'Drafts stay in this browser.'}</p></div>
+  <div class="import-selection-buttons"><button class="sw-button" id="clear-selection" type="button" hidden>Clear selection</button><button class="sw-button sw-primary" id="import-selected" type="button" disabled>Import selected</button></div>
  </div>
- <p id="repo-count" class="import-status"></p>
  <ul class="repo-list" id="repo-list"></ul>
  <button class="sw-button" id="show-more" type="button" hidden>Show more repositories</button>
- <div class="import-actions" id="import-actions" hidden><p><span id="selection-count">0 selected</span><br/>{Astro.locals.account ? 'Drafts save privately to your account.' : 'Drafts stay in this browser.'}</p><button class="sw-button sw-primary" id="import-selected" type="button" disabled>Import selected</button></div>
+ <div id="repo-empty" class="repo-empty" hidden><h2 id="repo-empty-title"></h2><p id="repo-empty-text"></p><a href="/workbench/#projects">View your projects <Icon name="arrow" size={16}/></a></div>
 </section>
-<div id="import-result" class="import-result" role="status" hidden><p id="import-result-text"></p><a href="/workbench/#projects">Open your projects <Icon name="arrow" size={20}/></a></div>
 <noscript><p class="entry-error">Enable JavaScript to find and import your GitHub repositories.</p></noscript></main>
 <footer class="entry-footer"><span>Built with Astra</span><form action="/api/signout" method="POST"><button class="sw-button" type="submit">Lock Sidework</button></form></footer>
 <script type="application/json" id="import-seed" set:html={seed}/><script>import '../scripts/onboarding';</script>
